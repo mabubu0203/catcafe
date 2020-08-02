@@ -78,6 +78,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -89,8 +90,8 @@
           "notice"
         ],
         "summary": "お知らせ登録API",
-        "description": "お知らせ登録API",
-        "operationId": "お知らせ登録API",
+        "description": "お知らせを1件登録する",
+        "operationId": "noticeCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -145,6 +146,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -156,8 +158,8 @@
           "notice"
         ],
         "summary": "お知らせ一覧取得API",
-        "description": "お知らせ一覧取得API",
-        "operationId": "お知らせ一覧取得API",
+        "description": "お知らせを取得する",
+        "operationId": "noticeSearch",
         "parameters": [
           {
             "name": "store",
@@ -217,6 +219,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -238,8 +241,8 @@
           "notice"
         ],
         "summary": "お知らせ詳細取得API",
-        "description": "お知らせ詳細取得API",
-        "operationId": "お知らせ詳細取得API",
+        "description": "お知らせを1件取得する",
+        "operationId": "noticeFind",
         "responses": {
           "200": {
             "description": "正常系",
@@ -277,8 +280,8 @@
           "notice"
         ],
         "summary": "お知らせ更新API",
-        "description": "お知らせ更新API",
-        "operationId": "お知らせ更新API",
+        "description": "お知らせを1件更新する",
+        "operationId": "noticeUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -333,8 +336,8 @@
           "notice"
         ],
         "summary": "お知らせ削除API",
-        "description": "お知らせ削除API",
-        "operationId": "お知らせ削除API",
+        "description": "お知らせを1件論理削除する",
+        "operationId": "noticeDelete",
         "parameters": [
           {
             "name": "version",
@@ -370,6 +373,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -381,8 +385,8 @@
           "store"
         ],
         "summary": "店舗登録API",
-        "description": "店舗登録API",
-        "operationId": "店舗登録API",
+        "description": "店舗を1件登録する",
+        "operationId": "storeCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -437,6 +441,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -449,7 +454,7 @@
         ],
         "summary": "店舗一覧取得API",
         "description": "店舗一覧取得API",
-        "operationId": "店舗一覧取得API",
+        "operationId": "storeSearch",
         "parameters": [
           {
             "name": "store",
@@ -509,6 +514,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -530,8 +536,8 @@
           "store"
         ],
         "summary": "店舗詳細取得API",
-        "description": "店舗詳細取得API",
-        "operationId": "店舗詳細取得API",
+        "description": "店舗詳細を1件取得する",
+        "operationId": "storeFind",
         "responses": {
           "200": {
             "description": "正常系",
@@ -569,8 +575,8 @@
           "store"
         ],
         "summary": "店舗更新API",
-        "description": "店舗更新API",
-        "operationId": "店舗更新API",
+        "description": "店舗を1件更新する",
+        "operationId": "storeUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -625,8 +631,8 @@
           "store"
         ],
         "summary": "店舗削除API",
-        "description": "店舗削除API",
-        "operationId": "店舗削除API",
+        "description": "店舗を1件論理削除する",
+        "operationId": "storeDelete",
         "parameters": [
           {
             "name": "version",
@@ -662,6 +668,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -673,8 +680,8 @@
           "contact"
         ],
         "summary": "お問い合わせ登録API",
-        "description": "お問い合わせ登録API",
-        "operationId": "お問い合わせ登録API",
+        "description": "お問い合わせを1件登録する",
+        "operationId": "contactCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -729,6 +736,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -741,7 +749,7 @@
         ],
         "summary": "お問い合わせ一覧取得API",
         "description": "お問い合わせ一覧取得API",
-        "operationId": "お問い合わせ一覧取得API",
+        "operationId": "contactSearch",
         "parameters": [
           {
             "name": "store",
@@ -801,6 +809,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -822,8 +831,8 @@
           "contact"
         ],
         "summary": "お問い合わせ詳細取得API",
-        "description": "お問い合わせ詳細取得API",
-        "operationId": "お問い合わせ詳細取得API",
+        "description": "お問い合わせ詳細を1件取得する",
+        "operationId": "contactFind",
         "responses": {
           "200": {
             "description": "正常系",
@@ -867,6 +876,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -879,7 +889,7 @@
         ],
         "summary": "メニュー一覧取得API",
         "description": "メニュー一覧取得API",
-        "operationId": "メニュー一覧取得API",
+        "operationId": "menuSearch",
         "parameters": [
           {
             "name": "store",
@@ -939,22 +949,20 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
           }
         },
         {
-          "name": "store",
-          "in": "query",
+          "name": "store_id",
+          "in": "path",
           "description": "店舗ID",
-          "required": false,
+          "required": true,
           "schema": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            }
+            "type": "integer",
+            "format": "int32"
           }
         }
       ],
@@ -963,8 +971,8 @@
           "menu"
         ],
         "summary": "メニュー登録API",
-        "description": "メニュー登録API",
-        "operationId": "メニュー登録API",
+        "description": "メニューを1件登録する",
+        "operationId": "menuCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -1019,6 +1027,7 @@
           "description": "カフェ識別子",
           "required": true,
           "schema": {
+            "type": "string",
             "enum": [
               "cats"
             ]
@@ -1050,8 +1059,8 @@
           "menu"
         ],
         "summary": "メニュー詳細取得API",
-        "description": "メニュー詳細取得API",
-        "operationId": "メニュー詳細取得API",
+        "description": "メニュー詳細を1件取得する",
+        "operationId": "menuFind",
         "responses": {
           "200": {
             "description": "正常系",
@@ -1089,8 +1098,8 @@
           "menu"
         ],
         "summary": "メニュー更新API",
-        "description": "メニュー更新API",
-        "operationId": "メニュー更新API",
+        "description": "メニューを1件更新する",
+        "operationId": "menuUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
@@ -1145,8 +1154,8 @@
           "menu"
         ],
         "summary": "メニュー削除API",
-        "description": "メニュー削除API",
-        "operationId": "メニュー削除API",
+        "description": "メニューを1件論理削除する",
+        "operationId": "menuDelete",
         "parameters": [
           {
             "name": "version",
