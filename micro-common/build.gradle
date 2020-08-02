@@ -1,0 +1,29 @@
+dependencies {
+
+    // SpringBoot projects
+    api("org.springframework.boot:spring-boot-starter")
+    api("org.springframework.boot:spring-boot-starter-hateoas")
+    api("org.springframework.boot:spring-boot-starter-validation")
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName = "micro-common"
+    archiveVersion = "$catCafeVersion"
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}

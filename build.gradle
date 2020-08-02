@@ -1,0 +1,71 @@
+buildscript {
+	ext {
+		// ソースと実行ファイルのJavaバージョン
+		jdkVersion = jdkVersion
+		defaultEncoding = defaultEncoding
+
+		// SpringBoot
+		springBootVersion = springbootVersion
+
+		// SpringFox
+		springfoxVersion = springfoxVersion
+
+		// Springdoc
+		springdocVersion = springdocVersion
+
+		// CatCafe
+		catCafeVersion = catCafeVersion
+
+	}
+
+	repositories {
+		jcenter()
+	}
+
+}
+
+plugins {
+	id "org.springframework.boot" version "2.3.2.RELEASE"
+	id "io.spring.dependency-management" version "1.0.9.RELEASE"
+	id "org.openapi.generator" version "5.0.0-beta"
+	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.64"
+}
+
+subprojects {
+
+	apply from: "$rootDir/gradle/java.gradle"
+	apply from: "$rootDir/gradle/spring.gradle"
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	repositories {
+		jcenter()
+	}
+
+	group("mabubu0203.com.github")
+}
+
+project(":micro-api") {
+	dependencies {
+		api(project(":micro-domain"))
+	}
+}
+
+project(":micro-common") {
+}
+
+project(":micro-domain") {
+	dependencies {
+		api(project(":micro-infra"))
+	}
+}
+
+project(":micro-infra") {
+	dependencies {
+		api(project(":micro-common"))
+	}
+}

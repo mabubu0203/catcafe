@@ -1,0 +1,11 @@
+{
+  "dateLibrary": "java8",
+  "useTags": "true",
+  "serializableModel": "true",
+  "basePackage": "com.alfonzjanfrithz.project.todoboard",
+  "modelPackage": "org.openapitools.model",
+  "apiPackage": "org.openapitools.api",
+  "groupId": "mabubu0203.com.github",
+  "interfaceOnly": "true",
+  "snapshotVersion": "false"
+}

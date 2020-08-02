@@ -1,0 +1,7 @@
+rootProject.name = 'CatCafe'
+include(
+        'micro-api',
+        'micro-common',
+        'micro-domain',
+        'micro-infra'
+)

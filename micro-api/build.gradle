@@ -1,0 +1,47 @@
+apply from: "$rootDir/gradle/apigenerate.gradle"
+
+dependencies {
+
+    // SpringBoot Projects
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // openapi generator
+    compileOnly("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
+
+    // springdoc-openapi-ui
+    implementation("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
+    implementation("org.springdoc:springdoc-openapi-data-rest:${springdocVersion}")
+    implementation("org.springdoc:springdoc-openapi-security:${springdocVersion}")
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName = "micro-api"
+    archiveVersion = "$catCafeVersion"
+    enabled = true
+}
+
+bootJar {
+    enabled = true
+    launchScript()
+}
+
+compileJava.dependsOn tasks.openApiValidate, tasks.openApiGenerate
+sourceSets.main.java.srcDir "${openApiGenerate.outputDir.get()}/src/main/java"
+sourceSets.main.resources.srcDir "${openApiGenerate.outputDir.get()}/src/main/resources"

@@ -1,0 +1,27 @@
+dependencies {
+
+    // SpringBoot projects
+
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName = "micro-infra"
+    archiveVersion = "$catCafeVersion"
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
