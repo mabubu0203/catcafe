@@ -7,11 +7,13 @@ buildscript {
 		// SpringBoot
 		springBootVersion = springbootVersion
 
+		springCloudVersion = springcloudVersion
+
 		// SpringFox
-		springfoxVersion = springfoxVersion
+		springFoxVersion = springfoxVersion
 
 		// Springdoc
-		springdocVersion = springdocVersion
+		springDocVersion = springdocVersion
 
 		// CatCafe
 		catCafeVersion = catCafeVersion
@@ -28,6 +30,7 @@ plugins {
 	id "org.springframework.boot" version "2.3.2.RELEASE"
 	id "io.spring.dependency-management" version "1.0.9.RELEASE"
 	id "org.openapi.generator" version "5.0.0-beta"
+	id "com.gorylenko.gradle-git-properties" version "2.2.3"
 	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.64"
 }
 

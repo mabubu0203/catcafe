@@ -114,3 +114,4 @@ springdoc:
     path: /swagger-ui.html
     display-request-duration: true
   version: "0.0.1"
+  show-actuator: true

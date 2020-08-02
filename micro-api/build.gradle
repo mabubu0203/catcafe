@@ -4,19 +4,19 @@ dependencies {
 
     // SpringBoot Projects
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // openapi generator
-    compileOnly("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compileOnly("io.springfox:springfox-swagger2:${springFoxVersion}")
     compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
 
     // springdoc-openapi-ui
-    implementation("org.springdoc:springdoc-openapi-ui:${springdocVersion}")
-    implementation("org.springdoc:springdoc-openapi-data-rest:${springdocVersion}")
-    implementation("org.springdoc:springdoc-openapi-security:${springdocVersion}")
+    implementation("org.springdoc:springdoc-openapi-ui:${springDocVersion}")
+    implementation("org.springdoc:springdoc-openapi-data-rest:${springDocVersion}")
 
     // lombok
     compileOnly("org.projectlombok:lombok")
@@ -29,6 +29,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+springBoot {
+    buildInfo()
 }
 
 jar {
