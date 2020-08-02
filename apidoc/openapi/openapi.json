@@ -1,0 +1,1176 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CatCafeApi",
+    "description": "猫カフェのポータルサイトと管理画面で使用するAPIを定義",
+    "version": "0.1.0"
+  },
+  "tags": [
+    {
+      "name": "notice",
+      "description": "お知らせ"
+    },
+    {
+      "name": "store",
+      "description": "店舗"
+    },
+    {
+      "name": "contact",
+      "description": "お問い合わせ"
+    },
+    {
+      "name": "frequently_asked_question",
+      "description": "FAQ"
+    },
+    {
+      "name": "menu",
+      "description": "メニュー"
+    },
+    {
+      "name": "service",
+      "description": "店舗サービス"
+    },
+    {
+      "name": "cast",
+      "description": "キャスト"
+    },
+    {
+      "name": "event",
+      "description": "イベント"
+    },
+    {
+      "name": "congestion",
+      "description": "混雑状況"
+    },
+    {
+      "name": "link",
+      "description": "外部/SNSリンク"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://{username}:{port}/{basePath}",
+      "description": "ローカル環境",
+      "variables": {
+        "username": {
+          "default": "localhost"
+        },
+        "port": {
+          "enum": [
+            "8080"
+          ],
+          "default": "8080"
+        },
+        "basePath": {
+          "default": ""
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/{cats}/notice": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "notice"
+        ],
+        "summary": "お知らせ登録API",
+        "description": "お知らせ登録API",
+        "operationId": "お知らせ登録API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/notices": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "notice"
+        ],
+        "summary": "お知らせ一覧取得API",
+        "description": "お知らせ一覧取得API",
+        "operationId": "お知らせ一覧取得API",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "value": {
+                        "description": "",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 100
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/notices/{notice_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "notice_id",
+          "in": "path",
+          "description": "お知らせID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "notice"
+        ],
+        "summary": "お知らせ詳細取得API",
+        "description": "お知らせ詳細取得API",
+        "operationId": "お知らせ詳細取得API",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "notice"
+        ],
+        "summary": "お知らせ更新API",
+        "description": "お知らせ更新API",
+        "operationId": "お知らせ更新API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "notice"
+        ],
+        "summary": "お知らせ削除API",
+        "description": "お知らせ削除API",
+        "operationId": "お知らせ削除API",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
+    },
+    "/{cats}/store": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "store"
+        ],
+        "summary": "店舗登録API",
+        "description": "店舗登録API",
+        "operationId": "店舗登録API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/stores": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "店舗一覧取得API",
+        "description": "店舗一覧取得API",
+        "operationId": "店舗一覧取得API",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "value": {
+                        "description": "",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 100
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/stores/{store_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "店舗ID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "店舗詳細取得API",
+        "description": "店舗詳細取得API",
+        "operationId": "店舗詳細取得API",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "store"
+        ],
+        "summary": "店舗更新API",
+        "description": "店舗更新API",
+        "operationId": "店舗更新API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "store"
+        ],
+        "summary": "店舗削除API",
+        "description": "店舗削除API",
+        "operationId": "店舗削除API",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
+    },
+    "/{cats}/contact": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "お問い合わせ登録API",
+        "description": "お問い合わせ登録API",
+        "operationId": "お問い合わせ登録API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/contacts": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "お問い合わせ一覧取得API",
+        "description": "お問い合わせ一覧取得API",
+        "operationId": "お問い合わせ一覧取得API",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "value": {
+                        "description": "",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 100
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/contacts/{contact_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "contact_id",
+          "in": "path",
+          "description": "お問い合わせID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "contact"
+        ],
+        "summary": "お問い合わせ詳細取得API",
+        "description": "お問い合わせ詳細取得API",
+        "operationId": "お問い合わせ詳細取得API",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      }
+    },
+    "/{cats}/menus": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "メニュー一覧取得API",
+        "description": "メニュー一覧取得API",
+        "operationId": "メニュー一覧取得API",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "",
+                        "type": "integer",
+                        "format": "int64"
+                      },
+                      "value": {
+                        "description": "",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 100
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/stores/{store_id}/menu": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "store",
+          "in": "query",
+          "description": "店舗ID",
+          "required": false,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "メニュー登録API",
+        "description": "メニュー登録API",
+        "operationId": "メニュー登録API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          }
+        }
+      }
+    },
+    "/{cats}/stores/{store_id}/menus/{menu_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "enum": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "店舗ID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "menu_id",
+          "in": "path",
+          "description": "メニューID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "メニュー詳細取得API",
+        "description": "メニュー詳細取得API",
+        "operationId": "メニュー詳細取得API",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "value": {
+                      "description": "",
+                      "type": "string",
+                      "minLength": 0,
+                      "maxLength": 100
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "メニュー更新API",
+        "description": "メニュー更新API",
+        "operationId": "メニュー更新API",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "",
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "",
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "メニュー削除API",
+        "description": "メニュー削除API",
+        "operationId": "メニュー削除API",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
+    }
+  }
+}
