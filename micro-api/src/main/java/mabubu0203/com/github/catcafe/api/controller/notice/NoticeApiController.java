@@ -2,43 +2,41 @@ package mabubu0203.com.github.catcafe.api.controller.notice;
 
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.NoticeApi;
-import org.openapitools.model.InlineObject;
-import org.openapitools.model.InlineObject1;
-import org.openapitools.model.InlineResponse200;
-import org.openapitools.model.InlineResponse2001;
+import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
 public class NoticeApiController implements NoticeApi {
 
     @Override
-    public ResponseEntity<InlineResponse200> noticeCreate(String cats, @Valid InlineObject inlineObject) {
+    public CompletableFuture<ResponseEntity<PostObject>> noticeCreate(String cats, @Valid NoticeCreate noticeCreate) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> noticeDelete(String cats, Integer noticeId, @NotNull @Valid Integer version) {
+    public CompletableFuture<ResponseEntity<Void>> noticeDelete(String cats, Integer noticeId, @NotNull @Valid Integer version) {
         return null;
     }
 
     @Override
-    public ResponseEntity<InlineResponse2001> noticeFind(String cats, Integer noticeId) {
+    public CompletableFuture<ResponseEntity<NoticeDetail>> noticeFind(String cats, Integer noticeId) {
         return null;
     }
 
     @Override
-    public ResponseEntity<List<InlineResponse2001>> noticeSearch(String cats, @Valid List<Integer> store) {
+    public CompletableFuture<ResponseEntity<List<NoticeDetail>>> noticeSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 
     @Override
-    public ResponseEntity<InlineResponse200> noticeUpdate(String cats, Integer noticeId, @Valid InlineObject1 inlineObject1) {
+    public CompletableFuture<ResponseEntity<PatchObject>> noticeUpdate(String cats, Integer noticeId, @Valid NoticeUpdate noticeUpdate) {
         return null;
     }
 

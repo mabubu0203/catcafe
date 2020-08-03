@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "store_detail": {
+      "description": "店舗詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "店舗ID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

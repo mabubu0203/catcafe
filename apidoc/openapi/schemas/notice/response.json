@@ -1,0 +1,21 @@
+{
+  "definitions": {
+    "notice_detail": {
+      "description": "お知らせ詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "お知らせID",
+          "type": "integer",
+          "format": "int64"
+        },
+        "value": {
+          "description": "",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 100
+        }
+      }
+    }
+  }
+}

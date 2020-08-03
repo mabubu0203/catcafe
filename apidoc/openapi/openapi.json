@@ -81,6 +81,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -97,16 +100,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/notice/request.json#/definitions/notice_create"
               }
             }
           },
@@ -118,20 +112,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -149,6 +143,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -162,7 +159,7 @@
         "operationId": "noticeSearch",
         "parameters": [
           {
-            "name": "store",
+            "name": "store_ids",
             "in": "query",
             "description": "店舗ID",
             "required": false,
@@ -183,28 +180,21 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "description": "",
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "value": {
-                        "description": "",
-                        "type": "string",
-                        "minLength": 0,
-                        "maxLength": 100
-                      }
-                    }
+                    "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -221,6 +211,9 @@
           "schema": {
             "type": "string",
             "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
               "cats"
             ]
           }
@@ -249,26 +242,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "value": {
-                      "description": "",
-                      "type": "string",
-                      "minLength": 0,
-                      "maxLength": 100
-                    }
-                  }
+                  "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -287,16 +274,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/notice/request.json#/definitions/notice_update"
               }
             }
           },
@@ -308,20 +286,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -376,6 +354,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -392,16 +373,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/store/request.json#/definitions/store_create"
               }
             }
           },
@@ -413,20 +385,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -444,6 +416,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -457,7 +432,7 @@
         "operationId": "storeSearch",
         "parameters": [
           {
-            "name": "store",
+            "name": "store_ids",
             "in": "query",
             "description": "店舗ID",
             "required": false,
@@ -478,28 +453,21 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "description": "",
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "value": {
-                        "description": "",
-                        "type": "string",
-                        "minLength": 0,
-                        "maxLength": 100
-                      }
-                    }
+                    "$ref": "./schemas/store/response.json#/definitions/store_detail"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -516,6 +484,9 @@
           "schema": {
             "type": "string",
             "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
               "cats"
             ]
           }
@@ -544,26 +515,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "value": {
-                      "description": "",
-                      "type": "string",
-                      "minLength": 0,
-                      "maxLength": 100
-                    }
-                  }
+                  "$ref": "./schemas/store/response.json#/definitions/store_detail"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -582,16 +547,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/store/request.json#/definitions/store_update"
               }
             }
           },
@@ -603,20 +559,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -671,6 +627,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -687,16 +646,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/contact/request.json#/definitions/contact_create"
               }
             }
           },
@@ -708,20 +658,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -739,6 +689,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -752,7 +705,7 @@
         "operationId": "contactSearch",
         "parameters": [
           {
-            "name": "store",
+            "name": "store_ids",
             "in": "query",
             "description": "店舗ID",
             "required": false,
@@ -773,28 +726,21 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "description": "",
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "value": {
-                        "description": "",
-                        "type": "string",
-                        "minLength": 0,
-                        "maxLength": 100
-                      }
-                    }
+                    "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -811,6 +757,9 @@
           "schema": {
             "type": "string",
             "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
               "cats"
             ]
           }
@@ -839,26 +788,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "value": {
-                      "description": "",
-                      "type": "string",
-                      "minLength": 0,
-                      "maxLength": 100
-                    }
-                  }
+                  "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -879,6 +822,9 @@
             "type": "string",
             "enum": [
               "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
             ]
           }
         }
@@ -892,7 +838,7 @@
         "operationId": "menuSearch",
         "parameters": [
           {
-            "name": "store",
+            "name": "store_ids",
             "in": "query",
             "description": "店舗ID",
             "required": false,
@@ -913,28 +859,21 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "description": "",
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "",
-                        "type": "integer",
-                        "format": "int64"
-                      },
-                      "value": {
-                        "description": "",
-                        "type": "string",
-                        "minLength": 0,
-                        "maxLength": 100
-                      }
-                    }
+                    "$ref": "./schemas/menu/response.json#/definitions/menu_detail"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -951,6 +890,9 @@
           "schema": {
             "type": "string",
             "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
               "cats"
             ]
           }
@@ -978,16 +920,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/menu/request.json#/definitions/menu_create"
               }
             }
           },
@@ -999,20 +932,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           }
         }
       }
@@ -1029,6 +962,9 @@
           "schema": {
             "type": "string",
             "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
               "cats"
             ]
           }
@@ -1067,26 +1003,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    },
-                    "value": {
-                      "description": "",
-                      "type": "string",
-                      "minLength": 0,
-                      "maxLength": 100
-                    }
-                  }
+                  "$ref": "./schemas/menu/response.json#/definitions/menu_detail"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -1105,16 +1035,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "",
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100
-                  }
-                }
+                "$ref": "./schemas/menu/request.json#/definitions/menu_update"
               }
             }
           },
@@ -1126,20 +1047,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "description": "",
-                      "type": "integer",
-                      "format": "int64"
-                    }
-                  }
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
                 }
               }
             }
           },
           "400": {
-            "description": "バリデーションエラー"
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"

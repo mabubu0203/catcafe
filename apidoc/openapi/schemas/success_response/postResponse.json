@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "post_object": {
+      "description": "登録結果",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "登録で採番されたID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "patch_object": {
+      "description": "更新結果",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "更新で指定されたID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}
