@@ -1,0 +1,21 @@
+{
+  "definitions": {
+    "validation_result": {
+      "description": "validation結果",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "key",
+          "type": "string"
+        },
+        "messages": {
+          "description": "messages",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

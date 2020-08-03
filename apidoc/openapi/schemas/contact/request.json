@@ -1,0 +1,16 @@
+{
+  "definitions": {
+    "contact_create": {
+      "description": "postObject",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 100
+        }
+      }
+    }
+  }
+}

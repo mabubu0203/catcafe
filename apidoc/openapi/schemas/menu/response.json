@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "menu_detail": {
+      "description": "メニュー詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "メニューID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

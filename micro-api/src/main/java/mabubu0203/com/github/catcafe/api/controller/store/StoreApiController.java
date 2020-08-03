@@ -2,44 +2,41 @@ package mabubu0203.com.github.catcafe.api.controller.store;
 
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.StoreApi;
-import org.openapitools.model.InlineObject2;
-import org.openapitools.model.InlineObject3;
-import org.openapitools.model.InlineResponse200;
-import org.openapitools.model.InlineResponse2001;
+import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
 public class StoreApiController implements StoreApi {
 
     @Override
-    public ResponseEntity<InlineResponse200> storeCreate(String cats, @Valid InlineObject2 inlineObject2) {
+    public CompletableFuture<ResponseEntity<PostObject>> storeCreate(String cats, @Valid StoreCreate storeCreate) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> storeDelete(String cats, Integer storeId, @NotNull @Valid Integer version) {
+    public CompletableFuture<ResponseEntity<Void>> storeDelete(String cats, Integer storeId, @NotNull @Valid Integer version) {
         return null;
     }
 
     @Override
-    public ResponseEntity<InlineResponse2001> storeFind(String cats, Integer storeId) {
+    public CompletableFuture<ResponseEntity<StoreDetail>> storeFind(String cats, Integer storeId) {
         return null;
     }
 
     @Override
-    public ResponseEntity<List<InlineResponse2001>> storeSearch(String cats, @Valid List<Integer> store) {
+    public CompletableFuture<ResponseEntity<List<StoreDetail>>> storeSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 
     @Override
-    public ResponseEntity<InlineResponse200> storeUpdate(String cats, Integer storeId, @Valid InlineObject3 inlineObject3) {
+    public CompletableFuture<ResponseEntity<PatchObject>> storeUpdate(String cats, Integer storeId, @Valid StoreUpdate storeUpdate) {
         return null;
     }
-
 }
