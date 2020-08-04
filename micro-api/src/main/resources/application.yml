@@ -58,8 +58,6 @@ management:
       enabled: true
     env:
       enabled: true
-    flyway:
-      enabled: true
     health:
       enabled: true
     heapdump:
@@ -68,8 +66,6 @@ management:
       enabled: true
     jolokia:
       enabled: true
-    liquibase:
-      enabled: false
     logfile:
       enabled: true
     loggers:
@@ -81,13 +77,7 @@ management:
     prometheus:
       enabled: true
     scheduledtasks:
-      enabled: false
-    sessions:
-      enabled: false
-    shutdown:
-      enabled: false
-    threaddump:
-      enabled: false
+      enabled: true
   endpoints:
     web:
       exposure:
