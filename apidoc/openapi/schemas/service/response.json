@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "service_detail": {
+      "description": "店舗サービス詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "店舗サービスID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

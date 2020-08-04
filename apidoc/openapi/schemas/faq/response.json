@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "faq_detail": {
+      "description": "FAQ詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "FAQID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}
