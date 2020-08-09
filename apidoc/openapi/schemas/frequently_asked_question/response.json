@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "faq_detail": {
+    "frequently_asked_question_detail": {
       "description": "FAQ詳細",
       "type": "object",
       "properties": {

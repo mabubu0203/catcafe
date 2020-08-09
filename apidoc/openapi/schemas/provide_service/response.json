@@ -1,11 +1,11 @@
 {
   "definitions": {
-    "service_detail": {
-      "description": "店舗サービス詳細",
+    "provide_service_detail": {
+      "description": "提供サービス詳細",
       "type": "object",
       "properties": {
         "id": {
-          "description": "店舗サービスID",
+          "description": "提供サービスID",
           "type": "integer",
           "format": "int64"
         }

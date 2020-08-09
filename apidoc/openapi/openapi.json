@@ -23,12 +23,12 @@
       "description": "FAQ"
     },
     {
-      "name": "menu",
-      "description": "メニュー"
+      "name": "display_menu",
+      "description": "表示表示メニュー"
     },
     {
-      "name": "service",
-      "description": "店舗サービス"
+      "name": "provide_service",
+      "description": "提供サービス"
     },
     {
       "name": "cast",
@@ -831,17 +831,17 @@
       ],
       "post": {
         "tags": [
-          "frequently_asked_questions"
+          "frequently_asked_question"
         ],
         "summary": "FAQ登録API",
         "description": "FAQを1件登録する",
-        "operationId": "faqCreate",
+        "operationId": "frequentlyAskedQuestionCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/faq/request.json#/definitions/faq_create"
+                "$ref": "./schemas/frequently_asked_question/request.json#/definitions/frequently_asked_question_create"
               }
             }
           },
@@ -897,7 +897,7 @@
         ],
         "summary": "FAQ一覧取得API",
         "description": "FAQを取得する",
-        "operationId": "faqSearch",
+        "operationId": "frequentlyAskedQuestionSearch",
         "parameters": [
           {
             "name": "store_ids",
@@ -921,7 +921,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "./schemas/faq/response.json#/definitions/faq_detail"
+                    "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
                   }
                 }
               }
@@ -976,14 +976,14 @@
         ],
         "summary": "FAQ詳細取得API",
         "description": "FAQ詳細を1件取得する",
-        "operationId": "faqFind",
+        "operationId": "frequentlyAskedQuestionFind",
         "responses": {
           "200": {
             "description": "正常系",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/faq/response.json#/definitions/faq_detail"
+                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
                 }
               }
             }
@@ -1009,13 +1009,13 @@
         ],
         "summary": "FAQ更新API",
         "description": "FAQを1件更新する",
-        "operationId": "faqUpdate",
+        "operationId": "frequentlyAskedQuestionUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/faq/request.json#/definitions/faq_update"
+                "$ref": "./schemas/frequently_asked_question/request.json#/definitions/frequently_asked_question_update"
               }
             }
           },
@@ -1056,7 +1056,7 @@
         ],
         "summary": "FAQ削除API",
         "description": "FAQを1件論理削除する",
-        "operationId": "faqDelete",
+        "operationId": "frequentlyAskedQuestionDelete",
         "parameters": [
           {
             "name": "version",
@@ -1082,7 +1082,7 @@
         }
       }
     },
-    "/{cats}/menus": {
+    "/{cats}/display_menus": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1104,11 +1104,11 @@
       ],
       "get": {
         "tags": [
-          "menu"
+          "display_menu"
         ],
-        "summary": "メニュー一覧取得API",
-        "description": "メニューを取得する",
-        "operationId": "menuSearch",
+        "summary": "表示メニュー一覧取得API",
+        "description": "表示メニューを取得する",
+        "operationId": "displayMenuSearch",
         "parameters": [
           {
             "name": "store_ids",
@@ -1132,7 +1132,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "./schemas/menu/response.json#/definitions/menu_detail"
+                    "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
                   }
                 }
               }
@@ -1151,7 +1151,7 @@
         }
       }
     },
-    "/{cats}/stores/{store_id}/menu": {
+    "/{cats}/stores/{store_id}/display_menu": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1183,17 +1183,17 @@
       ],
       "post": {
         "tags": [
-          "menu"
+          "display_menu"
         ],
-        "summary": "メニュー登録API",
-        "description": "メニューを1件登録する",
-        "operationId": "menuCreate",
+        "summary": "表示メニュー登録API",
+        "description": "表示メニューを1件登録する",
+        "operationId": "displayMenuCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/menu/request.json#/definitions/menu_create"
+                "$ref": "./schemas/display_menu/request.json#/definitions/display_menu_create"
               }
             }
           },
@@ -1223,7 +1223,7 @@
         }
       }
     },
-    "/{cats}/stores/{store_id}/menus/{menu_id}": {
+    "/{cats}/stores/{store_id}/display_menus/{display_menu_id}": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1253,9 +1253,9 @@
           }
         },
         {
-          "name": "menu_id",
+          "name": "display_menu_id",
           "in": "path",
-          "description": "メニューID",
+          "description": "表示メニューID",
           "required": true,
           "schema": {
             "type": "integer",
@@ -1265,18 +1265,18 @@
       ],
       "get": {
         "tags": [
-          "menu"
+          "display_menu"
         ],
-        "summary": "メニュー詳細取得API",
-        "description": "メニュー詳細を1件取得する",
-        "operationId": "menuFind",
+        "summary": "表示メニュー詳細取得API",
+        "description": "表示メニュー詳細を1件取得する",
+        "operationId": "displayMenuFind",
         "responses": {
           "200": {
             "description": "正常系",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/menu/response.json#/definitions/menu_detail"
+                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
                 }
               }
             }
@@ -1298,17 +1298,17 @@
       },
       "patch": {
         "tags": [
-          "menu"
+          "display_menu"
         ],
-        "summary": "メニュー更新API",
-        "description": "メニューを1件更新する",
-        "operationId": "menuUpdate",
+        "summary": "表示メニュー更新API",
+        "description": "表示メニューを1件更新する",
+        "operationId": "displayMenuUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/menu/request.json#/definitions/menu_update"
+                "$ref": "./schemas/display_menu/request.json#/definitions/display_menu_update"
               }
             }
           },
@@ -1345,11 +1345,11 @@
       },
       "delete": {
         "tags": [
-          "menu"
+          "display_menu"
         ],
-        "summary": "メニュー削除API",
-        "description": "メニューを1件論理削除する",
-        "operationId": "menuDelete",
+        "summary": "表示メニュー削除API",
+        "description": "表示メニューを1件論理削除する",
+        "operationId": "displayMenuDelete",
         "parameters": [
           {
             "name": "version",
@@ -1375,7 +1375,7 @@
         }
       }
     },
-    "/{cats}/service": {
+    "/{cats}/provide_services": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1397,11 +1397,11 @@
       ],
       "get": {
         "tags": [
-          "service"
+          "provide_service"
         ],
-        "summary": "店舗サービス一覧取得API",
-        "description": "店舗サービスを取得する",
-        "operationId": "serviceSearch",
+        "summary": "提供サービス一覧取得API",
+        "description": "提供サービスを取得する",
+        "operationId": "provideServiceSearch",
         "parameters": [
           {
             "name": "store_ids",
@@ -1425,7 +1425,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "./schemas/service/response.json#/definitions/service_detail"
+                    "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
                   }
                 }
               }
@@ -1444,7 +1444,7 @@
         }
       }
     },
-    "/{cats}/stores/{store_id}/service": {
+    "/{cats}/stores/{store_id}/provide_service": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1476,17 +1476,17 @@
       ],
       "post": {
         "tags": [
-          "service"
+          "provide_service"
         ],
-        "summary": "店舗サービス登録API",
-        "description": "店舗サービスを1件登録する",
-        "operationId": "serviceCreate",
+        "summary": "提供サービス登録API",
+        "description": "提供サービスを1件登録する",
+        "operationId": "provideServiceCreate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/service/request.json#/definitions/service_create"
+                "$ref": "./schemas/provide_service/request.json#/definitions/provide_service_create"
               }
             }
           },
@@ -1516,7 +1516,7 @@
         }
       }
     },
-    "/{cats}/stores/{store_id}/services/{service_id}": {
+    "/{cats}/stores/{store_id}/provide_services/{provide_service_id}": {
       "summary": "",
       "description": "",
       "parameters": [
@@ -1546,9 +1546,9 @@
           }
         },
         {
-          "name": "service_id",
+          "name": "provide_service_id",
           "in": "path",
-          "description": "店舗サービスID",
+          "description": "提供サービスID",
           "required": true,
           "schema": {
             "type": "integer",
@@ -1558,18 +1558,18 @@
       ],
       "get": {
         "tags": [
-          "service"
+          "provide_service"
         ],
-        "summary": "店舗サービス詳細取得API",
-        "description": "店舗サービス詳細を1件取得する",
-        "operationId": "serviceFind",
+        "summary": "提供サービス詳細取得API",
+        "description": "提供サービス詳細を1件取得する",
+        "operationId": "provideServiceFind",
         "responses": {
           "200": {
             "description": "正常系",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/service/response.json#/definitions/service_detail"
+                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
                 }
               }
             }
@@ -1591,17 +1591,17 @@
       },
       "patch": {
         "tags": [
-          "service"
+          "provide_service"
         ],
-        "summary": "店舗サービス更新API",
-        "description": "店舗サービスを1件更新する",
-        "operationId": "serviceUpdate",
+        "summary": "提供サービス更新API",
+        "description": "提供サービスを1件更新する",
+        "operationId": "provideServiceUpdate",
         "requestBody": {
           "description": "リクエストボディ",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./schemas/service/request.json#/definitions/service_update"
+                "$ref": "./schemas/provide_service/request.json#/definitions/provide_service_update"
               }
             }
           },
@@ -1638,11 +1638,11 @@
       },
       "delete": {
         "tags": [
-          "service"
+          "provide_service"
         ],
-        "summary": "店舗サービス削除API",
-        "description": "店舗サービスを1件論理削除する",
-        "operationId": "serviceDelete",
+        "summary": "提供サービス削除API",
+        "description": "提供サービスを1件論理削除する",
+        "operationId": "provideServiceDelete",
         "parameters": [
           {
             "name": "version",

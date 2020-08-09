@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "faq_create": {
+    "display_menu_create": {
       "description": "postObject",
       "type": "object",
       "properties": {
@@ -12,7 +12,7 @@
         }
       }
     },
-    "faq_update": {
+    "display_menu_update": {
       "description": "patchObject",
       "type": "object",
       "properties": {

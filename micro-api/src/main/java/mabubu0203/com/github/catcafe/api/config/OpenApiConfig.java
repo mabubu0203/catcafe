@@ -29,13 +29,25 @@ public class OpenApiConfig {
     }
 
     @Bean
-    public GroupedOpenApi menuApi() {
+    public GroupedOpenApi displayMenuApi() {
         String[] paths = {
-                "/{cats}/menus",
-                "/{cats}/stores/{store_id}/menu",
-                "/{cats}/stores/{store_id}/menus/{menu_id}"};
+                "/{cats}/display_menus",
+                "/{cats}/stores/{store_id}/display_menu",
+                "/{cats}/stores/{store_id}/display_menus/{display_menu_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("menu")
+                .setGroup("display_menu")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi frequentlyAskedQuestionApi() {
+        String[] paths = {
+                "/{cats}/frequently_asked_question",
+                "/{cats}/frequently_asked_questions",
+                "/{cats}/frequently_asked_questions/{faq_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("frequently_asked_question")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -48,6 +60,18 @@ public class OpenApiConfig {
                 "/{cats}/notices/{notice_id}"};
         return GroupedOpenApi.builder()
                 .setGroup("notice")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi provideServiceApi() {
+        String[] paths = {
+                "/{cats}/provide_services",
+                "/{cats}/stores/{store_id}/provide_service",
+                "/{cats}/stores/{store_id}/provide_services/{provide_service_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("provide_service")
                 .pathsToMatch(paths)
                 .build();
     }
