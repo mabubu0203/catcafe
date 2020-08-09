@@ -1,11 +1,11 @@
 {
   "definitions": {
-    "menu_detail": {
-      "description": "メニュー詳細",
+    "display_menu_detail": {
+      "description": "表示メニュー詳細",
       "type": "object",
       "properties": {
         "id": {
-          "description": "メニューID",
+          "description": "表示メニューID",
           "type": "integer",
           "format": "int64"
         }
