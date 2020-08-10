@@ -1,19 +1,20 @@
 {
-  "name": "cat-cafe-site",
+  "name": "cat-cafe-admin",
   "version": "0.1.0",
   "description": "",
+  "repository": {},
+  "license": "",
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "vue-html-loader": "^1.2.4",
-    "vue-loader": "^15.9.3",
-    "vue-style-loader": "^4.1.2",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "@babel/core": "7.11.1",
+    "@babel/preset-env": "7.11.0",
+    "vue-html-loader": "1.2.4",
+    "vue-loader": "15.9.3",
+    "vue-style-loader": "4.1.2",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "bootstrap": "^4.5.2",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.2"
   },

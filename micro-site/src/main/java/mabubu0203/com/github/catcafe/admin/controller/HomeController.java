@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.site.controller;
+package mabubu0203.com.github.catcafe.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
