@@ -1,0 +1,95 @@
+# ----------------------------------------
+# CORE PROPERTIES
+# ----------------------------------------
+spring:
+  # ----------------------------------------
+  # DEVTOOLS PROPERTIES
+  # ----------------------------------------
+  devtools:
+    livereload:
+      enabled: true
+      port: 35219
+    restart:
+      enabled: true
+      poll-interval: 1000
+  resources:
+    chain:
+      html-application-cache: true
+      enabled: true
+      strategy:
+        content:
+          enabled: true
+          paths: /webjars/swagger-ui/**.*
+# ----------------------------------------
+# WEB PROPERTIES
+# ----------------------------------------
+server:
+  port: 9021
+  servlet:
+    context-path: /CatCafeAdmin
+    jsp:
+      registered: false
+  ssl:
+    enabled: false
+  tomcat:
+    uri-encoding: UTF-8
+# ----------------------------------------
+# ACTUATOR PROPERTIES
+# ----------------------------------------
+management:
+  endpoint:
+    auditevents:
+      enabled: true
+    beans:
+      enabled: true
+    conditions:
+      enabled: true
+    configprops:
+      enabled: true
+    env:
+      enabled: true
+    health:
+      enabled: true
+    heapdump:
+      enabled: true
+    info:
+      enabled: true
+    jolokia:
+      enabled: true
+    logfile:
+      enabled: true
+    loggers:
+      enabled: true
+    mappings:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    scheduledtasks:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: auditevents,beans,conditions,configprops,env,health,heapdump,info,jolokia,logfile,loggers,refresh,mappings,metrics
+  health:
+    defaults:
+      enabled: true
+  info:
+    build:
+      enabled: true
+    defaults:
+      enabled: true
+    env:
+      enabled: true
+    git:
+      enabled: true
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+  version: "0.0.1"
+  show-actuator: true

@@ -18,6 +18,7 @@ IntelliJ IDEAを使用します。
 
 ### Endpoints
 
+[OpenApi(Admin)][]
 [OpenApi(Api)][]
 [OpenApi(Site)][]
 
@@ -25,5 +26,6 @@ IntelliJ IDEAを使用します。
 
 1. bootRunの停止
 
+[OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html     "OpenApi(Api)"
 [OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html     "OpenApi(Api)"
 [OpenApi(Site)]: http://localhost:9011/CatCafeSite/swagger-ui.html     "OpenApi(Site)"
