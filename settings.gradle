@@ -3,5 +3,6 @@ include(
         'micro-api',
         'micro-common',
         'micro-domain',
-        'micro-infra'
+        'micro-infra',
+        'micro-site'
 )

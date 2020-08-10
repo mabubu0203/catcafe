@@ -24,9 +24,9 @@ spring:
 # WEB PROPERTIES
 # ----------------------------------------
 server:
-  port: 9001
+  port: 9011
   servlet:
-    context-path: /CatCafeApi
+    context-path: /CatCafeSite
     jsp:
       registered: false
   ssl:
@@ -73,8 +73,6 @@ management:
       exposure:
         include: auditevents,beans,conditions,configprops,env,health,heapdump,info,jolokia,logfile,loggers,refresh,mappings,metrics
   health:
-    db:
-      enabled: true
     defaults:
       enabled: true
   info:
