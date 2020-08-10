@@ -41,5 +41,13 @@ bootJar {
     launchScript()
 }
 
+node {
+    version = "12.18.3"
+    download = true
+    workDir = file("${project.projectDir}/src/main/riot/.gradle/nodejs")
+    npmWorkDir = file("${project.projectDir}/src/main/riot/.gradle/npm")
+    nodeModulesDir = file("${project.projectDir}/src/main/riot")
+}
+
 compileJava.dependsOn webpack
 compileJava.mustRunAfter webpack

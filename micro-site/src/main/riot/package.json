@@ -1,0 +1,22 @@
+{
+  "name": "cat-cafe-admin",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {},
+  "license": "",
+  "devDependencies": {
+    "@babel/core": "7.11.1",
+    "@babel/preset-env": "7.11.0",
+    "riot": "4.13.4",
+    "@riotjs/compiler": "4.10.0",
+    "@riotjs/hot-reload": "4.0.1",
+    "@riotjs/webpack-loader": "4.0.3",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "scripts": {
+    "webpack": "webpack -w",
+    "watch": "webpack --config webpack.dev.js --watch"
+  }
+}
