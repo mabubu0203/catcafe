@@ -1,9 +1,4 @@
 apply plugin: "com.github.node-gradle.node"
 
-node {
-    version = "12.18.3"
-    download = true
-}
-
 task webpack(dependsOn: ['npm_run_webpack'])
 task watch(dependsOn: ['npm_run_watch'])

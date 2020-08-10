@@ -1,13 +1,13 @@
-package mabubu0203.com.github.catcafe.site;
+package mabubu0203.com.github.catcafe.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SiteApp {
+public class AdminApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(SiteApp.class, args);
+        SpringApplication.run(AdminApp.class, args);
     }
 
 }

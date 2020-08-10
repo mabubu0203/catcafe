@@ -1,5 +1,6 @@
 rootProject.name = 'CatCafe'
 include(
+        'micro-admin',
         'micro-api',
         'micro-common',
         'micro-domain',
