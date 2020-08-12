@@ -1,0 +1,22 @@
+<notice>
+    <h3>{ message }</h3>
+
+    <ul>
+        <li each={ tech in techs }>
+            { tech.name }
+        </li>
+    </ul>
+
+    <script>
+        export default {
+            message: 'Notice',
+            techs: [
+                { name: 'お知らせ1' },
+                { name: 'お知らせ2' },
+                { name: 'お知らせ3' }
+            ]
+        }
+
+    </script>
+
+</notice>
