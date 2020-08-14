@@ -4,25 +4,17 @@
   "description": "",
   "repository": {},
   "license": "",
-  "devDependencies": {
+  "dependencies": {
+    "riot": "^4.13.4",
     "@riotjs/compiler": "^4.10.0",
-    "@riotjs/ssr": "^5.0.0",
+    "@riotjs/hot-reload": "4.0.1",
+    "@riotjs/lazy": "1.0.1",
+    "@riotjs/route": "^5.3.3",
     "@riotjs/webpack-loader": "^4.0.3",
-    "chai": "^4.2.0",
-    "esm": "^3.2.25",
-    "jsdom": "^16.4.0",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^8.1.1",
-    "nyc": "^15.1.0",
+    "axios": "^0.19.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
-  },
-  "dependencies": {
-    "@riotjs/hot-reload": "4.0.1",
-    "@riotjs/lazy": "1.0.1",
-    "@riotjs/route": "5.3.3",
-    "riot": "^4.13.4"
   },
   "scripts": {
     "webpack": "webpack",

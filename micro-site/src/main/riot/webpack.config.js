@@ -2,20 +2,20 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-    entry: './index.js',
+    entry: {
+        welcome: './welcome.js',
+        stored: './stored.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename: 'bundle.js',
-        chunkFilename: 'chunks/[name]/index.[chunkhash].js',
-        devtoolModuleFilenameTemplate: 'source-webpack:///[resourcePath]',
-        devtoolFallbackModuleFilenameTemplate: 'source-webpack:///[resourcePath]?[hash]'
+        filename: '[name].js',
     },
     devtool: '#source-map',
     devServer: {
         open: true,
         historyApiFallback: {
-            index: 'index.html'
+            index: 'welcome.html'
         }
     },
     module: {
@@ -23,12 +23,14 @@ module.exports = {
             {
                 test: /\.riot$/,
                 exclude: /node_modules/,
-                use: [{
-                    loader: '@riotjs/webpack-loader',
-                    options: {
-                        hot: true
+                use: [
+                    {
+                        loader: '@riotjs/webpack-loader',
+                        options: {
+                            hot: true
+                        }
                     }
-                }]
+                ]
             }
         ]
     }
