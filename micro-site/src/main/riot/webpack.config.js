@@ -3,8 +3,7 @@ const webpack = require('webpack')
 
 module.exports = {
     entry: {
-        welcome: './welcome.js',
-        stored: './stored.js'
+        bundle: './index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -15,7 +14,7 @@ module.exports = {
     devServer: {
         open: true,
         historyApiFallback: {
-            index: 'welcome.html'
+            index: 'index.html'
         }
     },
     module: {
