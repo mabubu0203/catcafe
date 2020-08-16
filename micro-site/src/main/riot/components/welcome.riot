@@ -47,16 +47,19 @@
         // FAQ、お問い合わせ
     </div>
 
-
     <script>
-        import { router } from '@riotjs/route'
         export default {
-            onBeforeMount() {
+            state: {
+                isStoreSelectedIn: false,
+                stores_id: null
+            },
+            onBeforeMount(props, state) {
             },
             handleSubmit(e) {
                 e.preventDefault()
-                const inputStoresId = this.$("[name='stores_id']").getAttribute('value')
-                this.service.storeSelect()
+                this.state.isStoreSelectedIn = true
+                this.state.stores_id = this.$("[name='stores_id']").getAttribute('value')
+                localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
             },
             dropdownItems: [
                 {
@@ -74,8 +77,8 @@
                 }
             ],
             tableData: [
-                { name: 'John', age: 15, gender: 'Male' },
-                { name: 'Amber', age: 40, gender: 'Female' },
+                {name: 'John', age: 15, gender: 'Male'},
+                {name: 'Amber', age: 40, gender: 'Female'},
             ]
         }
     </script>
@@ -90,13 +93,16 @@
             justify-content: center;
             align-items: center;
         }
+
         h2 {
             font-size: 2rem;
         }
+
         .ui.card {
             padding: 3rem;
             width: 50%;
         }
+
         @media (max-width: 375px) {
             .ui.card {
                 width: 100%;

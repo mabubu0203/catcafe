@@ -1,9 +1,8 @@
-import '@riotjs/hot-reload'
 import { component, register } from 'riot'
 import { Router, Route } from '@riotjs/route'
+import '@riotjs/hot-reload'
 import 'semantic-ui-riot'
 import App from './app.riot'
-import './js/libs'
 
 register('router', Router)
 register('route', Route)

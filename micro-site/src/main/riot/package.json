@@ -5,9 +5,8 @@
   "repository": {},
   "license": "",
   "dependencies": {
-    "@datorama/akita": "^4.22.0",
-    "riot": "^4.13.4",
-    "@riotjs/compiler": "^4.10.0",
+    "riot": "^4.13.5",
+    "@riotjs/compiler": "^4.10.1",
     "@riotjs/hot-reload": "4.0.1",
     "@riotjs/lazy": "1.0.1",
     "@riotjs/observable": "^4.0.4",

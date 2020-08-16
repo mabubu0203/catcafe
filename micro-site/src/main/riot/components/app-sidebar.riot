@@ -4,7 +4,7 @@
 
             <div class="item sidebar-head">
                 <div class="menu">
-                    <su-dropdown items={ dropdownItems } onchange={ handleChange }></su-dropdown>
+                    <su-dropdown items={ dropdownItems }></su-dropdown>
                 </div>
             </div>
 
@@ -51,10 +51,7 @@
                     label: '御茶ノ水',
                     value: '/logout'
                 }
-            ],
-            handleChange(e) {
-                this.router.push(e.value)
-            }
+            ]
         }
     </script>
 

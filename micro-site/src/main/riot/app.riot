@@ -1,13 +1,13 @@
 <app>
-    <welcome if={ !state.isStoreSelectedIn } />
+    <welcome if={ !state.isStoreSelectedIn }/>
     <div id="wrapper" if={ state.isStoreSelectedIn }>
         <router base={ base }>
-            <sidebar />
-            <app-header />
+            <sidebar/>
+            <app-header/>
             <div id="container">
-                <app-router />
+                <app-router/>
             </div>
-            <app-footer />
+            <app-footer/>
         </router>
     </div>
 
@@ -26,16 +26,24 @@
                 AppRouter,
             },
             state: {
-                isStoreSelectedIn: false
+                isStoreSelectedIn: false,
+                stores_id: null
             },
             base: window.location.origin,
             onBeforeMount(props, state) {
-                // any processing
+                const beforeCatCafeSiteState = JSON.parse(localStorage.getItem('cat-cafe-site state'))
+                if (beforeCatCafeSiteState !== null) {
+                    state.isStoreSelectedIn = beforeCatCafeSiteState.isStoreSelectedIn
+                    state.storesId = beforeCatCafeSiteState.storesId
+                } else {
+                    state.isStoreSelectedIn = props.isStoreSelectedIn
+                    state.storesId = props.storesId
+                }
             },
             onMounted(props, state) {
-                this.query.select('isStoreSelectedIn').subscribe(val => {
-                    this.update({ isStoreSelectedIn: val })
-                })
+            },
+            onUpdated(props, state) {
+                localStorage.setItem('cat-cafe-site state', JSON.stringify(state))
             },
             onBeforeUnmount() {
                 this.router.end()
@@ -48,12 +56,14 @@
             font-family: Futura;
             height: 100%;
         }
+
         #wrapper {
             margin-left: 20%;
             min-height: 100%;
             display: flex;
             flex-direction: column;
         }
+
         #container {
             flex: 1;
             background: #eee;
