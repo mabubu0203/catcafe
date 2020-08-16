@@ -1,0 +1,95 @@
+<login>
+    <div class="ui card">
+        <h2>猫カフェ</h2>
+        <div class="ui form">
+            <form onsubmit={ handleSubmit }>
+                <div class="menu">
+                    <su-dropdown items={ dropdownItems } onchange={ handleChange }></su-dropdown>
+                </div>
+                <div class="inline field">
+                    <button class="ui teal button">店舗選択</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="ui card">
+        // お知らせ、イベント、FAQ、お問い合わせ
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in tableData }">
+                <td>{ item.name }</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        import { router } from '@riotjs/route'
+        export default {
+            onBeforeMount() {
+            },
+
+            handleSubmit(e) {
+                e.preventDefault()
+                const inputMenu = e.target.menu.value
+                this.service.login()
+            },
+            dropdownItems: [
+                {
+                    label: '店舗',
+                    value: null,
+                    default: true
+                },
+                {
+                    label: '東京',
+                    value: '/'
+                },
+                {
+                    label: '御茶ノ水',
+                    value: '/logout'
+                }
+            ],
+            handleChange(e) {
+                this.router.push(e.value)
+            },
+            tableData: [
+                { name: 'John', age: 15, gender: 'Male' },
+                { name: 'Amber', age: 40, gender: 'Female' },
+            ]
+        }
+    </script>
+
+    <style>
+        :host {
+            max-width: 80%;
+            height: 100vh;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2 {
+            font-size: 2rem;
+        }
+        .ui.card {
+            padding: 3rem;
+            width: 50%;
+        }
+        @media (max-width: 375px) {
+            .ui.card {
+                width: 100%;
+            }
+        }
+    </style>
+
+</login>

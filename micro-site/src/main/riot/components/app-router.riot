@@ -1,44 +1,53 @@
 <app-router>
 
     <route path="/">
-        <dashboard />
+        <dashboard/>
     </route>
     <route path="/dashboard">
-        <dashboard />
+        <dashboard/>
     </route>
     <route path="/members">
-        <members />
+        <members/>
     </route>
     <route path="/members/:id">
-        <defail />
+        <defail/>
     </route>
     <route path="/profile">
-        <profile />
+        <profile/>
     </route>
-    <route path="/stats">
-        <stats />
+    <route path="/casts">
+        <casts/>
+    </route>
+    <route path="/casts/:id">
+        <casts/>
+    </route>
+    <route path="/congestions">
+        <congestions/>
     </route>
     <route path="/404">
-        <not-found />
+        <not-found/>
     </route>
     <route path="(.*)">
         { onRoute(route) }
     </route>
 
     <script>
-        import { router } from '@riotjs/route'
+        import {router} from '@riotjs/route'
         import Dashboard from '../pages/dashboard.riot'
         import Members from '../pages/members.riot'
-        import Profile from '../pages/profile.riot'
-        import Stats from '../pages/stats.riot'
         import Detail from '../pages/detail.riot'
+        import Profile from '../pages/profile.riot'
+        import Casts from '../pages/casts.riot'
+        import Congestions from '../pages/congestions.riot'
         import NotFound from '../pages/not-found.riot'
+
         const pages = [
             '/',
             '/dashboard',
             '/members',
             '/profile',
-            '/stats',
+            '/casts',
+            '/congestions',
             '/404'
         ]
         export default {
@@ -47,7 +56,8 @@
                 Members,
                 Detail,
                 Profile,
-                Stats,
+                Casts,
+                Congestions,
                 NotFound
             },
             onRoute(route) {

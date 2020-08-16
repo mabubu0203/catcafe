@@ -1,40 +1,13 @@
 <app-header>
     <div class="ui secondary pointing menu">
-        <h2 class="item">
-            My CMS
-        </h2>
-        <div class="right menu">
-            <su-dropdown items={ dropdownItems } onchange={ handleChange }></su-dropdown>
-        </div>
+        <h4 class="item">
+            最新のお知らせ3件
+        </h4>
     </div>
 
-    <script>
-        export default {
-            dropdownItems: [
-                {
-                    label: 'Welcome',
-                    value: null,
-                    header: true,
-                    default: true
-                },
-                {
-                    label: 'Profile',
-                    icon: 'user',
-                    value: '/profile'
-                },
-                {
-                    label: 'Logout',
-                    icon: 'sign-out',
-                    value: '/logout'
-                }
-            ],
-            handleChange(e) {
-                if (e.value === '/profile')
-                    this.router.push(e.value)
-                else
-                    this.service.logout()
-            }
+    <style>
+        .secondary.pointing.menu {
+            border: none;
         }
-    </script>
-
+    </style>
 </app-header>
