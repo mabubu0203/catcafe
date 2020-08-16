@@ -4,7 +4,7 @@
         <div class="ui form">
             <form onsubmit={ handleSubmit }>
                 <div class="menu">
-                    <su-dropdown items={ dropdownItems } onchange={ handleChange }></su-dropdown>
+                    <su-dropdown items={ dropdownItems }></su-dropdown>
                 </div>
                 <div class="inline field">
                     <button class="ui teal button">店舗選択</button>
@@ -37,10 +37,8 @@
         export default {
             onBeforeMount() {
             },
-
             handleSubmit(e) {
                 e.preventDefault()
-                const inputMenu = e.target.menu.value
                 this.service.login()
             },
             dropdownItems: [
@@ -58,9 +56,6 @@
                     value: '/logout'
                 }
             ],
-            handleChange(e) {
-                this.router.push(e.value)
-            },
             tableData: [
                 { name: 'John', age: 15, gender: 'Male' },
                 { name: 'Amber', age: 40, gender: 'Female' },

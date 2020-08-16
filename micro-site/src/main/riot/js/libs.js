@@ -13,7 +13,7 @@ if (process.env.ENV === "production") {
 }
 
 const store = createStore({
-    isLoggedIn: false
+    isStoreSelectedIn: false
 }, { name: 'session' })
 const query = createQuery(store)
 const serviceInstance = service(store)

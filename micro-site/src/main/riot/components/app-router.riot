@@ -6,15 +6,6 @@
     <route path="/dashboard">
         <dashboard/>
     </route>
-    <route path="/members">
-        <members/>
-    </route>
-    <route path="/members/:id">
-        <defail/>
-    </route>
-    <route path="/profile">
-        <profile/>
-    </route>
     <route path="/casts">
         <casts/>
     </route>
@@ -33,19 +24,14 @@
 
     <script>
         import {router} from '@riotjs/route'
-        import Dashboard from '../pages/dashboard.riot'
-        import Members from '../pages/members.riot'
-        import Detail from '../pages/detail.riot'
-        import Profile from '../pages/profile.riot'
-        import Casts from '../pages/casts.riot'
-        import Congestions from '../pages/congestions.riot'
-        import NotFound from '../pages/not-found.riot'
+        import Dashboard from './dashboard.riot'
+        import Casts from './cast/casts.riot'
+        import Congestions from './congestion/congestions.riot'
+        import NotFound from './not-found.riot'
 
         const pages = [
             '/',
             '/dashboard',
-            '/members',
-            '/profile',
             '/casts',
             '/congestions',
             '/404'
@@ -53,9 +39,6 @@
         export default {
             components: {
                 Dashboard,
-                Members,
-                Detail,
-                Profile,
                 Casts,
                 Congestions,
                 NotFound

@@ -1,8 +1,6 @@
 <app>
-    <login if={ !state.isLoggedIn } />
-<!--    <welcome if={ !state.isStoreSelectedIn } />-->
-<!--    <div id="wrapper" if={ state.isStoreSelectedIn }>-->
-    <div id="wrapper" if={ state.isLoggedIn }>
+    <welcome if={ !state.isStoreSelectedIn } />
+    <div id="wrapper" if={ state.isStoreSelectedIn }>
         <router base={ base }>
             <sidebar />
             <app-header />
@@ -14,36 +12,30 @@
     </div>
 
     <script>
-        import Login from './pages/login.riot'
-        import Welcome from  './pages/welcome.riot'
+        import Welcome from './components/welcome.riot'
         import Sidebar from './components/app-sidebar.riot'
         import AppHeader from './components/app-header.riot'
         import AppFooter from './components/app-footer.riot'
         import AppRouter from './components/app-router.riot'
         export default {
             components: {
-                Login,
                 Welcome,
                 Sidebar,
                 AppHeader,
                 AppFooter,
-                AppRouter
+                AppRouter,
             },
             state: {
-                // isStoreSelectedIn: false
-                isLoggedIn: false
+                isStoreSelectedIn: false
             },
             base: window.location.origin,
             onBeforeMount(props, state) {
                 // any processing
             },
             onMounted(props, state) {
-                this.query.select('isLoggedIn').subscribe(val => {
-                    this.update({ isLoggedIn: val })
+                this.query.select('isStoreSelectedIn').subscribe(val => {
+                    this.update({ isStoreSelectedIn: val })
                 })
-                // this.query.select('isStoreSelectedIn').subscribe(val => {
-                //     this.update({ isStoreSelectedIn: val })
-                // })
             },
             onBeforeUnmount() {
                 this.router.end()
