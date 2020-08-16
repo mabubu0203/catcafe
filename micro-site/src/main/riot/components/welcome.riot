@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="ui card">
-        // お知らせ、イベント、FAQ、お問い合わせ
+        // お知らせ
         <table
                 is="su-table"
                 class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
@@ -29,6 +29,22 @@
             </tr>
             </tbody>
         </table>
+        // イベント
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in tableData }">
+                <td>{ item.name }</td>
+            </tr>
+            </tbody>
+        </table>
+        // FAQ、お問い合わせ
     </div>
 
 
@@ -49,7 +65,7 @@
                 },
                 {
                     label: '東京',
-                    value: '/'
+                    value: '/store-detail'
                 },
                 {
                     label: '御茶ノ水',

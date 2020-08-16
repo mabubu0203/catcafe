@@ -1,10 +1,10 @@
 <app-router>
 
     <route path="/">
-        <dashboard/>
+        <store-detail/>
     </route>
-    <route path="/dashboard">
-        <dashboard/>
+    <route path="/store-detail">
+        <store-detail/>
     </route>
     <route path="/casts">
         <casts/>
@@ -24,21 +24,23 @@
 
     <script>
         import {router} from '@riotjs/route'
-        import Dashboard from './dashboard.riot'
+        import Welcome from './welcome.riot'
+        import StoreDetail from './store/store-detail.riot'
         import Casts from './cast/casts.riot'
         import Congestions from './congestion/congestions.riot'
         import NotFound from './not-found.riot'
 
         const pages = [
             '/',
-            '/dashboard',
+            '/store-detail',
             '/casts',
             '/congestions',
             '/404'
         ]
         export default {
             components: {
-                Dashboard,
+                Welcome,
+                StoreDetail,
                 Casts,
                 Congestions,
                 NotFound
