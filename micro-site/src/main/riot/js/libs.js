@@ -1,11 +1,7 @@
-import { install } from 'riot'
+import {install} from 'riot'
 import observable from '@riotjs/observable'
-import { router } from '@riotjs/route'
-import {
-    createStore,
-    createQuery,
-    enableAkitaProdMode
-} from '@datorama/akita'
+import {router} from '@riotjs/route'
+import {createQuery, createStore, enableAkitaProdMode} from '@datorama/akita'
 import service from './service.js'
 
 if (process.env.ENV === "production") {
@@ -14,7 +10,7 @@ if (process.env.ENV === "production") {
 
 const store = createStore({
     isStoreSelectedIn: false
-}, { name: 'session' })
+}, {name: 'session'})
 const query = createQuery(store)
 const serviceInstance = service(store)
 

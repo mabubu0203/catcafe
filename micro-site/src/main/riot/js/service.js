@@ -1,9 +1,11 @@
 const service = (store) => {
+
     const welcome = () => {
         store.update({
             isStoreSelectedIn: true
         })
     }
+
     const logout = () => {
         store.update({
             isStoreSelectedIn: false
@@ -11,7 +13,7 @@ const service = (store) => {
     }
 
     return {
-        login: welcome,
+        storeSelect: welcome,
         logout: logout
     }
 }

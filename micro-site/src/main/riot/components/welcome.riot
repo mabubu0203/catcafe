@@ -1,10 +1,10 @@
-<login>
+<welcome>
     <div class="ui card">
         <h2>猫カフェ</h2>
         <div class="ui form">
             <form onsubmit={ handleSubmit }>
                 <div class="menu">
-                    <su-dropdown items={ dropdownItems }></su-dropdown>
+                    <su-dropdown name="stores_id" items="{ dropdownItems }"></su-dropdown>
                 </div>
                 <div class="inline field">
                     <button class="ui teal button">店舗選択</button>
@@ -55,7 +55,8 @@
             },
             handleSubmit(e) {
                 e.preventDefault()
-                this.service.login()
+                const inputStoresId = this.$("[name='stores_id']").getAttribute('value')
+                this.service.storeSelect()
             },
             dropdownItems: [
                 {
@@ -65,11 +66,11 @@
                 },
                 {
                     label: '東京',
-                    value: '/store-detail'
+                    value: '1'
                 },
                 {
                     label: '御茶ノ水',
-                    value: '/logout'
+                    value: '2'
                 }
             ],
             tableData: [
@@ -103,4 +104,4 @@
         }
     </style>
 
-</login>
+</welcome>
