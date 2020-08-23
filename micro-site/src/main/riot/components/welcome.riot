@@ -60,6 +60,10 @@
                 this.state.isStoreSelectedIn = true
                 this.state.stores_id = this.$("[name='stores_id']").getAttribute('value')
                 localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
+                this.update()
+            },
+            onUpdated(props, state) {
+                location.reload();
             },
             dropdownItems: [
                 {
