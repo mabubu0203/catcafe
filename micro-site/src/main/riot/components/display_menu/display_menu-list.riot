@@ -1,0 +1,22 @@
+<display_menu-list>
+    <h3>{ message }</h3>
+
+    <ul>
+        <li each={ tech in techs }>
+            { tech.name }
+        </li>
+    </ul>
+
+    <script>
+        export default {
+            message: 'Display_Menu',
+            techs: [
+                {name: 'お知らせ1'},
+                {name: 'お知らせ2'},
+                {name: 'お知らせ3'}
+            ]
+        }
+
+    </script>
+
+</display_menu-list>

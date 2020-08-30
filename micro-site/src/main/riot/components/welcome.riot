@@ -1,0 +1,117 @@
+<welcome>
+    <div class="ui card">
+        <h2>猫カフェ</h2>
+        <div class="ui form">
+            <form onsubmit={ handleSubmit }>
+                <div class="menu">
+                    <su-dropdown name="stores_id" items="{ dropdownItems }"></su-dropdown>
+                </div>
+                <div class="inline field">
+                    <button class="ui teal button">店舗選択</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="ui card">
+        // お知らせ
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in tableData }">
+                <td>{ item.name }</td>
+            </tr>
+            </tbody>
+        </table>
+        // イベント
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in tableData }">
+                <td>{ item.name }</td>
+            </tr>
+            </tbody>
+        </table>
+        // FAQ、お問い合わせ
+    </div>
+
+    <script>
+        export default {
+            state: {
+                isStoreSelectedIn: false,
+                stores_id: null
+            },
+            onBeforeMount(props, state) {
+            },
+            handleSubmit(e) {
+                e.preventDefault()
+                this.state.isStoreSelectedIn = true
+                this.state.stores_id = this.$("[name='stores_id']").getAttribute('value')
+                localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
+                this.update()
+            },
+            onUpdated(props, state) {
+                location.reload();
+            },
+            dropdownItems: [
+                {
+                    label: '店舗',
+                    value: null,
+                    default: true
+                },
+                {
+                    label: '東京',
+                    value: '1'
+                },
+                {
+                    label: '御茶ノ水',
+                    value: '2'
+                }
+            ],
+            tableData: [
+                {name: 'John', age: 15, gender: 'Male'},
+                {name: 'Amber', age: 40, gender: 'Female'},
+            ]
+        }
+    </script>
+
+    <style>
+        :host {
+            max-width: 80%;
+            height: 100vh;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        .ui.card {
+            padding: 3rem;
+            width: 50%;
+        }
+
+        @media (max-width: 375px) {
+            .ui.card {
+                width: 100%;
+            }
+        }
+    </style>
+
+</welcome>

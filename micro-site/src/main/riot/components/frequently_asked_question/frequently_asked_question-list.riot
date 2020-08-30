@@ -1,0 +1,48 @@
+<frequently_asked_question-list>
+    <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
+    <div class="ui segment">
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ frequentlyAskedQuestions } default-sort-field="age"
+                nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+                <th is="su-th" field="age">AGE</th>
+                <th is="su-th" field="gender">GENDER</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in frequentlyAskedQuestions }">
+                <td>{ item.name }</td>
+                <td>{ item.age }</td>
+                <td>{ item.gender }</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>※ Click the header if you want to sort.</p>
+    </div>
+
+    <script>
+        import axios from 'axios'
+
+        export default {
+            onBeforeMount(props, state) {
+                this.getFrequentlyAskedQuestions();
+            },
+            async getFrequentlyAskedQuestions() {
+                this.url = `http://localhost:9001/CatCafeApi/cats/frequently_asked_questions`
+                axios
+                    .get(`${this.url}`)
+                    .then(function (response) {
+                        this.frequentlyAskedQuestions = response.data
+                        this.update();
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            }
+        }
+    </script>
+
+</frequently_asked_question-list>

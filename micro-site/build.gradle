@@ -44,8 +44,8 @@ bootJar {
 node {
     version = "12.18.3"
     download = true
-    workDir = file("${project.projectDir}/src/main/riot/.gradle/nodejs")
-    npmWorkDir = file("${project.projectDir}/src/main/riot/.gradle/npm")
+    workDir = file("${project.projectDir}/.gradle/nodejs")
+    npmWorkDir = file("${project.projectDir}/.gradle/npm")
     nodeModulesDir = file("${project.projectDir}/src/main/riot")
 }
 
