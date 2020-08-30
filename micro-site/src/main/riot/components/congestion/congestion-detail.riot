@@ -1,9 +1,9 @@
-<casts>
-    <h2 class="ui teal tag label">Casts</h2>
+<congestion-detail>
+    <h2 class="ui teal tag label">Congestion</h2>
     <div class="ui segment">
         <table
                 is="su-table"
-                class="ui sortable celled table" data={ tableData } default-sort-field="age" nulls-first={ true }>
+                class="ui sortable celled table" data={ congestion } default-sort-field="age" nulls-first={ true }>
             <thead>
             <tr>
                 <th is="su-th" field="name">NAME</th>
@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr each="{ item in tableData }">
+            <tr each="{ item in congestion }">
                 <td>{ item.name }</td>
                 <td>{ item.age }</td>
                 <td>{ item.gender }</td>
@@ -24,7 +24,7 @@
 
     <script>
         export default {
-            tableData: [
+            congestion: [
                 { name: 'John', age: 15, gender: 'Male' },
                 { name: 'Amber', age: 40, gender: 'Female' },
                 { name: 'Leslie', age: 25 },
@@ -35,4 +35,4 @@
         }
     </script>
 
-</casts>
+</congestion-detail>

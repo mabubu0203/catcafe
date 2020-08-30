@@ -1,10 +1,9 @@
-<frequently_asked_question-list>
-    <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
+<cast-list>
+    <h2 class="ui teal tag label">Casts</h2>
     <div class="ui segment">
         <table
                 is="su-table"
-                class="ui sortable celled table" data={ frequentlyAskedQuestions } default-sort-field="age"
-                nulls-first={ true }>
+                class="ui sortable celled table" data={ casts } default-sort-field="age" nulls-first={ true }>
             <thead>
             <tr>
                 <th is="su-th" field="name">NAME</th>
@@ -13,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr each="{ item in frequentlyAskedQuestions }">
+            <tr each="{ item in casts }">
                 <td>{ item.name }</td>
                 <td>{ item.age }</td>
                 <td>{ item.gender }</td>
@@ -25,17 +24,16 @@
 
     <script>
         import axios from 'axios'
-
         export default {
             onBeforeMount(props, state) {
-                this.getFrequentlyAskedQuestions();
+                this.getCasts();
             },
-            async getFrequentlyAskedQuestions() {
-                this.url = `http://localhost:9001/CatCafeApi/cats/frequently_asked_questions`
+            async getCasts() {
+                this.url = `http://localhost:9001/CatCafeApi/cats/provide_services`
                 axios
                     .get(`${this.url}`)
                     .then(function (response) {
-                        this.frequentlyAskedQuestions = response.data
+                        this.casts = response.data
                         this.update();
                     })
                     .catch(function (error) {
@@ -45,4 +43,4 @@
         }
     </script>
 
-</frequently_asked_question-list>
+</cast-list>

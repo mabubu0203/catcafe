@@ -1,22 +1,47 @@
 <provide_service-list>
-    <h3>{ message }</h3>
-
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+    <h2 class="ui teal tag label">ProvideServices</h2>
+    <div class="ui segment">
+        <table
+                is="su-table"
+                class="ui sortable celled table" data={ provideServices } default-sort-field="age" nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="name">NAME</th>
+                <th is="su-th" field="age">AGE</th>
+                <th is="su-th" field="gender">GENDER</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ item in provideServices }">
+                <td>{ item.name }</td>
+                <td>{ item.age }</td>
+                <td>{ item.gender }</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>※ Click the header if you want to sort.</p>
+    </div>
 
     <script>
-        export default {
-            message: 'ProvideService',
-            techs: [
-                {name: '提供サービス1'},
-                {name: '提供サービス2'},
-                {name: '提供サービス3'}
-            ]
-        }
+        import axios from 'axios'
 
+        export default {
+            onBeforeMount(props, state) {
+                this.getProvideServices();
+            },
+            async getProvideServices() {
+                this.url = `http://localhost:9001/CatCafeApi/cats/provide_services`
+                axios
+                    .get(`${this.url}`)
+                    .then(function (response) {
+                        this.provideServices = response.data
+                        this.update();
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+            }
+        }
     </script>
 
 </provide_service-list>
