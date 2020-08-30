@@ -7,13 +7,13 @@
   "dependencies": {
     "riot": "^4.13.5",
     "@riotjs/compiler": "^4.10.1",
-    "@riotjs/hot-reload": "4.0.1",
-    "@riotjs/lazy": "1.0.1",
+    "@riotjs/hot-reload": "^4.0.1",
+    "@riotjs/lazy": "^1.0.1",
     "@riotjs/observable": "^4.0.4",
     "@riotjs/route": "^5.3.3",
     "@riotjs/webpack-loader": "^4.0.3",
-    "axios": "^0.19.2",
-    "semantic-ui-riot": "^2.2.2",
+    "axios": "^0.20.0",
+    "semantic-ui-riot": "^2.2.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
