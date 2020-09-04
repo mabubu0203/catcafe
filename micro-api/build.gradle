@@ -11,7 +11,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // openapi generator
-    compileOnly("io.springfox:springfox-swagger2:${springFoxVersion}")
+    compileOnly("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
     compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
 
     // springdoc-openapi-ui

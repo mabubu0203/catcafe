@@ -17,6 +17,18 @@ public class OpenApiConfig {
     }
 
     @Bean
+    public GroupedOpenApi castApi() {
+        String[] paths = {
+                "/{cats}/casts",
+                "/{cats}/stores/{store_id}/cast",
+                "/{cats}/stores/{store_id}/casts/{cast_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("cast")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
     public GroupedOpenApi contactApi() {
         String[] paths = {
                 "/{cats}/contact",
@@ -36,6 +48,18 @@ public class OpenApiConfig {
                 "/{cats}/stores/{store_id}/display_menus/{display_menu_id}"};
         return GroupedOpenApi.builder()
                 .setGroup("display_menu")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi eventApi() {
+        String[] paths = {
+                "/{cats}/event",
+                "/{cats}/events",
+                "/{cats}/events/{event_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("event")
                 .pathsToMatch(paths)
                 .build();
     }
