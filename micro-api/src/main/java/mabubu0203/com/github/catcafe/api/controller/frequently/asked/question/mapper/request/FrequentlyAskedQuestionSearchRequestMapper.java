@@ -1,7 +1,7 @@
-package mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper;
+package mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper.request;
 
 import lombok.RequiredArgsConstructor;
-import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceInput;
+import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.input.FrequentlyAskedQuestionSearchServiceInput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
 
 import java.util.List;
