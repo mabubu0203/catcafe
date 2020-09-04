@@ -4,7 +4,7 @@
       "description": "一覧レスポンス",
       "type": "object",
       "properties": {
-        "casts": {
+        "provide_services": {
           "type": "array",
           "items": {
             "$ref": "#/model/provide_service_detail"
@@ -16,7 +16,7 @@
       "description": "詳細レスポンス",
       "type": "object",
       "properties": {
-        "cast": {
+        "provide_service": {
           "$ref": "#/model/provide_service_detail"
         }
       }

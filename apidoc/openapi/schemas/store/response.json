@@ -4,7 +4,7 @@
       "description": "一覧レスポンス",
       "type": "object",
       "properties": {
-        "casts": {
+        "stores": {
           "type": "array",
           "items": {
             "$ref": "#/model/store_detail"
@@ -16,7 +16,7 @@
       "description": "詳細レスポンス",
       "type": "object",
       "properties": {
-        "cast": {
+        "store": {
           "$ref": "#/model/store_detail"
         }
       }

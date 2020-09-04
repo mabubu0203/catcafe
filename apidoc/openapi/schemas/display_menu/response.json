@@ -4,7 +4,7 @@
       "description": "一覧レスポンス",
       "type": "object",
       "properties": {
-        "casts": {
+        "display_menus": {
           "type": "array",
           "items": {
             "$ref": "#/model/display_menu_detail"
@@ -16,7 +16,7 @@
       "description": "詳細レスポンス",
       "type": "object",
       "properties": {
-        "cast": {
+        "display_menu": {
           "$ref": "#/model/display_menu_detail"
         }
       }
