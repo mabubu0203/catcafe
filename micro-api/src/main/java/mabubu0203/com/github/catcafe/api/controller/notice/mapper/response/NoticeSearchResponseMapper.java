@@ -1,0 +1,2 @@
+package mabubu0203.com.github.catcafe.api.controller.notice.mapper.response;public class NoticeSearchResponseMapper {
+}
