@@ -30,7 +30,7 @@
         "id": {
           "description": "お問い合わせID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }

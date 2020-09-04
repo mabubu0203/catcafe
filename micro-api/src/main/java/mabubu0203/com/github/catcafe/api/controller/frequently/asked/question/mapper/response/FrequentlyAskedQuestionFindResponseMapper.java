@@ -14,7 +14,7 @@ public class FrequentlyAskedQuestionFindResponseMapper implements FindResponseMa
 
     private FrequentlyAskedQuestionFindResponse search() {
         var detail = new FrequentlyAskedQuestionDetail();
-        detail.setId(1L);
+        detail.setId(1);
 
         var result = new FrequentlyAskedQuestionFindResponse();
         result.setFrequentlyAskedQuestion(detail);

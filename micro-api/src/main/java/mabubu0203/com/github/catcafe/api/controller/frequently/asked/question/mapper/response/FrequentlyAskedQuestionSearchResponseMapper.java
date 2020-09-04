@@ -14,7 +14,7 @@ public class FrequentlyAskedQuestionSearchResponseMapper implements SearchRespon
 
     private FrequentlyAskedQuestionSearchResponse search() {
         var detail = new FrequentlyAskedQuestionDetail();
-        detail.setId(1L);
+        detail.setId(1);
 
         var result = new FrequentlyAskedQuestionSearchResponse();
         result.addFrequentlyAskedQuestionsItem(detail);

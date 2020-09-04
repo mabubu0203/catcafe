@@ -30,7 +30,7 @@
         "id": {
           "description": "店舗ID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }

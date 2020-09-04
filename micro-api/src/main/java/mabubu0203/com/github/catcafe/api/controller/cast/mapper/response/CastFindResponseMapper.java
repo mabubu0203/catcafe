@@ -14,7 +14,7 @@ public class CastFindResponseMapper implements FindResponseMapper<CastSearchServ
 
     private CastFindResponse search() {
         var detail = new CastDetail();
-        detail.setId(1L);
+        detail.setId(1);
 
         var result = new CastFindResponse();
         result.setCast(detail);

@@ -89,7 +89,7 @@ public class CastApiController implements CastApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, Integer size) {
         return new CastSearchRequestMapper(cats, storeIds)
                 .get()
                 .map(this.searchService::promise)

@@ -30,7 +30,7 @@
         "id": {
           "description": "表示メニューID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }

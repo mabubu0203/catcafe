@@ -30,7 +30,50 @@
         "id": {
           "description": "FAQID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
+        },
+        "store_id": {
+          "description": "店舗ID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "category": {
+          "description": "お問い合わせカテゴリー",
+          "type": "string"
+        },
+        "question": {
+          "$ref": "#/model/question"
+        },
+        "answer": {
+          "$ref": "#/model/answer"
+        }
+      }
+    },
+    "question": {
+      "description": "質問",
+      "type": "object",
+      "properties": {
+        "summary": {
+          "description": "質問概要",
+          "type": "string"
+        },
+        "details": {
+          "description": "質問詳細",
+          "type": "string"
+        }
+      }
+    },
+    "answer": {
+      "description": "回答",
+      "type": "object",
+      "properties": {
+        "summary": {
+          "description": "回答概要",
+          "type": "string"
+        },
+        "details": {
+          "description": "回答詳細",
+          "type": "string"
         }
       }
     }

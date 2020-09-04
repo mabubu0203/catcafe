@@ -30,7 +30,70 @@
         "id": {
           "description": "キャストID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
+        },
+        "store_id": {
+          "description": "店舗ID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "cat": {
+          "$ref": "#/model/cat"
+        }
+      }
+    },
+    "cat": {
+      "description": "猫詳細",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "キャスト名前",
+          "type": "string"
+        },
+        "type": {
+          "description": "種類",
+          "type": "string"
+        },
+        "sex": {
+          "description": "性別",
+          "type": "string"
+        },
+        "birthday_date": {
+          "description": "誕生日",
+          "type": "string",
+          "format": "date"
+        },
+        "like": {
+          "description": "好きなこと",
+          "type": "string"
+        },
+        "dislike": {
+          "description": "嫌いなこと",
+          "type": "string"
+        },
+        "prohibition": {
+          "description": "禁止事項",
+          "type": "string"
+        },
+        "brothers": {
+          "description": "兄弟",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "sisters": {
+          "description": "姉妹",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "memo": {
+          "description": "メモ",
+          "type": "string"
         }
       }
     }

@@ -7,7 +7,7 @@
         "id": {
           "description": "更新で指定されたID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }
