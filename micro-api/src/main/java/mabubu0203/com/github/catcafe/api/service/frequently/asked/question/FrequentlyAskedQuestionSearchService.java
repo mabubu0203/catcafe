@@ -1,11 +1,9 @@
 package mabubu0203.com.github.catcafe.api.service.frequently.asked.question;
 
-import org.openapitools.model.FrequentlyAskedQuestionDetail;
+import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceInput;
+import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceOutput;
+import mabubu0203.com.github.catcafe.common.service.ApplicationService;
 
-import java.util.List;
-
-public interface FrequentlyAskedQuestionSearchService {
-
-    List<FrequentlyAskedQuestionDetail> search();
+public interface FrequentlyAskedQuestionSearchService extends ApplicationService<FrequentlyAskedQuestionSearchServiceInput, FrequentlyAskedQuestionSearchServiceOutput> {
 
 }

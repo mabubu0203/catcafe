@@ -2,24 +2,22 @@ package mabubu0203.com.github.catcafe.api.service.frequently.asked.question.impl
 
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.FrequentlyAskedQuestionSearchService;
+import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceInput;
+import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceOutput;
 import org.openapitools.model.FrequentlyAskedQuestionDetail;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
 public class FrequentlyAskedQuestionSearchServiceImpl implements FrequentlyAskedQuestionSearchService {
 
     @Override
-    public List<FrequentlyAskedQuestionDetail> search() {
-        var resultRest = new ArrayList<FrequentlyAskedQuestionDetail>();
-        var detail = new FrequentlyAskedQuestionDetail();
-        detail.setId(1L);
-        resultRest.add(detail);
-
-        return resultRest;
+    public CompletableFuture<FrequentlyAskedQuestionSearchServiceOutput> promise(FrequentlyAskedQuestionSearchServiceInput input) {
+        return CompletableFuture.completedFuture(new FrequentlyAskedQuestionSearchServiceOutput());
     }
 
 }
