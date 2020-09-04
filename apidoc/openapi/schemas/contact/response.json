@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "contact_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/contact_detail"
+          }
+        }
+      }
+    },
+    "contact_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "#/model/contact_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "contact_detail": {
       "description": "お問い合わせ詳細",
       "type": "object",

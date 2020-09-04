@@ -26,12 +26,12 @@ public class NoticeApiController implements NoticeApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<NoticeDetail>> noticeFind(String cats, Integer noticeId) {
+    public CompletableFuture<ResponseEntity<NoticeFindResponse>> noticeFind(String cats, Integer noticeId) {
         return null;
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<List<NoticeDetail>>> noticeSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<NoticeSearchResponse>> noticeSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 

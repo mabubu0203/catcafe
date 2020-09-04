@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "store_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/store_detail"
+          }
+        }
+      }
+    },
+    "store_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "#/model/store_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "store_detail": {
       "description": "店舗詳細",
       "type": "object",

@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "notice_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "notices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/notice_detail"
+          }
+        }
+      }
+    },
+    "notice_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "notice": {
+          "$ref": "#/model/notice_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "notice_detail": {
       "description": "お知らせ詳細",
       "type": "object",

@@ -178,10 +178,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
-                  }
+                  "$ref": "./schemas/notice/response.json#/definitions/notice_search_response"
                 }
               }
             }
@@ -242,7 +239,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
+                  "$ref": "./schemas/notice/response.json#/definitions/notice_find_response"
                 }
               }
             }
@@ -451,10 +448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/store/response.json#/definitions/store_detail"
-                  }
+                  "$ref": "./schemas/store/response.json#/definitions/store_search_response"
                 }
               }
             }
@@ -515,7 +509,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/store/response.json#/definitions/store_detail"
+                  "$ref": "./schemas/store/response.json#/definitions/store_find_response"
                 }
               }
             }
@@ -724,10 +718,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
-                  }
+                  "$ref": "./schemas/contact/response.json#/definitions/contact_search_response"
                 }
               }
             }
@@ -788,7 +779,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
+                  "$ref": "./schemas/contact/response.json#/definitions/contact_find_response"
                 }
               }
             }
