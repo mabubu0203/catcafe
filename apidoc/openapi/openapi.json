@@ -1989,10 +1989,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
-                  }
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_search_response"
                 }
               }
             }
@@ -2135,7 +2132,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_find_response"
                 }
               }
             }
