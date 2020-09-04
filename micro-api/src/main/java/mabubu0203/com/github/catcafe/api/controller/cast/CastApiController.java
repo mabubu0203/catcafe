@@ -5,8 +5,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.service.cast.CastSearchService;
 import org.openapitools.api.CastApi;
 import org.openapitools.model.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +20,8 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequiredArgsConstructor
 public class CastApiController implements CastApi {
+
+    private final CastSearchService searchService;
 
     @Operation(
             tags = {"cast",},
@@ -78,7 +82,7 @@ public class CastApiController implements CastApi {
     )
     @Override
     public CompletableFuture<ResponseEntity<List<CastDetail>>> castSearch(String cats, @Valid List<Integer> storeIds) {
-        return null;
+        return CompletableFuture.completedFuture(new ResponseEntity<>(searchService.search(), HttpStatus.OK));
     }
 
     @Operation(
