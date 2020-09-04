@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api.controller.cast;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -77,7 +78,7 @@ public class CastApiController implements CastApi {
             operationId = "castSearch",
             responses = {
                     @ApiResponse(responseCode = "200", description = "正常系"),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ValidationResult.class)))),
             }
     )
     @Override

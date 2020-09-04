@@ -15,9 +15,9 @@ public class CastSearchServiceImpl implements CastSearchService {
     @Override
     public List<CastDetail> search() {
         var resultRest = new ArrayList<CastDetail>();
-        var castDetail = new CastDetail();
-        castDetail.setId(1L);
-        resultRest.add(castDetail);
+        var detail = new CastDetail();
+        detail.setId(1L);
+        resultRest.add(detail);
 
         return resultRest;
     }
