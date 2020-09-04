@@ -26,12 +26,12 @@ public class StoreApiController implements StoreApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<StoreDetail>> storeFind(String cats, Integer storeId) {
+    public CompletableFuture<ResponseEntity<StoreFindResponse>> storeFind(String cats, Integer storeId) {
         return null;
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<List<StoreDetail>>> storeSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<StoreSearchResponse>> storeSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 

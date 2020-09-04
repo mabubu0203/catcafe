@@ -3,24 +3,22 @@ package mabubu0203.com.github.catcafe.api.controller.cast.mapper.response;
 import mabubu0203.com.github.catcafe.api.service.cast.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.CastDetail;
+import org.openapitools.model.CastSearchResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CastSearchResponseMapper implements SearchResponseMapper<CastSearchServiceOutput, List<CastDetail>> {
+public class CastSearchResponseMapper implements SearchResponseMapper<CastSearchServiceOutput, CastSearchResponse> {
 
     @Override
-    public List<CastDetail> apply(CastSearchServiceOutput castSearchServiceOutput) {
+    public CastSearchResponse apply(CastSearchServiceOutput castSearchServiceOutput) {
         return this.search();
     }
 
-    private List<CastDetail> search() {
-        var resultRest = new ArrayList<CastDetail>();
+    private CastSearchResponse search() {
         var detail = new CastDetail();
-        detail.setId(1L);
-        resultRest.add(detail);
+        detail.setId(1);
 
-        return resultRest;
+        var result = new CastSearchResponse();
+        result.addCastsItem(detail);
+        return result;
     }
 
 }

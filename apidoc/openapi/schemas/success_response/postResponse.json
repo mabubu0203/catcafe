@@ -7,7 +7,7 @@
         "id": {
           "description": "登録で採番されたID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }

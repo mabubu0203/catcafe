@@ -26,12 +26,12 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<ProvideServiceDetail>> provideServiceFind(String cats, Integer storeId, Integer provideServiceId) {
+    public CompletableFuture<ResponseEntity<ProvideServiceFindResponse>> provideServiceFind(String cats, Integer storeId, Integer provideServiceId) {
         return null;
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<List<ProvideServiceDetail>>> provideServiceSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 

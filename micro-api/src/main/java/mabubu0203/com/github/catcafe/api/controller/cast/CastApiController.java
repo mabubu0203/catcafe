@@ -1,7 +1,6 @@
 package mabubu0203.com.github.catcafe.api.controller.cast;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -65,13 +64,13 @@ public class CastApiController implements CastApi {
             description = "キャスト詳細を1件取得する",
             operationId = "castFind",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastDetail.class))),
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastFindResponse.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<CastDetail>> castFind(String cats, Integer storeId, Integer castId) {
+    public CompletableFuture<ResponseEntity<CastFindResponse>> castFind(String cats, Integer storeId, Integer castId) {
         return new CastFindRequestMapper(cats, storeId, castId)
                 .get()
                 .map(this.searchService::promise)
@@ -85,12 +84,12 @@ public class CastApiController implements CastApi {
             description = "キャストを取得する",
             operationId = "castSearch",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系"),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(array = @ArraySchema(schema = @Schema(implementation = ValidationResult.class)))),
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastSearchResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<List<CastDetail>>> castSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, Integer size) {
         return new CastSearchRequestMapper(cats, storeIds)
                 .get()
                 .map(this.searchService::promise)

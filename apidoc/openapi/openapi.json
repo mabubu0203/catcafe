@@ -170,6 +170,16 @@
                 "format": "int32"
               }
             }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "取得サイズ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -178,10 +188,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
-                  }
+                  "$ref": "./schemas/notice/response.json#/definitions/notice_search_response"
                 }
               }
             }
@@ -242,7 +249,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/notice/response.json#/definitions/notice_detail"
+                  "$ref": "./schemas/notice/response.json#/definitions/notice_find_response"
                 }
               }
             }
@@ -451,10 +458,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/store/response.json#/definitions/store_detail"
-                  }
+                  "$ref": "./schemas/store/response.json#/definitions/store_search_response"
                 }
               }
             }
@@ -515,7 +519,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/store/response.json#/definitions/store_detail"
+                  "$ref": "./schemas/store/response.json#/definitions/store_find_response"
                 }
               }
             }
@@ -724,10 +728,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
-                  }
+                  "$ref": "./schemas/contact/response.json#/definitions/contact_search_response"
                 }
               }
             }
@@ -788,7 +789,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/contact/response.json#/definitions/contact_detail"
+                  "$ref": "./schemas/contact/response.json#/definitions/contact_find_response"
                 }
               }
             }
@@ -919,10 +920,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
-                  }
+                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_search_response"
                 }
               }
             }
@@ -983,7 +981,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
+                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_find_response"
                 }
               }
             }
@@ -1192,10 +1190,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/event/response.json#/definitions/event_detail"
-                  }
+                  "$ref": "./schemas/event/response.json#/definitions/event_search_response"
                 }
               }
             }
@@ -1256,7 +1251,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/event/response.json#/definitions/event_detail"
+                  "$ref": "./schemas/event/response.json#/definitions/event_find_response"
                 }
               }
             }
@@ -1403,10 +1398,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
-                  }
+                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_search_response"
                 }
               }
             }
@@ -1549,7 +1541,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
+                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_find_response"
                 }
               }
             }
@@ -1696,10 +1688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
-                  }
+                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_search_response"
                 }
               }
             }
@@ -1842,7 +1831,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
+                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_find_response"
                 }
               }
             }
@@ -1981,6 +1970,16 @@
                 "format": "int32"
               }
             }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "取得サイズ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -1989,10 +1988,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
-                  }
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_search_response"
                 }
               }
             }
@@ -2135,7 +2131,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_find_response"
                 }
               }
             }

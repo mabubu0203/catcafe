@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "provide_service_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "provide_services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/provide_service_detail"
+          }
+        }
+      }
+    },
+    "provide_service_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "provide_service": {
+          "$ref": "#/model/provide_service_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "provide_service_detail": {
       "description": "提供サービス詳細",
       "type": "object",
@@ -7,7 +30,7 @@
         "id": {
           "description": "提供サービスID",
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         }
       }
     }
