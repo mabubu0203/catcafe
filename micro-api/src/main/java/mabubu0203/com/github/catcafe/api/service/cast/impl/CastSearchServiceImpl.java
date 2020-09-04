@@ -2,24 +2,19 @@ package mabubu0203.com.github.catcafe.api.service.cast.impl;
 
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.service.cast.CastSearchService;
-import org.openapitools.model.CastDetail;
+import mabubu0203.com.github.catcafe.api.service.cast.model.input.CastSearchServiceInput;
+import mabubu0203.com.github.catcafe.api.service.cast.model.output.CastSearchServiceOutput;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
 public class CastSearchServiceImpl implements CastSearchService {
 
     @Override
-    public List<CastDetail> search() {
-        var resultRest = new ArrayList<CastDetail>();
-        var detail = new CastDetail();
-        detail.setId(1L);
-        resultRest.add(detail);
-
-        return resultRest;
+    public CompletableFuture<CastSearchServiceOutput> promise(CastSearchServiceInput input) {
+        return CompletableFuture.completedFuture(new CastSearchServiceOutput());
     }
 
 }

@@ -2,13 +2,13 @@ package mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.m
 
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.model.FrequentlyAskedQuestionSearchServiceInput;
+import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
-public class FrequentlyAskedQuestionSearchRequestMapper implements Supplier<Optional<FrequentlyAskedQuestionSearchServiceInput>> {
+public class FrequentlyAskedQuestionSearchRequestMapper implements SearchRequestMapper<FrequentlyAskedQuestionSearchServiceInput> {
 
     private final String cats;
     private final List<Integer> storeIds;
