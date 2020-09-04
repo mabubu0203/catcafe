@@ -22,25 +22,23 @@
         <p>※ Click the header if you want to sort.</p>
     </div>
 
-    <script>
-        import axios from 'axios'
-        export default {
-            onBeforeMount(props, state) {
-                this.getCasts();
-            },
-            async getCasts() {
-                this.url = `http://localhost:9001/CatCafeApi/cats/provide_services`
-                axios
-                    .get(`${this.url}`)
-                    .then(function (response) {
-                        this.casts = response.data
-                        this.update();
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    });
-            }
-        }
+    <script type="ts">
+        import {AxiosResponse} from "axios";
+        import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
+        import {CastApi} from "../../axios-front/api/cast-api";
+        import userEnv from 'userEnv';
+
+        let client: CastApi = new CastApi({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+        });
+        client.castSearch('cats', [0], 10)
+            .then((res: AxiosResponse<CastSearchResponse>) => {
+                let cast: CastSearchResponse = res.data
+                console.log(cast.casts);
+            })
+            .catch((error: any) => {
+                console.log(error);
+            });
     </script>
 
 </cast-list>
