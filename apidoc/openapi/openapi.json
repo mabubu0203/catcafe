@@ -1667,6 +1667,299 @@
           }
         }
       }
+    },
+    "/{cats}/casts": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト一覧取得API",
+        "description": "キャストを取得する",
+        "operationId": "castSearch",
+        "parameters": [
+          {
+            "name": "store_ids",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/stores/{store_id}/cast": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "店舗ID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト登録API",
+        "description": "キャストを1件登録する",
+        "operationId": "castCreate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/cast/request.json#/definitions/cast_create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/stores/{store_id}/casts/{cast_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "store_id",
+          "in": "path",
+          "description": "店舗ID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        {
+          "name": "cast_id",
+          "in": "path",
+          "description": "キャストID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト詳細取得API",
+        "description": "キャスト詳細を1件取得する",
+        "operationId": "castFind",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_detail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト更新API",
+        "description": "キャストを1件更新する",
+        "operationId": "castUpdate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/cast/request.json#/definitions/cast_update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト削除API",
+        "description": "キャストを1件論理削除する",
+        "operationId": "castDelete",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
     }
   }
 }

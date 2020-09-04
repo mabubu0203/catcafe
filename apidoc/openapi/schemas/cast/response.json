@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "cast_detail": {
+      "description": "キャスト詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "キャストID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

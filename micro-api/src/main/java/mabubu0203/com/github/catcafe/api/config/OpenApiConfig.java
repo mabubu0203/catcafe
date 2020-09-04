@@ -17,6 +17,18 @@ public class OpenApiConfig {
     }
 
     @Bean
+    public GroupedOpenApi castApi() {
+        String[] paths = {
+                "/{cats}/casts",
+                "/{cats}/stores/{store_id}/cast",
+                "/{cats}/stores/{store_id}/casts/{cast_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("cast")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
     public GroupedOpenApi contactApi() {
         String[] paths = {
                 "/{cats}/contact",
