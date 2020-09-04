@@ -6,6 +6,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper.request.FrequentlyAskedQuestionFindRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper.request.FrequentlyAskedQuestionSearchRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper.response.FrequentlyAskedQuestionFindResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.mapper.response.FrequentlyAskedQuestionSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.service.frequently.asked.question.FrequentlyAskedQuestionSearchService;
 import org.openapitools.api.FrequentlyAskedQuestionApi;
 import org.openapitools.model.*;
@@ -68,7 +72,11 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
     )
     @Override
     public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionDetail>> frequentlyAskedQuestionFind(String cats, Integer faqId) {
-        return null;
+        return new FrequentlyAskedQuestionFindRequestMapper(cats, faqId)
+                .get()
+                .map(this.searchService::promise)
+                .map(result -> result.thenApply(new FrequentlyAskedQuestionFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(
@@ -83,7 +91,11 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
     )
     @Override
     public CompletableFuture<ResponseEntity<List<FrequentlyAskedQuestionDetail>>> frequentlyAskedQuestionSearch(String cats, @Valid List<Integer> storeIds) {
-        return CompletableFuture.completedFuture(new ResponseEntity<>(searchService.search(), HttpStatus.OK));
+        return new FrequentlyAskedQuestionSearchRequestMapper(cats, storeIds)
+                .get()
+                .map(this.searchService::promise)
+                .map(result -> result.thenApply(new FrequentlyAskedQuestionSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(

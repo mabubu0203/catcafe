@@ -6,6 +6,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastFindRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastSearchRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastFindResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.service.cast.CastSearchService;
 import org.openapitools.api.CastApi;
 import org.openapitools.model.*;
@@ -68,7 +72,11 @@ public class CastApiController implements CastApi {
     )
     @Override
     public CompletableFuture<ResponseEntity<CastDetail>> castFind(String cats, Integer storeId, Integer castId) {
-        return null;
+        return new CastFindRequestMapper(cats, storeId, castId)
+                .get()
+                .map(this.searchService::promise)
+                .map(result -> result.thenApply(new CastFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(
@@ -83,7 +91,11 @@ public class CastApiController implements CastApi {
     )
     @Override
     public CompletableFuture<ResponseEntity<List<CastDetail>>> castSearch(String cats, @Valid List<Integer> storeIds) {
-        return CompletableFuture.completedFuture(new ResponseEntity<>(searchService.search(), HttpStatus.OK));
+        return new CastSearchRequestMapper(cats, storeIds)
+                .get()
+                .map(this.searchService::promise)
+                .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(
