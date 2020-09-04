@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "display_menu_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/display_menu_detail"
+          }
+        }
+      }
+    },
+    "display_menu_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "#/model/display_menu_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "display_menu_detail": {
       "description": "表示メニュー詳細",
       "type": "object",

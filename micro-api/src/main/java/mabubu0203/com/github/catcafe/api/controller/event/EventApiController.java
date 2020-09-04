@@ -26,12 +26,12 @@ public class EventApiController implements EventApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<EventDetail>> eventFind(String cats, Integer eventId) {
+    public CompletableFuture<ResponseEntity<EventFindResponse>> eventFind(String cats, Integer eventId) {
         return null;
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<List<EventDetail>>> eventSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<EventSearchResponse>> eventSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 

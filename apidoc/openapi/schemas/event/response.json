@@ -1,5 +1,28 @@
 {
   "definitions": {
+    "event_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/event_detail"
+          }
+        }
+      }
+    },
+    "event_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "#/model/event_detail"
+        }
+      }
+    }
+  },
+  "model": {
     "event_detail": {
       "description": "イベント詳細",
       "type": "object",

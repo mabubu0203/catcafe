@@ -26,12 +26,12 @@ public class DisplayMenuApiController implements DisplayMenuApi {
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<DisplayMenuDetail>> displayMenuFind(String cats, Integer storeId, Integer displayMenuId) {
+    public CompletableFuture<ResponseEntity<DisplayMenuFindResponse>> displayMenuFind(String cats, Integer storeId, Integer displayMenuId) {
         return null;
     }
 
     @Override
-    public CompletableFuture<ResponseEntity<List<DisplayMenuDetail>>> displayMenuSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<DisplayMenuSearchResponse>> displayMenuSearch(String cats, @Valid List<Integer> storeIds) {
         return null;
     }
 

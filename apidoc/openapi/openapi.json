@@ -1180,10 +1180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/event/response.json#/definitions/event_detail"
-                  }
+                  "$ref": "./schemas/event/response.json#/definitions/event_search_response"
                 }
               }
             }
@@ -1244,7 +1241,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/event/response.json#/definitions/event_detail"
+                  "$ref": "./schemas/event/response.json#/definitions/event_find_response"
                 }
               }
             }
@@ -1391,10 +1388,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
-                  }
+                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_search_response"
                 }
               }
             }
@@ -1537,7 +1531,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_detail"
+                  "$ref": "./schemas/display_menu/response.json#/definitions/display_menu_find_response"
                 }
               }
             }
@@ -1684,10 +1678,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
-                  }
+                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_search_response"
                 }
               }
             }
@@ -1830,7 +1821,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_detail"
+                  "$ref": "./schemas/provide_service/response.json#/definitions/provide_service_find_response"
                 }
               }
             }
