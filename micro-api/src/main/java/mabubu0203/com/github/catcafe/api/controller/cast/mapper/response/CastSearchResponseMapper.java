@@ -5,8 +5,6 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchRes
 import org.openapitools.model.CastDetail;
 import org.openapitools.model.CastSearchResponse;
 
-import java.util.ArrayList;
-
 public class CastSearchResponseMapper implements SearchResponseMapper<CastSearchServiceOutput, CastSearchResponse> {
 
     @Override
@@ -15,13 +13,11 @@ public class CastSearchResponseMapper implements SearchResponseMapper<CastSearch
     }
 
     private CastSearchResponse search() {
-        var resultRest = new ArrayList<CastDetail>();
         var detail = new CastDetail();
         detail.setId(1L);
-        resultRest.add(detail);
 
         var result = new CastSearchResponse();
-        result.setCasts(resultRest);
+        result.addCastsItem(detail);
         return result;
     }
 

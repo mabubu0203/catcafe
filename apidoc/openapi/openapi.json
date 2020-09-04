@@ -919,10 +919,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
-                  }
+                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_search_response"
                 }
               }
             }
@@ -983,7 +980,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_detail"
+                  "$ref": "./schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_find_response"
                 }
               }
             }

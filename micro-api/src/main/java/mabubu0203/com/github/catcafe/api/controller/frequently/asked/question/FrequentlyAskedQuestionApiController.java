@@ -1,7 +1,6 @@
 package mabubu0203.com.github.catcafe.api.controller.frequently.asked.question;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -65,13 +64,13 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             description = "FAQ詳細を1件取得する",
             operationId = "frequentlyAskedQuestionFind",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionDetail.class))),
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionFindResponse.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionDetail>> frequentlyAskedQuestionFind(String cats, Integer faqId) {
+    public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionFindResponse>> frequentlyAskedQuestionFind(String cats, Integer faqId) {
         return new FrequentlyAskedQuestionFindRequestMapper(cats, faqId)
                 .get()
                 .map(this.searchService::promise)
@@ -85,12 +84,12 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             description = "FAQを取得する",
             operationId = "frequentlyAskedQuestionSearch",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(array = @ArraySchema(schema = @Schema(implementation = FrequentlyAskedQuestionDetail.class)))),
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionSearchResponse.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<List<FrequentlyAskedQuestionDetail>>> frequentlyAskedQuestionSearch(String cats, @Valid List<Integer> storeIds) {
+    public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionSearchResponse>> frequentlyAskedQuestionSearch(String cats, @Valid List<Integer> storeIds) {
         return new FrequentlyAskedQuestionSearchRequestMapper(cats, storeIds)
                 .get()
                 .map(this.searchService::promise)
