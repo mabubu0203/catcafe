@@ -1082,6 +1082,279 @@
         }
       }
     },
+    "/{cats}/event": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "event"
+        ],
+        "summary": "イベント登録API",
+        "description": "イベントを1件登録する",
+        "operationId": "eventCreate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/event/request.json#/definitions/event_create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/events": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "event"
+        ],
+        "summary": "イベント一覧取得API",
+        "description": "イベントを取得する",
+        "operationId": "eventSearch",
+        "parameters": [
+          {
+            "name": "store_ids",
+            "in": "query",
+            "description": "店舗ID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./schemas/event/response.json#/definitions/event_detail"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/events/{event_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "event_id",
+          "in": "path",
+          "description": "イベントID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "event"
+        ],
+        "summary": "イベント詳細取得API",
+        "description": "イベント詳細を1件取得する",
+        "operationId": "eventFind",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/event/response.json#/definitions/event_detail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "event"
+        ],
+        "summary": "イベント更新API",
+        "description": "イベントを1件更新する",
+        "operationId": "eventUpdate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/event/request.json#/definitions/event_update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "event"
+        ],
+        "summary": "イベント削除API",
+        "description": "イベントを1件論理削除する",
+        "operationId": "eventDelete",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
+    },
     "/{cats}/display_menus": {
       "summary": "",
       "description": "",

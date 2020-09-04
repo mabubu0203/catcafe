@@ -1,0 +1,15 @@
+{
+  "definitions": {
+    "event_detail": {
+      "description": "イベント詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "イベントID",
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

@@ -53,6 +53,18 @@ public class OpenApiConfig {
     }
 
     @Bean
+    public GroupedOpenApi eventApi() {
+        String[] paths = {
+                "/{cats}/event",
+                "/{cats}/events",
+                "/{cats}/events/{event_id}"};
+        return GroupedOpenApi.builder()
+                .setGroup("event")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
     public GroupedOpenApi frequentlyAskedQuestionApi() {
         String[] paths = {
                 "/{cats}/frequently_asked_question",
