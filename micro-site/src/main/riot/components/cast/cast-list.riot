@@ -6,16 +6,18 @@
                 class="ui sortable celled table" data={ casts } default-sort-field="age" nulls-first={ true }>
             <thead>
             <tr>
+                <th is="su-th" field="id">ID</th>
                 <th is="su-th" field="name">NAME</th>
                 <th is="su-th" field="age">AGE</th>
                 <th is="su-th" field="gender">GENDER</th>
             </tr>
             </thead>
             <tbody>
-            <tr each="{ item in casts }">
-                <td>{ item.name }</td>
-                <td>{ item.age }</td>
-                <td>{ item.gender }</td>
+            <tr each="{ cast in casts }">
+                <td>{ cast.id }</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             </tbody>
         </table>
@@ -25,20 +27,31 @@
     <script type="ts">
         import {AxiosResponse} from "axios";
         import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
+        import {CastDetail} from "../../axios-front/model/cast-detail";
         import {CastApi} from "../../axios-front/api/cast-api";
         import userEnv from 'userEnv';
 
-        let client: CastApi = new CastApi({
-            basePath: userEnv.CAT_SITE_API_BASE_PATH,
-        });
-        client.castSearch('cats', [0], 10)
-            .then((res: AxiosResponse<CastSearchResponse>) => {
-                let cast: CastSearchResponse = res.data
-                console.log(cast.casts);
-            })
-            .catch((error: any) => {
-                console.log(error);
-            });
+        export default {
+            onBeforeMount(props, state) {
+                this.castSearch();
+            },
+            async castSearch() {
+                let client: CastApi = new CastApi({
+                    basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                });
+                client.castSearch('cats', [0], 10)
+                    .then((res: AxiosResponse<CastSearchResponse>) => {
+                        let responseBody: CastSearchResponse = res.data
+                        let bodyCasts: Array<CastDetail> = responseBody.casts
+                        this.casts = bodyCasts
+                        this.update()
+                        console.log(this.casts);
+                    })
+                    .catch((error: any) => {
+                        console.log(error);
+                    });
+            }
+        }
     </script>
 
 </cast-list>
