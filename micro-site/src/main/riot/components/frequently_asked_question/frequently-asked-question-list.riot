@@ -1,0 +1,62 @@
+<frequently-asked-question-list>
+    <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
+    <div class="ui segment">
+        <table
+                is="su-table"
+                class="ui sortable celled table"
+                data={ state.frequently_asked_questions }
+                default-sort-field="id"
+                nulls-first={ true }>
+            <thead>
+            <tr>
+                <th is="su-th" field="id">ID</th>
+                <th is="su-th" field="name">NAME2</th>
+                <th is="su-th" field="age">AGE</th>
+                <th is="su-th" field="gender">GENDER</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr each="{ frequently_asked_question in state.frequently_asked_questions }">
+                <td>{ frequently_asked_question.id }</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <p>※ Click the header if you want to sort.</p>
+    </div>
+
+    <script type="ts">
+        import {AxiosResponse} from "axios";
+        import {FrequentlyAskedQuestionSearchResponse} from "../../axios-front/model/frequently-asked-question-search-response";
+        import {FrequentlyAskedQuestionDetail} from "../../axios-front/model/frequently-asked-question-detail";
+        import {FrequentlyAskedQuestionApi} from "../../axios-front/api/frequently-asked-question-api";
+        import userEnv from 'userEnv';
+
+        export default {
+            state: {
+                frequently_asked_questions: null
+            },
+            onBeforeMount(props, state) {
+                this.castSearch();
+            },
+            async castSearch() {
+                let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi({
+                    basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                });
+                client.frequentlyAskedQuestionSearch('cats', [0], 10)
+                    .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {
+                        let responseBody: FrequentlyAskedQuestionSearchResponse = res.data
+                        let bodyCasts: Array<FrequentlyAskedQuestionDetail> = responseBody.frequently_asked_questions
+                        this.state.frequently_asked_questions = bodyCasts
+                        this.update()
+                    })
+                    .catch((error: any) => {
+                        console.log(error);
+                    });
+            }
+        }
+    </script>
+
+</frequently-asked-question-list>

@@ -3,7 +3,10 @@
     <div class="ui segment">
         <table
                 is="su-table"
-                class="ui sortable celled table" data={ casts } default-sort-field="age" nulls-first={ true }>
+                class="ui sortable celled table"
+                data={ state.casts }
+                default-sort-field="id"
+                nulls-first={ true }>
             <thead>
             <tr>
                 <th is="su-th" field="id">ID</th>
@@ -13,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr each="{ cast in casts }">
+            <tr each="{ cast in state.casts }">
                 <td>{ cast.id }</td>
                 <td></td>
                 <td></td>
@@ -32,6 +35,9 @@
         import userEnv from 'userEnv';
 
         export default {
+            state: {
+                casts: null
+            },
             onBeforeMount(props, state) {
                 this.castSearch();
             },
@@ -43,9 +49,8 @@
                     .then((res: AxiosResponse<CastSearchResponse>) => {
                         let responseBody: CastSearchResponse = res.data
                         let bodyCasts: Array<CastDetail> = responseBody.casts
-                        this.casts = bodyCasts
+                        this.state.casts = bodyCasts
                         this.update()
-                        console.log(this.casts);
                     })
                     .catch((error: any) => {
                         console.log(error);
