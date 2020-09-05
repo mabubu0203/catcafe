@@ -14,6 +14,7 @@ import org.openapitools.api.CastApi;
 import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -88,8 +89,9 @@ public class CastApiController implements CastApi {
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
+    @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, Integer size) {
+    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, @Valid Integer size) {
         return new CastSearchRequestMapper(cats, storeIds)
                 .get()
                 .map(this.searchService::promise)

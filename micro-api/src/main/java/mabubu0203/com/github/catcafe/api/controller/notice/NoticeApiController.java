@@ -83,7 +83,7 @@ public class NoticeApiController implements NoticeApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<NoticeSearchResponse>> noticeSearch(String cats, @Valid List<Integer> storeIds, Integer size) {
+    public CompletableFuture<ResponseEntity<NoticeSearchResponse>> noticeSearch(String cats, @Valid List<Integer> storeIds, @Valid Integer size) {
         return new NoticeSearchRequestMapper(cats, storeIds)
                 .get()
                 .map(this.searchService::promise)

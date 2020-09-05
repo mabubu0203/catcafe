@@ -3,41 +3,57 @@
     <div class="ui segment">
         <table
                 is="su-table"
-                class="ui sortable celled table" data={ casts } default-sort-field="age" nulls-first={ true }>
+                class="ui sortable celled table"
+                data={ state.casts }
+                default-sort-field="id"
+                nulls-first={ true }>
             <thead>
             <tr>
+                <th is="su-th" field="id">ID</th>
                 <th is="su-th" field="name">NAME</th>
                 <th is="su-th" field="age">AGE</th>
                 <th is="su-th" field="gender">GENDER</th>
             </tr>
             </thead>
             <tbody>
-            <tr each="{ item in casts }">
-                <td>{ item.name }</td>
-                <td>{ item.age }</td>
-                <td>{ item.gender }</td>
+            <tr each="{ cast in state.casts }">
+                <td>{ cast.id }</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             </tbody>
         </table>
         <p>※ Click the header if you want to sort.</p>
     </div>
 
-    <script>
-        import axios from 'axios'
+    <script type="ts">
+        import {AxiosResponse} from "axios";
+        import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
+        import {CastDetail} from "../../axios-front/model/cast-detail";
+        import {CastApi} from "../../axios-front/api/cast-api";
+        import userEnv from 'userEnv';
+
         export default {
-            onBeforeMount(props, state) {
-                this.getCasts();
+            state: {
+                casts: null
             },
-            async getCasts() {
-                this.url = `http://localhost:9001/CatCafeApi/cats/provide_services`
-                axios
-                    .get(`${this.url}`)
-                    .then(function (response) {
-                        this.casts = response.data
-                        this.update();
+            onBeforeMount(props, state) {
+                this.castSearch();
+            },
+            async castSearch() {
+                let client: CastApi = new CastApi({
+                    basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                });
+                client.castSearch('cats', [0], 10)
+                    .then((res: AxiosResponse<CastSearchResponse>) => {
+                        let responseBody: CastSearchResponse = res.data
+                        let bodyCasts: Array<CastDetail> = responseBody.casts
+                        this.state.casts = bodyCasts
+                        this.update()
                     })
-                    .catch(function (error) {
-                        console.log(error)
+                    .catch((error: any) => {
+                        console.log(error);
                     });
             }
         }

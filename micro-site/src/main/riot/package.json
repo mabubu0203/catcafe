@@ -5,22 +5,33 @@
   "repository": {},
   "license": "",
   "dependencies": {
-    "riot": "^4.13.5",
+    "riot": "^4.14.0",
     "@riotjs/compiler": "^4.10.1",
     "@riotjs/hot-reload": "^4.0.1",
     "@riotjs/lazy": "^1.0.1",
     "@riotjs/observable": "^4.0.4",
-    "@riotjs/route": "^5.3.3",
-    "@riotjs/webpack-loader": "^4.0.3",
+    "@riotjs/route": "5.3.3",
+    "@riotjs/webpack-loader": "4.0.3",
     "axios": "^0.20.0",
+    "ts-loader": "8.0.3",
+    "typescript": "^3.9.7",
     "semantic-ui-riot": "^2.2.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^1.0.18-4.3.1"
+  },
   "scripts": {
     "webpack": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --inline --watch --hot --colors -d --port 3000"
-  }
+    "start": "NODE_ENV=development webpack-dev-server --inline --watch --hot --colors -d --port 3000 --mode development",
+    "validate-schema": "openapi-generator validate -i ../../../../apidoc/openapi/openapi.json",
+    "generate-client": "openapi-generator generate -i ../../../../apidoc/openapi/openapi.json -o ./axios-front --api-package=api -g typescript-axios -c ./axios-front/openapi-generator-config.json --model-package=model"
+  },
+  "keywords": [
+    "riot",
+    "typescript"
+  ]
 }

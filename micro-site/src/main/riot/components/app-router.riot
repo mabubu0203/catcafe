@@ -7,7 +7,7 @@
         <store-detail/>
     </route>
     <route path="/provide_services">
-        <provide_service-list/>
+        <provide-service-list/>
     </route>
     <route path="/casts">
         <cast-list/>
@@ -19,10 +19,10 @@
         <congestion-detail/>
     </route>
     <route path="/frequently_asked_questions">
-        <frequently_asked_question-list/>
+        <frequently-asked-question-list/>
     </route>
     <route path="/frequently_asked_questions/:id">
-        <frequently_asked_question-detail/>
+        <frequently-asked-question-detail/>
     </route>
     <route path="/404">
         <not-found/>
@@ -33,14 +33,14 @@
 
     <script>
         import {router} from '@riotjs/route'
-        import Welcome from './welcome.riot'
-        import StoreDetail from './store/store-detail.riot'
-        import ProvideServiceList from './provide_service/provide_service-list.riot'
-        import CastList from './cast/cast-list.riot'
-        import CastDetail from './cast/cast-detail.riot'
-        import CongestionDetail from './congestion/congestion-detail.riot'
-        import FrequentlyAskedQuestionList from './frequently_asked_question/frequently_asked_question-list.riot'
-        import FrequentlyAskedQuestionDetail from './frequently_asked_question/frequently_asked_question-detail.riot'
+        import Welcome from './welcome'
+        import StoreDetail from './store/store-detail'
+        import ProvideServiceList from './provide_service/provide-service-list'
+        import CastList from './cast/cast-list'
+        import CastDetail from './cast/cast-detail'
+        import CongestionDetail from './congestion/congestion-detail'
+        import FrequentlyAskedQuestionList from './frequently_asked_question/frequently-asked-question-list'
+        import FrequentlyAskedQuestionDetail from './frequently_asked_question/frequently-asked-question-detail'
         import NotFound from './not-found.riot'
 
         const pages = [
