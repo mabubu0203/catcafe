@@ -31,6 +31,71 @@
           "description": "店舗ID",
           "type": "integer",
           "format": "int32"
+        },
+        "name": {
+          "description": "店舗名",
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "#/model/contact"
+        },
+        "address": {
+          "$ref": "#/model/address"
+        },
+        "hours": {
+          "$ref": "#/model/hours"
+        }
+      }
+    },
+    "contact": {
+      "description": "店舗連絡先",
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "description": "電話番号",
+          "type": "string"
+        },
+        "mail_address": {
+          "description": "メールアドレス",
+          "type": "string"
+        }
+      }
+    },
+    "address": {
+      "description": "店舗住所",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "description": "店舗住所(詳細)",
+          "type": "string"
+        },
+        "aside": {
+          "description": "店舗住所(補足)",
+          "type": "string"
+        },
+        "google_map_url": {
+          "description": "店舗住所(google map)",
+          "type": "string"
+        }
+      }
+    },
+    "hours": {
+      "description": "店舗営業時間",
+      "type": "object",
+      "properties": {
+        "opening_time": {
+          "description": "開店時間",
+          "type": "string",
+          "format": "time"
+        },
+        "closing_time": {
+          "description": "閉店時間",
+          "type": "string",
+          "format": "time"
+        },
+        "aside": {
+          "description": "店舗営業時間(補足)",
+          "type": "string"
         }
       }
     }

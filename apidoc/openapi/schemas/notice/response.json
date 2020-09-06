@@ -41,7 +41,7 @@
           "description": "お知らせ概要",
           "type": "string"
         },
-        "details": {
+        "detail": {
           "description": "お知らせ詳細",
           "type": "string"
         },
