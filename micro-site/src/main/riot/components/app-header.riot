@@ -1,9 +1,16 @@
 <app-header>
-    <div class="ui secondary pointing menu">
-        <h4 class="item">
-            最新のお知らせ3件
-        </h4>
-    </div>
+
+    <notice-list></notice-list>
+
+    <script>
+        import NoticeList from './notice/notice-list.riot'
+
+        export default {
+            components: {
+                NoticeList
+            }
+        }
+    </script>
 
     <style>
         .secondary.pointing.menu {

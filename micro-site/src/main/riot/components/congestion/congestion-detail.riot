@@ -2,13 +2,16 @@
     <h2 class="ui teal tag label">Congestion</h2>
     <div class="ui segment">
         <table
+                class="ui sortable celled table"
+                data={ congestion }
+                default-sort-field="age"
                 is="su-table"
-                class="ui sortable celled table" data={ congestion } default-sort-field="age" nulls-first={ true }>
+                nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="name">NAME</th>
-                <th is="su-th" field="age">AGE</th>
-                <th is="su-th" field="gender">GENDER</th>
+                <th field="name" is="su-th">NAME</th>
+                <th field="age" is="su-th">AGE</th>
+                <th field="gender" is="su-th">GENDER</th>
             </tr>
             </thead>
             <tbody>
@@ -25,12 +28,12 @@
     <script>
         export default {
             congestion: [
-                { name: 'John', age: 15, gender: 'Male' },
-                { name: 'Amber', age: 40, gender: 'Female' },
-                { name: 'Leslie', age: 25 },
-                { name: 'Michel', age: 37, gender: 'Male' },
-                { name: 'Nicholas', age: 29, gender: 'neutral' },
-                { name: 'Ben', gender: 'Male' },
+                {name: 'John', age: 15, gender: 'Male'},
+                {name: 'Amber', age: 40, gender: 'Female'},
+                {name: 'Leslie', age: 25},
+                {name: 'Michel', age: 37, gender: 'Male'},
+                {name: 'Nicholas', age: 29, gender: 'neutral'},
+                {name: 'Ben', gender: 'Male'},
             ]
         }
     </script>

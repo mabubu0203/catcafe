@@ -1,21 +1,62 @@
 <notice-list>
-    <h3>{ message }</h3>
+    <div class="ui secondary pointing menu">
+        <h4 class="item">
+            最新のお知らせ3件
+        </h4>
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+    </div>
+    <table
+            class="ui sortable celled table"
+            data={ state.notices }
+            default-sort-field="id"
+            is="su-table"
+            nulls-first={ true }>
+        <tbody>
+        <tr each="{ notice in state.notices }">
+            <td>{ notice.id }</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 
-    <script>
-        export default {
-            message: 'Notice',
-            techs: [
-                {name: 'お知らせ1'},
-                {name: 'お知らせ2'},
-                {name: 'お知らせ3'}
-            ]
+    <script type="ts">
+        import {NoticeListComponent NoticeListComponentProps NoticeListComponentState} from './types'
+        import {AxiosResponse} from "axios";
+        import {NoticeSearchResponse} from "../../axios-front/model/notice-search-response";
+        import {NoticeDetail} from "../../axios-front/model/notice-detail";
+        import {NoticeApi} from "../../axios-front/api/notice-api";
+        import userEnv from 'userEnv';
+
+        function NoticeList(): NoticeListComponent {
+            return {
+                state: {
+                    notices: []
+                },
+                onBeforeMount(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
+                    this.noticeSearch();
+                },
+                async noticeSearch() {
+                    let client: NoticeApi = new NoticeApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                    });
+                    client.noticeSearch('cats', [0])
+                        .then((res: AxiosResponse<NoticeSearchResponse>) => {
+                            let responseBody: NoticeSearchResponse = res.data
+                            let bodyCasts: Array<NoticeDetail> = responseBody.casts
+                            this.update({
+                                notices: bodyCasts
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
+            }
         }
+
+        export default NoticeList
 
     </script>
 

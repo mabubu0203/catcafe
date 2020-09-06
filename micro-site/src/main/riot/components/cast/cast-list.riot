@@ -1,18 +1,33 @@
 <cast-list>
     <h2 class="ui teal tag label">Casts</h2>
     <div class="ui segment">
+        <form onsubmit={ castSearch }>
+            <div class="field">
+                <label>年齢</label>
+                <div class="field">
+                    <input
+                            name="age"
+                            placeholder="3"
+                            type="text"
+                    />
+                </div>
+            </div>
+            <div class="inline field">
+                <button class="ui teal button">検索</button>
+            </div>
+        </form>
         <table
-                is="su-table"
                 class="ui sortable celled table"
                 data={ state.casts }
                 default-sort-field="id"
+                is="su-table"
                 nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="id">ID</th>
-                <th is="su-th" field="name">NAME</th>
-                <th is="su-th" field="age">AGE</th>
-                <th is="su-th" field="gender">GENDER</th>
+                <th field="id" is="su-th">ID</th>
+                <th field="name" is="su-th">NAME</th>
+                <th field="age" is="su-th">AGE</th>
+                <th field="gender" is="su-th">GENDER</th>
             </tr>
             </thead>
             <tbody>
@@ -28,35 +43,41 @@
     </div>
 
     <script type="ts">
+        import {CastListComponent} from './types'
         import {AxiosResponse} from "axios";
         import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
         import {CastDetail} from "../../axios-front/model/cast-detail";
         import {CastApi} from "../../axios-front/api/cast-api";
         import userEnv from 'userEnv';
 
-        export default {
-            state: {
-                casts: null
-            },
-            onBeforeMount(props, state) {
-                this.castSearch();
-            },
-            async castSearch() {
-                let client: CastApi = new CastApi({
-                    basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                });
-                client.castSearch('cats', [0], 10)
-                    .then((res: AxiosResponse<CastSearchResponse>) => {
-                        let responseBody: CastSearchResponse = res.data
-                        let bodyCasts: Array<CastDetail> = responseBody.casts
-                        this.state.casts = bodyCasts
-                        this.update()
-                    })
-                    .catch((error: any) => {
-                        console.log(error);
+        function CastList(): CastListComponent {
+            return {
+                state: {
+                    casts: []
+                },
+                async castSearch(e) {
+                    e.preventDefault()
+                    const inputAge = e.target.age.value
+                    let client: CastApi = new CastApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
+                    client.castSearch('cats', [0], 10)
+                        .then((res: AxiosResponse<CastSearchResponse>) => {
+                            let responseBody: CastSearchResponse = res.data
+                            let bodyCasts: Array<CastDetail> = responseBody.casts
+                            this.update({
+                                casts: bodyCasts
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
             }
         }
+
+        export default CastList
+
     </script>
 
 </cast-list>

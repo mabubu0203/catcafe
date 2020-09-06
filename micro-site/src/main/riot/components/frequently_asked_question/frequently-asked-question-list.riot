@@ -1,18 +1,33 @@
 <frequently-asked-question-list>
     <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
     <div class="ui segment">
+        <form onsubmit={ frequentlyAskedQuestionSearch }>
+            <div class="field">
+                <label>カテゴリー</label>
+                <div class="field">
+                    <input
+                            name="category"
+                            placeholder="禁止事項"
+                            type="text"
+                    />
+                </div>
+            </div>
+            <div class="inline field">
+                <button class="ui teal button">検索</button>
+            </div>
+        </form>
         <table
-                is="su-table"
                 class="ui sortable celled table"
                 data={ state.frequently_asked_questions }
                 default-sort-field="id"
+                is="su-table"
                 nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="id">ID</th>
-                <th is="su-th" field="name">NAME2</th>
-                <th is="su-th" field="age">AGE</th>
-                <th is="su-th" field="gender">GENDER</th>
+                <th field="id" is="su-th">ID</th>
+                <th field="name" is="su-th">NAME2</th>
+                <th field="age" is="su-th">AGE</th>
+                <th field="gender" is="su-th">GENDER</th>
             </tr>
             </thead>
             <tbody>
@@ -28,35 +43,41 @@
     </div>
 
     <script type="ts">
+        import {FrequentlyAskedQuestionListComponent} from './types'
         import {AxiosResponse} from "axios";
         import {FrequentlyAskedQuestionSearchResponse} from "../../axios-front/model/frequently-asked-question-search-response";
         import {FrequentlyAskedQuestionDetail} from "../../axios-front/model/frequently-asked-question-detail";
         import {FrequentlyAskedQuestionApi} from "../../axios-front/api/frequently-asked-question-api";
         import userEnv from 'userEnv';
 
-        export default {
-            state: {
-                frequently_asked_questions: null
-            },
-            onBeforeMount(props, state) {
-                this.castSearch();
-            },
-            async castSearch() {
-                let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi({
-                    basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                });
-                client.frequentlyAskedQuestionSearch('cats', [0], 10)
-                    .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {
-                        let responseBody: FrequentlyAskedQuestionSearchResponse = res.data
-                        let bodyCasts: Array<FrequentlyAskedQuestionDetail> = responseBody.frequently_asked_questions
-                        this.state.frequently_asked_questions = bodyCasts
-                        this.update()
-                    })
-                    .catch((error: any) => {
-                        console.log(error);
+        function FrequentlyAskedQuestionList(): FrequentlyAskedQuestionListComponent {
+            return {
+                state: {
+                    frequently_asked_questions: []
+                },
+                async frequentlyAskedQuestionSearch(e) {
+                    e.preventDefault()
+                    const inputAge = e.target.category.value
+                    let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
+                    client.frequentlyAskedQuestionSearch('cats', [0], 10)
+                        .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {
+                            let responseBody: FrequentlyAskedQuestionSearchResponse = res.data
+                            let bodyCasts: Array<FrequentlyAskedQuestionDetail> = responseBody.frequently_asked_questions
+                            this.update({
+                                frequently_asked_questions: bodyCasts
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
             }
         }
+
+        export default FrequentlyAskedQuestionList
+
     </script>
 
 </frequently-asked-question-list>
