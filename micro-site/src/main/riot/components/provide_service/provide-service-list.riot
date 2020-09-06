@@ -1,7 +1,7 @@
 <provide-service-list>
     <h2 class="ui teal tag label">ProvideServices</h2>
     <div class="ui segment">
-        <form onsubmit={ frequentlyAskedQuestionSearch }>
+        <form onsubmit={ provideServiceSearch }>
             <div class="field">
                 <label>価格</label>
                 <div class="field">
@@ -19,23 +19,18 @@
         <table
                 class="ui sortable celled table"
                 data={ state.provide_services }
-                default-sort-field="age"
                 is="su-table"
                 nulls-first={ true }>
             <thead>
             <tr>
                 <th field="id" is="su-th">ID</th>
-                <th field="name" is="su-th">NAME</th>
-                <th field="age" is="su-th">AGE</th>
-                <th field="gender" is="su-th">GENDER</th>
+                <th field="name" is="su-th">Name</th>
             </tr>
             </thead>
             <tbody>
             <tr each="{ provide_service in state.provide_services }">
                 <td>{ provide_service.id }</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{ provide_service.name }</td>
             </tr>
             </tbody>
         </table>
@@ -57,16 +52,16 @@
                 },
                 async provideServiceSearch(e) {
                     e.preventDefault()
-                    const inputAge = e.target.category.value
+                    const inputPrice = e.target.price.value
                     let client: ProvideServiceApi = new ProvideServiceApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
-                    client.provideServiceSearch('cats', [0], 10)
+                    client.provideServiceSearch('cats', [0])
                         .then((res: AxiosResponse<ProvideServiceSearchResponse>) => {
                             let responseBody: ProvideServiceSearchResponse = res.data
-                            let bodyCasts: Array<ProvideServiceDetail> = responseBody.provide_services
+                            let bodyProvideServices: Array<ProvideServiceDetail> = responseBody.provide_services
                             this.update({
-                                frequently_asked_questions: bodyCasts
+                                provide_services: bodyProvideServices
                             })
                         })
                         .catch((error: any) => {

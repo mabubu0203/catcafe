@@ -8,21 +8,19 @@
     <table
             class="ui sortable celled table"
             data={ state.notices }
-            default-sort-field="id"
-            is="su-table"
-            nulls-first={ true }>
+            is="su-table">
         <tbody>
         <tr each="{ notice in state.notices }">
             <td>{ notice.id }</td>
-            <td></td>
-            <td></td>
+            <td>{ notice.summary }</td>
+            <td>{ notice.detail }</td>
             <td></td>
         </tr>
         </tbody>
     </table>
 
     <script type="ts">
-        import {NoticeListComponent NoticeListComponentProps NoticeListComponentState} from './types'
+        import {NoticeListComponent, NoticeListComponentProps, NoticeListComponentState} from './types'
         import {AxiosResponse} from "axios";
         import {NoticeSearchResponse} from "../../axios-front/model/notice-search-response";
         import {NoticeDetail} from "../../axios-front/model/notice-detail";
@@ -37,14 +35,17 @@
                 onBeforeMount(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
                     this.noticeSearch();
                 },
+                onMounted(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
+                    this.noticeSearch();
+                },
                 async noticeSearch() {
                     let client: NoticeApi = new NoticeApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
-                    client.noticeSearch('cats', [0])
+                    client.noticeSearch('cats', [0], 10)
                         .then((res: AxiosResponse<NoticeSearchResponse>) => {
                             let responseBody: NoticeSearchResponse = res.data
-                            let bodyCasts: Array<NoticeDetail> = responseBody.casts
+                            let bodyCasts: Array<NoticeDetail> = responseBody.notices
                             this.update({
                                 notices: bodyCasts
                             })

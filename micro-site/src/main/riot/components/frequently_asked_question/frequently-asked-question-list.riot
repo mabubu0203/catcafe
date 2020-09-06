@@ -25,7 +25,7 @@
             <thead>
             <tr>
                 <th field="id" is="su-th">ID</th>
-                <th field="name" is="su-th">NAME2</th>
+                <th field="category" is="su-th">Category</th>
                 <th field="age" is="su-th">AGE</th>
                 <th field="gender" is="su-th">GENDER</th>
             </tr>
@@ -33,6 +33,7 @@
             <tbody>
             <tr each="{ frequently_asked_question in state.frequently_asked_questions }">
                 <td>{ frequently_asked_question.id }</td>
+                <td>{ frequently_asked_question.category }</td>
                 <td></td>
                 <td></td>
                 <td></td>

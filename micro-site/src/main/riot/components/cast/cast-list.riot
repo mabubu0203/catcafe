@@ -25,17 +25,17 @@
             <thead>
             <tr>
                 <th field="id" is="su-th">ID</th>
-                <th field="name" is="su-th">NAME</th>
-                <th field="age" is="su-th">AGE</th>
-                <th field="gender" is="su-th">GENDER</th>
+                <th field="employment_status" is="su-th">雇用ステータス</th>
+                <th field="name" is="su-th">Name</th>
+                <th field="memo" is="su-th">Memo</th>
             </tr>
             </thead>
             <tbody>
             <tr each="{ cast in state.casts }">
                 <td>{ cast.id }</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{ cast.employment_status }</td>
+                <td>{ cast.cat_cast.name }</td>
+                <td>{ cast.cat_cast.memo }</td>
             </tr>
             </tbody>
         </table>
