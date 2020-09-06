@@ -15,6 +15,8 @@ public class NoticeSearchResponseMapper implements SearchResponseMapper<NoticeSe
     private NoticeSearchResponse search() {
         var detail = new NoticeDetail();
         detail.setId(1);
+        detail.setSummary("おしらせ1");
+        detail.setDetail("おしらせ1の詳細です。");
 
         var result = new NoticeSearchResponse();
         result.addNoticesItem(detail);

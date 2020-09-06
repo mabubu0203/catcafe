@@ -37,17 +37,35 @@
           "type": "integer",
           "format": "int32"
         },
-        "cat": {
-          "$ref": "#/model/cat"
+        "employment_status": {
+          "description": "雇用形態",
+          "type": "string"
+        },
+        "first_attendance_date": {
+          "description": "初出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "store_memo": {
+          "description": "店舗メモ",
+          "type": "string"
+        },
+        "cat_cast": {
+          "$ref": "#/model/cat_cast"
         }
       }
     },
-    "cat": {
-      "description": "猫詳細",
+    "cat_cast": {
+      "description": "キャスト(猫)詳細",
       "type": "object",
       "properties": {
+        "id": {
+          "description": "キャスト(猫)ID",
+          "type": "integer",
+          "format": "int32"
+        },
         "name": {
-          "description": "キャスト名前",
+          "description": "名前",
           "type": "string"
         },
         "type": {
@@ -92,7 +110,7 @@
           }
         },
         "memo": {
-          "description": "メモ",
+          "description": "キャストメモ",
           "type": "string"
         }
       }

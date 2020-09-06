@@ -15,6 +15,7 @@ public class FrequentlyAskedQuestionSearchResponseMapper implements SearchRespon
     private FrequentlyAskedQuestionSearchResponse search() {
         var detail = new FrequentlyAskedQuestionDetail();
         detail.setId(1);
+        detail.setCategory("料金に関する");
 
         var result = new FrequentlyAskedQuestionSearchResponse();
         result.addFrequentlyAskedQuestionsItem(detail);
