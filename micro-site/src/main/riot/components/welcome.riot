@@ -4,7 +4,7 @@
         <div class="ui form">
             <form onsubmit={ handleSubmit }>
                 <div class="menu">
-                    <su-dropdown name="stores_id" items="{ dropdownItems }"></su-dropdown>
+                    <su-dropdown items="{ dropdownItems }" name="stores_id"></su-dropdown>
                 </div>
                 <div class="inline field">
                     <button class="ui teal button">店舗選択</button>
@@ -16,14 +16,14 @@
     <div class="ui card">
         // お知らせ
         <table
-                is="su-table"
                 class="ui sortable celled table"
                 data={ tableData }
                 default-sort-field="name"
+                is="su-table"
                 nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="name">NAME</th>
+                <th field="name" is="su-th">NAME</th>
             </tr>
             </thead>
             <tbody>
@@ -34,14 +34,14 @@
         </table>
         // イベント
         <table
-                is="su-table"
                 class="ui sortable celled table"
                 data={ tableData }
                 default-sort-field="name"
+                is="su-table"
                 nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="name">NAME</th>
+                <th field="name" is="su-th">NAME</th>
             </tr>
             </thead>
             <tbody>

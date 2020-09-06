@@ -1,25 +1,83 @@
 <provide-service-list>
     <h2 class="ui teal tag label">ProvideServices</h2>
     <div class="ui segment">
+        <form onsubmit={ frequentlyAskedQuestionSearch }>
+            <div class="field">
+                <label>価格</label>
+                <div class="field">
+                    <input
+                            name="price"
+                            placeholder="1000"
+                            type="text"
+                    />
+                </div>
+            </div>
+            <div class="inline field">
+                <button class="ui teal button">検索</button>
+            </div>
+        </form>
         <table
+                class="ui sortable celled table"
+                data={ state.provide_services }
+                default-sort-field="age"
                 is="su-table"
-                class="ui sortable celled table" data={ provideServices } default-sort-field="age" nulls-first={ true }>
+                nulls-first={ true }>
             <thead>
             <tr>
-                <th is="su-th" field="name">NAME</th>
-                <th is="su-th" field="age">AGE</th>
-                <th is="su-th" field="gender">GENDER</th>
+                <th field="id" is="su-th">ID</th>
+                <th field="name" is="su-th">NAME</th>
+                <th field="age" is="su-th">AGE</th>
+                <th field="gender" is="su-th">GENDER</th>
             </tr>
             </thead>
             <tbody>
-            <tr each="{ item in provideServices }">
-                <td>{ item.name }</td>
-                <td>{ item.age }</td>
-                <td>{ item.gender }</td>
+            <tr each="{ provide_service in state.provide_services }">
+                <td>{ provide_service.id }</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
             </tbody>
         </table>
         <p>※ Click the header if you want to sort.</p>
     </div>
+
+    <script type="ts">
+        import {ProvideServiceListComponent} from './types'
+        import {AxiosResponse} from "axios";
+        import {ProvideServiceSearchResponse} from "../../axios-front/model/provide-service-search-response";
+        import {ProvideServiceDetail} from "../../axios-front/model/provide-service-detail";
+        import {ProvideServiceApi} from "../../axios-front/api/provide-service-api";
+        import userEnv from 'userEnv';
+
+        function ProvideServiceList(): ProvideServiceListComponent {
+            return {
+                state: {
+                    provide_services: []
+                },
+                async provideServiceSearch(e) {
+                    e.preventDefault()
+                    const inputAge = e.target.category.value
+                    let client: ProvideServiceApi = new ProvideServiceApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                    });
+                    client.provideServiceSearch('cats', [0], 10)
+                        .then((res: AxiosResponse<ProvideServiceSearchResponse>) => {
+                            let responseBody: ProvideServiceSearchResponse = res.data
+                            let bodyCasts: Array<ProvideServiceDetail> = responseBody.provide_services
+                            this.update({
+                                frequently_asked_questions: bodyCasts
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
+            }
+        }
+
+        export default ProvideServiceList
+
+    </script>
 
 </provide-service-list>

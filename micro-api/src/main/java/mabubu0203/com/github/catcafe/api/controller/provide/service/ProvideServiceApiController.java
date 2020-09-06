@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.openapitools.api.ProvideServiceApi;
 import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
         return null;
     }
 
+    @CrossOrigin
     @Override
     public CompletableFuture<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(String cats, @Valid List<Integer> storeIds) {
         return null;

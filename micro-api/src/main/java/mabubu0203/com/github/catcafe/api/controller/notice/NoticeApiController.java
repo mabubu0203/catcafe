@@ -12,6 +12,7 @@ import org.openapitools.api.NoticeApi;
 import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -82,6 +83,7 @@ public class NoticeApiController implements NoticeApi {
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
+    @CrossOrigin
     @Override
     public CompletableFuture<ResponseEntity<NoticeSearchResponse>> noticeSearch(String cats, @Valid List<Integer> storeIds, @Valid Integer size) {
         return new NoticeSearchRequestMapper(cats, storeIds)

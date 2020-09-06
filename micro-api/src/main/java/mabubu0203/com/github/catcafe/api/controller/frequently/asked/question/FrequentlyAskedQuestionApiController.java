@@ -14,6 +14,7 @@ import org.openapitools.api.FrequentlyAskedQuestionApi;
 import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -88,6 +89,7 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
+    @CrossOrigin
     @Override
     public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionSearchResponse>> frequentlyAskedQuestionSearch(String cats, @Valid List<Integer> storeIds) {
         return new FrequentlyAskedQuestionSearchRequestMapper(cats, storeIds)

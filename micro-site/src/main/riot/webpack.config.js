@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const compiler = require('@riotjs/compiler');
 const ts = require('typescript')
 const environment = process.env.NODE_ENV || 'development';
