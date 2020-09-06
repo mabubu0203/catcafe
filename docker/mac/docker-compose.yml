@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    build: ./docker-mysql
+    container_name: docker-mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - "./docker-mysql/init:/docker-entrypoint-initdb.d"
+      - "./docker-mysql/conf/:/etc/mysql/conf.d"
+      - "./docker-mysql/data/:/var/lib/mysql"
+    #    networks:
+    #      - sonarnet
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_pass
+      TZ: "Asia/Tokyo"
+    restart: always
+
+  phpmyadmin:
+    build: ./docker-phpmyadmin
+    container_name: docker-phpmyadmin
+    links:
+      - mysql
+    ports:
+      - 8021:80
+      - 8280:8280
+      - 9000:9000
+    volumes:
+      - "./docker-phpmyadmin/sessions/:/sessions"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    restart: always
