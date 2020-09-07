@@ -10,21 +10,20 @@ public class CastSearchResponseMapper implements SearchResponseMapper<CastSearch
 
     @Override
     public CastSearchResponse apply(CastSearchServiceOutput castSearchServiceOutput) {
-        return this.search();
-    }
-
-    private CastSearchResponse search() {
-        var detail = new CastDetail();
-        detail.setId(1);
-        detail.setStoreMemo("店舗メモ");
-
-        var castCat = new CastCat();
-        castCat.setName("ねこちゃん");
-        castCat.setSex("雄");
-        detail.setCastCat(castCat);
-
         var result = new CastSearchResponse();
-        result.addCastsItem(detail);
+        for (CastSearchServiceOutput.CastObject cast : castSearchServiceOutput.getCasts()) {
+            var detail = new CastDetail();
+            detail.setId(cast.getId());
+            detail.setStoreId(cast.getStoreId());
+
+            var castCatObject = cast.getCastCat();
+
+            var castCat = new CastCat();
+            castCat.setId(castCatObject.getId());
+            castCat.setName(castCatObject.getName());
+            detail.setCastCat(castCat);
+            result.addCastsItem(detail);
+        }
         return result;
     }
 

@@ -32,8 +32,8 @@ public class Cast extends BaseTable {
     @Column(name = "store_id")
     private Integer storeId;
 
-    @Column(name = "cat_cast_id")
-    private Integer catCastId;
+    @Column(name = "cast_cat_id")
+    private Integer castCatId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status")
