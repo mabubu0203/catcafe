@@ -1930,6 +1930,273 @@
         }
       }
     },
+    "/{cats}/cast_cat": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト(猫)登録API",
+        "description": "キャスト(猫)を1件登録する",
+        "operationId": "castCatCreate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/cast/request.json#/definitions/cast_cat_create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/postResponse.json#/definitions/post_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/cast_cats": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト(猫)一覧取得API",
+        "description": "キャスト(猫)を取得する",
+        "operationId": "castCatSearch",
+        "parameters": [
+          {
+            "name": "size",
+            "in": "query",
+            "description": "取得サイズ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_cat_search_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{cats}/cast_cats/{cast_cat_id}": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        },
+        {
+          "name": "cast_cat_id",
+          "in": "path",
+          "description": "キャスト(猫)ID",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト(猫)詳細取得API",
+        "description": "キャスト(猫)詳細を1件取得する",
+        "operationId": "castCatFind",
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/cast/response.json#/definitions/cast_cat_find_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト(猫)更新API",
+        "description": "キャスト(猫)を1件更新する",
+        "operationId": "castCatUpdate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/cast/request.json#/definitions/cast_cat_update"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/success_response/patchResponse.json#/definitions/patch_object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "バリデーションエラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "cast"
+        ],
+        "summary": "キャスト(猫)削除API",
+        "description": "キャスト(猫)を1件論理削除する",
+        "operationId": "castCatDelete",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "description": "バージョンフィールド",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "正常系"
+          },
+          "404": {
+            "description": "Idが見つからない"
+          },
+          "409": {
+            "description": "排他失敗"
+          }
+        }
+      }
+    },
     "/{cats}/casts": {
       "summary": "",
       "description": "",

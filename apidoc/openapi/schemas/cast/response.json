@@ -20,6 +20,27 @@
           "$ref": "#/model/cast_detail"
         }
       }
+    },
+    "cast_cat_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/cast_cat"
+          }
+        }
+      }
+    },
+    "cast_cat_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "#/model/cast_cat"
+        }
+      }
     }
   },
   "model": {
@@ -50,12 +71,12 @@
           "description": "店舗メモ",
           "type": "string"
         },
-        "cat_cast": {
-          "$ref": "#/model/cat_cast"
+        "cast_cat": {
+          "$ref": "#/model/cast_cat"
         }
       }
     },
-    "cat_cast": {
+    "cast_cat": {
       "description": "キャスト(猫)詳細",
       "type": "object",
       "properties": {

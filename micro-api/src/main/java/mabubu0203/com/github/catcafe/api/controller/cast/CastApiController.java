@@ -30,6 +30,85 @@ public class CastApiController implements CastApi {
 
     @Operation(
             tags = {"cast",},
+            summary = "キャスト(猫)登録API",
+            description = "キャスト(猫)を1件登録する",
+            operationId = "castCatCreate",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+            }
+    )
+    @Override
+    public CompletableFuture<ResponseEntity<PostObject>> castCatCreate(String cats, @Valid CastCatCreate castCatCreate) {
+        return null;
+    }
+
+    @Operation(
+            tags = {"cast",},
+            summary = "キャスト(猫)削除API",
+            description = "キャスト(猫)を1件論理削除する",
+            operationId = "castCatDelete",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "正常系"),
+                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
+                    @ApiResponse(responseCode = "409", description = "排他失敗"),
+            }
+    )
+    @Override
+    public CompletableFuture<ResponseEntity<Void>> castCatDelete(String cats, Integer castCatId, @NotNull @Valid Integer version) {
+        return null;
+    }
+
+    @Operation(
+            tags = {"cast",},
+            summary = "キャスト(猫)詳細取得API",
+            description = "キャスト(猫)詳細を1件取得する",
+            operationId = "castCatFind",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatFindResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
+            }
+    )
+    @Override
+    public CompletableFuture<ResponseEntity<CastCatFindResponse>> castCatFind(String cats, Integer castCatId) {
+        return null;
+    }
+
+    @Operation(
+            tags = {"cast",},
+            summary = "キャスト(猫)一覧取得API",
+            description = "キャスト(猫)を取得する",
+            operationId = "castCatSearch",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatSearchResponse.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+            }
+    )
+    @Override
+    public CompletableFuture<ResponseEntity<CastCatSearchResponse>> castCatSearch(String cats, @Valid Integer size) {
+        return null;
+    }
+
+    @Operation(
+            tags = {"cast",},
+            summary = "キャスト(猫)更新API",
+            description = "キャスト(猫)を1件更新する",
+            operationId = "castCatUpdate",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
+                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
+                    @ApiResponse(responseCode = "409", description = "排他失敗"),
+            }
+    )
+    @Override
+    public CompletableFuture<ResponseEntity<PatchObject>> castCatUpdate(String cats, Integer castCatId, @Valid CastCatUpdate castCatUpdate) {
+        return null;
+    }
+
+    @Operation(
+            tags = {"cast",},
             summary = "キャスト登録API",
             description = "キャストを1件登録する",
             operationId = "castCreate",
@@ -115,5 +194,6 @@ public class CastApiController implements CastApi {
     public CompletableFuture<ResponseEntity<PatchObject>> castUpdate(String cats, Integer storeId, Integer castId, @Valid CastUpdate castUpdate) {
         return null;
     }
+
 
 }

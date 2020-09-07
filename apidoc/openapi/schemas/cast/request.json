@@ -1,5 +1,45 @@
 {
   "definitions": {
+    "cast_cat_create": {
+      "description": "postObject",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "キャスト(猫)名",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 128
+        },
+        "brother": {
+          "description": "兄弟",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "sister": {
+          "description": "姉妹",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "cast_cat_update": {
+      "description": "patchObject",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 100
+        }
+      }
+    },
     "cast_create": {
       "description": "postObject",
       "type": "object",
