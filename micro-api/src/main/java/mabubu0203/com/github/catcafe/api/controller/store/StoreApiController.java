@@ -39,4 +39,5 @@ public class StoreApiController implements StoreApi {
     public CompletableFuture<ResponseEntity<PatchObject>> storeUpdate(String cats, Integer storeId, @Valid StoreUpdate storeUpdate) {
         return null;
     }
+
 }

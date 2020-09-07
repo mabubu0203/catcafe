@@ -65,13 +65,13 @@ project(":micro-common") {
 
 project(":micro-domain") {
 	dependencies {
-		api(project(":micro-common"))
+		api(project(":micro-infra"))
 	}
 }
 
 project(":micro-infra") {
 	dependencies {
-		api(project(":micro-infra"))
+		api(project(":micro-common"))
 	}
 }
 

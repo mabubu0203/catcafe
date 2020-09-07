@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS sequence_generator
+(
+    name  VARCHAR(256)     NOT NULL COMMENT 'テーブル名',
+    value INT UNSIGNED NOT NULL COMMENT '採番値'
+) DEFAULT CHARSET = UTF8MB4 COMMENT 'シーケンス採番';
