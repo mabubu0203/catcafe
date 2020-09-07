@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS cast
 (
     id                    INT UNSIGNED        NOT NULL COMMENT 'キャストID',
     store_id              INT UNSIGNED        NOT NULL COMMENT '店舗ID',
-    cat_cast_id           INT UNSIGNED        NOT NULL COMMENT 'キャスト(猫)ID',
+    cast_cat_id           INT UNSIGNED        NOT NULL COMMENT 'キャスト(猫)ID',
     employment_status     ENUM ('main','sub') NOT NULL DEFAULT 'main' COMMENT '雇用ステータス',
     first_attendance_date DATE COMMENT '初出勤日',
     store_memo            VARCHAR(256) COMMENT '店舗メモ',

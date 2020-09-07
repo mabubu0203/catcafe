@@ -6,12 +6,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastCatCreateRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastCreateRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastFindRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.request.CastSearchRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastCatCreateResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastCreateResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastFindResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.mapper.response.CastSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.service.cast.CastCatResisterService;
+import mabubu0203.com.github.catcafe.api.service.cast.CastRegisterService;
 import mabubu0203.com.github.catcafe.api.service.cast.CastSearchService;
 import org.openapitools.api.CastApi;
 import org.openapitools.model.*;
@@ -31,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
 public class CastApiController implements CastApi {
 
     private final CastCatResisterService castCatResisterService;
+    private final CastRegisterService castResisterService;
     private final CastSearchService castSearchService;
 
     @Operation(
@@ -128,7 +132,11 @@ public class CastApiController implements CastApi {
     )
     @Override
     public CompletableFuture<ResponseEntity<PostObject>> castCreate(String cats, Integer storeId, @Valid CastCreate castCreate) {
-        return null;
+        return Optional.of(castCreate)
+                .map(new CastCreateRequestMapper(cats, storeId))
+                .map(this.castResisterService::promise)
+                .map(result -> result.thenApply(new CastCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(
@@ -203,6 +211,5 @@ public class CastApiController implements CastApi {
     public CompletableFuture<ResponseEntity<PatchObject>> castUpdate(String cats, Integer storeId, Integer castId, @Valid CastUpdate castUpdate) {
         return null;
     }
-
 
 }
