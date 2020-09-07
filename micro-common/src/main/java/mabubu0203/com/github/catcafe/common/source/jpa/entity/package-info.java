@@ -1,0 +1,1 @@
+package mabubu0203.com.github.catcafe.common.source.jpa.entity;
