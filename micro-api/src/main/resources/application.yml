@@ -1,10 +1,11 @@
-# ----------------------------------------
-# CORE PROPERTIES
-# ----------------------------------------
 spring:
-  # ----------------------------------------
-  # DEVTOOLS PROPERTIES
-  # ----------------------------------------
+  profiles:
+    active: local
+
+---
+spring:
+  application:
+    name: micro-api
   devtools:
     livereload:
       enabled: true
@@ -20,9 +21,34 @@ spring:
         content:
           enabled: true
           paths: /webjars/swagger-ui/**.*
-# ----------------------------------------
-# WEB PROPERTIES
-# ----------------------------------------
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  datasource:
+    continue-on-error: false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    generate-unique-name: false
+    password: root
+    sql-script-encoding: UTF-8
+    url: jdbc:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
+    username: root
+  h2:
+    console:
+      enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
+        order_inserts: true
+        order_updates: true
+        jdbc:
+          batch_versioned_data: true
+          batch_size: 100
+    show-sql: true
 server:
   port: 9001
   servlet:
@@ -33,9 +59,12 @@ server:
     enabled: false
   tomcat:
     uri-encoding: UTF-8
-# ----------------------------------------
-# ACTUATOR PROPERTIES
-# ----------------------------------------
+logging:
+  level:
+    org:
+      springframework: INFO
+  file:
+    name: micro-api.log
 management:
   endpoint:
     auditevents:
@@ -93,5 +122,4 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
-  version: "0.0.1"
   show-actuator: true
