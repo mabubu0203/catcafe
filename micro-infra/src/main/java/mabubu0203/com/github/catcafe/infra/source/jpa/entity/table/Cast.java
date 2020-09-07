@@ -18,6 +18,14 @@ import javax.persistence.*;
 public class Cast extends BaseTable {
 
     @Id
+    @TableGenerator(
+            name = "SeqGenerator",
+            table = "sequence_generator",
+            pkColumnName = "name",
+            pkColumnValue = "cast.id",
+            valueColumnName = "value"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SeqGenerator")
     @Column(name = "id")
     private Integer id;
 

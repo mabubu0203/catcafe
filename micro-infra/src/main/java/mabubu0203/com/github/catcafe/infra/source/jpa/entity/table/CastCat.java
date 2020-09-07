@@ -6,10 +6,7 @@ import lombok.experimental.Accessors;
 import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Accessors(chain = true)
 @Data
@@ -20,6 +17,14 @@ import javax.persistence.Table;
 public class CastCat extends BaseTable {
 
     @Id
+    @TableGenerator(
+            name = "SeqGenerator",
+            table = "sequence_generator",
+            pkColumnName = "name",
+            pkColumnValue = "cast_cat.id",
+            valueColumnName = "value"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SeqGenerator")
     @Column(name = "id")
     private Integer id;
 

@@ -3,12 +3,15 @@
     "store_create": {
       "description": "postObject",
       "type": "object",
+      "required": [
+        "name"
+      ],
       "properties": {
-        "value": {
-          "description": "",
+        "name": {
+          "description": "店舗名",
           "type": "string",
           "minLength": 0,
-          "maxLength": 100
+          "maxLength": 128
         }
       }
     },
