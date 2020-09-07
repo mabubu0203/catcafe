@@ -6,10 +6,7 @@ import lombok.experimental.Accessors;
 import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalTime;
 
 @Accessors(chain = true)
@@ -21,6 +18,14 @@ import java.time.LocalTime;
 public class Store extends BaseTable {
 
     @Id
+    @TableGenerator(
+            name = "SeqGenerator",
+            table = "sequence_generator",
+            pkColumnName = "name",
+            pkColumnValue = "store.id",
+            valueColumnName = "value"
+    )
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SeqGenerator")
     @Column(name = "id")
     private Integer id;
 
