@@ -2,9 +2,9 @@ package mabubu0203.com.github.catcafe.api.controller.cast.mapper.response;
 
 import mabubu0203.com.github.catcafe.api.service.cast.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
+import org.openapitools.model.CastCat;
 import org.openapitools.model.CastDetail;
 import org.openapitools.model.CastSearchResponse;
-import org.openapitools.model.CatCast;
 
 public class CastSearchResponseMapper implements SearchResponseMapper<CastSearchServiceOutput, CastSearchResponse> {
 
@@ -18,10 +18,10 @@ public class CastSearchResponseMapper implements SearchResponseMapper<CastSearch
         detail.setId(1);
         detail.setStoreMemo("店舗メモ");
 
-        var catCast = new CatCast();
-        catCast.setName("ねこちゃん");
-        catCast.setSex("雄");
-        detail.setCatCast(catCast);
+        var castCat = new CastCat();
+        castCat.setName("ねこちゃん");
+        castCat.setSex("雄");
+        detail.setCastCat(castCat);
 
         var result = new CastSearchResponse();
         result.addCastsItem(detail);

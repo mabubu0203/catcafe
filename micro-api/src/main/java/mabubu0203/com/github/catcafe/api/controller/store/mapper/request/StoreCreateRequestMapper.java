@@ -5,8 +5,6 @@ import mabubu0203.com.github.catcafe.api.service.store.model.input.StoreRegister
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.CreateRequestMapper;
 import org.openapitools.model.StoreCreate;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 public class StoreCreateRequestMapper implements CreateRequestMapper<StoreCreate, StoreRegisterServiceInput> {
 
