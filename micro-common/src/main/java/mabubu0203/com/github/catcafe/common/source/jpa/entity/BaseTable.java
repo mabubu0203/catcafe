@@ -37,19 +37,13 @@ public abstract class BaseTable {
     private Integer version;
 
     @LastModifiedDate
-    @Column(
-            name = "updated_date_time"
-    )
+    @Column(name = "updated_date_time")
     private LocalDateTime updatedDateTime;
 
-    @Column(
-            name = "updated_by"
-    )
+    @Column(name = "updated_by")
     private Integer updatedBy;
 
-    @Column(
-            name = "deleted_date_time"
-    )
+    @Column(name = "deleted_date_time")
     private LocalDateTime deletedDateTime;
 
     @Column(
