@@ -42,7 +42,7 @@
           "type": "string"
         },
         "price": {
-          "description": "価格",
+          "description": "価格(税抜き)",
           "type": "string"
         },
         "detail": {
