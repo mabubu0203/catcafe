@@ -57,7 +57,7 @@
           "description": "質問概要",
           "type": "string"
         },
-        "details": {
+        "detail": {
           "description": "質問詳細",
           "type": "string"
         }
@@ -71,7 +71,7 @@
           "description": "回答概要",
           "type": "string"
         },
-        "details": {
+        "detail": {
           "description": "回答詳細",
           "type": "string"
         }
