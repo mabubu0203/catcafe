@@ -15,7 +15,7 @@ public class CastSearchRequestMapper implements SearchRequestMapper<CastSearchSe
     private final List<Integer> castIds;
     private final Integer page;
     private final Integer size;
-    private final String sortKey;
+    private final List<String> sortKeys;
 
     @Override
     public Optional<CastSearchServiceInput> get() {
@@ -26,7 +26,7 @@ public class CastSearchRequestMapper implements SearchRequestMapper<CastSearchSe
                         .optCastIds(Optional.ofNullable(this.castIds))
                         .optPage(Optional.ofNullable(this.page))
                         .optSize(Optional.ofNullable(this.size))
-                        .optSortKey(Optional.ofNullable(this.sortKey))
+                        .optSortKeys(Optional.ofNullable(this.sortKeys))
                         .build());
     }
 

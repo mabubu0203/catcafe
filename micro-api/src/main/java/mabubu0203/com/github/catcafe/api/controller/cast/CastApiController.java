@@ -1,6 +1,8 @@
 package mabubu0203.com.github.catcafe.api.controller.cast;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -170,7 +172,10 @@ public class CastApiController implements CastApi {
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<CastFindResponse>> castFind(String cats, Integer storeId, Integer castId) {
+    public CompletableFuture<ResponseEntity<CastFindResponse>> castFind(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
+            @Parameter(description = "キャストID", schema = @Schema(type = "integer")) Integer castId) {
         return
                 new CastFindRequestMapper(
                         cats, storeId, castId
@@ -194,12 +199,16 @@ public class CastApiController implements CastApi {
     @CrossOrigin
     @Override
     public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(
-            String cats, @Valid List<Integer> storeIds, @Valid List<Integer> castIds,
-            @Valid Integer page, @Valid @Min(1) @Max(100) Integer size, @Valid String sortKey) {
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Parameter(description = "店舗ID") @Valid List<Integer> storeIds,
+            @Parameter(description = "キャストID") @Valid List<Integer> castIds,
+            @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
+            @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
+            @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys) {
         return
                 new CastSearchRequestMapper(
                         cats, storeIds, castIds,
-                        page, size, sortKey
+                        page, size, sortKeys
                 ).get()
                         .map(this.castSearchService::promise)
                         .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))

@@ -16,6 +16,6 @@ public class CastSearchServiceInput implements ServiceInput {
     private final Optional<List<Integer>> optCastIds;
     private final Optional<Integer> optPage;
     private final Optional<Integer> optSize;
-    private final Optional<String> optSortKey;
+    private final Optional<List<String>> optSortKeys;
 
 }

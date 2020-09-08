@@ -2258,7 +2258,9 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 100
             }
           },
           {
@@ -2270,16 +2272,27 @@
               "type": "integer",
               "format": "int32",
               "minimum": 1,
-              "maximum": 100
+              "maximum": 20
             }
           },
           {
-            "name": "sort_key",
+            "name": "sort_keys",
             "in": "query",
-            "description": "第1ソートキー",
+            "description": "ソートキー",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "array",
+              "items":{
+                "type": "string",
+                "enum": [
+                  "store_id.asc",
+                  "store_id.desc"
+                ],
+                "x-enum-varnames": [
+                  "store_id.asc",
+                  "store_id.desc"
+                ]
+              }
             }
           }
         ],

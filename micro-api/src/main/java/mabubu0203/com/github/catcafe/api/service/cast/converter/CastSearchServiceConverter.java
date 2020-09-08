@@ -14,7 +14,7 @@ public class CastSearchServiceConverter implements Function<CastSearchServiceInp
         condition.setOptCastIds(castSearchServiceInput.getOptCastIds());
         condition.setPage(castSearchServiceInput.getOptPage().orElse(0));
         condition.setSize(castSearchServiceInput.getOptSize().orElse(20));
-        condition.setOptSortKey(castSearchServiceInput.getOptSortKey());
+        condition.setOptSortKeys(castSearchServiceInput.getOptSortKeys());
         return condition;
     }
 

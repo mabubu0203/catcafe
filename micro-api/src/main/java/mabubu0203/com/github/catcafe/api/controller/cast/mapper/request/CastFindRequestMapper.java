@@ -27,7 +27,7 @@ public class CastFindRequestMapper implements FindRequestMapper<CastSearchServic
                         .optCastIds(Optional.of(castIds))
                         .optPage(Optional.empty())
                         .optSize(Optional.empty())
-                        .optSortKey(Optional.empty())
+                        .optSortKeys(Optional.empty())
                         .build());
     }
 

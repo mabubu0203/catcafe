@@ -44,10 +44,16 @@ public class CastRepositoryImpl implements CastRepository {
     }
 
     private List<CastEntity> searchImpl(SearchCondition condition) {
+        var sort = Sort.unsorted();
+        condition.getOptSortKeys()
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(Sort::by).forEach(sort::and);
+
         var pageRequest = PageRequest.of(
                 condition.getPage(),
                 condition.getSize(),
-                condition.getOptSortKey().map(Sort::by).orElse(Sort.unsorted()));
+                sort);
         var specification = Specification
                 .where(this.storeIdInclude(condition.getOptStoreIds().orElseGet(Collections::emptyList)))
                 .and(this.castIdInclude(condition.getOptCastIds().orElseGet(Collections::emptyList)));

@@ -12,6 +12,6 @@ public class SearchCondition {
     private Optional<List<Integer>> optCastIds;
     private Integer page;
     private Integer size;
-    private Optional<String> optSortKey;
+    private Optional<List<String>> optSortKeys;
 
 }
