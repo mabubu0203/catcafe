@@ -29,14 +29,14 @@ public class Cast extends BaseTable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "store_id")
+    @Column(name = "store_id", nullable = false)
     private Integer storeId;
 
-    @Column(name = "cast_cat_id")
+    @Column(name = "cast_cat_id", nullable = false)
     private Integer castCatId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "employment_status")
+    @Column(name = "employment_status", nullable = false)
     private EmploymentStatus employmentStatus = EmploymentStatus.main;
 
     @Getter
