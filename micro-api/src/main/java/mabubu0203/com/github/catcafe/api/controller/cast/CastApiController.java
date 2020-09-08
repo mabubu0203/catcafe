@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -166,14 +168,18 @@ public class CastApiController implements CastApi {
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
             }
     )
+    @CrossOrigin
     @Override
     public CompletableFuture<ResponseEntity<CastFindResponse>> castFind(String cats, Integer storeId, Integer castId) {
-        return new CastFindRequestMapper(cats, storeId, castId)
-                .get()
-                .map(this.castSearchService::promise)
-                .map(result -> result.thenApply(new CastFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+        return
+                new CastFindRequestMapper(
+                        cats, storeId, castId
+                ).get()
+                        .map(this.castSearchService::promise)
+                        .map(result -> result.thenApply(new CastFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
+
 
     @Operation(
             tags = {"cast",},
@@ -187,12 +193,17 @@ public class CastApiController implements CastApi {
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, @Valid List<Integer> castIds, @Valid Integer size) {
-        return new CastSearchRequestMapper(cats, storeIds, castIds, size)
-                .get()
-                .map(this.castSearchService::promise)
-                .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(
+            String cats, @Valid List<Integer> storeIds, @Valid List<Integer> castIds,
+            @Valid Integer page, @Valid @Min(1) @Max(100) Integer size, @Valid String sortKey) {
+        return
+                new CastSearchRequestMapper(
+                        cats, storeIds, castIds,
+                        page, size, sortKey
+                ).get()
+                        .map(this.castSearchService::promise)
+                        .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(

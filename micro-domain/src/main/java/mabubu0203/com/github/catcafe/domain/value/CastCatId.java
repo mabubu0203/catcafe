@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class CastCatId {
 
-    private Integer value;
+    private final Integer value;
 
 }

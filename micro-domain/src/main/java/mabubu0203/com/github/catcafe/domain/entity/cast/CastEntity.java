@@ -2,8 +2,8 @@ package mabubu0203.com.github.catcafe.domain.entity.cast;
 
 import lombok.Builder;
 import lombok.Getter;
-import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
+import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 import java.util.Optional;
 
@@ -11,8 +11,8 @@ import java.util.Optional;
 @Getter
 public class CastEntity {
 
-    private Optional<CastId> castId;
-    private StoreId storeId;
-    private CastCatEntity CastCatEntity;
+    private final Optional<CastId> castId;
+    private final StoreId storeId;
+    private final CastCatEntity CastCatEntity;
 
 }

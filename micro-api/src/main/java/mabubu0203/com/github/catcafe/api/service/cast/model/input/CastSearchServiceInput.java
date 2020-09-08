@@ -12,8 +12,10 @@ import java.util.Optional;
 public class CastSearchServiceInput implements ServiceInput {
 
     private final String cats;
-    private final Optional<List<Integer>> storeIds;
-    private final Optional<List<Integer>> castIds;
-    private final Optional<Integer> size;
+    private final Optional<List<Integer>> optStoreIds;
+    private final Optional<List<Integer>> optCastIds;
+    private final Optional<Integer> optPage;
+    private final Optional<Integer> optSize;
+    private final Optional<String> optSortKey;
 
 }

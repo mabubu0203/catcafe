@@ -8,8 +8,10 @@ import java.util.Optional;
 @Data
 public class SearchCondition {
 
-    private Optional<List<Integer>> storeIds;
-    private Optional<List<Integer>> castIds;
-    private Optional<Integer> size;
+    private Optional<List<Integer>> optStoreIds;
+    private Optional<List<Integer>> optCastIds;
+    private Integer page;
+    private Integer size;
+    private Optional<String> optSortKey;
 
 }

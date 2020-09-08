@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class StoreId {
 
-    private Integer value;
+    private final Integer value;
 
 }

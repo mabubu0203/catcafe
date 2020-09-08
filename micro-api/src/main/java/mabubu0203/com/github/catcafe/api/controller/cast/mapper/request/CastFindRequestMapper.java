@@ -14,20 +14,20 @@ public class CastFindRequestMapper implements FindRequestMapper<CastSearchServic
     private final Integer storeId;
     private final Integer castId;
 
-    private static final Integer FIND_ONE = 1;
-
     @Override
     public Optional<CastSearchServiceInput> get() {
         var storeIds = new ArrayList<Integer>();
         storeIds.add(this.storeId);
         var castIds = new ArrayList<Integer>();
-        castIds.add(castId);
+        castIds.add(this.castId);
         return Optional.of(
                 CastSearchServiceInput.builder()
                         .cats(this.cats)
-                        .storeIds(Optional.of(storeIds))
-                        .castIds(Optional.of(castIds))
-                        .size(Optional.of(FIND_ONE))
+                        .optStoreIds(Optional.of(storeIds))
+                        .optCastIds(Optional.of(castIds))
+                        .optPage(Optional.empty())
+                        .optSize(Optional.empty())
+                        .optSortKey(Optional.empty())
                         .build());
     }
 

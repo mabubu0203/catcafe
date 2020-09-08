@@ -10,7 +10,7 @@ import java.util.Optional;
 @Getter
 public class CastCatEntity {
 
-    private Optional<CastCatId> castCatId;
-    private String name;
+    private final Optional<CastCatId> castCatId;
+    private final String name;
 
 }

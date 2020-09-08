@@ -13,6 +13,7 @@ import mabubu0203.com.github.catcafe.infra.source.jpa.CastSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast_;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
@@ -43,16 +44,20 @@ public class CastRepositoryImpl implements CastRepository {
     }
 
     private List<CastEntity> searchImpl(SearchCondition condition) {
-        var pageRequest = PageRequest.of(0, condition.getSize().orElse(20));
+        var pageRequest = PageRequest.of(
+                condition.getPage(),
+                condition.getSize(),
+                condition.getOptSortKey().map(Sort::by).orElse(Sort.unsorted()));
         var specification = Specification
-                .where(this.storeIdInclude(condition.getStoreIds().orElseGet(Collections::emptyList)))
-                .and(this.castIdInclude(condition.getCastIds().orElseGet(Collections::emptyList)));
+                .where(this.storeIdInclude(condition.getOptStoreIds().orElseGet(Collections::emptyList)))
+                .and(this.castIdInclude(condition.getOptCastIds().orElseGet(Collections::emptyList)));
 
-        var a = this.castSource.findAll(specification, pageRequest);
-        var b = this.castCatSource.findAll();
+        var castPage = this.castSource.findAll(specification, pageRequest);
+        var castCatList = this.castCatSource.findAll();
+
         var casts = new ArrayList<CastEntity>();
-        for (Cast cast : a) {
-            var concatList = b.stream()
+        for (Cast cast : castPage) {
+            var concatList = castCatList.stream()
                     .filter(castCat -> castCat.getId().equals(cast.getCastCatId()))
                     .map(castCat -> {
                         var castCatEntity = CastCatEntity.builder()
