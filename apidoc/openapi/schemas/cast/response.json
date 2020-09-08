@@ -89,6 +89,10 @@
           "description": "名前",
           "type": "string"
         },
+        "image": {
+          "description": "画像",
+          "type": "string"
+        },
         "type": {
           "description": "種類",
           "type": "string"

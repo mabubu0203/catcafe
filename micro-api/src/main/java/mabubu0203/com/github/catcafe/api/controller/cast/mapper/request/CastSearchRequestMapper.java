@@ -12,10 +12,18 @@ public class CastSearchRequestMapper implements SearchRequestMapper<CastSearchSe
 
     private final String cats;
     private final List<Integer> storeIds;
+    private final List<Integer> castIds;
+    private final Integer size;
 
     @Override
     public Optional<CastSearchServiceInput> get() {
-        return Optional.of(new CastSearchServiceInput());
+        return Optional.of(
+                CastSearchServiceInput.builder()
+                        .cats(this.cats)
+                        .storeIds(Optional.ofNullable(this.storeIds))
+                        .castIds(Optional.ofNullable(this.castIds))
+                        .size(Optional.ofNullable(this.size))
+                        .build());
     }
 
 }

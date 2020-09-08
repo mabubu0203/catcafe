@@ -187,8 +187,8 @@ public class CastApiController implements CastApi {
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, @Valid Integer size) {
-        return new CastSearchRequestMapper(cats, storeIds)
+    public CompletableFuture<ResponseEntity<CastSearchResponse>> castSearch(String cats, @Valid List<Integer> storeIds, @Valid List<Integer> castIds, @Valid Integer size) {
+        return new CastSearchRequestMapper(cats, storeIds, castIds, size)
                 .get()
                 .map(this.castSearchService::promise)
                 .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))

@@ -2,6 +2,8 @@ dependencies {
 
     // SpringBoot projects
 
+    compileOnly("org.hibernate:hibernate-jpamodelgen")
+    annotationProcessor("org.hibernate:hibernate-jpamodelgen")
 
     // lombok
     compileOnly("org.projectlombok:lombok")

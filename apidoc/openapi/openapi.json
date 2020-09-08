@@ -2239,6 +2239,19 @@
             }
           },
           {
+            "name": "cast_ids",
+            "in": "query",
+            "description": "キャストID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
             "name": "size",
             "in": "query",
             "description": "取得サイズ",
