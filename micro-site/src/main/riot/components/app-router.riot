@@ -32,7 +32,7 @@
     </route>
 
     <script>
-        import {router} from '@riotjs/route'
+        import { Router, Route } from '@riotjs/route'
         import Welcome from './welcome'
         import StoreDetail from './store/store-detail'
         import ProvideServiceList from './provide_service/provide-service-list'
@@ -56,6 +56,8 @@
         ]
         export default {
             components: {
+                Router,
+                Route,
                 Welcome,
                 StoreDetail,
                 ProvideServiceList,

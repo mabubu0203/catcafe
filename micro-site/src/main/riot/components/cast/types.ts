@@ -10,6 +10,8 @@ export interface CastDetailComponentProps {
 
 export interface CastDetailComponent extends RiotComponentExport<CastDetailComponentProps, CastDetailComponentState> {
     state: CastDetailComponentState;
+
+    castFind(): void;
 }
 
 export interface CastListComponentState {
