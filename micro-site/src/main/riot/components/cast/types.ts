@@ -2,6 +2,7 @@ import {RiotComponentExport} from 'riot'
 import {CastDetail} from '../../axios-front/model/cast-detail';
 
 export interface CastDetailComponentState {
+    cast?: CastDetail;
 }
 
 export interface CastDetailComponentProps {

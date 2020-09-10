@@ -1,21 +1,51 @@
 <cast-detail>
-    <h3>{ message }</h3>
+    <h2 class="ui teal tag label">Cast</h2>
+    <div class="ui segment">
+        <form onsubmit={ castFind }>
+            <div class="field">
+            </div>
+            <div class="inline field">
+                <button class="ui teal button">検索</button>
+            </div>
+        </form>
+    </div>
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+    <script type="ts">
+        import {CastDetailComponent} from './types'
+        import {AxiosResponse} from "axios";
+        import {CastFindResponse} from "../../axios-front/model/cast-find-response";
+        import {CastDetail} from "../../axios-front/model/cast-detail";
+        import {CastApi} from "../../axios-front/api/cast-api";
+        import userEnv from 'userEnv';
 
-    <script>
-        export default {
-            message: 'ProvideService',
-            techs: [
-                {name: '提供サービス1'},
-                {name: '提供サービス2'},
-                {name: '提供サービス3'}
-            ]
+        function CastDetail(): CastDetailComponent {
+            return {
+                state: {
+                    cast: null
+                },
+                async castFind(e) {
+                    let client: CastApi = new CastApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                    });
+                    this.on('route', id => {
+                        client.castFind('cats', 52, id)
+                            .then((res: AxiosResponse<CastFindResponse>) => {
+                                let responseBody: CastFindResponse = res.data
+                                let bodyCast: CastDetail = responseBody.cast
+                                this.update({
+                                    casts: bodyCast
+                                })
+                            })
+                            .catch((error: any) => {
+                                console.log(error);
+                            });
+                    })
+
+                }
+            }
         }
+
+        export default CastDetail
 
     </script>
 
