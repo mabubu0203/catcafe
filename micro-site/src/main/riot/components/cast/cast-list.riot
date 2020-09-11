@@ -16,34 +16,25 @@
                 <button class="ui teal button">検索</button>
             </div>
         </form>
-        <table
-                class="ui sortable celled table"
-                data={ state.casts }
-                default-sort-field="id"
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="id" is="su-th">ID</th>
-                <th field="employment_status" is="su-th">雇用ステータス</th>
-                <th field="name" is="su-th">Name</th>
-                <th field="memo" is="su-th">Memo</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ cast in state.casts }">
-                <td>{ cast.id }</td>
-                <td>{ cast.employment_status }</td>
-                <td>{ cast.cat_cast.name }</td>
-                <td>{ cast.cat_cast.memo }</td>
-            </tr>
-            </tbody>
-        </table>
-        <p>※ Click the header if you want to sort.</p>
+        <div
+                class="dtable"
+                data={ state.casts }>
+            <div
+                    class="dtable_c"
+                    each="{ cast in state.casts }">
+                <a href="/cast/{ cast.id }">
+                    <img
+                            src="{ cast.id }"
+                            alt="{ cast.cast_cat.name }"
+                            title="{ cast.cast_cat.name }"
+                            width="100px" height="100px" border="0">
+                </a>
+            </div>
+        </div>
     </div>
 
     <script type="ts">
-        import {CastListComponent} from './types'
+        import {CastListComponent, CastListComponentProps, CastListComponentState} from './types'
         import {AxiosResponse} from "axios";
         import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
         import {CastDetail} from "../../axios-front/model/cast-detail";
@@ -56,12 +47,13 @@
                     casts: []
                 },
                 async castSearch(e) {
+                    const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
                     e.preventDefault()
                     const inputAge = e.target.age.value
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
-                    client.castSearch('cats', [0], 10)
+                    client.castSearch('cats', [store_id], null, 0, 20, null)
                         .then((res: AxiosResponse<CastSearchResponse>) => {
                             let responseBody: CastSearchResponse = res.data
                             let bodyCasts: Array<CastDetail> = responseBody.casts
@@ -77,7 +69,22 @@
         }
 
         export default CastList
-
     </script>
+
+    <style>
+        .dtable {
+            display: flex;
+            flex-wrap: wrap;
+            width: 450px;
+            padding: 10px;
+        }
+
+        .dtable_c {
+            display: table-cell;
+            text-align: center;
+            width: 100px;
+            border: 1px solid #000;
+        }
+    </style>
 
 </cast-list>

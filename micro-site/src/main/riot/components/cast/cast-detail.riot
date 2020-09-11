@@ -1,22 +1,76 @@
 <cast-detail>
-    <h3>{ message }</h3>
+    <h2 class="ui teal tag label">Cast</h2>
+    <div class="cat-prof">
+        <div class="prof-photo"><img src="" width="200" height="200"></div>
+        <div class="prof-txt">
+            <h2></h2>
+            <table width="100%" cellspacing="0" class="prof-tstyle">
+                <tr>
+                    <td width="25%">■名前</td>
+                    <td>{ state.cast.cast_cat.name }</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■種類</td>
+                    <td class="blue">{ state.cast.cast_cat.type }</td>
+                </tr>
+                <tr>
+                    <td width="25%">■毛種</td>
+                    <td>チョコレート・スポテッドタビー</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■誕生日</td>
+                    <td class="blue">{ state.cast.cast_cat.birthday_date }</td>
+                </tr>
+                <tr>
+                    <td width="25%">■性別</td>
+                    <td>{ state.cast.cast_cat.sex }</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■特徴</td>
+                    <td class="blue">{ state.cast.cast_cat.memo }</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+    <script type="ts">
+        import {CastDetailComponent, CastDetailComponentProps, CastDetailComponentState} from './types'
+        import {AxiosResponse} from "axios";
+        import {CastFindResponse} from "../../axios-front/model/cast-find-response";
+        import {CastDetail} from "../../axios-front/model/cast-detail";
+        import {CastApi} from "../../axios-front/api/cast-api";
+        import userEnv from 'userEnv';
 
-    <script>
-        export default {
-            message: 'ProvideService',
-            techs: [
-                {name: '提供サービス1'},
-                {name: '提供サービス2'},
-                {name: '提供サービス3'}
-            ]
+        function CastDetail(): CastDetailComponent {
+            return {
+                state: {
+                    cast: null
+                },
+                onBeforeMount(currentProps: CastDetailComponentProps, currentState: CastDetailComponentState) {
+                    this.castFind()
+                },
+                async castFind() {
+                    let client: CastApi = new CastApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                    });
+                    const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
+                    const castId = Number(location.pathname.split("/")[2])
+                    client.castFind('cats', store_id, castId)
+                        .then((res: AxiosResponse<CastFindResponse>) => {
+                            let responseBody: CastFindResponse = res.data
+                            let bodyCast: CastDetail = responseBody.cast
+                            this.update({
+                                cast: bodyCast
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
+            }
         }
 
+        export default CastDetail
     </script>
 
 </cast-detail>

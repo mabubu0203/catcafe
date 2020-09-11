@@ -3,4 +3,4 @@ apply plugin: "com.github.node-gradle.node"
 task webpack(dependsOn: ['npm_run_webpack'])
 task watch(dependsOn: ['npm_run_watch'])
 task start(dependsOn: ['npm_run_start'])
-task generateclient(dependsOn: ['npm_run_generate-client'])
+task generateClient(dependsOn: ['npm_run_generate-client'])

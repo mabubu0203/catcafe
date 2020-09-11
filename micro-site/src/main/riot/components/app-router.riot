@@ -12,7 +12,7 @@
     <route path="/casts">
         <cast-list/>
     </route>
-    <route path="/casts/:id">
+    <route path="/cast/:id">
         <cast-detail/>
     </route>
     <route path="/congestion-detail">
@@ -32,7 +32,7 @@
     </route>
 
     <script>
-        import {router} from '@riotjs/route'
+        import { Router, Route } from '@riotjs/route'
         import Welcome from './welcome'
         import StoreDetail from './store/store-detail'
         import ProvideServiceList from './provide_service/provide-service-list'
@@ -47,8 +47,8 @@
             '/',
             '/store-detail',
             '/provide_services',
+            '/cast/*',
             '/casts',
-            '/cast-detail',
             '/congestion-detail',
             '/frequently_asked_questions',
             '/frequently_asked_question-detail',
@@ -56,6 +56,8 @@
         ]
         export default {
             components: {
+                Router,
+                Route,
                 Welcome,
                 StoreDetail,
                 ProvideServiceList,
@@ -67,7 +69,7 @@
                 NotFound
             },
             onRoute(route) {
-                const page = pages.find(page => page === route.pathname)
+                const page = pages.find(page => RegExp(page).test(route.pathname))
                 if (page === void 0) router.push("/404")
             }
         }

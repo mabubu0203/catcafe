@@ -4,7 +4,7 @@
         <div class="ui form">
             <form onsubmit={ handleSubmit }>
                 <div class="menu">
-                    <su-dropdown items="{ dropdownItems }" name="stores_id"></su-dropdown>
+                    <su-dropdown items="{ dropdownItems }" name="store_id"></su-dropdown>
                 </div>
                 <div class="inline field">
                     <button class="ui teal button">店舗選択</button>
@@ -56,19 +56,19 @@
     <script>
         export default {
             state: {
-                isStoreSelectedIn: false,
-                stores_id: null
+                is_store_selected_in: false,
+                store_id: null
             },
             onBeforeMount(props, state) {
             },
             handleSubmit(e) {
                 e.preventDefault()
-                this.state.isStoreSelectedIn = true
-                this.state.stores_id = this.$("[name='stores_id']").getAttribute('value')
+                this.state.is_store_selected_in = true
+                this.state.store_id = this.$("[name='store_id']").getAttribute('value')
                 localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
                 this.update()
             },
-            onUpdated(props, state) {
+            onUpdated() {
                 location.reload();
             },
             dropdownItems: [
