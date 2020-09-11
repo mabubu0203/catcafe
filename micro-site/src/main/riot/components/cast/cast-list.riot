@@ -47,12 +47,13 @@
                     casts: []
                 },
                 async castSearch(e) {
+                    const stores_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).stores_id
                     e.preventDefault()
                     const inputAge = e.target.age.value
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
-                    client.castSearch('cats', null, null, 0, 20, null)
+                    client.castSearch('cats', [stores_id], null, 0, 20, null)
                         .then((res: AxiosResponse<CastSearchResponse>) => {
                             let responseBody: CastSearchResponse = res.data
                             let bodyCasts: Array<CastDetail> = responseBody.casts
