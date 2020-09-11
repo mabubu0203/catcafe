@@ -8,5 +8,5 @@ register('router', Router)
 register('route', Route)
 
 component(App)(document.getElementById('app')), {
-    title:  `cat-cafe-site`
+    title: `cat-cafe-site`
 }

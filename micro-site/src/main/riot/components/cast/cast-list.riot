@@ -34,7 +34,7 @@
     </div>
 
     <script type="ts">
-        import {CastListComponent} from './types'
+        import {CastListComponent, CastListComponentProps, CastListComponentState} from './types'
         import {AxiosResponse} from "axios";
         import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
         import {CastDetail} from "../../axios-front/model/cast-detail";
@@ -47,13 +47,13 @@
                     casts: []
                 },
                 async castSearch(e) {
-                    const stores_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).stores_id
+                    const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
                     e.preventDefault()
                     const inputAge = e.target.age.value
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
-                    client.castSearch('cats', [stores_id], null, 0, 20, null)
+                    client.castSearch('cats', [store_id], null, 0, 20, null)
                         .then((res: AxiosResponse<CastSearchResponse>) => {
                             let responseBody: CastSearchResponse = res.data
                             let bodyCasts: Array<CastDetail> = responseBody.casts
@@ -69,7 +69,6 @@
         }
 
         export default CastList
-
     </script>
 
     <style>

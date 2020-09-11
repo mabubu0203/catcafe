@@ -1,6 +1,6 @@
 <app>
-    <welcome if={ !state.isStoreSelectedIn }/>
-    <div id="wrapper" if={ state.isStoreSelectedIn }>
+    <welcome if={ !state.is_store_selected_in }/>
+    <div id="wrapper" if={ state.is_store_selected_in }>
         <router base={ base }>
             <sidebar/>
             <app-header/>
@@ -17,6 +17,7 @@
         import AppHeader from './components/app-header.riot'
         import AppFooter from './components/app-footer.riot'
         import AppRouter from './components/app-router.riot'
+
         export default {
             components: {
                 Welcome,
@@ -26,21 +27,23 @@
                 AppRouter,
             },
             state: {
-                isStoreSelectedIn: false,
-                stores_id: null
+                is_store_selected_in: false,
+                store_id: null
             },
             base: window.location.origin,
             onBeforeMount(props, state) {
                 const beforeCatCafeSiteState = JSON.parse(localStorage.getItem('cat-cafe-site state'))
                 if (beforeCatCafeSiteState !== null) {
-                    state.isStoreSelectedIn = beforeCatCafeSiteState.isStoreSelectedIn
-                    state.storesId = beforeCatCafeSiteState.storesId
+                    state.is_store_selected_in = beforeCatCafeSiteState.is_store_selected_in
+                    state.store_id = beforeCatCafeSiteState.store_id
                 } else {
-                    state.isStoreSelectedIn = props.isStoreSelectedIn
-                    state.storesId = props.storesId
+                    state.is_store_selected_in = props.is_store_selected_in
+                    state.store_id = props.store_id
                 }
             },
             onMounted(props, state) {
+            },
+            onBeforeUpdate() {
             },
             onUpdated(props, state) {
                 localStorage.setItem('cat-cafe-site state', JSON.stringify(state))

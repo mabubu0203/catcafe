@@ -5,18 +5,35 @@
         <div class="prof-txt">
             <h2></h2>
             <table width="100%" cellspacing="0" class="prof-tstyle">
-                <tr><td width="25%">■名前</td><td>{ state.cast.cast_cat.name }</td></tr>
-                <tr><td width="25%" class="blue">■種類</td><td class="blue">{ state.cast.cast_cat.type }</td></tr>
-                <tr><td width="25%">■毛種</td><td>チョコレート・スポテッドタビー</td></tr>
-                <tr><td width="25%" class="blue">■誕生日</td><td class="blue">{ state.cast.cast_cat.birthday_date }</td></tr>
-                <tr><td width="25%">■性別</td><td>{ state.cast.cast_cat.sex }</td></tr>
-                <tr><td width="25%" class="blue">■特徴</td><td class="blue">{ state.cast.cast_cat.memo }</td></tr>
+                <tr>
+                    <td width="25%">■名前</td>
+                    <td>{ state.cast.cast_cat.name }</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■種類</td>
+                    <td class="blue">{ state.cast.cast_cat.type }</td>
+                </tr>
+                <tr>
+                    <td width="25%">■毛種</td>
+                    <td>チョコレート・スポテッドタビー</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■誕生日</td>
+                    <td class="blue">{ state.cast.cast_cat.birthday_date }</td>
+                </tr>
+                <tr>
+                    <td width="25%">■性別</td>
+                    <td>{ state.cast.cast_cat.sex }</td>
+                </tr>
+                <tr>
+                    <td width="25%" class="blue">■特徴</td>
+                    <td class="blue">{ state.cast.cast_cat.memo }</td>
+                </tr>
             </table>
         </div>
     </div>
 
     <script type="ts">
-
         import {CastDetailComponent, CastDetailComponentProps, CastDetailComponentState} from './types'
         import {AxiosResponse} from "axios";
         import {CastFindResponse} from "../../axios-front/model/cast-find-response";
@@ -36,8 +53,9 @@
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
                     });
+                    const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
                     const castId = Number(location.pathname.split("/")[2])
-                    client.castFind('cats', 52, castId)
+                    client.castFind('cats', store_id, castId)
                         .then((res: AxiosResponse<CastFindResponse>) => {
                             let responseBody: CastFindResponse = res.data
                             let bodyCast: CastDetail = responseBody.cast
@@ -53,7 +71,6 @@
         }
 
         export default CastDetail
-
     </script>
 
 </cast-detail>
