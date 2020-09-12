@@ -36,6 +36,16 @@
           "description": "店舗名",
           "type": "string"
         },
+        "open_date": {
+          "description": "開店日",
+          "type": "string",
+          "format": "date"
+        },
+        "close_date": {
+          "description": "閉店日",
+          "type": "string",
+          "format": "date"
+        },
         "contact": {
           "$ref": "#/model/contact"
         },

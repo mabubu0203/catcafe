@@ -67,6 +67,11 @@
           "type": "string",
           "format": "date"
         },
+        "last_attendance_date": {
+          "description": "最終出勤日",
+          "type": "string",
+          "format": "date"
+        },
         "store_memo": {
           "description": "店舗メモ",
           "type": "string"
