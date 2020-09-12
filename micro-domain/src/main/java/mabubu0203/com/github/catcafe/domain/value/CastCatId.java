@@ -1,12 +1,14 @@
 package mabubu0203.com.github.catcafe.domain.value;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Accessors(fluent = true)
 @Getter
 public class CastCatId {
 
-    private final Integer value;
+    private final Integer intValue;
 
 }
