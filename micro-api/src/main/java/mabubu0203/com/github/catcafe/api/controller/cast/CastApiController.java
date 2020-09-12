@@ -52,7 +52,9 @@ public class CastApiController implements CastApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> castCatCreate(String cats, @Valid CastCatCreate castCatCreate) {
+    public CompletableFuture<ResponseEntity<PostObject>> castCatCreate(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Valid CastCatCreate castCatCreate) {
         return Optional.of(castCatCreate)
                 .map(new CastCatCreateRequestMapper(cats))
                 .map(this.castCatResisterService::promise)
@@ -135,7 +137,10 @@ public class CastApiController implements CastApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> castCreate(String cats, Integer storeId, @Valid CastCreate castCreate) {
+    public CompletableFuture<ResponseEntity<PostObject>> castCreate(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
+            @Valid CastCreate castCreate) {
         return Optional.of(castCreate)
                 .map(new CastCreateRequestMapper(cats, storeId))
                 .map(this.castResisterService::promise)

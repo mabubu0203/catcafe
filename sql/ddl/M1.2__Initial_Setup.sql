@@ -2,6 +2,8 @@ CREATE TABLE IF NOT EXISTS store
 (
     id                INT UNSIGNED        NOT NULL COMMENT '店舗ID',
     name              VARCHAR(256)        NOT NULL COMMENT '店舗名',
+    open_date         DATE COMMENT '開店日',
+    close_date        DATE COMMENT '閉店日',
     phone_number      CHAR(13) COMMENT '店舗連絡先(電話番号)',
     mail_address      VARCHAR(256) COMMENT '店舗連絡先(メールアドレス)',
     postal_code       CHAR(8) COMMENT '店舗住所(郵便番号)',

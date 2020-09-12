@@ -450,6 +450,50 @@
                 "format": "int32"
               }
             }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "取得ページ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "取得サイズ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          {
+            "name": "sort_keys",
+            "in": "query",
+            "description": "ソートキー",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items":{
+                "type": "string",
+                "enum": [
+                  "store_id.asc",
+                  "store_id.desc"
+                ],
+                "x-enum-varnames": [
+                  "store_id.asc",
+                  "store_id.desc"
+                ]
+              }
+            }
           }
         ],
         "responses": {
