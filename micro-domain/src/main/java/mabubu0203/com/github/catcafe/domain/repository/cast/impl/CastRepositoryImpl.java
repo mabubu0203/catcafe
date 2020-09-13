@@ -11,9 +11,11 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
+import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.CastCat;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,5 +63,32 @@ public class CastRepositoryImpl implements CastRepository {
         }
         return casts;
     }
-    
+
+    @Override
+    @Async
+    public CompletableFuture<CastId> resister(CastEntity cast) {
+        var castDto = new Cast()
+                .setStoreId(cast.getStoreId().intValue())
+                .setCastCatId(cast.getCastCatEntity().getCastCatId().get().intValue());
+        castDto
+                .setCreatedDateTime(LocalDateTime.now())
+                .setCreatedBy(0)
+                .setVersion(0);
+        castDto = this.castSource.save(castDto);
+        return CompletableFuture.supplyAsync(() -> null);
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<CastCatId> resister(CastCatEntity castCat) {
+        var castCatDto = new CastCat()
+                .setName(castCat.getName());
+        castCatDto
+                .setCreatedDateTime(LocalDateTime.now())
+                .setCreatedBy(0)
+                .setVersion(0);
+        castCatDto = this.castCatSource.save(castCatDto);
+        return CompletableFuture.supplyAsync(() -> null);
+    }
+
 }
