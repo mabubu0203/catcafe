@@ -8,8 +8,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.store.mapper.request.StoreCreateRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.mapper.request.StoreSearchRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.mapper.response.StoreCreateResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.mapper.response.StoreSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.service.store.StoreRegisterService;
+import mabubu0203.com.github.catcafe.api.service.store.StoreSearchService;
 import org.openapitools.api.StoreApi;
 import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,7 @@ import java.util.concurrent.CompletableFuture;
 public class StoreApiController implements StoreApi {
 
     private final StoreRegisterService registerService;
+    private final StoreSearchService searchService;
 
     @Operation(
             tags = {"store",},
@@ -102,7 +106,13 @@ public class StoreApiController implements StoreApi {
             @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
             @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
             @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys) {
-        return null;
+        return new StoreSearchRequestMapper(
+                cats, storeIds,
+                page, size, sortKeys
+        ).get()
+                .map(this.searchService::promise)
+                .map(result -> result.thenApply(new StoreSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
     }
 
     @Operation(
