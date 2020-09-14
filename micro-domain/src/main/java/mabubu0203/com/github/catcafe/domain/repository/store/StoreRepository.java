@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.domain.repository.store.impl;
+package mabubu0203.com.github.catcafe.domain.repository.store;
 
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 

@@ -12,7 +12,10 @@ public class CastCatCreateRequestMapper implements CreateRequestMapper<CastCatCr
 
     @Override
     public CastCatResisterServiceInput apply(CastCatCreate castCatCreate) {
-        return new CastCatResisterServiceInput().setName(castCatCreate.getName());
+        return new CastCatResisterServiceInput()
+                .setName(castCatCreate.getName())
+                .setBrother(castCatCreate.getBrother())
+                .setSister(castCatCreate.getSister());
     }
 
 }

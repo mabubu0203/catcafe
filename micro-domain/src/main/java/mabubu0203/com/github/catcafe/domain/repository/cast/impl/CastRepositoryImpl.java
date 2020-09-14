@@ -67,28 +67,54 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<CastId> resister(CastEntity cast) {
-        var castDto = new Cast()
-                .setStoreId(cast.getStoreId().intValue())
-                .setCastCatId(cast.getCastCatEntity().getCastCatId().get().intValue());
-        castDto
+        return Optional.of(cast)
+                .map(this::toDto)
+                .map(this.castSource::save)
+                .map(dto -> new CastId(dto.getId()))
+                .map(castId -> CompletableFuture.supplyAsync(() -> castId))
+                .get();
+    }
+
+    private Cast toDto(CastEntity entity) {
+        var dto = new Cast()
+                .setStoreId(entity.getStoreId().intValue())
+                .setCastCatId(entity.getCastCatEntity().getCastCatId().get().intValue());
+        dto
                 .setCreatedDateTime(LocalDateTime.now())
                 .setCreatedBy(0)
                 .setVersion(0);
-        castDto = this.castSource.save(castDto);
-        return CompletableFuture.supplyAsync(() -> null);
+        return dto;
+    }
+
+    @Override
+    public CompletableFuture<Boolean> exists(CastCatId castCatId) {
+        return Optional.of(castCatId)
+                .map(CastCatId::intValue)
+                .map(this.castCatSource::findById)
+                .map(Optional::isPresent)
+                .map(bool -> CompletableFuture.supplyAsync(() -> bool))
+                .get();
     }
 
     @Override
     @Async
     public CompletableFuture<CastCatId> resister(CastCatEntity castCat) {
-        var castCatDto = new CastCat()
-                .setName(castCat.getName());
-        castCatDto
+        return Optional.of(castCat)
+                .map(this::toDto)
+                .map(this.castCatSource::save)
+                .map(dto -> new CastCatId(dto.getId()))
+                .map(castCatId -> CompletableFuture.supplyAsync(() -> castCatId))
+                .get();
+    }
+
+    private CastCat toDto(CastCatEntity entity) {
+        var dto = new CastCat()
+                .setName(entity.getName());
+        dto
                 .setCreatedDateTime(LocalDateTime.now())
                 .setCreatedBy(0)
                 .setVersion(0);
-        castCatDto = this.castCatSource.save(castCatDto);
-        return CompletableFuture.supplyAsync(() -> null);
+        return dto;
     }
 
 }

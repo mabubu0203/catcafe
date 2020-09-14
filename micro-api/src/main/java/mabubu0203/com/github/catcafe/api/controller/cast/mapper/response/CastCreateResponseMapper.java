@@ -8,7 +8,7 @@ public class CastCreateResponseMapper implements CreateResponseMapper<CastRegist
 
     @Override
     public PostObject apply(CastRegisterServiceOutput castCreateServiceOutput) {
-        return null;
+        return new PostObject().id(castCreateServiceOutput.getId());
     }
 
 }
