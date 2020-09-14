@@ -8,7 +8,7 @@ public class CastCatCreateResponseMapper implements CreateResponseMapper<CastCat
 
     @Override
     public PostObject apply(CastCatResisterServiceOutput castCatResisterServiceOutput) {
-        return null;
+        return new PostObject().id(castCatResisterServiceOutput.getId());
     }
 
 }
