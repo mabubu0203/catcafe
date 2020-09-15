@@ -45,6 +45,8 @@ public class CastRepositoryImpl implements CastRepository {
 
         var casts = new ArrayList<CastEntity>();
         for (Cast cast : castPage) {
+            var castId = new CastId(cast.getId());
+            var storeId = new StoreId(cast.getStoreId());
             var concatList = castCatList.stream()
                     .filter(castCat -> castCat.getId().equals(cast.getCastCatId()))
                     .map(castCat -> {
@@ -53,8 +55,8 @@ public class CastRepositoryImpl implements CastRepository {
                                 .name(castCat.getName())
                                 .build();
                         return CastEntity.builder()
-                                .castId(Optional.of(new CastId(cast.getId())))
-                                .storeId(new StoreId(cast.getStoreId()))
+                                .castId(Optional.of(castId))
+                                .storeId(storeId)
                                 .CastCatEntity(castCatEntity)
                                 .build();
                     })
@@ -70,7 +72,8 @@ public class CastRepositoryImpl implements CastRepository {
         return Optional.of(cast)
                 .map(this::toDto)
                 .map(this.castSource::save)
-                .map(dto -> new CastId(dto.getId()))
+                .map(Cast::getId)
+                .map(CastId::new)
                 .map(castId -> CompletableFuture.supplyAsync(() -> castId))
                 .get();
     }
@@ -102,7 +105,8 @@ public class CastRepositoryImpl implements CastRepository {
         return Optional.of(castCat)
                 .map(this::toDto)
                 .map(this.castCatSource::save)
-                .map(dto -> new CastCatId(dto.getId()))
+                .map(CastCat::getId)
+                .map(CastCatId::new)
                 .map(castCatId -> CompletableFuture.supplyAsync(() -> castCatId))
                 .get();
     }

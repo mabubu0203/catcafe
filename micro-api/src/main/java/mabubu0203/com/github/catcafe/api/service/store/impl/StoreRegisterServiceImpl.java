@@ -2,31 +2,33 @@ package mabubu0203.com.github.catcafe.api.service.store.impl;
 
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.service.store.StoreRegisterService;
+import mabubu0203.com.github.catcafe.api.service.store.converter.StoreRegisterServiceConverter;
 import mabubu0203.com.github.catcafe.api.service.store.model.input.StoreRegisterServiceInput;
 import mabubu0203.com.github.catcafe.api.service.store.model.output.StoreRegisterServiceOutput;
-import mabubu0203.com.github.catcafe.infra.source.jpa.StoreSource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store;
+import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
 public class StoreRegisterServiceImpl implements StoreRegisterService {
 
-    private final StoreSource source;
+    private final StoreRepository storeRepository;
+    private final StoreRegisterServiceConverter converter = new StoreRegisterServiceConverter();
 
     @Override
+    @Async
+    @Transactional
     public CompletableFuture<StoreRegisterServiceOutput> promise(StoreRegisterServiceInput input) {
-        var store = new Store()
-                .setName(input.getName());
-        store
-                .setCreatedDateTime(LocalDateTime.now())
-                .setCreatedBy(0)
-                .setVersion(0);
-        this.source.save(store);
-        return null;
+        return Optional.of(input)
+                .map(this.converter::fromInput)
+                .map(this.storeRepository::resister)
+                .map(future -> future.thenApply(this.converter::toOutput))
+                .orElseThrow(RuntimeException::new);
     }
 
 }
