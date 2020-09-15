@@ -13,4 +13,6 @@ public interface StoreRepository {
 
     CompletableFuture<Boolean> exists(StoreId storeId);
 
+    CompletableFuture<StoreId> resister(StoreEntity store);
+
 }

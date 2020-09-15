@@ -8,7 +8,7 @@ public class StoreCreateResponseMapper implements CreateResponseMapper<StoreRegi
 
     @Override
     public PostObject apply(StoreRegisterServiceOutput storeRegisterServiceOutput) {
-        return null;
+        return new PostObject().id(storeRegisterServiceOutput.getId());
     }
 
 }

@@ -5,7 +5,6 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
-import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
