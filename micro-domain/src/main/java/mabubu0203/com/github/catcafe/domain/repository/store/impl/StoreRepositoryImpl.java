@@ -7,12 +7,11 @@ import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store;
+import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -26,45 +25,33 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     @Async
     public CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions) {
-        return CompletableFuture.supplyAsync(() -> this.searchImpl(searchConditions).stream());
+        return CompletableFuture.supplyAsync(() -> this.source.findAll(
+                searchConditions.getCastSpecification(),
+                searchConditions.getPageRequest()))
+                .thenApply(Page::stream)
+                .thenApply(stream -> stream.map(this::convertStoreEntity));
     }
 
-    private List<StoreEntity> searchImpl(StoreSearchConditions searchConditions) {
-        var storePage = this.source.findAll(
-                searchConditions.getCastSpecification(),
-                searchConditions.getPageRequest());
-
-        var stores = new ArrayList<StoreEntity>();
-        for (Store store : storePage) {
-            stores.add(StoreEntity.builder()
-                    .storeId(Optional.of(new StoreId(store.getId())))
-                    .name(store.getName())
-                    .build());
-        }
-        return stores;
+    private StoreEntity convertStoreEntity(Store store) {
+        return StoreEntity.builder()
+                .storeId(Optional.of(new StoreId(store.getId())))
+                .name(store.getName())
+                .build();
     }
 
     @Override
     @Async
     public CompletableFuture<Boolean> exists(StoreId storeId) {
-        return Optional.of(storeId)
-                .map(StoreId::intValue)
-                .map(this.source::findById)
-                .map(Optional::isPresent)
-                .map(bool -> CompletableFuture.supplyAsync(() -> bool))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.source.findById(storeId.intValue()))
+                .thenApply(Optional::isPresent);
     }
 
     @Override
     @Async
     public CompletableFuture<StoreId> resister(StoreEntity store) {
-        return Optional.of(store)
-                .map(this::toDto)
-                .map(this.source::save)
-                .map(Store::getId)
-                .map(StoreId::new)
-                .map(storeId -> CompletableFuture.supplyAsync(() -> storeId))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.source.save(this.toDto(store)))
+                .thenApply(Store::getId)
+                .thenApply(StoreId::new);
     }
 
     private Store toDto(StoreEntity entity) {

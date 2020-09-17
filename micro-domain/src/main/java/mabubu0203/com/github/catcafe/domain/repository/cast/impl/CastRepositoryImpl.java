@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -33,18 +32,9 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<Stream<CastEntity>> search(CastSearchConditions searchConditions) {
-        return Optional.of(searchConditions)
-                .map(conditions -> this.castSource.getPage(conditions.getPageRequest()))
-                .map(feature -> feature.thenApply(this::convertDomain))
-                .orElseGet(() -> CompletableFuture.completedFuture(Stream.empty()));
-    }
-
-    private Stream<CastEntity> convertDomain(Page<CastCatProjection> page) {
-        var casts = new ArrayList<CastEntity>();
-        for (CastCatProjection cast : page) {
-            casts.add(this.convertCastEntity(cast));
-        }
-        return casts.stream();
+        return this.castSource.getPage(searchConditions.getPageRequest())
+                .thenApply(Page::stream)
+                .thenApply(stream -> stream.map(this::convertCastEntity));
     }
 
     private CastEntity convertCastEntity(CastCatProjection projection) {
@@ -66,13 +56,9 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<CastId> resister(CastEntity cast) {
-        return Optional.of(cast)
-                .map(this::toDto)
-                .map(this.castSource::save)
-                .map(Cast::getId)
-                .map(CastId::new)
-                .map(castId -> CompletableFuture.supplyAsync(() -> castId))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castSource.save(this.toDto(cast)))
+                .thenApply(Cast::getId)
+                .thenApply(CastId::new);
     }
 
     private Cast toDto(CastEntity entity) {
@@ -88,24 +74,16 @@ public class CastRepositoryImpl implements CastRepository {
 
     @Override
     public CompletableFuture<Boolean> exists(CastCatId castCatId) {
-        return Optional.of(castCatId)
-                .map(CastCatId::intValue)
-                .map(this.castCatSource::findById)
-                .map(Optional::isPresent)
-                .map(bool -> CompletableFuture.supplyAsync(() -> bool))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castCatSource.findById(castCatId.intValue()))
+                .thenApply(Optional::isPresent);
     }
 
     @Override
     @Async
     public CompletableFuture<CastCatId> resister(CastCatEntity castCat) {
-        return Optional.of(castCat)
-                .map(this::toDto)
-                .map(this.castCatSource::save)
-                .map(CastCat::getId)
-                .map(CastCatId::new)
-                .map(castCatId -> CompletableFuture.supplyAsync(() -> castCatId))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castCatSource.save(this.toDto(castCat)))
+                .thenApply(CastCat::getId)
+                .thenApply(CastCatId::new);
     }
 
     private CastCat toDto(CastCatEntity entity) {
