@@ -5,7 +5,7 @@
                  http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
                  version="2.2">
 
-    <named-native-query name="cast_cat_list" result-set-mapping="CastCatProjection">
+    <named-native-query name="casts_page" result-set-mapping="CastCatProjection">
         <query>
             <![CDATA[
             SELECT
@@ -18,7 +18,7 @@
                 INNER JOIN cast_cat cast_cat
                   ON cast.cast_cat_id = cast_cat.id AND cast_cat.deleted_flag = 0
             WHERE
-                cast.deleted_flag;
+                cast.deleted_flag = 0
             ]]>
         </query>
     </named-native-query>

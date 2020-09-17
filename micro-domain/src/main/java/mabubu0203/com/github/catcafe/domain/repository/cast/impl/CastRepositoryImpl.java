@@ -10,17 +10,17 @@ import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastSource;
+import mabubu0203.com.github.catcafe.infra.source.jpa.entity.projection.CastCatProjection;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.CastCat;
+import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -33,39 +33,34 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<Stream<CastEntity>> search(CastSearchConditions searchConditions) {
-        return CompletableFuture.supplyAsync(() -> this.searchImpl(searchConditions).stream());
+        return Optional.of(searchConditions)
+                .map(conditions -> this.castSource.getPage(conditions.getPageRequest()))
+                .map(feature -> feature.thenApply(this::convertDomain))
+                .orElseGet(() -> CompletableFuture.completedFuture(Stream.empty()));
     }
 
-    private List<CastEntity> searchImpl(CastSearchConditions searchConditions) {
-
-        var aaa = this.castSource.finds();
-        System.out.println(aaa.join().toString());
-        var castPage = this.castSource.findAll(
-                searchConditions.getCastSpecification(),
-                searchConditions.getPageRequest());
-        var castCatList = this.castCatSource.findAll();
-
+    private Stream<CastEntity> convertDomain(Page<CastCatProjection> page) {
         var casts = new ArrayList<CastEntity>();
-        for (Cast cast : castPage) {
-            var castId = new CastId(cast.getId());
-            var storeId = new StoreId(cast.getStoreId());
-            var concatList = castCatList.stream()
-                    .filter(castCat -> castCat.getId().equals(cast.getCastCatId()))
-                    .map(castCat -> {
-                        var castCatEntity = CastCatEntity.builder()
-                                .castCatId(Optional.of(new CastCatId(castCat.getId())))
-                                .name(castCat.getName())
-                                .build();
-                        return CastEntity.builder()
-                                .castId(Optional.of(castId))
-                                .storeId(storeId)
-                                .CastCatEntity(castCatEntity)
-                                .build();
-                    })
-                    .collect(Collectors.toList());
-            casts.addAll(concatList);
+        for (CastCatProjection cast : page) {
+            casts.add(this.convertCastEntity(cast));
         }
-        return casts;
+        return casts.stream();
+    }
+
+    private CastEntity convertCastEntity(CastCatProjection projection) {
+        var castId = new CastId(projection.getCastId());
+        var storeId = new StoreId(projection.getStoreId());
+        var castCatId = new CastCatId(projection.getCastCatId());
+
+        var castCatEntity = CastCatEntity.builder()
+                .castCatId(Optional.of(castCatId))
+                .name(projection.getCastCatName())
+                .build();
+        return CastEntity.builder()
+                .castId(Optional.of(castId))
+                .storeId(storeId)
+                .CastCatEntity(castCatEntity)
+                .build();
     }
 
     @Override
