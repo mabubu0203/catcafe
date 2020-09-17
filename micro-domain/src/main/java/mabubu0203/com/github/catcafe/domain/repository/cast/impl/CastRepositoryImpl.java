@@ -38,6 +38,8 @@ public class CastRepositoryImpl implements CastRepository {
 
     private List<CastEntity> searchImpl(CastSearchConditions searchConditions) {
 
+        var aaa = this.castSource.finds();
+        System.out.println(aaa.join().toString());
         var castPage = this.castSource.findAll(
                 searchConditions.getCastSpecification(),
                 searchConditions.getPageRequest());
