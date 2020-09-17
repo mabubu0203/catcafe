@@ -10,17 +10,16 @@ import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.CastSource;
+import mabubu0203.com.github.catcafe.infra.source.jpa.entity.projection.CastCatProjection;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.CastCat;
+import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Repository
@@ -33,49 +32,33 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<Stream<CastEntity>> search(CastSearchConditions searchConditions) {
-        return CompletableFuture.supplyAsync(() -> this.searchImpl(searchConditions).stream());
+        return this.castSource.getPage(searchConditions.getPageRequest())
+                .thenApply(Page::stream)
+                .thenApply(stream -> stream.map(this::convertCastEntity));
     }
 
-    private List<CastEntity> searchImpl(CastSearchConditions searchConditions) {
+    private CastEntity convertCastEntity(CastCatProjection projection) {
+        var castId = new CastId(projection.getCastId());
+        var storeId = new StoreId(projection.getStoreId());
+        var castCatId = new CastCatId(projection.getCastCatId());
 
-        var castPage = this.castSource.findAll(
-                searchConditions.getCastSpecification(),
-                searchConditions.getPageRequest());
-        var castCatList = this.castCatSource.findAll();
-
-        var casts = new ArrayList<CastEntity>();
-        for (Cast cast : castPage) {
-            var castId = new CastId(cast.getId());
-            var storeId = new StoreId(cast.getStoreId());
-            var concatList = castCatList.stream()
-                    .filter(castCat -> castCat.getId().equals(cast.getCastCatId()))
-                    .map(castCat -> {
-                        var castCatEntity = CastCatEntity.builder()
-                                .castCatId(Optional.of(new CastCatId(castCat.getId())))
-                                .name(castCat.getName())
-                                .build();
-                        return CastEntity.builder()
-                                .castId(Optional.of(castId))
-                                .storeId(storeId)
-                                .CastCatEntity(castCatEntity)
-                                .build();
-                    })
-                    .collect(Collectors.toList());
-            casts.addAll(concatList);
-        }
-        return casts;
+        var castCatEntity = CastCatEntity.builder()
+                .castCatId(Optional.of(castCatId))
+                .name(projection.getCastCatName())
+                .build();
+        return CastEntity.builder()
+                .castId(Optional.of(castId))
+                .storeId(storeId)
+                .CastCatEntity(castCatEntity)
+                .build();
     }
 
     @Override
     @Async
     public CompletableFuture<CastId> resister(CastEntity cast) {
-        return Optional.of(cast)
-                .map(this::toDto)
-                .map(this.castSource::save)
-                .map(Cast::getId)
-                .map(CastId::new)
-                .map(castId -> CompletableFuture.supplyAsync(() -> castId))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castSource.save(this.toDto(cast)))
+                .thenApply(Cast::getId)
+                .thenApply(CastId::new);
     }
 
     private Cast toDto(CastEntity entity) {
@@ -91,24 +74,16 @@ public class CastRepositoryImpl implements CastRepository {
 
     @Override
     public CompletableFuture<Boolean> exists(CastCatId castCatId) {
-        return Optional.of(castCatId)
-                .map(CastCatId::intValue)
-                .map(this.castCatSource::findById)
-                .map(Optional::isPresent)
-                .map(bool -> CompletableFuture.supplyAsync(() -> bool))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castCatSource.findById(castCatId.intValue()))
+                .thenApply(Optional::isPresent);
     }
 
     @Override
     @Async
     public CompletableFuture<CastCatId> resister(CastCatEntity castCat) {
-        return Optional.of(castCat)
-                .map(this::toDto)
-                .map(this.castCatSource::save)
-                .map(CastCat::getId)
-                .map(CastCatId::new)
-                .map(castCatId -> CompletableFuture.supplyAsync(() -> castCatId))
-                .get();
+        return CompletableFuture.supplyAsync(() -> this.castCatSource.save(this.toDto(castCat)))
+                .thenApply(CastCat::getId)
+                .thenApply(CastCatId::new);
     }
 
     private CastCat toDto(CastCatEntity entity) {
