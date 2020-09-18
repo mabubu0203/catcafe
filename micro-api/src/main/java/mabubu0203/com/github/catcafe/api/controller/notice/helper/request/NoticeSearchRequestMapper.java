@@ -3,9 +3,9 @@ package mabubu0203.com.github.catcafe.api.controller.notice.helper.request;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.input.NoticeSearchServiceInput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class NoticeSearchRequestMapper implements SearchRequestMapper<NoticeSearchServiceInput> {
@@ -14,8 +14,8 @@ public class NoticeSearchRequestMapper implements SearchRequestMapper<NoticeSear
     private final List<Integer> storeIds;
 
     @Override
-    public Optional<NoticeSearchServiceInput> get() {
-        return Optional.of(new NoticeSearchServiceInput());
+    public Mono<NoticeSearchServiceInput> get() {
+        return Mono.just(new NoticeSearchServiceInput());
     }
 
 }

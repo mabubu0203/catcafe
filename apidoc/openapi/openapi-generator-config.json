@@ -6,6 +6,6 @@
   "apiPackage": "org.openapitools.api",
   "groupId": "mabubu0203.com.github",
   "interfaceOnly": "true",
-  "async": "true",
+  "reactive": "true",
   "snapshotVersion": "false"
 }

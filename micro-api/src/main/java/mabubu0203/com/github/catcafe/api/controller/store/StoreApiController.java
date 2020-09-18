@@ -26,8 +26,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,14 +49,11 @@ public class StoreApiController implements StoreApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<StoreCreate> storeCreate,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        Optional.of(storeCreate.block())
-                                .map(new StoreCreateRequestMapper(cats))
-                                .map(this.registerService::promise)
-                                .map(result -> result.thenApply(new StoreCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return storeCreate.map(new StoreCreateRequestMapper(cats))
+                .map(this.registerService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new StoreCreateResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -74,7 +69,7 @@ public class StoreApiController implements StoreApi {
     )
     @Override
     public Mono<ResponseEntity<Void>> storeDelete(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             @NotNull @Valid Integer version,
             ServerWebExchange exchange) {
@@ -118,16 +113,13 @@ public class StoreApiController implements StoreApi {
             @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
             @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        new StoreSearchRequestMapper(
-                                cats, storeIds,
-                                page, size, sortKeys
-                        ).get()
-                                .map(this.searchService::promise)
-                                .map(result -> result.thenApply(new StoreSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return new StoreSearchRequestMapper(
+                cats, storeIds,
+                page, size, sortKeys).get()
+                .map(this.searchService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new StoreSearchResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -144,7 +136,7 @@ public class StoreApiController implements StoreApi {
     )
     @Override
     public Mono<ResponseEntity<PatchObject>> storeUpdate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             @Valid Mono<StoreUpdate> storeUpdate,
             ServerWebExchange exchange) {

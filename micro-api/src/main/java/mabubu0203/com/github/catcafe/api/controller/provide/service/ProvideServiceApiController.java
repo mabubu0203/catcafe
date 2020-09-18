@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api.controller.provide.service;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +21,6 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,7 +40,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     )
     @Override
     public Mono<ResponseEntity<PostObject>> provideServiceCreate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             @Valid Mono<ProvideServiceCreate> provideServiceCreate,
             ServerWebExchange exchange) {
@@ -60,7 +60,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     )
     @Override
     public Mono<ResponseEntity<Void>> provideServiceDelete(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             Integer provideServiceId,
             @NotNull @Valid Integer version,
@@ -81,7 +81,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     )
     @Override
     public Mono<ResponseEntity<ProvideServiceFindResponse>> provideServiceFind(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             Integer provideServiceId,
             ServerWebExchange exchange) {
@@ -101,16 +101,15 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     @CrossOrigin
     @Override
     public Mono<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid List<Integer> storeIds,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(new ProvideServiceSearchRequestMapper(cats, storeIds)
-                        .get()
-                        .map(this.searchService::promise)
-                        .map(result -> result.thenApply(new ProvideServiceSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return new ProvideServiceSearchRequestMapper(
+                cats, storeIds).get()
+                .map(this.searchService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new ProvideServiceSearchResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -127,7 +126,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     )
     @Override
     public Mono<ResponseEntity<PatchObject>> provideServiceUpdate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer storeId,
             Integer provideServiceId,
             @Valid Mono<ProvideServiceUpdate> provideServiceUpdate,

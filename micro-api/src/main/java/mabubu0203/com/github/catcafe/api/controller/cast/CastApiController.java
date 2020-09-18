@@ -32,8 +32,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,14 +56,11 @@ public class CastApiController implements CastApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<CastCatCreate> castCatCreate,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        Optional.of(castCatCreate.block())
-                                .map(new CastCatCreateRequestMapper(cats))
-                                .map(this.castCatResisterService::promise)
-                                .map(result -> result.thenApply(new CastCatCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return castCatCreate.map(new CastCatCreateRequestMapper(cats))
+                .map(this.castCatResisterService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new CastCatCreateResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -81,7 +76,7 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<Void>> castCatDelete(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer castCatId,
             @NotNull @Valid Integer version,
             ServerWebExchange exchange) {
@@ -101,7 +96,7 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<CastCatFindResponse>> castCatFind(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer castCatId,
             ServerWebExchange exchange) {
         return null;
@@ -119,7 +114,7 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<CastCatSearchResponse>> castCatSearch(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Integer size,
             ServerWebExchange exchange) {
         return null;
@@ -139,7 +134,7 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<PatchObject>> castCatUpdate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer castCatId,
             @Valid Mono<CastCatUpdate> castCatUpdate,
             ServerWebExchange exchange) {
@@ -162,14 +157,11 @@ public class CastApiController implements CastApi {
             @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             @Valid Mono<CastCreate> castCreate,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        Optional.of(castCreate.block())
-                                .map(new CastCreateRequestMapper(cats, storeId))
-                                .map(this.castResisterService::promise)
-                                .map(result -> result.thenApply(new CastCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return castCreate.map(new CastCreateRequestMapper(cats, storeId))
+                .map(this.castResisterService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new CastCreateResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -185,8 +177,8 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<Void>> castDelete(
-            String cats,
-            Integer storeId,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             Integer castId,
             @NotNull @Valid Integer version,
             ServerWebExchange exchange) {
@@ -211,15 +203,12 @@ public class CastApiController implements CastApi {
             @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             @Parameter(description = "キャストID", schema = @Schema(type = "integer")) Integer castId,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        new CastFindRequestMapper(
-                                cats, storeId, castId
-                        ).get()
-                                .map(this.castSearchService::promise)
-                                .map(result -> result.thenApply(new CastFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return new CastFindRequestMapper(
+                cats, storeId, castId).get()
+                .map(this.castSearchService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new CastFindResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
 
@@ -243,16 +232,13 @@ public class CastApiController implements CastApi {
             @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
             @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        new CastSearchRequestMapper(
-                                cats, storeIds, castIds,
-                                page, size, sortKeys
-                        ).get()
-                                .map(this.castSearchService::promise)
-                                .map(result -> result.thenApply(new CastSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return new CastSearchRequestMapper(
+                cats, storeIds, castIds,
+                page, size, sortKeys).get()
+                .map(this.castSearchService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new CastSearchResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -269,12 +255,12 @@ public class CastApiController implements CastApi {
     )
     @Override
     public Mono<ResponseEntity<PatchObject>> castUpdate(
-            String cats,
-            Integer storeId,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             Integer castId,
             @Valid Mono<CastUpdate> castUpdate,
             ServerWebExchange exchange) {
-        return Mono.empty();
+        return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api.controller.notice;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +21,6 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,7 +40,7 @@ public class NoticeApiController implements NoticeApi {
     )
     @Override
     public Mono<ResponseEntity<PostObject>> noticeCreate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<NoticeCreate> noticeCreate,
             ServerWebExchange exchange) {
         return null;
@@ -59,7 +59,7 @@ public class NoticeApiController implements NoticeApi {
     )
     @Override
     public Mono<ResponseEntity<Void>> noticeDelete(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer noticeId,
             @NotNull @Valid Integer version,
             ServerWebExchange exchange) {
@@ -79,7 +79,7 @@ public class NoticeApiController implements NoticeApi {
     )
     @Override
     public Mono<ResponseEntity<NoticeFindResponse>> noticeFind(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer noticeId,
             ServerWebExchange exchange) {
         return null;
@@ -98,18 +98,16 @@ public class NoticeApiController implements NoticeApi {
     @CrossOrigin
     @Override
     public Mono<ResponseEntity<NoticeSearchResponse>> noticeSearch(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid List<Integer> storeIds,
             @Valid Integer size,
             ServerWebExchange exchange) {
-        return
-                Mono.fromCompletionStage(
-                        new NoticeSearchRequestMapper(cats, storeIds)
-                                .get()
-                                .map(this.searchService::promise)
-                                .map(result -> result.thenApply(new NoticeSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
-                );
+        return new NoticeSearchRequestMapper(
+                cats, storeIds).get()
+                .map(this.searchService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new NoticeSearchResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -126,7 +124,7 @@ public class NoticeApiController implements NoticeApi {
     )
     @Override
     public Mono<ResponseEntity<PatchObject>> noticeUpdate(
-            String cats,
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer noticeId,
             @Valid Mono<NoticeUpdate> noticeUpdate,
             ServerWebExchange exchange) {
