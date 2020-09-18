@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api;
 
 import mabubu0203.com.github.catcafe.domain.DomainCore;
+import mabubu0203.com.github.catcafe.infra.InfraCore;
 import mabubu0203.com.github.catcafe.infra.config.JpaConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Import(value = {
         JpaConfig.class,
         DomainCore.class,
+        InfraCore.class,
 })
 public class ApiApp {
 

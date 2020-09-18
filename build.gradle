@@ -56,7 +56,7 @@ project(":micro-admin") {
 
 project(":micro-api") {
 	dependencies {
-		api(project(":micro-domain"))
+		api(project(":micro-infra"))
 	}
 }
 
@@ -65,13 +65,13 @@ project(":micro-common") {
 
 project(":micro-domain") {
 	dependencies {
-		api(project(":micro-infra"))
+		api(project(":micro-common"))
 	}
 }
 
 project(":micro-infra") {
 	dependencies {
-		api(project(":micro-common"))
+		api(project(":micro-domain"))
 	}
 }
 
