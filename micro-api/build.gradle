@@ -5,7 +5,6 @@ dependencies {
     // SpringBoot Projects
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -15,8 +14,7 @@ dependencies {
     compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
 
     // springdoc-openapi-ui
-    implementation("org.springdoc:springdoc-openapi-ui:${springDocVersion}")
-    implementation("org.springdoc:springdoc-openapi-data-rest:${springDocVersion}")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:${springDocVersion}")
 
     // lombok
     compileOnly("org.projectlombok:lombok")

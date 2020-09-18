@@ -18,6 +18,8 @@ import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -45,14 +47,18 @@ public class StoreApiController implements StoreApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> storeCreate(
+    public Mono<ResponseEntity<PostObject>> storeCreate(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            @Valid StoreCreate storeCreate) {
-        return Optional.of(storeCreate)
-                .map(new StoreCreateRequestMapper(cats))
-                .map(this.registerService::promise)
-                .map(result -> result.thenApply(new StoreCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+            @Valid Mono<StoreCreate> storeCreate,
+            ServerWebExchange exchange) {
+        return
+                Mono.fromCompletionStage(
+                        Optional.of(storeCreate.block())
+                                .map(new StoreCreateRequestMapper(cats))
+                                .map(this.registerService::promise)
+                                .map(result -> result.thenApply(new StoreCreateResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
+                );
     }
 
     @Operation(
@@ -67,7 +73,11 @@ public class StoreApiController implements StoreApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> storeDelete(String cats, Integer storeId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> storeDelete(
+            String cats,
+            Integer storeId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -83,9 +93,10 @@ public class StoreApiController implements StoreApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<StoreFindResponse>> storeFind(
+    public Mono<ResponseEntity<StoreFindResponse>> storeFind(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId) {
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -100,19 +111,23 @@ public class StoreApiController implements StoreApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<StoreSearchResponse>> storeSearch(
+    public Mono<ResponseEntity<StoreSearchResponse>> storeSearch(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Parameter(description = "店舗ID") @Valid List<Integer> storeIds,
             @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
             @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
-            @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys) {
-        return new StoreSearchRequestMapper(
-                cats, storeIds,
-                page, size, sortKeys
-        ).get()
-                .map(this.searchService::promise)
-                .map(result -> result.thenApply(new StoreSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+            @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
+            ServerWebExchange exchange) {
+        return
+                Mono.fromCompletionStage(
+                        new StoreSearchRequestMapper(
+                                cats, storeIds,
+                                page, size, sortKeys
+                        ).get()
+                                .map(this.searchService::promise)
+                                .map(result -> result.thenApply(new StoreSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
+                );
     }
 
     @Operation(
@@ -128,7 +143,11 @@ public class StoreApiController implements StoreApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> storeUpdate(String cats, Integer storeId, @Valid StoreUpdate storeUpdate) {
+    public Mono<ResponseEntity<PatchObject>> storeUpdate(
+            String cats,
+            Integer storeId,
+            @Valid Mono<StoreUpdate> storeUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 

@@ -9,10 +9,11 @@ import org.openapitools.api.ContactApi;
 import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +30,10 @@ public class ContactApiController implements ContactApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> contactCreate(String cats, @Valid ContactCreate contactCreate) {
+    public Mono<ResponseEntity<PostObject>> contactCreate(
+            String cats,
+            @Valid Mono<ContactCreate> contactCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -45,7 +49,10 @@ public class ContactApiController implements ContactApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<ContactFindResponse>> contactFind(String cats, Integer contactId) {
+    public Mono<ResponseEntity<ContactFindResponse>> contactFind(
+            String cats,
+            Integer contactId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -60,7 +67,10 @@ public class ContactApiController implements ContactApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<ContactSearchResponse>> contactSearch(String cats, @Valid List<Integer> storeIds) {
+    public Mono<ResponseEntity<ContactSearchResponse>> contactSearch(
+            String cats,
+            @Valid List<Integer> storeIds,
+            ServerWebExchange exchange) {
         return null;
     }
 

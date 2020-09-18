@@ -13,6 +13,8 @@ spring:
     restart:
       enabled: true
       poll-interval: 1000
+  main:
+    web-application-type: reactive
   resources:
     chain:
       html-application-cache: true
@@ -52,13 +54,9 @@ spring:
 server:
   port: 9001
   servlet:
-    context-path: /CatCafeApi
-    jsp:
-      registered: false
-  ssl:
-    enabled: false
-  tomcat:
-    uri-encoding: UTF-8
+    context-path: /
+  http2:
+    enabled: true
 logging:
   level:
     org:
@@ -122,4 +120,5 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
+    displayOperationId: true
   show-actuator: true

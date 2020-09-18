@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -37,7 +39,11 @@ public class ProvideServiceApiController implements ProvideServiceApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> provideServiceCreate(String cats, Integer storeId, @Valid ProvideServiceCreate provideServiceCreate) {
+    public Mono<ResponseEntity<PostObject>> provideServiceCreate(
+            String cats,
+            Integer storeId,
+            @Valid Mono<ProvideServiceCreate> provideServiceCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -53,7 +59,12 @@ public class ProvideServiceApiController implements ProvideServiceApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> provideServiceDelete(String cats, Integer storeId, Integer provideServiceId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> provideServiceDelete(
+            String cats,
+            Integer storeId,
+            Integer provideServiceId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -69,7 +80,11 @@ public class ProvideServiceApiController implements ProvideServiceApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<ProvideServiceFindResponse>> provideServiceFind(String cats, Integer storeId, Integer provideServiceId) {
+    public Mono<ResponseEntity<ProvideServiceFindResponse>> provideServiceFind(
+            String cats,
+            Integer storeId,
+            Integer provideServiceId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -85,12 +100,17 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(String cats, @Valid List<Integer> storeIds) {
-        return new ProvideServiceSearchRequestMapper(cats, storeIds)
-                .get()
-                .map(this.searchService::promise)
-                .map(result -> result.thenApply(new ProvideServiceSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+    public Mono<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(
+            String cats,
+            @Valid List<Integer> storeIds,
+            ServerWebExchange exchange) {
+        return
+                Mono.fromCompletionStage(new ProvideServiceSearchRequestMapper(cats, storeIds)
+                        .get()
+                        .map(this.searchService::promise)
+                        .map(result -> result.thenApply(new ProvideServiceSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
+                );
     }
 
     @Operation(
@@ -106,7 +126,12 @@ public class ProvideServiceApiController implements ProvideServiceApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> provideServiceUpdate(String cats, Integer storeId, Integer provideServiceId, @Valid ProvideServiceUpdate provideServiceUpdate) {
+    public Mono<ResponseEntity<PatchObject>> provideServiceUpdate(
+            String cats,
+            Integer storeId,
+            Integer provideServiceId,
+            @Valid Mono<ProvideServiceUpdate> provideServiceUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 

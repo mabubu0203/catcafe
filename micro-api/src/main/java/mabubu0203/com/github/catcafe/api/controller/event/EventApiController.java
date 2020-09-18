@@ -9,11 +9,12 @@ import org.openapitools.api.EventApi;
 import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +31,10 @@ public class EventApiController implements EventApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> eventCreate(String cats, @Valid EventCreate eventCreate) {
+    public Mono<ResponseEntity<PostObject>> eventCreate(
+            String cats,
+            @Valid Mono<EventCreate> eventCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -46,7 +50,11 @@ public class EventApiController implements EventApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> eventDelete(String cats, Integer eventId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> eventDelete(
+            String cats,
+            Integer eventId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -62,7 +70,10 @@ public class EventApiController implements EventApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<EventFindResponse>> eventFind(String cats, Integer eventId) {
+    public Mono<ResponseEntity<EventFindResponse>> eventFind(
+            String cats,
+            Integer eventId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -77,7 +88,10 @@ public class EventApiController implements EventApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<EventSearchResponse>> eventSearch(String cats, @Valid List<Integer> storeIds) {
+    public Mono<ResponseEntity<EventSearchResponse>> eventSearch(
+            String cats,
+            @Valid List<Integer> storeIds,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -94,7 +108,11 @@ public class EventApiController implements EventApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> eventUpdate(String cats, Integer eventId, @Valid EventUpdate eventUpdate) {
+    public Mono<ResponseEntity<PatchObject>> eventUpdate(
+            String cats,
+            Integer eventId,
+            @Valid Mono<EventUpdate> eventUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 

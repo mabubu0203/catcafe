@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -39,7 +41,10 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> frequentlyAskedQuestionCreate(String cats, @Valid FrequentlyAskedQuestionCreate frequentlyAskedQuestionCreate) {
+    public Mono<ResponseEntity<PostObject>> frequentlyAskedQuestionCreate(
+            String cats,
+            @Valid Mono<FrequentlyAskedQuestionCreate> frequentlyAskedQuestionCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -55,7 +60,11 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> frequentlyAskedQuestionDelete(String cats, Integer faqId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> frequentlyAskedQuestionDelete(
+            String cats,
+            Integer faqId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -71,12 +80,17 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionFindResponse>> frequentlyAskedQuestionFind(String cats, Integer faqId) {
-        return new FrequentlyAskedQuestionFindRequestMapper(cats, faqId)
-                .get()
-                .map(this.searchService::promise)
-                .map(result -> result.thenApply(new FrequentlyAskedQuestionFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+    public Mono<ResponseEntity<FrequentlyAskedQuestionFindResponse>> frequentlyAskedQuestionFind(
+            String cats,
+            Integer faqId,
+            ServerWebExchange exchange) {
+        return Mono.fromCompletionStage(
+                new FrequentlyAskedQuestionFindRequestMapper(cats, faqId)
+                        .get()
+                        .map(this.searchService::promise)
+                        .map(result -> result.thenApply(new FrequentlyAskedQuestionFindResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
+        );
     }
 
     @Operation(
@@ -91,12 +105,17 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<FrequentlyAskedQuestionSearchResponse>> frequentlyAskedQuestionSearch(String cats, @Valid List<Integer> storeIds) {
-        return new FrequentlyAskedQuestionSearchRequestMapper(cats, storeIds)
-                .get()
-                .map(this.searchService::promise)
-                .map(result -> result.thenApply(new FrequentlyAskedQuestionSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+    public Mono<ResponseEntity<FrequentlyAskedQuestionSearchResponse>> frequentlyAskedQuestionSearch(
+            String cats,
+            @Valid List<Integer> storeIds,
+            ServerWebExchange exchange) {
+        return Mono.fromCompletionStage(
+                new FrequentlyAskedQuestionSearchRequestMapper(cats, storeIds)
+                        .get()
+                        .map(this.searchService::promise)
+                        .map(result -> result.thenApply(new FrequentlyAskedQuestionSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
+                        .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)))
+        );
     }
 
     @Operation(
@@ -112,7 +131,11 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> frequentlyAskedQuestionUpdate(String cats, Integer faqId, @Valid FrequentlyAskedQuestionUpdate frequentlyAskedQuestionUpdate) {
+    public Mono<ResponseEntity<PatchObject>> frequentlyAskedQuestionUpdate(
+            String cats,
+            Integer faqId,
+            @Valid Mono<FrequentlyAskedQuestionUpdate> frequentlyAskedQuestionUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 
