@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api.controller.notice;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,11 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,7 +39,10 @@ public class NoticeApiController implements NoticeApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> noticeCreate(String cats, @Valid NoticeCreate noticeCreate) {
+    public Mono<ResponseEntity<PostObject>> noticeCreate(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Valid Mono<NoticeCreate> noticeCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -53,7 +58,11 @@ public class NoticeApiController implements NoticeApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> noticeDelete(String cats, Integer noticeId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> noticeDelete(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            Integer noticeId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -69,7 +78,10 @@ public class NoticeApiController implements NoticeApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<NoticeFindResponse>> noticeFind(String cats, Integer noticeId) {
+    public Mono<ResponseEntity<NoticeFindResponse>> noticeFind(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            Integer noticeId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -85,12 +97,17 @@ public class NoticeApiController implements NoticeApi {
     )
     @CrossOrigin
     @Override
-    public CompletableFuture<ResponseEntity<NoticeSearchResponse>> noticeSearch(String cats, @Valid List<Integer> storeIds, @Valid Integer size) {
-        return new NoticeSearchRequestMapper(cats, storeIds)
-                .get()
+    public Mono<ResponseEntity<NoticeSearchResponse>> noticeSearch(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            @Valid List<Integer> storeIds,
+            @Valid Integer size,
+            ServerWebExchange exchange) {
+        return new NoticeSearchRequestMapper(
+                cats, storeIds).get()
                 .map(this.searchService::promise)
-                .map(result -> result.thenApply(new NoticeSearchResponseMapper().andThen(ResponseEntity.status(HttpStatus.OK)::body)))
-                .orElseGet(() -> CompletableFuture.completedFuture(new ResponseEntity<>(null, HttpStatus.BAD_REQUEST)));
+                .flatMap(Mono::fromCompletionStage)
+                .map(new NoticeSearchResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(
@@ -106,7 +123,11 @@ public class NoticeApiController implements NoticeApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> noticeUpdate(String cats, Integer noticeId, @Valid NoticeUpdate noticeUpdate) {
+    public Mono<ResponseEntity<PatchObject>> noticeUpdate(
+            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+            Integer noticeId,
+            @Valid Mono<NoticeUpdate> noticeUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 

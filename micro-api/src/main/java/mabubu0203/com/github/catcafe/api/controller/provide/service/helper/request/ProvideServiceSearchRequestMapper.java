@@ -3,9 +3,9 @@ package mabubu0203.com.github.catcafe.api.controller.provide.service.helper.requ
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.provide.service.service.model.input.ProvideServiceSearchServiceInput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class ProvideServiceSearchRequestMapper implements SearchRequestMapper<ProvideServiceSearchServiceInput> {
@@ -14,8 +14,8 @@ public class ProvideServiceSearchRequestMapper implements SearchRequestMapper<Pr
     private final List<Integer> storeIds;
 
     @Override
-    public Optional<ProvideServiceSearchServiceInput> get() {
-        return Optional.of(new ProvideServiceSearchServiceInput());
+    public Mono<ProvideServiceSearchServiceInput> get() {
+        return Mono.just(new ProvideServiceSearchServiceInput());
     }
 
 }

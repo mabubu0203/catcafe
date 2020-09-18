@@ -3,6 +3,7 @@ package mabubu0203.com.github.catcafe.api.controller.cast.helper.request;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.CastSearchServiceInput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,8 @@ public class CastSearchRequestMapper implements SearchRequestMapper<CastSearchSe
     private final List<String> sortKeys;
 
     @Override
-    public Optional<CastSearchServiceInput> get() {
-        return Optional.of(
+    public Mono<CastSearchServiceInput> get() {
+        return Mono.just(
                 CastSearchServiceInput.builder()
                         .cats(this.cats)
                         .optStoreIds(Optional.ofNullable(this.storeIds))

@@ -9,11 +9,12 @@ import org.openapitools.api.DisplayMenuApi;
 import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,7 +31,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PostObject>> displayMenuCreate(String cats, Integer storeId, @Valid DisplayMenuCreate displayMenuCreate) {
+    public Mono<ResponseEntity<PostObject>> displayMenuCreate(
+            String cats,
+            Integer storeId,
+            @Valid Mono<DisplayMenuCreate> displayMenuCreate,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -46,7 +51,12 @@ public class DisplayMenuApiController implements DisplayMenuApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<Void>> displayMenuDelete(String cats, Integer storeId, Integer displayMenuId, @NotNull @Valid Integer version) {
+    public Mono<ResponseEntity<Void>> displayMenuDelete(
+            String cats,
+            Integer storeId,
+            Integer displayMenuId,
+            @NotNull @Valid Integer version,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -62,7 +72,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<DisplayMenuFindResponse>> displayMenuFind(String cats, Integer storeId, Integer displayMenuId) {
+    public Mono<ResponseEntity<DisplayMenuFindResponse>> displayMenuFind(
+            String cats,
+            Integer storeId,
+            Integer displayMenuId,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -77,7 +91,10 @@ public class DisplayMenuApiController implements DisplayMenuApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<DisplayMenuSearchResponse>> displayMenuSearch(String cats, @Valid List<Integer> storeIds) {
+    public Mono<ResponseEntity<DisplayMenuSearchResponse>> displayMenuSearch(
+            String cats,
+            @Valid List<Integer> storeIds,
+            ServerWebExchange exchange) {
         return null;
     }
 
@@ -94,7 +111,12 @@ public class DisplayMenuApiController implements DisplayMenuApi {
             }
     )
     @Override
-    public CompletableFuture<ResponseEntity<PatchObject>> displayMenuUpdate(String cats, Integer storeId, Integer displayMenuId, @Valid DisplayMenuUpdate displayMenuUpdate) {
+    public Mono<ResponseEntity<PatchObject>> displayMenuUpdate(
+            String cats,
+            Integer storeId,
+            Integer displayMenuId,
+            @Valid Mono<DisplayMenuUpdate> displayMenuUpdate,
+            ServerWebExchange exchange) {
         return null;
     }
 
