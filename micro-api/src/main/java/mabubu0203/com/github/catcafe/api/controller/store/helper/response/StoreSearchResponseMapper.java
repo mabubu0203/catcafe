@@ -2,8 +2,7 @@ package mabubu0203.com.github.catcafe.api.controller.store.helper.response;
 
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
-import org.openapitools.model.StoreDetail;
-import org.openapitools.model.StoreSearchResponse;
+import org.openapitools.model.*;
 
 public class StoreSearchResponseMapper implements SearchResponseMapper<StoreSearchServiceOutput, StoreSearchResponse> {
 
@@ -14,6 +13,10 @@ public class StoreSearchResponseMapper implements SearchResponseMapper<StoreSear
             var detail = new StoreDetail();
             detail.setId(store.getId());
             detail.setName(store.getName());
+
+            detail.setContact(new Contact());
+            detail.setAddress(new Address());
+            detail.setHours(new Hours());
             result.addStoresItem(detail);
         }
         return result;

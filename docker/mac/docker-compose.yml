@@ -11,8 +11,6 @@ services:
       - "./docker-mysql/init:/docker-entrypoint-initdb.d"
       - "./docker-mysql/conf/:/etc/mysql/conf.d"
       - "./docker-mysql/data/:/var/lib/mysql"
-    #    networks:
-    #      - sonarnet
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app_user
