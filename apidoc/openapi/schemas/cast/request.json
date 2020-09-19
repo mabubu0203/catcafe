@@ -3,12 +3,34 @@
     "cast_cat_create": {
       "description": "postObject",
       "type": "object",
+      "required": [
+        "name"
+      ],
       "properties": {
         "name": {
           "description": "キャスト(猫)名",
           "type": "string",
           "minLength": 0,
-          "maxLength": 128
+          "maxLength": 256
+        },
+        "image": {
+          "description": "画像URL",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "type": {
+          "description": "種類",
+          "type": "string"
+        },
+        "sex": {
+          "description": "性別",
+          "type": "string"
+        },
+        "birthday_date": {
+          "description": "誕生日",
+          "type": "string",
+          "format": "date"
         },
         "brother": {
           "description": "兄弟",
@@ -25,6 +47,12 @@
             "type": "integer",
             "format": "int32"
           }
+        },
+        "memo": {
+          "description": "キャストメモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         }
       }
     },
@@ -43,11 +71,34 @@
     "cast_create": {
       "description": "postObject",
       "type": "object",
+      "required": [
+        "cast_cat_id"
+      ],
       "properties": {
         "cast_cat_id": {
           "description": "キャスト(猫)ID",
           "type": "integer",
           "format": "int32"
+        },
+        "employment_status": {
+          "description": "雇用形態",
+          "type": "string"
+        },
+        "first_attendance_date": {
+          "description": "初出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "last_attendance_date": {
+          "description": "最終出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         }
       }
     },

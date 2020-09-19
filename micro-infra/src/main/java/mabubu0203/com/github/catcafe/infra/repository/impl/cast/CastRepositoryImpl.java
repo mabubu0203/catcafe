@@ -124,7 +124,7 @@ public class CastRepositoryImpl implements CastRepository {
                 .setType(null)
                 .setSex(CastCat.Sex.male)
                 .setBirthdayDate(null)
-                .setMemo(null);
+                .setMemo(entity.getMemo());
     }
 
 }

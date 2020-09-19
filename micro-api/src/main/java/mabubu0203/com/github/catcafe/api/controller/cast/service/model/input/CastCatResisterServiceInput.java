@@ -11,7 +11,10 @@ import java.util.List;
 public class CastCatResisterServiceInput implements ServiceInput {
 
     private String name;
+    private String image;
+    private String type;
     private List<Integer> brother = null;
     private List<Integer> sister = null;
+    private String memo;
 
 }

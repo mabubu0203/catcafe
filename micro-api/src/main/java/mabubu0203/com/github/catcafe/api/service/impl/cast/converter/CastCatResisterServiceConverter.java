@@ -10,6 +10,8 @@ public class CastCatResisterServiceConverter {
     public CastCatEntity fromInput(CastCatResisterServiceInput input) {
         return CastCatEntity.builder()
                 .name(input.getName())
+                .image(input.getImage())
+                .memo(input.getMemo())
                 .build();
     }
 

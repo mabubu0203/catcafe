@@ -15,7 +15,10 @@ public class CastCreateRequestMapper implements CreateRequestMapper<CastCreate, 
     public CastRegisterServiceInput apply(CastCreate castCreate) {
         return new CastRegisterServiceInput()
                 .setStoreId(this.storeId)
-                .setCastCatId(castCreate.getCastCatId());
+                .setCastCatId(castCreate.getCastCatId())
+                .setFirstAttendanceDate(castCreate.getFirstAttendanceDate())
+                .setLastAttendanceDate(castCreate.getLastAttendanceDate())
+                .setMemo(castCreate.getMemo());
     }
 
 }
