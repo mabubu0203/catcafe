@@ -8,6 +8,7 @@ import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Accessors(chain = true)
 @Data
@@ -35,12 +36,21 @@ public class Cast extends BaseTable {
     @Column(name = "cast_cat_id", nullable = false)
     private Integer castCatId;
 
+    @Column(name = "first_attendance_date")
+    private LocalDate firstAttendanceDate;
+
+    @Column(name = "last_attendance_date")
+    private LocalDate lastAttendanceDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "employment_status", nullable = false)
     private EmploymentStatus employmentStatus = EmploymentStatus.main;
 
+    @Column(name = "memo")
+    private String memo;
+
     @Getter
-    enum EmploymentStatus {
+    public enum EmploymentStatus {
         main,
         sub
     }

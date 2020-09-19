@@ -13,6 +13,7 @@ public class CastEntity {
 
     private final Optional<CastId> castId;
     private final StoreId storeId;
+    private final String memo;
     private final CastCatEntity CastCatEntity;
 
 }

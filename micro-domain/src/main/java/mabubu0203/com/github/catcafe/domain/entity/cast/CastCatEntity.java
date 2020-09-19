@@ -12,5 +12,8 @@ public class CastCatEntity {
 
     private final Optional<CastCatId> castCatId;
     private final String name;
+    private final String image;
+    private final String sex;
+    private final String memo;
 
 }
