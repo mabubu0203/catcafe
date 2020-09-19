@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS cast
     cast_cat_id           INT UNSIGNED        NOT NULL COMMENT 'キャスト(猫)ID',
     employment_status     ENUM ('main','sub') NOT NULL DEFAULT 'main' COMMENT '雇用ステータス',
     first_attendance_date DATE COMMENT '初出勤日',
-    last_attendance_date  DATE COMMENT '初出勤日',
+    last_attendance_date  DATE COMMENT '最終出勤日',
     memo                  VARCHAR(256) COMMENT '店舗メモ',
     created_date_time     DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
     created_by            INT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '登録者',

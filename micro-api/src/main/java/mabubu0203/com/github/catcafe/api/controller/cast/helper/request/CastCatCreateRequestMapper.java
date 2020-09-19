@@ -14,8 +14,11 @@ public class CastCatCreateRequestMapper implements CreateRequestMapper<CastCatCr
     public CastCatResisterServiceInput apply(CastCatCreate castCatCreate) {
         return new CastCatResisterServiceInput()
                 .setName(castCatCreate.getName())
+                .setImage(castCatCreate.getImage())
+                .setType(castCatCreate.getType())
                 .setBrother(castCatCreate.getBrother())
-                .setSister(castCatCreate.getSister());
+                .setSister(castCatCreate.getSister())
+                .setMemo(castCatCreate.getMemo());
     }
 
 }

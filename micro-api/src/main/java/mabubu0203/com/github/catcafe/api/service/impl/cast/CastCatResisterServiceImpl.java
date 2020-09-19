@@ -28,7 +28,7 @@ public class CastCatResisterServiceImpl implements CastCatResisterService {
                 .map(this.converter::fromInput)
                 .map(this.castRepository::resister)
                 .map(future -> future.thenApply(this.converter::toOutput))
-                .get();
+                .orElseThrow(RuntimeException::new);
     }
 
 }

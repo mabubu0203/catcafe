@@ -18,6 +18,7 @@ public class CastResisterServiceConverter {
                 .build();
         return CastEntity.builder()
                 .storeId(new StoreId(input.getStoreId()))
+                .memo(input.getMemo())
                 .CastCatEntity(castCatEntity)
                 .build();
     }
