@@ -34,7 +34,7 @@ public class FrequentlyAskedQuestion extends BaseTable {
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(name = "question_summary\t", nullable = false)
+    @Column(name = "question_summary", nullable = false)
     private String questionSummary;
 
     @Column(name = "answer_summary", nullable = false)
