@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS cast_cat
 (
     id                INT UNSIGNED           NOT NULL COMMENT 'キャスト(猫)ID',
     name              VARCHAR(256)           NOT NULL COMMENT 'キャスト(猫)名',
-    image             VARCHAR(256)                    DEFAULT NULL COMMENT '画像URL',
+    image_url         VARCHAR(256)                    DEFAULT NULL COMMENT '画像URL',
     type              VARCHAR(256) COMMENT '猫種',
     sex               ENUM ('male','female') NOT NULL DEFAULT 'male' COMMENT '性別',
     birthday_date     DATE COMMENT '誕生日',
@@ -44,7 +44,7 @@ CREATE VIEW cast_view
              employment_status,
              cast_cat_id,
              cast_cat_name,
-             cast_cat_image,
+             cast_cat_image_url,
              cast_cat_sex
                 )
 AS
@@ -54,7 +54,7 @@ SELECT CONCAT(cast.id, '_', cast_cat.id) AS id,
        cast.employment_status,
        cast_cat.id                       AS cast_cat_id,
        cast_cat.name                     AS cast_cat_name,
-       cast_cat.image                    AS cast_cat_image,
+       cast_cat.image_url                AS cast_cat_image_url,
        cast_cat.sex                      AS cast_cat_sex
 FROM cast cast
          INNER JOIN cast_cat cast_cat ON cast.cast_cat_id = cast_cat.id

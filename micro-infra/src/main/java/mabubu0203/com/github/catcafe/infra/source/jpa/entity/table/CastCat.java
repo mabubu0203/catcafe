@@ -34,7 +34,7 @@ public class CastCat extends BaseTable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "image")
+    @Column(name = "image_url")
     private String image;
 
     @Column(name = "type")

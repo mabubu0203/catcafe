@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -28,53 +29,54 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     @Async
     public CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions) {
-        return CompletableFuture.supplyAsync(() -> this.source.findAll(
-//                searchConditions.getCastSpecification(),
-                this.getCastSpecification(),
-                searchConditions.getPageRequest()))
+        var specification = Specification
+                .where(this.storeIdInclude(searchConditions.optStoreIds()));
+        return CompletableFuture.supplyAsync(() -> this.source.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertStoreEntity));
     }
 
-    public Specification<Store> getCastSpecification() {
-        return Specification
-                .where(this.storeIdInclude());
-    }
-
-    private Specification<Store> storeIdInclude() {
-        return (Specification<Store>) (root, criteriaQuery, criteriaBuilder) -> root.get(Store_.id).in(Collections.emptyList());
+    private Specification<Store> storeIdInclude(Optional<List<Integer>> optStoreIds) {
+        var storeIds = optStoreIds.orElseGet(Collections::emptyList);
+        return storeIds.size() == 0 ?
+                null : (root, criteriaQuery, criteriaBuilder) -> root.get(Store_.id).in(storeIds);
     }
 
     private StoreEntity convertStoreEntity(Store store) {
+        var storeId = new StoreId(store.getId());
         return StoreEntity.builder()
-                .storeId(Optional.of(new StoreId(store.getId())))
+                .storeId(Optional.of(storeId))
                 .name(store.getName())
+                .openingTime(null)
+                .closingTime(null)
                 .build();
     }
 
     @Override
     @Async
     public CompletableFuture<Boolean> exists(StoreId storeId) {
-        return CompletableFuture.supplyAsync(() -> this.source.findById(storeId.intValue()))
+        return CompletableFuture.supplyAsync(storeId::intValue)
+                .thenApply(this.source::findById)
                 .thenApply(Optional::isPresent);
     }
 
     @Override
     @Async
     public CompletableFuture<StoreId> resister(StoreEntity store) {
-        return CompletableFuture.supplyAsync(() -> this.source.save(this.toDto(store)))
+        return CompletableFuture.supplyAsync(() -> this.toDto(store))
+                .thenApply(dto -> (Store) dto.setCreatedDateTime(LocalDateTime.now()))
+                .thenApply(dto -> (Store) dto.setCreatedBy(0))
+                .thenApply(dto -> (Store) dto.setVersion(0))
+                .thenApply(this.source::save)
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);
     }
 
     private Store toDto(StoreEntity entity) {
-        var dto = new Store()
-                .setName(entity.getName());
-        dto
-                .setCreatedDateTime(LocalDateTime.now())
-                .setCreatedBy(0)
-                .setVersion(0);
-        return dto;
+        return new Store()
+                .setName(entity.getName())
+                .setOpeningTime(entity.getOpeningTime())
+                .setClosingTime(entity.getOpeningTime());
     }
 
 }

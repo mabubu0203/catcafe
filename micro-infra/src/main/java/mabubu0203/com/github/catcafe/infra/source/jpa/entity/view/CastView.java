@@ -36,7 +36,7 @@ public class CastView extends BaseView {
     @Column(name = "cast_cat_name", insertable = false, updatable = false)
     private String castCatName;
 
-    @Column(name = "cast_cat_image", insertable = false, updatable = false)
+    @Column(name = "cast_cat_image_url", insertable = false, updatable = false)
     private String castCatImage;
 
     @Enumerated(EnumType.STRING)
