@@ -38,6 +38,6 @@ IntelliJ IDEAを使用します。
     `$ docker-compose -f docker-compose.yml down`
 
 [OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html     "OpenApi(Api)"
-[OpenApi(Api)]: http://localhost:9001/swagger-ui.html     "OpenApi(Api)"
+[OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html     "OpenApi(Api)"
 [Riot(Site)]: http://localhost:3000/     "Riot(Site)"
 [phpMyAdmin]: http://localhost:8021/     "phpMyAdmin"
