@@ -2,10 +2,8 @@
     <div class="ui card">
         <h2>猫カフェ</h2>
         <div class="ui form">
-            <form onsubmit={ handleSubmit }>
-                <div class="menu">
-                    <su-dropdown items="{ dropdownItems }" name="store_id"></su-dropdown>
-                </div>
+            <form name="welcome" onsubmit={ handleSubmit }>
+                <store-list></store-list>
                 <div class="inline field">
                     <button class="ui teal button">店舗選択</button>
                 </div>
@@ -54,38 +52,31 @@
     </div>
 
     <script>
+        import StoreList from './store/store-list.riot'
+
         export default {
+            components: {
+                StoreList
+            },
             state: {
                 is_store_selected_in: false,
                 store_id: null
             },
             onBeforeMount(props, state) {
             },
-            handleSubmit(e) {
-                e.preventDefault()
+            handleSubmit() {
                 this.state.is_store_selected_in = true
-                this.state.store_id = this.$("[name='store_id']").getAttribute('value')
+
+                const selectStore = document.welcome.store_id
+                this.state.store_id = selectStore.options[selectStore.selectedIndex].value
+
                 localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
+
                 this.update()
             },
             onUpdated() {
                 location.reload();
             },
-            dropdownItems: [
-                {
-                    label: '店舗',
-                    value: null,
-                    default: true
-                },
-                {
-                    label: '東京',
-                    value: '1'
-                },
-                {
-                    label: '御茶ノ水',
-                    value: '2'
-                }
-            ],
             tableData: [
                 {name: 'John', age: 15, gender: 'Male'},
                 {name: 'Amber', age: 40, gender: 'Female'},

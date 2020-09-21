@@ -2,11 +2,7 @@
     <navigation>
         <div class="ui visible sidebar inverted vertical menu">
 
-            <div class="item sidebar-head">
-                <div class="menu">
-                    <su-dropdown items={ dropdownItems }></su-dropdown>
-                </div>
-            </div>
+            <store-list></store-list>
 
             <div class="item">
                 <div class="ui list">
@@ -47,22 +43,12 @@
     </navigation>
 
     <script>
+        import StoreList from './store/store-list.riot'
+
         export default {
-            dropdownItems: [
-                {
-                    label: '店舗',
-                    value: null,
-                    default: true
-                },
-                {
-                    label: '東京',
-                    value: '/'
-                },
-                {
-                    label: '御茶ノ水',
-                    value: '/'
-                }
-            ]
+            components: {
+                StoreList
+            }
         }
     </script>
 

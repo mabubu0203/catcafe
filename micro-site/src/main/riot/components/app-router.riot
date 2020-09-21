@@ -3,6 +3,9 @@
     <route path="/">
         <store-detail/>
     </route>
+    <route path="/stores">
+        <store-list/>
+    </route>
     <route path="/store-detail">
         <store-detail/>
     </route>
@@ -34,6 +37,7 @@
     <script>
         import { Router, Route } from '@riotjs/route'
         import Welcome from './welcome'
+        import StoreList from './store/store-list'
         import StoreDetail from './store/store-detail'
         import ProvideServiceList from './provide_service/provide-service-list'
         import CastList from './cast/cast-list'
@@ -46,6 +50,7 @@
         const pages = [
             '/',
             '/store-detail',
+            '/stores',
             '/provide_services',
             '/cast/*',
             '/casts',
@@ -60,6 +65,7 @@
                 Route,
                 Welcome,
                 StoreDetail,
+                StoreList,
                 ProvideServiceList,
                 CastList,
                 CastDetail,
