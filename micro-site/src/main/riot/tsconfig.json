@@ -5,6 +5,12 @@
     "module": "es2015",
     "inlineSources": true,
     "removeComments": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@userEnv/*": [
+        "`.env/${environment}.js`/*"
+      ]
+    }
   }
 }

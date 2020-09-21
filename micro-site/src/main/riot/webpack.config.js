@@ -60,7 +60,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.riot', '.js'],
         alias: {
-            userEnv$: path.resolve(__dirname, `.env/${environment}.js`),
+            '@userEnv': path.resolve(__dirname, `.env/${environment}.js`),
         },
     }
 }

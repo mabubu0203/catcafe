@@ -34,12 +34,12 @@
     </div>
 
     <script type="ts">
-        import {CastListComponent, CastListComponentProps, CastListComponentState} from './types'
+        import {CastListComponent} from './types'
         import {AxiosResponse} from "axios";
         import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
         import {CastDetail} from "../../axios-front/model/cast-detail";
         import {CastApi} from "../../axios-front/api/cast-api";
-        import userEnv from 'userEnv';
+        import userEnv from '@userEnv';
 
         function CastList(): CastListComponent {
             return {
