@@ -45,9 +45,9 @@
                     client.noticeSearch('cats', [0], 10)
                         .then((res: AxiosResponse<NoticeSearchResponse>) => {
                             let responseBody: NoticeSearchResponse = res.data
-                            let bodyCasts: Array<NoticeDetail> = responseBody.notices
+                            let bodyNotices: Array<NoticeDetail> = responseBody.notices
                             this.update({
-                                notices: bodyCasts
+                                notices: bodyNotices
                             })
                         })
                         .catch((error: any) => {

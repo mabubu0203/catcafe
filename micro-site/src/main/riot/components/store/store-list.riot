@@ -1,22 +1,54 @@
 <store-list>
-    <h3>{ message }</h3>
+    <div class="item sidebar-head">
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+        <div class="menu">
+            <span class="st_form_addon">店舗</span>
+            <select class="st_form_input" id="store_id">
+                <option each="{store in state.stores}" value="{store.id}">{store.name}</option>
+            </select>
+        </div>
 
-    <script>
-        export default {
-            message: 'Store',
-            techs: [
-                {name: 'お知らせ1'},
-                {name: 'お知らせ2'},
-                {name: 'お知らせ3'}
-            ]
+    </div>
+
+    <script type="ts">
+        import {StoreListComponent, StoreListComponentState, StoreListComponentProps} from './types'
+        import {AxiosResponse} from "axios";
+        import {StoreSearchResponse} from "../../axios-front/model/store-search-response";
+        import {StoreDetail} from "../../axios-front/model/store-detail";
+        import {StoreApi} from "../../axios-front/api/store-api";
+        import userEnv from '@userEnv';
+
+        function StoreList(): StoreListComponent {
+            return {
+                state: {
+                    stores: []
+                },
+                onBeforeMount(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
+                    this.storeSearch();
+                },
+                onMounted(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
+                    this.storeSearch();
+                },
+                async storeSearch() {
+                    let client: StoreApi = new StoreApi({
+                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                    });
+                    client.storeSearch('cats', [], 0, 20, null)
+                        .then((res: AxiosResponse<StoreSearchResponse>) => {
+                            let responseBody: StoreSearchResponse = res.data
+                            let bodyStores: Array<StoreDetail> = responseBody.stores
+                            this.update({
+                                stores: bodyStores
+                            })
+                        })
+                        .catch((error: any) => {
+                            console.log(error);
+                        });
+                }
+            }
         }
 
+        export default StoreList
     </script>
 
 </store-list>

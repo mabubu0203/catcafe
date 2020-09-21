@@ -17,6 +17,7 @@ import org.openapitools.api.StoreApi;
 import org.openapitools.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -105,6 +106,7 @@ public class StoreApiController implements StoreApi {
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
             }
     )
+    @CrossOrigin
     @Override
     public Mono<ResponseEntity<StoreSearchResponse>> storeSearch(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
