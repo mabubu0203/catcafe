@@ -25,8 +25,9 @@
   },
   "scripts": {
     "webpack": "webpack",
-    "watch": "webpack --watch",
-    "start": "NODE_ENV=development webpack-dev-server --inline --watch --hot --colors -d --port 3000 --mode development",
+    "webpack-development": "webpack --mode development",
+    "webpack-production": "webpack --mode=production",
+    "start-development": "NODE_ENV=development webpack-dev-server --inline --watch --hot --colors -d --port 3000 --mode development",
     "validate-schema": "openapi-generator validate -i ../../../../apidoc/openapi/openapi.json",
     "generate-client": "openapi-generator generate -i ../../../../apidoc/openapi/openapi.json -o ./axios-front --api-package=api -g typescript-axios -c ./axios-front/openapi-generator-config.json --model-package=model"
   },

@@ -39,5 +39,5 @@ IntelliJ IDEAを使用します。
 
 [OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html     "OpenApi(Api)"
 [OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html     "OpenApi(Api)"
-[Riot(Site)]: http://localhost:3000/     "Riot(Site)"
+[Riot(Site)]: http://localhost:9011/CatCafeSite/     "Riot(Site)"
 [phpMyAdmin]: http://localhost:8021/     "phpMyAdmin"
