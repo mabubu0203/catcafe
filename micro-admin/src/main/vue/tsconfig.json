@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es2015",
+    "module": "es2015",
+    "inlineSources": true,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@userEnv/*": [
+        "`.env/${environment}.js`/*"
+      ]
+    }
+  }
+}
