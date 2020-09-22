@@ -24,3 +24,7 @@ hs_err_pid*
 
 **/build/
 !src/**/build/
+src/main/resources/public/bundle.js
+src/main/vue/axios-front/api
+src/main/vue/axios-front/model
+src/main/vue/axios-front/*.ts
