@@ -41,6 +41,10 @@ bootJar {
     launchScript()
 }
 
+bootRun {
+    sourceResources sourceSets.main
+}
+
 node {
     version = "12.18.4"
     download = true
@@ -49,5 +53,4 @@ node {
     nodeModulesDir = file("${project.projectDir}/src/main/riot")
 }
 
-compileJava.dependsOn webpack
-compileJava.mustRunAfter webpack
+compileJava.dependsOn tasks.generateClient, tasks.webpackDevelopment

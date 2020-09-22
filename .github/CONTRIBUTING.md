@@ -23,9 +23,11 @@ IntelliJ IDEAを使用します。
 
 ### Endpoints
 
-[OpenApi(Admin)][]
 [OpenApi(Api)][]
-[Riot(Site)][]
+[OpenApi(Site)][]
+[OpenApi(Admin)][]
+[Site(Riot)][]
+[Admin(Vue)][]
 [phpMyAdmin][]
 
 ## 停止方法
@@ -37,7 +39,9 @@ IntelliJ IDEAを使用します。
 1. docker-composeよりコンテナ破棄  
     `$ docker-compose -f docker-compose.yml down`
 
-[OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html     "OpenApi(Api)"
-[OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html     "OpenApi(Api)"
-[Riot(Site)]: http://localhost:3000/     "Riot(Site)"
-[phpMyAdmin]: http://localhost:8021/     "phpMyAdmin"
+[OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html            "OpenApi(Api)"
+[OpenApi(Site)]: http://localhost:9011/CatCafeSite/swagger-ui.html          "OpenApi(Site)"
+[OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html        "OpenApi(Admin)"
+[Site(Riot)]: http://localhost:9011/CatCafeSite/                            "Site(Riot)"
+[Admin(Vue)]: http://localhost:9021/CatCafeAdmin/                           "Admin(Vue)"
+[phpMyAdmin]: http://localhost:8021/                                        "phpMyAdmin"

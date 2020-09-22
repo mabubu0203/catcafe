@@ -25,8 +25,7 @@ module.exports = {
         bundle: './index.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, '../resources/public'),
         filename: '[name].js',
     },
     devtool: '#source-map',
