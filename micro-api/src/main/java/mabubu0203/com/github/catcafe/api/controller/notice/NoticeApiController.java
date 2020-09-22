@@ -6,8 +6,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.controller.notice.helper.request.NoticeCreateRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.notice.helper.request.NoticeSearchRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.notice.helper.response.NoticeCreateResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.notice.helper.response.NoticeSearchResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeResisterService;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeSearchService;
 import org.openapitools.api.NoticeApi;
 import org.openapitools.model.*;
@@ -26,6 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeApiController implements NoticeApi {
 
+    private final NoticeResisterService resisterService;
     private final NoticeSearchService searchService;
 
     @Operation(
@@ -43,7 +47,11 @@ public class NoticeApiController implements NoticeApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<NoticeCreate> noticeCreate,
             ServerWebExchange exchange) {
-        return null;
+        return noticeCreate.map(new NoticeCreateRequestMapper(cats))
+                .map(this.resisterService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new NoticeCreateResponseMapper())
+                .map(ResponseEntity.status(HttpStatus.OK)::body);
     }
 
     @Operation(

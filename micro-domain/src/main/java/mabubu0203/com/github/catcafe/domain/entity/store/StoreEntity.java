@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
