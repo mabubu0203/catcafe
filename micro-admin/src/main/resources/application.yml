@@ -1,10 +1,11 @@
-# ----------------------------------------
-# CORE PROPERTIES
-# ----------------------------------------
 spring:
-  # ----------------------------------------
-  # DEVTOOLS PROPERTIES
-  # ----------------------------------------
+  profiles:
+    active: local
+
+---
+spring:
+  application:
+    name: micro-admin
   devtools:
     livereload:
       enabled: true
@@ -20,22 +21,18 @@ spring:
         content:
           enabled: true
           paths: /webjars/swagger-ui/**.*
-# ----------------------------------------
-# WEB PROPERTIES
-# ----------------------------------------
+
 server:
   port: 9021
   servlet:
     context-path: /CatCafeAdmin
-    jsp:
-      registered: false
-  ssl:
-    enabled: false
-  tomcat:
-    uri-encoding: UTF-8
-# ----------------------------------------
-# ACTUATOR PROPERTIES
-# ----------------------------------------
+logging:
+  level:
+    org:
+      springframework: INFO
+  file:
+    name: micro-admin.log
+
 management:
   endpoint:
     auditevents:
@@ -73,6 +70,8 @@ management:
       exposure:
         include: auditevents,beans,conditions,configprops,env,health,heapdump,info,jolokia,logfile,loggers,refresh,mappings,metrics
   health:
+    db:
+      enabled: true
     defaults:
       enabled: true
   info:
@@ -91,5 +90,5 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
-  version: "0.0.1"
+    displayOperationId: true
   show-actuator: true
