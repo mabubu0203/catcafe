@@ -1,7 +1,5 @@
 apply plugin: "com.github.node-gradle.node"
 
-
-task webpack(dependsOn: ['npm_run_webpack'])
 task webpackDevelopment(dependsOn: ['npm_run_webpack-development'])
 task webpackProduction(dependsOn: ['npm_run_webpack-production'])
 task startDevelopment(dependsOn: ['npm_run_start-development'])

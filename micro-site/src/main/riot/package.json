@@ -24,7 +24,6 @@
     "@openapitools/openapi-generator-cli": "^1.0.18-4.3.1"
   },
   "scripts": {
-    "webpack": "webpack",
     "webpack-development": "webpack --mode development",
     "webpack-production": "webpack --mode=production",
     "start-development": "NODE_ENV=development webpack-dev-server --inline --watch --hot --colors -d --port 3000 --mode development",
