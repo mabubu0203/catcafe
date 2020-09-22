@@ -2,6 +2,7 @@ package mabubu0203.com.github.catcafe.api.controller.notice;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,6 +23,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -107,11 +110,14 @@ public class NoticeApiController implements NoticeApi {
     @Override
     public Mono<ResponseEntity<NoticeSearchResponse>> noticeSearch(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            @Valid List<Integer> storeIds,
-            @Valid Integer size,
+            @Parameter(description = "店舗ID") @Valid List<Integer> storeIds,
+            @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
+            @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
+            @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
             ServerWebExchange exchange) {
         return new NoticeSearchRequestMapper(
-                cats, storeIds).get()
+                cats, storeIds,
+                page, size, sortKeys).get()
                 .map(this.searchService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new NoticeSearchResponseMapper())
