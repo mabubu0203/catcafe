@@ -3,12 +3,36 @@
     "notice_create": {
       "description": "postObject",
       "type": "object",
+      "required": [
+        "summary"
+      ],
       "properties": {
-        "value": {
-          "description": "",
+        "store_id": {
+          "description": "店舗ID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "summary": {
+          "description": "お知らせ概要",
           "type": "string",
           "minLength": 0,
-          "maxLength": 100
+          "maxLength": 256
+        },
+        "detail": {
+          "description": "お知らせ詳細",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 1024
+        },
+        "publication_start_date_time": {
+          "description": "掲載開始日時",
+          "type": "string",
+          "format": "date-time"
+        },
+        "publication_end_date_time": {
+          "description": "掲載終了日時",
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
