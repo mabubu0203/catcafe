@@ -9,17 +9,14 @@ public class NoticeSearchResponseMapper implements SearchResponseMapper<NoticeSe
 
     @Override
     public NoticeSearchResponse apply(NoticeSearchServiceOutput noticeSearchServiceOutput) {
-        return this.search();
-    }
-
-    private NoticeSearchResponse search() {
-        var detail = new NoticeDetail();
-        detail.setId(1);
-        detail.setSummary("おしらせ1");
-        detail.setDetail("おしらせ1の詳細です。");
-
         var result = new NoticeSearchResponse();
-        result.addNoticesItem(detail);
+        for (NoticeSearchServiceOutput.NoticeObject notice : noticeSearchServiceOutput.getNotices()) {
+            var detail = new NoticeDetail();
+            detail.setId(notice.getId());
+            detail.setSummary("おしらせ1");
+            detail.setDetail("おしらせ1の詳細です。");
+            result.addNoticesItem(detail);
+        }
         return result;
     }
 

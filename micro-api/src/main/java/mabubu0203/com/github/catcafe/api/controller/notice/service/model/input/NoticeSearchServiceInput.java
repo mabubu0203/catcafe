@@ -13,6 +13,7 @@ public class NoticeSearchServiceInput implements ServiceInput {
 
     private final String cats;
     private final Optional<List<Integer>> optStoreIds;
+    private final Optional<List<Integer>> optNoticeIds;
     private final Optional<Integer> optPage;
     private final Optional<Integer> optSize;
     private final Optional<List<String>> optSortKeys;

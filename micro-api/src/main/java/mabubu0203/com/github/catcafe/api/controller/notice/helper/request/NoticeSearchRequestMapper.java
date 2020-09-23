@@ -13,6 +13,7 @@ public class NoticeSearchRequestMapper implements SearchRequestMapper<NoticeSear
 
     private final String cats;
     private final List<Integer> storeIds;
+    private final List<Integer> noticeIds;
     private final Integer page;
     private final Integer size;
     private final List<String> sortKeys;
@@ -23,6 +24,7 @@ public class NoticeSearchRequestMapper implements SearchRequestMapper<NoticeSear
                 NoticeSearchServiceInput.builder()
                         .cats(this.cats)
                         .optStoreIds(Optional.ofNullable(this.storeIds))
+                        .optNoticeIds(Optional.ofNullable(this.noticeIds))
                         .optPage(Optional.ofNullable(this.page))
                         .optSize(Optional.ofNullable(this.size))
                         .optSortKeys(Optional.ofNullable(this.sortKeys))

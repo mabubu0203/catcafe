@@ -5,6 +5,7 @@ import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeSearchConditions;
 
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class NoticeSearchServiceConverter {
@@ -19,7 +20,15 @@ public class NoticeSearchServiceConverter {
     }
 
     public NoticeSearchServiceOutput toServiceOutput(Stream<NoticeEntity> stream) {
-        return new NoticeSearchServiceOutput();
+        return new NoticeSearchServiceOutput()
+                .setNotices(stream
+                        .map(noticeEntity -> new NoticeSearchServiceOutput.NoticeObject()
+                                .setId(noticeEntity.getNoticeId().get().intValue())
+                                .setStoreId(noticeEntity.getStoreId().intValue())
+                                .setSummary(noticeEntity.getSummary())
+                                .setDetail(noticeEntity.getDetail())
+                        )
+                        .collect(Collectors.toList()));
     }
 
 }

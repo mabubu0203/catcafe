@@ -172,6 +172,19 @@
             }
           },
           {
+            "name": "notice_ids",
+            "in": "query",
+            "description": "お知らせID",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
             "name": "page",
             "in": "query",
             "description": "取得ページ",

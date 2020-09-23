@@ -111,12 +111,13 @@ public class NoticeApiController implements NoticeApi {
     public Mono<ResponseEntity<NoticeSearchResponse>> noticeSearch(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Parameter(description = "店舗ID") @Valid List<Integer> storeIds,
+            @Parameter(description = "お知らせID") @Valid List<Integer> noticeIds,
             @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
             @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
             @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {"store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
             ServerWebExchange exchange) {
         return new NoticeSearchRequestMapper(
-                cats, storeIds,
+                cats, storeIds, noticeIds,
                 page, size, sortKeys).get()
                 .map(this.searchService::promise)
                 .flatMap(Mono::fromCompletionStage)

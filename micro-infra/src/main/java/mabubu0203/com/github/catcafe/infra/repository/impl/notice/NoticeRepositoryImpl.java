@@ -40,13 +40,18 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     private Specification<Notice> storeIdInclude(Optional<List<Integer>> optStoreIds) {
         var storeIds = optStoreIds.orElseGet(Collections::emptyList);
         return storeIds.size() == 0 ?
-                null : (root, criteriaQuery, criteriaBuilder) -> root.get(Notice_.storeId).in(storeIds);
+                null : (root, criteriaQuery, criteriaBuilder) -> root.get(Notice_.STORE_ID).in(storeIds);
     }
 
     private NoticeEntity convertNoticeEntity(Notice notice) {
+        var noticeId = new NoticeId(notice.getId());
         var storeId = new StoreId(notice.getStoreId());
+
         return NoticeEntity.builder()
+                .noticeId(Optional.of(noticeId))
                 .storeId(storeId)
+                .summary(notice.getSummary())
+                .detail(notice.getDetail())
                 .build();
     }
 
