@@ -42,11 +42,11 @@ public class StoreRepositoryImpl implements StoreRepository {
                 null : (root, criteriaQuery, criteriaBuilder) -> root.get(Store_.id).in(storeIds);
     }
 
-    private StoreEntity convertStoreEntity(Store store) {
-        var storeId = new StoreId(store.getId());
+    private StoreEntity convertStoreEntity(Store dto) {
+        var storeId = new StoreId(dto.getId());
         return StoreEntity.builder()
                 .storeId(Optional.of(storeId))
-                .name(store.getName())
+                .name(dto.getName())
                 .openingTime(null)
                 .closingTime(null)
                 .build();
@@ -62,11 +62,13 @@ public class StoreRepositoryImpl implements StoreRepository {
 
     @Override
     @Async
-    public CompletableFuture<StoreId> resister(StoreEntity store) {
-        return CompletableFuture.supplyAsync(() -> this.toDto(store))
-                .thenApply(dto -> (Store) dto.setCreatedDateTime(LocalDateTime.now()))
-                .thenApply(dto -> (Store) dto.setCreatedBy(0))
-                .thenApply(dto -> (Store) dto.setVersion(0))
+    public CompletableFuture<StoreId> resister(StoreEntity entity) {
+        return CompletableFuture.supplyAsync(() -> entity)
+                .thenApply(this::toDto)
+                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
+                .thenApply(dto -> dto.setCreatedBy(0))
+                .thenApply(dto -> dto.setVersion(0))
+                .thenApply(Store.class::cast)
                 .thenApply(this.source::save)
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);

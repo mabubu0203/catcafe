@@ -58,16 +58,16 @@ public class CastRepositoryImpl implements CastRepository {
                 null : (root, criteriaQuery, criteriaBuilder) -> root.get(CastView_.id).in(castIds);
     }
 
-    private CastEntity convertCastEntity(CastView view) {
-        var castId = new CastId(view.getCastId());
-        var storeId = new StoreId(view.getStoreId());
-        var castCatId = new CastCatId(view.getCastCatId());
+    private CastEntity convertCastEntity(CastView dto) {
+        var castId = new CastId(dto.getCastId());
+        var storeId = new StoreId(dto.getStoreId());
+        var castCatId = new CastCatId(dto.getCastCatId());
 
         var castCatEntity = CastCatEntity.builder()
                 .castCatId(Optional.of(castCatId))
-                .name(view.getCastCatName())
-                .image(view.getCastCatImage())
-                .sex(view.getCastCatSex().name())
+                .name(dto.getCastCatName())
+                .image(dto.getCastCatImage())
+                .sex(dto.getCastCatSex().name())
                 .build();
         return CastEntity.builder()
                 .castId(Optional.of(castId))
@@ -78,11 +78,13 @@ public class CastRepositoryImpl implements CastRepository {
 
     @Override
     @Async
-    public CompletableFuture<CastId> resister(CastEntity cast) {
-        return CompletableFuture.supplyAsync(() -> this.toDto(cast))
-                .thenApply(dto -> (Cast) dto.setCreatedDateTime(LocalDateTime.now()))
-                .thenApply(dto -> (Cast) dto.setCreatedBy(0))
-                .thenApply(dto -> (Cast) dto.setVersion(0))
+    public CompletableFuture<CastId> resister(CastEntity entity) {
+        return CompletableFuture.supplyAsync(() -> entity)
+                .thenApply(this::toDto)
+                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
+                .thenApply(dto -> dto.setCreatedBy(0))
+                .thenApply(dto -> dto.setVersion(0))
+                .thenApply(Cast.class::cast)
                 .thenApply(this.castSource::save)
                 .thenApply(Cast::getId)
                 .thenApply(CastId::new);
@@ -107,11 +109,13 @@ public class CastRepositoryImpl implements CastRepository {
 
     @Override
     @Async
-    public CompletableFuture<CastCatId> resister(CastCatEntity castCat) {
-        return CompletableFuture.supplyAsync(() -> this.toDto(castCat))
-                .thenApply(dto -> (CastCat) dto.setCreatedDateTime(LocalDateTime.now()))
-                .thenApply(dto -> (CastCat) dto.setCreatedBy(0))
-                .thenApply(dto -> (CastCat) dto.setVersion(0))
+    public CompletableFuture<CastCatId> resister(CastCatEntity entity) {
+        return CompletableFuture.supplyAsync(() -> entity)
+                .thenApply(this::toDto)
+                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
+                .thenApply(dto -> dto.setCreatedBy(0))
+                .thenApply(dto -> dto.setVersion(0))
+                .thenApply(CastCat.class::cast)
                 .thenApply(this.castCatSource::save)
                 .thenApply(CastCat::getId)
                 .thenApply(CastCatId::new);

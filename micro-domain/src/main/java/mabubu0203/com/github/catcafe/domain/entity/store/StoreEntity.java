@@ -14,7 +14,6 @@ public class StoreEntity {
 
     private final Optional<StoreId> storeId;
     private final String name;
-
     private final LocalDate openDate;
     private final LocalDate closeDate;
     private final String phoneNumber;

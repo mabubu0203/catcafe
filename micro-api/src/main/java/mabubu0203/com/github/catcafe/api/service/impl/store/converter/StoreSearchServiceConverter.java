@@ -10,13 +10,13 @@ import java.util.stream.Stream;
 
 public class StoreSearchServiceConverter {
 
-    public StoreSearchConditions toSearchCondition(StoreSearchServiceInput storeSearchServiceInput) {
+    public StoreSearchConditions toSearchCondition(StoreSearchServiceInput input) {
         return new StoreSearchConditions(
-                storeSearchServiceInput.getOptPage().orElse(0),
-                storeSearchServiceInput.getOptSize().orElse(20),
-                storeSearchServiceInput.getOptSortKeys()
+                input.getOptPage().orElse(0),
+                input.getOptSize().orElse(20),
+                input.getOptSortKeys()
         )
-                .optStoreIds(storeSearchServiceInput.getOptStoreIds());
+                .optStoreIds(input.getOptStoreIds());
     }
 
     public StoreSearchServiceOutput toServiceOutput(Stream<StoreEntity> stream) {
