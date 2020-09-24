@@ -31,7 +31,8 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     @Async
     public CompletableFuture<Stream<NoticeEntity>> search(NoticeSearchConditions searchConditions) {
         var specification = Specification
-                .where(this.storeIdInclude(searchConditions.optStoreIds()));
+                .where(this.storeIdInclude(searchConditions.optStoreIds()))
+                .and(this.noticeIdInclude(searchConditions.optNoticeIds()));
         return CompletableFuture.supplyAsync(() -> this.source.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertNoticeEntity));
@@ -41,6 +42,12 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         var storeIds = optStoreIds.orElseGet(Collections::emptyList);
         return storeIds.size() == 0 ?
                 null : (root, criteriaQuery, criteriaBuilder) -> root.get(Notice_.STORE_ID).in(storeIds);
+    }
+
+    private Specification<Notice> noticeIdInclude(Optional<List<Integer>> optNoticeIds) {
+        var noticeIds = optNoticeIds.orElseGet(Collections::emptyList);
+        return noticeIds.size() == 0 ?
+                null : (root, criteriaQuery, criteriaBuilder) -> root.get(Notice_.ID).in(noticeIds);
     }
 
     private NoticeEntity convertNoticeEntity(Notice notice) {
@@ -75,4 +82,5 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 .setSummary(entity.getSummary())
                 .setDetail(entity.getDetail());
     }
+
 }

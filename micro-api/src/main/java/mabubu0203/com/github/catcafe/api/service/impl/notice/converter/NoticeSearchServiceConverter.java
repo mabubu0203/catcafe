@@ -10,13 +10,14 @@ import java.util.stream.Stream;
 
 public class NoticeSearchServiceConverter {
 
-    public NoticeSearchConditions toSearchCondition(NoticeSearchServiceInput noticeSearchServiceInput) {
+    public NoticeSearchConditions toSearchCondition(NoticeSearchServiceInput input) {
         return new NoticeSearchConditions(
-                noticeSearchServiceInput.getOptPage().orElse(0),
-                noticeSearchServiceInput.getOptSize().orElse(20),
-                noticeSearchServiceInput.getOptSortKeys()
+                input.getOptPage().orElse(0),
+                input.getOptSize().orElse(20),
+                input.getOptSortKeys()
         )
-                .optStoreIds(noticeSearchServiceInput.getOptStoreIds());
+                .optStoreIds(input.getOptStoreIds())
+                .optNoticeIds(input.getOptNoticeIds());
     }
 
     public NoticeSearchServiceOutput toServiceOutput(Stream<NoticeEntity> stream) {
