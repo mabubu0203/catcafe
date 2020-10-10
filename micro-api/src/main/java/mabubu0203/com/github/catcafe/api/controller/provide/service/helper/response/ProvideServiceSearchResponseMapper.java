@@ -5,21 +5,22 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchRes
 import org.openapitools.model.ProvideServiceDetail;
 import org.openapitools.model.ProvideServiceSearchResponse;
 
+import java.util.ArrayList;
+
 public class ProvideServiceSearchResponseMapper implements SearchResponseMapper<ProvideServiceSearchServiceOutput, ProvideServiceSearchResponse> {
 
     @Override
     public ProvideServiceSearchResponse apply(ProvideServiceSearchServiceOutput provideServiceSearchServiceOutput) {
-        return this.search();
-    }
+        var provideServices = new ArrayList<ProvideServiceDetail>();
 
-    private ProvideServiceSearchResponse search() {
         var detail = new ProvideServiceDetail();
         detail.setId(1);
         detail.setName("おやつ");
         detail.setPrice("3200");
+        provideServices.add(detail);
 
         var result = new ProvideServiceSearchResponse();
-        result.addProvideServicesItem(detail);
+        result.setProvideServices(provideServices);
         return result;
     }
 

@@ -22,7 +22,8 @@ public class CastSearchServiceImpl implements CastSearchService {
     @Override
     @Async
     public CompletableFuture<CastSearchServiceOutput> promise(CastSearchServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::toSearchCondition)
                 .map(this.castRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))

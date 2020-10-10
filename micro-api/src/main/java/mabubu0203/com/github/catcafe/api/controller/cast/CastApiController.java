@@ -56,7 +56,8 @@ public class CastApiController implements CastApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<CastCatCreate> castCatCreate,
             ServerWebExchange exchange) {
-        return castCatCreate.map(new CastCatCreateRequestMapper(cats))
+        return castCatCreate
+                .map(new CastCatCreateRequestMapper(cats))
                 .map(this.castCatResisterService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new CastCatCreateResponseMapper())
@@ -157,7 +158,8 @@ public class CastApiController implements CastApi {
             @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             @Valid Mono<CastCreate> castCreate,
             ServerWebExchange exchange) {
-        return castCreate.map(new CastCreateRequestMapper(cats, storeId))
+        return castCreate
+                .map(new CastCreateRequestMapper(cats, storeId))
                 .map(this.castResisterService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new CastCreateResponseMapper())

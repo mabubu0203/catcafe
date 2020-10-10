@@ -102,7 +102,7 @@ public class ProvideServiceApiController implements ProvideServiceApi {
     @Override
     public Mono<ResponseEntity<ProvideServiceSearchResponse>> provideServiceSearch(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            @Valid List<Integer> storeIds,
+            @Parameter(description = "店舗ID") @Valid List<Integer> storeIds,
             ServerWebExchange exchange) {
         return new ProvideServiceSearchRequestMapper(
                 cats, storeIds).get()

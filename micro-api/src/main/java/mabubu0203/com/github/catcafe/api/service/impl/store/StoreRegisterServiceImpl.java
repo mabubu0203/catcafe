@@ -24,7 +24,8 @@ public class StoreRegisterServiceImpl implements StoreRegisterService {
     @Async
     @Transactional
     public CompletableFuture<StoreRegisterServiceOutput> promise(StoreRegisterServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::fromInput)
                 .map(this.storeRepository::resister)
                 .map(future -> future.thenApply(this.converter::toOutput))

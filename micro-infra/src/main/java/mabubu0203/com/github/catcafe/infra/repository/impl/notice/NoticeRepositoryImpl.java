@@ -33,7 +33,9 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()))
                 .and(this.noticeIdInclude(searchConditions.optNoticeIds()));
-        return CompletableFuture.supplyAsync(() -> this.source.findAll(specification, searchConditions.getPageRequest()))
+        return CompletableFuture
+                .supplyAsync(() ->
+                        this.source.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertNoticeEntity));
     }
@@ -65,7 +67,8 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     @Override
     @Async
     public CompletableFuture<NoticeId> resister(NoticeEntity entity) {
-        return CompletableFuture.supplyAsync(() -> entity)
+        return CompletableFuture
+                .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))

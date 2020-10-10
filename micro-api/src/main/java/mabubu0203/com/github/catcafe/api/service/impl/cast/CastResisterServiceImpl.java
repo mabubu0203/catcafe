@@ -28,7 +28,8 @@ public class CastResisterServiceImpl implements CastRegisterService {
     @Async
     @Transactional
     public CompletableFuture<CastRegisterServiceOutput> promise(CastRegisterServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::fromInput)
                 .map(this::beforeRegistration)
                 .map(this.castRepository::resister)
@@ -42,7 +43,9 @@ public class CastResisterServiceImpl implements CastRegisterService {
 
         var futureList = Arrays.asList(store, castCat);
         var futureListSize = futureList.size();
-        CompletableFuture.allOf(futureList.toArray(new CompletableFuture[futureListSize])).join();
+        CompletableFuture
+                .allOf(futureList.toArray(new CompletableFuture[futureListSize]))
+                .join();
         var successSize = futureList.stream()
                 .map(CompletableFuture::join)
                 .filter(result -> result)

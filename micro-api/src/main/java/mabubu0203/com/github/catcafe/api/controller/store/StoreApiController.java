@@ -50,7 +50,8 @@ public class StoreApiController implements StoreApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<StoreCreate> storeCreate,
             ServerWebExchange exchange) {
-        return storeCreate.map(new StoreCreateRequestMapper(cats))
+        return storeCreate
+                .map(new StoreCreateRequestMapper(cats))
                 .map(this.registerService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new StoreCreateResponseMapper())

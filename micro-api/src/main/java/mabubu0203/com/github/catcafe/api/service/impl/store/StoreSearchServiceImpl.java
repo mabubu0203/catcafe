@@ -22,7 +22,8 @@ public class StoreSearchServiceImpl implements StoreSearchService {
     @Override
     @Async
     public CompletableFuture<StoreSearchServiceOutput> promise(StoreSearchServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::toSearchCondition)
                 .map(this.storeRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))

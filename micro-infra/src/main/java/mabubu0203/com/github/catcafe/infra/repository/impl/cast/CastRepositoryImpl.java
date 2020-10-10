@@ -41,7 +41,9 @@ public class CastRepositoryImpl implements CastRepository {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()))
                 .and(this.castIdInclude(searchConditions.optCastIds()));
-        return CompletableFuture.supplyAsync(() -> this.castViewSource.findAll(specification, searchConditions.getPageRequest()))
+        return CompletableFuture
+                .supplyAsync(() ->
+                        this.castViewSource.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertCastEntity));
     }
@@ -79,7 +81,8 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<CastId> resister(CastEntity entity) {
-        return CompletableFuture.supplyAsync(() -> entity)
+        return CompletableFuture
+                .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))
@@ -102,7 +105,8 @@ public class CastRepositoryImpl implements CastRepository {
 
     @Override
     public CompletableFuture<Boolean> exists(CastCatId castCatId) {
-        return CompletableFuture.supplyAsync(castCatId::intValue)
+        return CompletableFuture
+                .supplyAsync(castCatId::intValue)
                 .thenApply(this.castCatSource::findById)
                 .thenApply(Optional::isPresent);
     }
@@ -110,7 +114,8 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<CastCatId> resister(CastCatEntity entity) {
-        return CompletableFuture.supplyAsync(() -> entity)
+        return CompletableFuture
+                .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))

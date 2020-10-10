@@ -31,7 +31,9 @@ public class StoreRepositoryImpl implements StoreRepository {
     public CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions) {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()));
-        return CompletableFuture.supplyAsync(() -> this.source.findAll(specification, searchConditions.getPageRequest()))
+        return CompletableFuture
+                .supplyAsync(() ->
+                        this.source.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertStoreEntity));
     }
@@ -55,7 +57,8 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     @Async
     public CompletableFuture<Boolean> exists(StoreId storeId) {
-        return CompletableFuture.supplyAsync(storeId::intValue)
+        return CompletableFuture
+                .supplyAsync(storeId::intValue)
                 .thenApply(this.source::findById)
                 .thenApply(Optional::isPresent);
     }
@@ -63,7 +66,8 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     @Async
     public CompletableFuture<StoreId> resister(StoreEntity entity) {
-        return CompletableFuture.supplyAsync(() -> entity)
+        return CompletableFuture
+                .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))

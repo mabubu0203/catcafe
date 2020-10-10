@@ -22,7 +22,8 @@ public class NoticeSearchServiceImpl implements NoticeSearchService {
     @Override
     @Async
     public CompletableFuture<NoticeSearchServiceOutput> promise(NoticeSearchServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::toSearchCondition)
                 .map(this.noticeRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))

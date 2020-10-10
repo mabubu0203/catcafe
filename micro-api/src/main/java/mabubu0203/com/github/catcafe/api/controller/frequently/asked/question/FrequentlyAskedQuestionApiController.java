@@ -84,7 +84,8 @@ public class FrequentlyAskedQuestionApiController implements FrequentlyAskedQues
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             Integer faqId,
             ServerWebExchange exchange) {
-        return new FrequentlyAskedQuestionFindRequestMapper(cats, faqId).get()
+        return new FrequentlyAskedQuestionFindRequestMapper(
+                cats, faqId).get()
                 .map(this.searchService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new FrequentlyAskedQuestionFindResponseMapper())
