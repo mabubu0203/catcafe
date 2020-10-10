@@ -25,7 +25,8 @@ public class NoticeResisterServiceImpl implements NoticeResisterService {
     @Async
     @Transactional
     public CompletableFuture<NoticeResisterServiceOutput> promise(NoticeResisterServiceInput input) {
-        return Optional.of(input)
+        return Optional
+                .of(input)
                 .map(this.converter::fromInput)
                 .map(this::beforeRegistration)
                 .map(this.noticeRepository::resister)

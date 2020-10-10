@@ -10,14 +10,14 @@ import java.util.stream.Stream;
 
 public class CastSearchServiceConverter {
 
-    public CastSearchConditions toSearchCondition(CastSearchServiceInput castSearchServiceInput) {
+    public CastSearchConditions toSearchCondition(CastSearchServiceInput input) {
         return new CastSearchConditions(
-                castSearchServiceInput.getOptPage().orElse(0),
-                castSearchServiceInput.getOptSize().orElse(20),
-                castSearchServiceInput.getOptSortKeys()
+                input.getOptPage().orElse(0),
+                input.getOptSize().orElse(20),
+                input.getOptSortKeys()
         )
-                .optStoreIds(castSearchServiceInput.getOptStoreIds())
-                .optCastIds(castSearchServiceInput.getOptCastIds());
+                .optStoreIds(input.getOptStoreIds())
+                .optCastIds(input.getOptCastIds());
     }
 
     public CastSearchServiceOutput toServiceOutput(Stream<CastEntity> stream) {

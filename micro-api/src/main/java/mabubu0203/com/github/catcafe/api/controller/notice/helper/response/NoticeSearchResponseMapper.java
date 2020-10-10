@@ -5,19 +5,27 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchRes
 import org.openapitools.model.NoticeDetail;
 import org.openapitools.model.NoticeSearchResponse;
 
+import java.util.stream.Collectors;
+
 public class NoticeSearchResponseMapper implements SearchResponseMapper<NoticeSearchServiceOutput, NoticeSearchResponse> {
 
     @Override
     public NoticeSearchResponse apply(NoticeSearchServiceOutput noticeSearchServiceOutput) {
+        var notices = noticeSearchServiceOutput.getNotices().stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+
         var result = new NoticeSearchResponse();
-        for (NoticeSearchServiceOutput.NoticeObject notice : noticeSearchServiceOutput.getNotices()) {
-            var detail = new NoticeDetail();
-            detail.setId(notice.getId());
-            detail.setSummary("おしらせ1");
-            detail.setDetail("おしらせ1の詳細です。");
-            result.addNoticesItem(detail);
-        }
+        result.setNotices(notices);
         return result;
+    }
+
+    private NoticeDetail convert(NoticeSearchServiceOutput.NoticeObject notice) {
+        var detail = new NoticeDetail();
+        detail.setId(notice.getId());
+        detail.setSummary(notice.getSummary());
+        detail.setDetail(notice.getDetail());
+        return detail;
     }
 
 }

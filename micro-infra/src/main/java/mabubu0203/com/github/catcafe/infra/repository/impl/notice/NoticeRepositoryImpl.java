@@ -33,7 +33,9 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()))
                 .and(this.noticeIdInclude(searchConditions.optNoticeIds()));
-        return CompletableFuture.supplyAsync(() -> this.source.findAll(specification, searchConditions.getPageRequest()))
+        return CompletableFuture
+                .supplyAsync(() ->
+                        this.source.findAll(specification, searchConditions.getPageRequest()))
                 .thenApply(Page::stream)
                 .thenApply(stream -> stream.map(this::convertNoticeEntity));
     }
@@ -50,22 +52,23 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 null : (root, criteriaQuery, criteriaBuilder) -> root.get(Notice_.ID).in(noticeIds);
     }
 
-    private NoticeEntity convertNoticeEntity(Notice notice) {
-        var noticeId = new NoticeId(notice.getId());
-        var storeId = new StoreId(notice.getStoreId());
+    private NoticeEntity convertNoticeEntity(Notice dto) {
+        var noticeId = new NoticeId(dto.getId());
+        var storeId = new StoreId(dto.getStoreId());
 
         return NoticeEntity.builder()
                 .noticeId(Optional.of(noticeId))
                 .storeId(storeId)
-                .summary(notice.getSummary())
-                .detail(notice.getDetail())
+                .summary(dto.getSummary())
+                .detail(dto.getDetail())
                 .build();
     }
 
     @Override
     @Async
-    public CompletableFuture<NoticeId> resister(NoticeEntity notice) {
-        return CompletableFuture.supplyAsync(() -> notice)
+    public CompletableFuture<NoticeId> resister(NoticeEntity entity) {
+        return CompletableFuture
+                .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))

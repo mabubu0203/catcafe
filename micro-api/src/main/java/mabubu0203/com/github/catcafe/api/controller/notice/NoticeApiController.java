@@ -50,7 +50,8 @@ public class NoticeApiController implements NoticeApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<NoticeCreate> noticeCreate,
             ServerWebExchange exchange) {
-        return noticeCreate.map(new NoticeCreateRequestMapper(cats))
+        return noticeCreate
+                .map(new NoticeCreateRequestMapper(cats))
                 .map(this.resisterService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new NoticeCreateResponseMapper())
