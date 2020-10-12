@@ -79,10 +79,27 @@ public class StoreRepositoryImpl implements StoreRepository {
     }
 
     private Store toDto(StoreEntity entity) {
+        var storeId = Optional.ofNullable(entity.getStoreId())
+                .map(Optional::get)
+                .map(StoreId::intValue)
+                .orElse(null);
         return new Store()
+                .setId(storeId)
                 .setName(entity.getName())
                 .setOpeningTime(entity.getOpeningTime())
                 .setClosingTime(entity.getOpeningTime());
+    }
+
+    @Override
+    @Async
+    public CompletableFuture<Boolean> delete(StoreEntity entity) {
+        return this.source.findById(entity.getStoreId().get().intValue())
+                .map(dto -> dto.setDeletedDateTime(LocalDateTime.now()))
+                .map(dto -> dto.setDeletedFlag(true))
+                .map(Store.class::cast)
+                .map(this.source::save)
+                .map(dto -> CompletableFuture.completedFuture(true))
+                .orElseThrow(RuntimeException::new);
     }
 
 }

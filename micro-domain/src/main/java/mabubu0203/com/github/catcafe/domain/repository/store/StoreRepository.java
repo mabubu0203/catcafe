@@ -15,4 +15,6 @@ public interface StoreRepository {
 
     CompletableFuture<StoreId> resister(StoreEntity store);
 
+    CompletableFuture<Boolean> delete(StoreEntity store);
+
 }
