@@ -48,10 +48,13 @@ public class StoreRepositoryImpl implements StoreRepository {
     private StoreEntity convertStoreEntity(Store dto) {
         var storeId = new StoreId(dto.getId());
         return StoreEntity.builder()
-                .storeId(Optional.of(storeId))
+                .storeId(storeId)
                 .name(dto.getName())
                 .openingTime(null)
                 .closingTime(null)
+                .createdDateTime(dto.getCreatedDateTime())
+                .version(dto.getVersion())
+                .updatedDateTime(dto.getUpdatedDateTime())
                 .build();
     }
 
@@ -66,22 +69,19 @@ public class StoreRepositoryImpl implements StoreRepository {
 
     @Override
     @Async
-    public CompletableFuture<StoreId> resister(StoreEntity entity) {
+    public CompletableFuture<StoreId> resister(StoreEntity entity, LocalDateTime receptionTime) {
         return CompletableFuture
                 .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
-                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))
-                .thenApply(dto -> dto.setVersion(0))
                 .thenApply(Store.class::cast)
-                .thenApply(this.source::save)
+                .thenApply(dto -> this.source.insert(dto, receptionTime))
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);
     }
 
     private Store toDto(StoreEntity entity) {
         var storeId = Optional.ofNullable(entity.getStoreId())
-                .map(Optional::get)
                 .map(StoreId::intValue)
                 .orElse(null);
         return new Store()
@@ -94,19 +94,17 @@ public class StoreRepositoryImpl implements StoreRepository {
     @Override
     @Async
     public CompletableFuture<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
-
-        var store = new Store();
-        store.setId(entity.getStoreId().get().intValue());
-        store.setVersion(entity.getVersion());
-        store.setDeletedFlag(false);
-        var example = Example.of(store);
-        return this.source.findOne(example)
-                .map(dto ->
-                        CompletableFuture
-                                .supplyAsync(() -> this.source.logicalDelete(dto, receptionTime))
-                                .thenApply(Store::getId)
-                                .thenApply(StoreId::new))
-                .orElseThrow(RuntimeException::new);
+        return CompletableFuture
+                .supplyAsync(() -> (Store) new Store()
+                        .setId(entity.getStoreId().intValue())
+                        .setVersion(entity.getVersion())
+                        .setDeletedFlag(false))
+                .thenApply(Example::of)
+                .thenApply(this.source::findOne)
+                .thenApply(opt -> opt.orElseThrow(RuntimeException::new))
+                .thenApply(dto -> this.source.logicalDelete(dto, receptionTime))
+                .thenApply(Store::getId)
+                .thenApply(StoreId::new);
     }
 
 }

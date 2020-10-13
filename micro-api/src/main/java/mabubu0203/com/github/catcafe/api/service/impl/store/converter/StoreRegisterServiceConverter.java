@@ -14,7 +14,9 @@ public class StoreRegisterServiceConverter {
     }
 
     public StoreRegisterServiceOutput toOutput(StoreId storeId) {
-        return new StoreRegisterServiceOutput().setId(storeId.intValue());
+        return StoreRegisterServiceOutput.builder()
+                .id(storeId.intValue())
+                .build();
     }
 
 }

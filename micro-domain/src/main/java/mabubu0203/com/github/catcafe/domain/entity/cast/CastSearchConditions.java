@@ -16,6 +16,10 @@ public class CastSearchConditions extends SearchConditions {
     private Optional<List<Integer>> optStoreIds;
     private Optional<List<Integer>> optCastIds;
 
+    public CastSearchConditions(){
+        super();
+    }
+
     public CastSearchConditions(Integer page, Integer size, Optional<List<String>> optSortKeys) {
         super(page, size, optSortKeys);
     }

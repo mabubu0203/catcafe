@@ -12,7 +12,10 @@ public class StoreCreateRequestMapper implements CreateRequestMapper<StoreCreate
 
     @Override
     public StoreRegisterServiceInput apply(StoreCreate storeCreate) {
-        return new StoreRegisterServiceInput().setName(storeCreate.getName());
+        return StoreRegisterServiceInput.builder()
+                .cats(this.cats)
+                .name(storeCreate.getName())
+                .build();
     }
 
 }

@@ -16,6 +16,10 @@ public class NoticeSearchConditions extends SearchConditions {
     private Optional<List<Integer>> optStoreIds;
     private Optional<List<Integer>> optNoticeIds;
 
+    public NoticeSearchConditions() {
+        super();
+    }
+
     public NoticeSearchConditions(Integer page, Integer size, Optional<List<String>> optSortKeys) {
         super(page, size, optSortKeys);
     }

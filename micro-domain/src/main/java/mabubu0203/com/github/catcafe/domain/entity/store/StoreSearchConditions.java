@@ -15,6 +15,10 @@ public class StoreSearchConditions extends SearchConditions {
 
     private Optional<List<Integer>> optStoreIds;
 
+    public StoreSearchConditions(){
+        super();
+    }
+
     public StoreSearchConditions(Integer page, Integer size, Optional<List<String>> optSortKeys) {
         super(page, size, optSortKeys);
     }
