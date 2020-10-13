@@ -24,10 +24,11 @@ public class StoreRegisterServiceImpl implements StoreRegisterService {
     @Async
     @Transactional
     public CompletableFuture<StoreRegisterServiceOutput> promise(StoreRegisterServiceInput input) {
+        var receptionTime = getReceptionTime();
         return Optional
                 .of(input)
                 .map(this.converter::fromInput)
-                .map(this.storeRepository::resister)
+                .map(entity -> this.storeRepository.resister(entity, receptionTime))
                 .map(future -> future.thenApply(this.converter::toOutput))
                 .orElseThrow(RuntimeException::new);
     }

@@ -20,13 +20,21 @@ public class StoreSearchServiceConverter {
     }
 
     public StoreSearchServiceOutput toServiceOutput(Stream<StoreEntity> stream) {
-        return new StoreSearchServiceOutput()
-                .setStores(stream
-                        .map(storeEntity -> new StoreSearchServiceOutput.StoreObject()
-                                .setId(storeEntity.getStoreId().get().intValue())
-                                .setName(storeEntity.getName())
+        return StoreSearchServiceOutput.builder()
+                .stores(stream
+                        .map(storeEntity ->
+                                StoreSearchServiceOutput.StoreObject.builder()
+                                        .id(storeEntity.getStoreId().intValue())
+                                        .name(storeEntity.getName())
+                                        .common(StoreSearchServiceOutput.CommonObject.builder()
+                                                .createdDateTime(storeEntity.getCreatedDateTime())
+                                                .version(storeEntity.getVersion())
+                                                .updatedDateTime(storeEntity.getUpdatedDateTime())
+                                                .build())
+                                        .build()
                         )
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .build();
     }
 
 }

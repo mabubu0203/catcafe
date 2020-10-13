@@ -5,14 +5,14 @@ import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Optional;
 
 @Builder
 @Getter
 public class StoreEntity {
 
-    private final Optional<StoreId> storeId;
+    private final StoreId storeId;
     private final String name;
     private final LocalDate openDate;
     private final LocalDate closeDate;
@@ -23,5 +23,8 @@ public class StoreEntity {
     private final LocalTime openingTime;
     private final LocalTime closingTime;
     private final String hoursAside;
+    private final LocalDateTime createdDateTime;
     private final Integer version;
+    private final LocalDateTime updatedDateTime;
+
 }

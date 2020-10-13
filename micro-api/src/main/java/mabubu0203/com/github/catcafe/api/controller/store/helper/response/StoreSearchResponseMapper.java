@@ -4,6 +4,8 @@ import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.S
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.*;
 
+import java.time.ZoneOffset;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class StoreSearchResponseMapper implements SearchResponseMapper<StoreSearchServiceOutput, StoreSearchResponse> {
@@ -19,14 +21,24 @@ public class StoreSearchResponseMapper implements SearchResponseMapper<StoreSear
         return result;
     }
 
-    private StoreDetail convert(StoreSearchServiceOutput.StoreObject store) {
+    private StoreDetail convert(StoreSearchServiceOutput.StoreObject storeObject) {
         var detail = new StoreDetail();
-        detail.setId(store.getId());
-        detail.setName(store.getName());
+        detail.setId(storeObject.getId());
+        detail.setName(storeObject.getName());
 
         detail.setContact(new Contact());
         detail.setAddress(new Address());
         detail.setHours(new Hours());
+
+        var common = new Common();
+        var commonObject = storeObject.getCommon();
+        common.setCreatedDateTime(commonObject.getCreatedDateTime().atOffset(ZoneOffset.ofHours(9)));
+        common.setVersion(commonObject.getVersion());
+        common.setUpdatedDateTime(
+                Optional.ofNullable(commonObject.getUpdatedDateTime())
+                        .map(ldt -> ldt.atOffset(ZoneOffset.ofHours(9)))
+                        .orElse(null));
+        detail.setCommon(common);
         return detail;
     }
 

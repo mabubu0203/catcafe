@@ -16,6 +16,12 @@ public abstract class SearchConditions {
     private final Integer size;
     private final Optional<List<String>> optSortKeys;
 
+    public SearchConditions() {
+        this.page = 0;
+        this.size = 1;
+        this.optSortKeys = Optional.empty();
+    }
+
     public Pageable getPageRequest() {
         var sort = Sort.unsorted();
         this.optSortKeys.orElse(Collections.emptyList())

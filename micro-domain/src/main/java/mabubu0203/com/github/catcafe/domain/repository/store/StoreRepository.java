@@ -15,7 +15,7 @@ public interface StoreRepository {
     @Deprecated
     CompletableFuture<Boolean> exists(StoreId storeId);
 
-    CompletableFuture<StoreId> resister(StoreEntity store);
+    CompletableFuture<StoreId> resister(StoreEntity store, LocalDateTime receptionTime);
 
     CompletableFuture<StoreId> logicalDelete(StoreEntity store, LocalDateTime receptionTime);
 

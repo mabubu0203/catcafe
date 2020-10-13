@@ -30,7 +30,7 @@ public class StoreDeleteServiceImpl implements StoreDeleteService {
                 .map(this.converter::fromInput)
                 .map(entity -> this.storeRepository.logicalDelete(entity, receptionTime))
                 .map(future -> future.thenApply(this.converter::toOutput))
-                .get();
+                .orElseThrow(RuntimeException::new);
     }
 
 }

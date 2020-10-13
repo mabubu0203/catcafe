@@ -1,0 +1,25 @@
+{
+  "model": {
+    "common": {
+      "description": "共通フィールド",
+      "type": "object",
+      "properties": {
+        "created_date_time": {
+          "description": "登録日時",
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "description": "バージョンフィールド",
+          "type": "integer",
+          "format": "int32"
+        },
+        "updated_date_time": {
+          "description": "更新日時",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
