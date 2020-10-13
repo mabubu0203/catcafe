@@ -21,15 +21,23 @@ public class NoticeSearchServiceConverter {
     }
 
     public NoticeSearchServiceOutput toServiceOutput(Stream<NoticeEntity> stream) {
-        return new NoticeSearchServiceOutput()
-                .setNotices(stream
-                        .map(noticeEntity -> new NoticeSearchServiceOutput.NoticeObject()
-                                .setId(noticeEntity.getNoticeId().get().intValue())
-                                .setStoreId(noticeEntity.getStoreId().intValue())
-                                .setSummary(noticeEntity.getSummary())
-                                .setDetail(noticeEntity.getDetail())
+        return NoticeSearchServiceOutput.builder()
+                .notices(stream
+                        .map(noticeEntity ->
+                                NoticeSearchServiceOutput.NoticeObject.builder()
+                                        .id(noticeEntity.getNoticeId().intValue())
+                                        .storeId(noticeEntity.getStoreId().intValue())
+                                        .summary(noticeEntity.getSummary())
+                                        .detail(noticeEntity.getDetail())
+                                        .common(NoticeSearchServiceOutput.CommonObject.builder()
+                                                .createdDateTime(noticeEntity.getCreatedDateTime())
+                                                .version(noticeEntity.getVersion())
+                                                .updatedDateTime(noticeEntity.getUpdatedDateTime())
+                                                .build())
+                                        .build()
                         )
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .build();
     }
 
 }

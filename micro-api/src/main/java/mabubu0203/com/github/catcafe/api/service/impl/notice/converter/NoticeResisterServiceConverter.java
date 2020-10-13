@@ -17,7 +17,9 @@ public class NoticeResisterServiceConverter {
     }
 
     public NoticeResisterServiceOutput toOutput(NoticeId noticeId) {
-        return new NoticeResisterServiceOutput().setId(noticeId.intValue());
+        return NoticeResisterServiceOutput.builder()
+                .id(noticeId.intValue())
+                .build();
     }
 
 }

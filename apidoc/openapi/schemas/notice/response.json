@@ -54,6 +54,9 @@
           "description": "掲載終了日時",
           "type": "string",
           "format": "date-time"
+        },
+        "common": {
+          "$ref": "../success_response/commonResponse.json#/model/common"
         }
       }
     }
