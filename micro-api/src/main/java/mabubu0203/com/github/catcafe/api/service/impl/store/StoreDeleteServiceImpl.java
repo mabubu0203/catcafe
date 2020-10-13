@@ -24,11 +24,12 @@ public class StoreDeleteServiceImpl implements StoreDeleteService {
     @Async
     @Transactional
     public CompletableFuture<StoreDeleteServiceOutput> promise(StoreDeleteServiceInput input) {
+        var receptionTime = getReceptionTime();
         return Optional
                 .of(input)
                 .map(this.converter::fromInput)
-                .map(this.storeRepository::delete)
-                .map(future -> future.thenApply(bool -> new StoreDeleteServiceOutput()))
+                .map(entity -> this.storeRepository.logicalDelete(entity, receptionTime))
+                .map(future -> future.thenApply(this.converter::toOutput))
                 .get();
     }
 

@@ -23,4 +23,5 @@ public class StoreEntity {
     private final LocalTime openingTime;
     private final LocalTime closingTime;
     private final String hoursAside;
+    private final Integer version;
 }

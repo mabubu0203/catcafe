@@ -8,6 +8,7 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store_;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
@@ -92,13 +93,19 @@ public class StoreRepositoryImpl implements StoreRepository {
 
     @Override
     @Async
-    public CompletableFuture<Boolean> delete(StoreEntity entity) {
-        return this.source.findById(entity.getStoreId().get().intValue())
-                .map(dto -> dto.setDeletedDateTime(LocalDateTime.now()))
-                .map(dto -> dto.setDeletedFlag(true))
-                .map(Store.class::cast)
-                .map(this.source::save)
-                .map(dto -> CompletableFuture.completedFuture(true))
+    public CompletableFuture<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
+
+        var store = new Store();
+        store.setId(entity.getStoreId().get().intValue());
+        store.setVersion(entity.getVersion());
+        store.setDeletedFlag(false);
+        var example = Example.of(store);
+        return this.source.findOne(example)
+                .map(dto ->
+                        CompletableFuture
+                                .supplyAsync(() -> this.source.logicalDelete(dto, receptionTime))
+                                .thenApply(Store::getId)
+                                .thenApply(StoreId::new))
                 .orElseThrow(RuntimeException::new);
     }
 

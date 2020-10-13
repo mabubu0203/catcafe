@@ -86,7 +86,7 @@ public class StoreApiController implements StoreApi {
                 .flatMap(Mono::fromCompletionStage)
                 .map(new StoreDeleteResponseMapper())
                 .filter(Boolean::booleanValue)
-                .map(bool -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(bool -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @Operation(
