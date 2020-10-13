@@ -16,7 +16,7 @@ public class CastSearchConditions extends SearchConditions {
     private Optional<List<Integer>> optStoreIds;
     private Optional<List<Integer>> optCastIds;
 
-    public CastSearchConditions(){
+    public CastSearchConditions() {
         super();
     }
 

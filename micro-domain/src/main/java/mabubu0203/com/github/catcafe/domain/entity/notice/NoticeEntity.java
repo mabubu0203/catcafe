@@ -5,15 +5,18 @@ import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.NoticeId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
 public class NoticeEntity {
 
-    private final Optional<NoticeId> noticeId;
+    private final NoticeId noticeId;
     private final StoreId storeId;
     private final String summary;
     private final String detail;
+    private final LocalDateTime createdDateTime;
+    private final Integer version;
+    private final LocalDateTime updatedDateTime;
 
 }

@@ -55,33 +55,40 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     private NoticeEntity convertNoticeEntity(Notice dto) {
         var noticeId = new NoticeId(dto.getId());
         var storeId = new StoreId(dto.getStoreId());
-
         return NoticeEntity.builder()
-                .noticeId(Optional.of(noticeId))
+                .noticeId(noticeId)
                 .storeId(storeId)
                 .summary(dto.getSummary())
                 .detail(dto.getDetail())
+                .createdDateTime(dto.getCreatedDateTime())
+                .version(dto.getVersion())
+                .updatedDateTime(dto.getUpdatedDateTime())
                 .build();
     }
 
     @Override
     @Async
-    public CompletableFuture<NoticeId> resister(NoticeEntity entity) {
+    public CompletableFuture<NoticeId> resister(NoticeEntity entity, LocalDateTime receptionTime) {
         return CompletableFuture
                 .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
-                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))
-                .thenApply(dto -> dto.setVersion(0))
                 .thenApply(Notice.class::cast)
-                .thenApply(this.source::save)
+                .thenApply(dto -> this.source.insert(dto, receptionTime))
                 .thenApply(Notice::getId)
                 .thenApply(NoticeId::new);
     }
 
     private Notice toDto(NoticeEntity entity) {
+        var noticeId = Optional.ofNullable(entity.getNoticeId())
+                .map(NoticeId::intValue)
+                .orElse(null);
+        var storeId = Optional.ofNullable(entity.getStoreId())
+                .map(StoreId::intValue)
+                .orElse(null);
         return new Notice()
-                .setStoreId(entity.getStoreId().intValue())
+                .setId(noticeId)
+                .setStoreId(storeId)
                 .setSummary(entity.getSummary())
                 .setDetail(entity.getDetail());
     }

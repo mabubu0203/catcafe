@@ -7,6 +7,7 @@ import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.
 import mabubu0203.com.github.catcafe.api.service.impl.notice.converter.NoticeResisterServiceConverter;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.repository.notice.NoticeRepository;
+import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,24 +20,34 @@ import java.util.concurrent.CompletableFuture;
 public class NoticeResisterServiceImpl implements NoticeResisterService {
 
     private final NoticeRepository noticeRepository;
+    private final StoreRepository storeRepository;
     private final NoticeResisterServiceConverter converter = new NoticeResisterServiceConverter();
 
     @Override
     @Async
     @Transactional
     public CompletableFuture<NoticeResisterServiceOutput> promise(NoticeResisterServiceInput input) {
+        var receptionTime = getReceptionTime();
         return Optional
                 .of(input)
                 .map(this.converter::fromInput)
                 .map(this::beforeRegistration)
-                .map(this.noticeRepository::resister)
+                .map(entity -> this.noticeRepository.resister(entity, receptionTime))
                 .map(future -> future.thenApply(this.converter::toOutput))
                 .orElseThrow(RuntimeException::new);
     }
 
     private NoticeEntity beforeRegistration(NoticeEntity entity) {
-        // TODO: storeの存在チェック
-        return entity;
+        return Optional.ofNullable(entity.getStoreId())
+                .map(this.storeRepository::exists)
+                .map(CompletableFuture::join)
+                .map(bool -> {
+                    if (!bool) {
+                        throw new RuntimeException("存在チェックで失敗しています");
+                    }
+                    return entity;
+                })
+                .orElse(entity);
     }
 
 }

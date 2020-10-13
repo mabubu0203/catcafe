@@ -1,23 +1,34 @@
 package mabubu0203.com.github.catcafe.api.controller.notice.service.model.output;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Builder;
+import lombok.Getter;
 import mabubu0203.com.github.catcafe.common.service.model.ServiceOutput;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Accessors(chain = true)
-@Data
+@Builder
+@Getter
 public class NoticeSearchServiceOutput implements ServiceOutput {
 
-    private List<NoticeObject> notices;
+    private final List<NoticeObject> notices;
 
-    @Data
+    @Builder
+    @Getter
     public static class NoticeObject {
-        private Integer id;
-        private Integer storeId;
-        private String summary;
-        private String detail;
+        private final Integer id;
+        private final Integer storeId;
+        private final String summary;
+        private final String detail;
+        private final CommonObject common;
+    }
+
+    @Builder
+    @Getter
+    public static class CommonObject {
+        private final LocalDateTime createdDateTime;
+        private final Integer version;
+        private final LocalDateTime updatedDateTime;
     }
 
 }

@@ -15,7 +15,7 @@ public class StoreSearchConditions extends SearchConditions {
 
     private Optional<List<Integer>> optStoreIds;
 
-    public StoreSearchConditions(){
+    public StoreSearchConditions() {
         super();
     }
 

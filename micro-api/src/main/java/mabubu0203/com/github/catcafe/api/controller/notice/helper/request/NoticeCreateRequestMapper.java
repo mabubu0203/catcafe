@@ -12,10 +12,12 @@ public class NoticeCreateRequestMapper implements CreateRequestMapper<NoticeCrea
 
     @Override
     public NoticeResisterServiceInput apply(NoticeCreate noticeCreate) {
-        return new NoticeResisterServiceInput()
-                .setStoreId(noticeCreate.getStoreId())
-                .setSummary(noticeCreate.getSummary())
-                .setDetail(noticeCreate.getDetail());
+        return NoticeResisterServiceInput.builder()
+                .cats(this.cats)
+                .storeId(noticeCreate.getStoreId())
+                .summary(noticeCreate.getSummary())
+                .detail(noticeCreate.getDetail())
+                .build();
     }
 
 }
