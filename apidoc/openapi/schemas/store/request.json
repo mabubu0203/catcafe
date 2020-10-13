@@ -18,12 +18,21 @@
     "store_update": {
       "description": "patchObject",
       "type": "object",
+      "required": [
+        "name",
+        "version"
+      ],
       "properties": {
-        "value": {
-          "description": "",
+        "name": {
+          "description": "店舗名",
           "type": "string",
           "minLength": 0,
-          "maxLength": 100
+          "maxLength": 128
+        },
+        "version": {
+          "description": "バージョンフィールド",
+          "type": "integer",
+          "format": "int32"
         }
       }
     }

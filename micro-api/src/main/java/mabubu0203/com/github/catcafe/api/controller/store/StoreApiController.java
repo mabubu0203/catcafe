@@ -8,9 +8,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreCreateRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreDeleteRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreSearchRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreCreateResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreDeleteResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreSearchResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.service.StoreDeleteService;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreRegisterService;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreSearchService;
 import org.openapitools.api.StoreApi;
@@ -32,6 +35,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreApiController implements StoreApi {
 
+    private final StoreDeleteService deleteService;
     private final StoreRegisterService registerService;
     private final StoreSearchService searchService;
 
@@ -72,10 +76,17 @@ public class StoreApiController implements StoreApi {
     @Override
     public Mono<ResponseEntity<Void>> storeDelete(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            Integer storeId,
-            @NotNull @Valid Integer version,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
+            @Parameter(description = "バージョンフィールド", schema = @Schema(type = "integer")) @NotNull @Valid Integer version,
             ServerWebExchange exchange) {
-        return null;
+        return new StoreDeleteRequestMapper(
+                cats, storeId,
+                version).get()
+                .map(this.deleteService::promise)
+                .flatMap(Mono::fromCompletionStage)
+                .map(new StoreDeleteResponseMapper())
+                .filter(Boolean::booleanValue)
+                .map(bool -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @Operation(
@@ -140,7 +151,7 @@ public class StoreApiController implements StoreApi {
     @Override
     public Mono<ResponseEntity<PatchObject>> storeUpdate(
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            Integer storeId,
+            @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
             @Valid Mono<StoreUpdate> storeUpdate,
             ServerWebExchange exchange) {
         return null;
