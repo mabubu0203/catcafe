@@ -21,18 +21,31 @@ public class CastSearchServiceConverter {
     }
 
     public CastSearchServiceOutput toServiceOutput(Stream<CastEntity> stream) {
-        return new CastSearchServiceOutput()
-                .setCasts(stream
+        return CastSearchServiceOutput.builder()
+                .casts(stream
                         .map(castEntity -> {
                             var castCatEntity = castEntity.getCastCatEntity();
-                            return new CastSearchServiceOutput.CastObject()
-                                    .setId(castEntity.getCastId().get().intValue())
-                                    .setStoreId(castEntity.getStoreId().intValue())
-                                    .setCastCat(
-                                            new CastSearchServiceOutput.CastCatObject()
-                                                    .setId(castCatEntity.getCastCatId().get().intValue())
-                                                    .setName(castCatEntity.getName()));
+                            return CastSearchServiceOutput.CastObject.builder()
+                                    .id(castEntity.getCastId().intValue())
+                                    .storeId(castEntity.getStoreId().intValue())
+                                    .common(CastSearchServiceOutput.CommonObject.builder()
+                                            .createdDateTime(castEntity.getCreatedDateTime())
+                                            .version(castEntity.getVersion())
+                                            .updatedDateTime(castEntity.getUpdatedDateTime())
+                                            .build())
+                                    .castCat(
+                                            CastSearchServiceOutput.CastCatObject.builder()
+                                                    .id(castCatEntity.getCastCatId().intValue())
+                                                    .name(castCatEntity.getName())
+                                                    .common(CastSearchServiceOutput.CommonObject.builder()
+                                                            .createdDateTime(castCatEntity.getCreatedDateTime())
+                                                            .version(castCatEntity.getVersion())
+                                                            .updatedDateTime(castCatEntity.getUpdatedDateTime())
+                                                            .build())
+                                                    .build())
+                                    .build();
                         })
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .build();
     }
 }

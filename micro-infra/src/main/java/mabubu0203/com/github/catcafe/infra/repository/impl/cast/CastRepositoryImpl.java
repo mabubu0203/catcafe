@@ -66,14 +66,20 @@ public class CastRepositoryImpl implements CastRepository {
         var castCatId = new CastCatId(dto.getCastCatId());
 
         var castCatEntity = CastCatEntity.builder()
-                .castCatId(Optional.of(castCatId))
+                .castCatId(castCatId)
                 .name(dto.getCastCatName())
                 .image(dto.getCastCatImage())
                 .sex(dto.getCastCatSex().name())
+                .createdDateTime(null)
+                .version(null)
+                .updatedDateTime(null)
                 .build();
         return CastEntity.builder()
-                .castId(Optional.of(castId))
+                .castId(castId)
                 .storeId(storeId)
+                .createdDateTime(null)
+                .version(null)
+                .updatedDateTime(null)
                 .CastCatEntity(castCatEntity)
                 .build();
     }
@@ -96,7 +102,7 @@ public class CastRepositoryImpl implements CastRepository {
     private Cast toDto(CastEntity entity) {
         return new Cast()
                 .setStoreId(entity.getStoreId().intValue())
-                .setCastCatId(entity.getCastCatEntity().getCastCatId().get().intValue())
+                .setCastCatId(entity.getCastCatEntity().getCastCatId().intValue())
                 .setFirstAttendanceDate(null)
                 .setLastAttendanceDate(null)
                 .setEmploymentStatus(Cast.EmploymentStatus.main)

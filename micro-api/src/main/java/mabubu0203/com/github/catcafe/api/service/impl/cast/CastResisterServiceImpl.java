@@ -39,7 +39,7 @@ public class CastResisterServiceImpl implements CastRegisterService {
 
     private CastEntity beforeRegistration(CastEntity entity) {
         var store = this.storeRepository.exists(entity.getStoreId());
-        var castCat = this.castRepository.exists(entity.getCastCatEntity().getCastCatId().get());
+        var castCat = this.castRepository.exists(entity.getCastCatEntity().getCastCatId());
 
         var futureList = Arrays.asList(store, castCat);
         var futureListSize = futureList.size();
