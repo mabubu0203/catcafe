@@ -24,10 +24,10 @@ public class CastCatResisterServiceImpl implements CastCatResisterService {
     @Async
     @Transactional
     public CompletableFuture<CastCatResisterServiceOutput> promise(CastCatResisterServiceInput input) {
-        return Optional
-                .of(input)
+        var receptionTime = getReceptionTime();
+        return Optional.of(input)
                 .map(this.converter::fromInput)
-                .map(this.castRepository::resister)
+                .map(entity -> this.castRepository.resister(entity, receptionTime))
                 .map(future -> future.thenApply(this.converter::toOutput))
                 .orElseThrow(RuntimeException::new);
     }
