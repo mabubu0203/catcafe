@@ -1,16 +1,31 @@
 package mabubu0203.com.github.catcafe.common.source.jpa;
 
-import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
 import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseView;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @NoRepositoryBean
 public interface ViewSource<D extends BaseView, ID> extends JpaRepository<D, ID>, JpaSpecificationExecutor<D> {
+
+    @Async
+    default CompletableFuture<Stream<D>> searchStream(Specification<D> spec, Pageable pageable) {
+        return this.search(spec, pageable).thenApply(Page::stream);
+    }
+
+    @Async
+    default CompletableFuture<Page<D>> search(Specification<D> spec, Pageable pageable) {
+        return CompletableFuture.supplyAsync(() -> findAll(spec, pageable));
+    }
 
     @Override
     default D getOne(ID id) {

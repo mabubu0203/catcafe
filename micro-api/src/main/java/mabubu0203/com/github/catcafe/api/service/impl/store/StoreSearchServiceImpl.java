@@ -27,7 +27,7 @@ public class StoreSearchServiceImpl implements StoreSearchService {
                 .map(this.converter::toSearchCondition)
                 .map(this.storeRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))
-                .get();
+                .orElseThrow(RuntimeException::new);
     }
 
 }

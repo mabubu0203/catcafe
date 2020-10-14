@@ -8,8 +8,6 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Store_;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
@@ -32,10 +30,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     public CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions) {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()));
-        return CompletableFuture
-                .supplyAsync(() ->
-                        this.source.findAll(specification, searchConditions.getPageRequest()))
-                .thenApply(Page::stream)
+        return this.source.searchStream(specification, searchConditions.getPageRequest())
                 .thenApply(stream -> stream.map(this::convertStoreEntity));
     }
 
@@ -75,36 +70,39 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedBy(0))
                 .thenApply(Store.class::cast)
-                .thenApply(dto -> this.source.insert(dto, receptionTime))
+                .thenCompose(dto -> this.source.insert(dto, receptionTime))
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);
     }
 
     private Store toDto(StoreEntity entity) {
-        var storeId = Optional.ofNullable(entity.getStoreId())
+        var storeId = Optional
+                .ofNullable(entity.getStoreId())
                 .map(StoreId::intValue)
                 .orElse(null);
         return new Store()
                 .setId(storeId)
                 .setName(entity.getName())
                 .setOpeningTime(entity.getOpeningTime())
-                .setClosingTime(entity.getOpeningTime());
+                .setClosingTime(entity.getClosingTime());
     }
 
     @Override
     @Async
     public CompletableFuture<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
-        return CompletableFuture
-                .supplyAsync(() -> (Store) new Store()
-                        .setId(entity.getStoreId().intValue())
-                        .setVersion(entity.getVersion())
-                        .setDeletedFlag(false))
-                .thenApply(Example::of)
-                .thenApply(this.source::findOne)
-                .thenApply(opt -> opt.orElseThrow(RuntimeException::new))
-                .thenApply(dto -> this.source.logicalDelete(dto, receptionTime))
+        return this.findOne(entity)
+                .thenCompose(dto -> this.source.logicalDelete(dto, receptionTime))
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);
+    }
+
+    private CompletableFuture<Store> findOne(StoreEntity entity) {
+        var store = (Store) new Store()
+                .setId(entity.getStoreId().intValue())
+                .setVersion(entity.getVersion())
+                .setDeletedFlag(false);
+        return this.source.findOne(store)
+                .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("店舗が存在しません")));
     }
 
 }

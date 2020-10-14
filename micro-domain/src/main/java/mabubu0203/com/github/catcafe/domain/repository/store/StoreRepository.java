@@ -5,6 +5,7 @@ import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 

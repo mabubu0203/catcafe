@@ -9,7 +9,6 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.jpa.NoticeSource;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Notice;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Notice_;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
@@ -33,10 +32,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         var specification = Specification
                 .where(this.storeIdInclude(searchConditions.optStoreIds()))
                 .and(this.noticeIdInclude(searchConditions.optNoticeIds()));
-        return CompletableFuture
-                .supplyAsync(() ->
-                        this.source.findAll(specification, searchConditions.getPageRequest()))
-                .thenApply(Page::stream)
+        return this.source.searchStream(specification, searchConditions.getPageRequest())
                 .thenApply(stream -> stream.map(this::convertNoticeEntity));
     }
 
@@ -74,16 +70,18 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedBy(0))
                 .thenApply(Notice.class::cast)
-                .thenApply(dto -> this.source.insert(dto, receptionTime))
+                .thenCompose(dto -> this.source.insert(dto, receptionTime))
                 .thenApply(Notice::getId)
                 .thenApply(NoticeId::new);
     }
 
     private Notice toDto(NoticeEntity entity) {
-        var noticeId = Optional.ofNullable(entity.getNoticeId())
+        var noticeId = Optional
+                .ofNullable(entity.getNoticeId())
                 .map(NoticeId::intValue)
                 .orElse(null);
-        var storeId = Optional.ofNullable(entity.getStoreId())
+        var storeId = Optional
+                .ofNullable(entity.getStoreId())
                 .map(StoreId::intValue)
                 .orElse(null);
         return new Notice()
