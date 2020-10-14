@@ -27,7 +27,7 @@ public class CastSearchServiceImpl implements CastSearchService {
                 .map(this.converter::toSearchCondition)
                 .map(this.castRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))
-                .get();
+                .orElseThrow(RuntimeException::new);
     }
 
 }

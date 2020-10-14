@@ -27,7 +27,7 @@ public class NoticeSearchServiceImpl implements NoticeSearchService {
                 .map(this.converter::toSearchCondition)
                 .map(this.noticeRepository::search)
                 .map(future -> future.thenApply(this.converter::toServiceOutput))
-                .get();
+                .orElseThrow(RuntimeException::new);
     }
 
 }
