@@ -13,12 +13,14 @@ public class CastCreateRequestMapper implements CreateRequestMapper<CastCreate, 
 
     @Override
     public CastRegisterServiceInput apply(CastCreate castCreate) {
-        return new CastRegisterServiceInput()
-                .setStoreId(this.storeId)
-                .setCastCatId(castCreate.getCastCatId())
-                .setFirstAttendanceDate(castCreate.getFirstAttendanceDate())
-                .setLastAttendanceDate(castCreate.getLastAttendanceDate())
-                .setMemo(castCreate.getMemo());
+        return CastRegisterServiceInput.builder()
+                .cats(this.cats)
+                .storeId(this.storeId)
+                .castCatId(castCreate.getCastCatId())
+                .firstAttendanceDate(castCreate.getFirstAttendanceDate())
+                .lastAttendanceDate(castCreate.getLastAttendanceDate())
+                .memo(castCreate.getMemo())
+                .build();
     }
 
 }

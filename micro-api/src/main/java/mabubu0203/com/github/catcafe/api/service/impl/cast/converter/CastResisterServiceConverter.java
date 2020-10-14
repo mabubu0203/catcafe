@@ -8,13 +8,11 @@ import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
-import java.util.Optional;
-
 public class CastResisterServiceConverter {
 
     public CastEntity fromInput(CastRegisterServiceInput input) {
         var castCatEntity = CastCatEntity.builder()
-                .castCatId(Optional.of(new CastCatId(input.getCastCatId())))
+                .castCatId(new CastCatId(input.getCastCatId()))
                 .build();
         return CastEntity.builder()
                 .storeId(new StoreId(input.getStoreId()))
@@ -24,7 +22,9 @@ public class CastResisterServiceConverter {
     }
 
     public CastRegisterServiceOutput toOutput(CastId castId) {
-        return new CastRegisterServiceOutput().setId(castId.intValue());
+        return CastRegisterServiceOutput.builder()
+                .id(castId.intValue())
+                .build();
     }
 
 }

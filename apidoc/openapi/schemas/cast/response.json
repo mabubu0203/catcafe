@@ -76,6 +76,9 @@
           "description": "店舗メモ",
           "type": "string"
         },
+        "common": {
+          "$ref": "../success_response/commonResponse.json#/model/common"
+        },
         "cast_cat": {
           "$ref": "#/model/cast_cat"
         }
@@ -142,6 +145,9 @@
         "memo": {
           "description": "キャストメモ",
           "type": "string"
+        },
+        "common": {
+          "$ref": "../success_response/commonResponse.json#/model/common"
         }
       }
     }

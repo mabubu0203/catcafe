@@ -15,6 +15,7 @@ import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.CastCat;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.view.CastView;
 import mabubu0203.com.github.catcafe.infra.source.jpa.entity.view.CastView_;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Async;
@@ -66,37 +67,60 @@ public class CastRepositoryImpl implements CastRepository {
         var castCatId = new CastCatId(dto.getCastCatId());
 
         var castCatEntity = CastCatEntity.builder()
-                .castCatId(Optional.of(castCatId))
+                .castCatId(castCatId)
                 .name(dto.getCastCatName())
                 .image(dto.getCastCatImage())
                 .sex(dto.getCastCatSex().name())
+                .createdDateTime(null)
+                .version(null)
+                .updatedDateTime(null)
                 .build();
         return CastEntity.builder()
-                .castId(Optional.of(castId))
+                .castId(castId)
                 .storeId(storeId)
+                .createdDateTime(null)
+                .version(null)
+                .updatedDateTime(null)
                 .CastCatEntity(castCatEntity)
                 .build();
     }
 
     @Override
     @Async
-    public CompletableFuture<CastId> resister(CastEntity entity) {
+    public CompletableFuture<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
         return CompletableFuture
-                .supplyAsync(() -> entity)
+                .supplyAsync(() ->
+                        new CastCat()
+                                .setId(entity.getCastCatEntity().getCastCatId().intValue())
+                                .setDeletedFlag(false))
+                .thenApply(CastCat.class::cast)
+                .thenApply(Example::of)
+                .thenApply(this.castCatSource::findOne)
+                .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("キャストキャットがいません")))
+                .thenApply(dto -> entity)
                 .thenApply(this::toDto)
-                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))
-                .thenApply(dto -> dto.setVersion(0))
                 .thenApply(Cast.class::cast)
-                .thenApply(this.castSource::save)
+                .thenApply(dto -> this.castSource.insert(dto, receptionTime))
                 .thenApply(Cast::getId)
                 .thenApply(CastId::new);
     }
 
     private Cast toDto(CastEntity entity) {
+        var castId = Optional.ofNullable(entity.getCastId())
+                .map(CastId::intValue)
+                .orElse(null);
+        var storeId = Optional.of(entity.getStoreId())
+                .map(StoreId::intValue)
+                .get();
+        var castCatId = Optional.of(entity.getCastCatEntity())
+                .map(CastCatEntity::getCastCatId)
+                .map(CastCatId::intValue)
+                .get();
         return new Cast()
-                .setStoreId(entity.getStoreId().intValue())
-                .setCastCatId(entity.getCastCatEntity().getCastCatId().get().intValue())
+                .setId(castId)
+                .setStoreId(storeId)
+                .setCastCatId(castCatId)
                 .setFirstAttendanceDate(null)
                 .setLastAttendanceDate(null)
                 .setEmploymentStatus(Cast.EmploymentStatus.main)
@@ -104,33 +128,27 @@ public class CastRepositoryImpl implements CastRepository {
     }
 
     @Override
-    public CompletableFuture<Boolean> exists(CastCatId castCatId) {
-        return CompletableFuture
-                .supplyAsync(castCatId::intValue)
-                .thenApply(this.castCatSource::findById)
-                .thenApply(Optional::isPresent);
-    }
-
-    @Override
     @Async
-    public CompletableFuture<CastCatId> resister(CastCatEntity entity) {
+    public CompletableFuture<CastCatId> resister(CastCatEntity entity, LocalDateTime receptionTime) {
         return CompletableFuture
                 .supplyAsync(() -> entity)
                 .thenApply(this::toDto)
-                .thenApply(dto -> dto.setCreatedDateTime(LocalDateTime.now()))
                 .thenApply(dto -> dto.setCreatedBy(0))
-                .thenApply(dto -> dto.setVersion(0))
                 .thenApply(CastCat.class::cast)
-                .thenApply(this.castCatSource::save)
+                .thenApply(dto -> this.castCatSource.insert(dto, receptionTime))
                 .thenApply(CastCat::getId)
                 .thenApply(CastCatId::new);
     }
 
     private CastCat toDto(CastCatEntity entity) {
+        var castCatId = Optional.ofNullable(entity.getCastCatId())
+                .map(CastCatId::intValue)
+                .orElse(null);
         return new CastCat()
+                .setId(castCatId)
                 .setName(entity.getName())
                 .setImage(entity.getImage())
-                .setType(null)
+                .setType(entity.getType())
                 .setSex(CastCat.Sex.male)
                 .setBirthdayDate(null)
                 .setMemo(entity.getMemo());

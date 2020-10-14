@@ -1,28 +1,41 @@
 package mabubu0203.com.github.catcafe.api.controller.cast.service.model.output;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import lombok.Builder;
+import lombok.Getter;
 import mabubu0203.com.github.catcafe.common.service.model.ServiceOutput;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-@Accessors(chain = true)
-@Data
+@Builder
+@Getter
 public class CastSearchServiceOutput implements ServiceOutput {
 
-    private List<CastObject> casts;
+    private final List<CastObject> casts;
 
-    @Data
+    @Builder
+    @Getter
     public static class CastObject {
-        private Integer id;
-        private Integer storeId;
-        private CastCatObject castCat;
+        private final Integer id;
+        private final Integer storeId;
+        private final CommonObject common;
+        private final CastCatObject castCat;
     }
 
-    @Data
+    @Builder
+    @Getter
     public static class CastCatObject {
-        private Integer id;
-        private String name;
+        private final Integer id;
+        private final String name;
+        private final CommonObject common;
+    }
+
+    @Builder
+    @Getter
+    public static class CommonObject {
+        private final LocalDateTime createdDateTime;
+        private final Integer version;
+        private final LocalDateTime updatedDateTime;
     }
 
 }
