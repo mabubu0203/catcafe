@@ -38,16 +38,13 @@ public class NoticeResisterServiceImpl implements NoticeResisterService {
     }
 
     private NoticeEntity beforeRegistration(NoticeEntity entity) {
-        return Optional.ofNullable(entity.getStoreId())
+        return Optional
+                .ofNullable(entity.getStoreId())
                 .map(this.storeRepository::exists)
                 .map(CompletableFuture::join)
-                .map(bool -> {
-                    if (!bool) {
-                        throw new RuntimeException("存在チェックで失敗しています");
-                    }
-                    return entity;
-                })
-                .orElse(entity);
+                .filter(Boolean::booleanValue)
+                .map(bool -> entity)
+                .orElseThrow(() -> new RuntimeException("店舗チェックで失敗しています"));
     }
 
 }

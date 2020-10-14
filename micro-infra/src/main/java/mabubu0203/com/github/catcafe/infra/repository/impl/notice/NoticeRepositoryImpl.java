@@ -80,10 +80,12 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     private Notice toDto(NoticeEntity entity) {
-        var noticeId = Optional.ofNullable(entity.getNoticeId())
+        var noticeId = Optional
+                .ofNullable(entity.getNoticeId())
                 .map(NoticeId::intValue)
                 .orElse(null);
-        var storeId = Optional.ofNullable(entity.getStoreId())
+        var storeId = Optional
+                .ofNullable(entity.getStoreId())
                 .map(StoreId::intValue)
                 .orElse(null);
         return new Notice()

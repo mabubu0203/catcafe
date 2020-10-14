@@ -81,30 +81,37 @@ public class StoreRepositoryImpl implements StoreRepository {
     }
 
     private Store toDto(StoreEntity entity) {
-        var storeId = Optional.ofNullable(entity.getStoreId())
+        var storeId = Optional
+                .ofNullable(entity.getStoreId())
                 .map(StoreId::intValue)
                 .orElse(null);
         return new Store()
                 .setId(storeId)
                 .setName(entity.getName())
                 .setOpeningTime(entity.getOpeningTime())
-                .setClosingTime(entity.getOpeningTime());
+                .setClosingTime(entity.getClosingTime());
     }
 
     @Override
     @Async
     public CompletableFuture<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
-        return CompletableFuture
-                .supplyAsync(() -> (Store) new Store()
-                        .setId(entity.getStoreId().intValue())
-                        .setVersion(entity.getVersion())
-                        .setDeletedFlag(false))
-                .thenApply(Example::of)
-                .thenApply(this.source::findOne)
-                .thenApply(opt -> opt.orElseThrow(RuntimeException::new))
+        return this.findOne(entity)
                 .thenApply(dto -> this.source.logicalDelete(dto, receptionTime))
                 .thenApply(Store::getId)
                 .thenApply(StoreId::new);
+    }
+
+    private CompletableFuture<Store> findOne(StoreEntity entity) {
+        return CompletableFuture
+                .supplyAsync(() ->
+                        new Store()
+                                .setId(entity.getStoreId().intValue())
+                                .setVersion(entity.getVersion())
+                                .setDeletedFlag(false))
+                .thenApply(Store.class::cast)
+                .thenApply(Example::of)
+                .thenApply(this.source::findOne)
+                .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("店舗が存在しません")));
     }
 
 }

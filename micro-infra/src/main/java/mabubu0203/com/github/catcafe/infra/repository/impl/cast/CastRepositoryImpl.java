@@ -88,15 +88,7 @@ public class CastRepositoryImpl implements CastRepository {
     @Override
     @Async
     public CompletableFuture<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
-        return CompletableFuture
-                .supplyAsync(() ->
-                        new CastCat()
-                                .setId(entity.getCastCatEntity().getCastCatId().intValue())
-                                .setDeletedFlag(false))
-                .thenApply(CastCat.class::cast)
-                .thenApply(Example::of)
-                .thenApply(this.castCatSource::findOne)
-                .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("キャストキャットがいません")))
+        return this.findOne(entity.getCastCatEntity())
                 .thenApply(dto -> entity)
                 .thenApply(this::toDto)
                 .thenApply(dto -> dto.setCreatedBy(0))
@@ -106,14 +98,29 @@ public class CastRepositoryImpl implements CastRepository {
                 .thenApply(CastId::new);
     }
 
+    private CompletableFuture<CastCat> findOne(CastCatEntity entity) {
+        return CompletableFuture
+                .supplyAsync(() ->
+                        new CastCat()
+                                .setId(entity.getCastCatId().intValue())
+                                .setDeletedFlag(false))
+                .thenApply(CastCat.class::cast)
+                .thenApply(Example::of)
+                .thenApply(this.castCatSource::findOne)
+                .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("キャストキャットが存在しません")));
+    }
+
     private Cast toDto(CastEntity entity) {
-        var castId = Optional.ofNullable(entity.getCastId())
+        var castId = Optional
+                .ofNullable(entity.getCastId())
                 .map(CastId::intValue)
                 .orElse(null);
-        var storeId = Optional.of(entity.getStoreId())
+        var storeId = Optional
+                .of(entity.getStoreId())
                 .map(StoreId::intValue)
                 .get();
-        var castCatId = Optional.of(entity.getCastCatEntity())
+        var castCatId = Optional
+                .of(entity.getCastCatEntity())
                 .map(CastCatEntity::getCastCatId)
                 .map(CastCatId::intValue)
                 .get();
@@ -141,7 +148,8 @@ public class CastRepositoryImpl implements CastRepository {
     }
 
     private CastCat toDto(CastCatEntity entity) {
-        var castCatId = Optional.ofNullable(entity.getCastCatId())
+        var castCatId = Optional
+                .ofNullable(entity.getCastCatId())
                 .map(CastCatId::intValue)
                 .orElse(null);
         return new CastCat()
