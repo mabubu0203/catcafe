@@ -7,20 +7,44 @@
   },
   "tags": [
     {
-      "name": "notice",
-      "description": "お知らせ"
+      "name": "notice_command",
+      "description": "お知らせ(書き込み)"
     },
     {
-      "name": "store",
-      "description": "店舗"
+      "name": "notice_query",
+      "description": "お知らせ(読み取り)"
     },
     {
-      "name": "contact",
-      "description": "お問い合わせ"
+      "name": "store_command",
+      "description": "店舗(書き込み)"
     },
     {
-      "name": "frequently_asked_question",
-      "description": "FAQ"
+      "name": "store_query",
+      "description": "店舗(読み取り)"
+    },
+    {
+      "name": "contact_command",
+      "description": "お問い合わせ(書き込み)"
+    },
+    {
+      "name": "contact_query",
+      "description": "お問い合わせ(読み取り)"
+    },
+    {
+      "name": "frequently_asked_question_command",
+      "description": "FAQ(書き込み)"
+    },
+    {
+      "name": "frequently_asked_question_query",
+      "description": "FAQ(読み取り)"
+    },
+    {
+      "name": "event_command",
+      "description": "イベント(書き込み)"
+    },
+    {
+      "name": "event_query",
+      "description": "イベント(読み取り)"
     },
     {
       "name": "display_menu",
@@ -33,10 +57,6 @@
     {
       "name": "cast",
       "description": "キャスト"
-    },
-    {
-      "name": "event",
-      "description": "イベント"
     },
     {
       "name": "congestion",
@@ -90,7 +110,7 @@
       ],
       "post": {
         "tags": [
-          "notice"
+          "notice_command"
         ],
         "summary": "お知らせ登録API",
         "description": "お知らせを1件登録する",
@@ -152,7 +172,7 @@
       ],
       "get": {
         "tags": [
-          "notice"
+          "notice_query"
         ],
         "summary": "お知らせ一覧取得API",
         "description": "お知らせを取得する",
@@ -285,7 +305,7 @@
       ],
       "get": {
         "tags": [
-          "notice"
+          "notice_query"
         ],
         "summary": "お知らせ詳細取得API",
         "description": "お知らせを1件取得する",
@@ -318,7 +338,7 @@
       },
       "patch": {
         "tags": [
-          "notice"
+          "notice_command"
         ],
         "summary": "お知らせ更新API",
         "description": "お知らせを1件更新する",
@@ -365,7 +385,7 @@
       },
       "delete": {
         "tags": [
-          "notice"
+          "notice_command"
         ],
         "summary": "お知らせ削除API",
         "description": "お知らせを1件論理削除する",
@@ -417,7 +437,7 @@
       ],
       "post": {
         "tags": [
-          "store"
+          "store_command"
         ],
         "summary": "店舗登録API",
         "description": "店舗を1件登録する",
@@ -479,7 +499,7 @@
       ],
       "get": {
         "tags": [
-          "store"
+          "store_query"
         ],
         "summary": "店舗一覧取得API",
         "description": "店舗を取得する",
@@ -599,7 +619,7 @@
       ],
       "get": {
         "tags": [
-          "store"
+          "store_query"
         ],
         "summary": "店舗詳細取得API",
         "description": "店舗詳細を1件取得する",
@@ -632,7 +652,7 @@
       },
       "patch": {
         "tags": [
-          "store"
+          "store_command"
         ],
         "summary": "店舗更新API",
         "description": "店舗を1件更新する",
@@ -679,7 +699,7 @@
       },
       "delete": {
         "tags": [
-          "store"
+          "store_command"
         ],
         "summary": "店舗削除API",
         "description": "店舗を1件論理削除する",
@@ -731,7 +751,7 @@
       ],
       "post": {
         "tags": [
-          "contact"
+          "contact_command"
         ],
         "summary": "お問い合わせ登録API",
         "description": "お問い合わせを1件登録する",
@@ -793,7 +813,7 @@
       ],
       "get": {
         "tags": [
-          "contact"
+          "contact_query"
         ],
         "summary": "お問い合わせ一覧取得API",
         "description": "お問い合わせを取得する",
@@ -869,7 +889,7 @@
       ],
       "get": {
         "tags": [
-          "contact"
+          "contact_query"
         ],
         "summary": "お問い合わせ詳細取得API",
         "description": "お問い合わせ詳細を1件取得する",
@@ -923,7 +943,7 @@
       ],
       "post": {
         "tags": [
-          "frequently_asked_question"
+          "frequently_asked_question_command"
         ],
         "summary": "FAQ登録API",
         "description": "FAQを1件登録する",
@@ -985,7 +1005,7 @@
       ],
       "get": {
         "tags": [
-          "frequently_asked_question"
+          "frequently_asked_question_query"
         ],
         "summary": "FAQ一覧取得API",
         "description": "FAQを取得する",
@@ -1061,7 +1081,7 @@
       ],
       "get": {
         "tags": [
-          "frequently_asked_question"
+          "frequently_asked_question_query"
         ],
         "summary": "FAQ詳細取得API",
         "description": "FAQ詳細を1件取得する",
@@ -1094,7 +1114,7 @@
       },
       "patch": {
         "tags": [
-          "frequently_asked_question"
+          "frequently_asked_question_command"
         ],
         "summary": "FAQ更新API",
         "description": "FAQを1件更新する",
@@ -1141,7 +1161,7 @@
       },
       "delete": {
         "tags": [
-          "frequently_asked_question"
+          "frequently_asked_question_command"
         ],
         "summary": "FAQ削除API",
         "description": "FAQを1件論理削除する",
@@ -1193,7 +1213,7 @@
       ],
       "post": {
         "tags": [
-          "event"
+          "event_command"
         ],
         "summary": "イベント登録API",
         "description": "イベントを1件登録する",
@@ -1255,7 +1275,7 @@
       ],
       "get": {
         "tags": [
-          "event"
+          "event_query"
         ],
         "summary": "イベント一覧取得API",
         "description": "イベントを取得する",
@@ -1331,7 +1351,7 @@
       ],
       "get": {
         "tags": [
-          "event"
+          "event_query"
         ],
         "summary": "イベント詳細取得API",
         "description": "イベント詳細を1件取得する",
@@ -1364,7 +1384,7 @@
       },
       "patch": {
         "tags": [
-          "event"
+          "event_command"
         ],
         "summary": "イベント更新API",
         "description": "イベントを1件更新する",
@@ -1411,7 +1431,7 @@
       },
       "delete": {
         "tags": [
-          "event"
+          "event_command"
         ],
         "summary": "イベント削除API",
         "description": "イベントを1件論理削除する",

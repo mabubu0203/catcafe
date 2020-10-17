@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.api.EventApi;
+import org.openapitools.api.EventCommandApi;
 import org.openapitools.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,14 +14,13 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class EventApiController implements EventApi {
+public class EventCommandApiController implements EventCommandApi {
 
     @Operation(
-            tags = {"event",},
+            tags = {"event_command",},
             summary = "イベント登録API",
             description = "イベントを1件登録する",
             operationId = "eventCreate",
@@ -39,7 +38,7 @@ public class EventApiController implements EventApi {
     }
 
     @Operation(
-            tags = {"event",},
+            tags = {"event_command",},
             summary = "イベント削除API",
             description = "イベントを1件論理削除する",
             operationId = "eventDelete",
@@ -59,44 +58,7 @@ public class EventApiController implements EventApi {
     }
 
     @Operation(
-            tags = {"event",},
-            summary = "イベント詳細取得API",
-            description = "イベント詳細を1件取得する",
-            operationId = "eventFind",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = EventFindResponse.class))),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
-            }
-    )
-    @Override
-    public Mono<ResponseEntity<EventFindResponse>> eventFind(
-            String cats,
-            Integer eventId,
-            ServerWebExchange exchange) {
-        return null;
-    }
-
-    @Operation(
-            tags = {"event",},
-            summary = "イベント一覧取得API",
-            description = "イベントを取得する",
-            operationId = "eventSearch",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = EventSearchResponse.class))),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-            }
-    )
-    @Override
-    public Mono<ResponseEntity<EventSearchResponse>> eventSearch(
-            String cats,
-            @Valid List<Integer> storeIds,
-            ServerWebExchange exchange) {
-        return null;
-    }
-
-    @Operation(
-            tags = {"event",},
+            tags = {"event_command",},
             summary = "イベント更新API",
             description = "イベントを1件更新する",
             operationId = "eventUpdate",

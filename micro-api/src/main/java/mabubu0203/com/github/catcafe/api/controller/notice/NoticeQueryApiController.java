@@ -7,14 +7,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import mabubu0203.com.github.catcafe.api.controller.notice.helper.request.NoticeCreateRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.notice.helper.request.NoticeSearchRequestMapper;
-import mabubu0203.com.github.catcafe.api.controller.notice.helper.response.NoticeCreateResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.notice.helper.response.NoticeSearchResponseMapper;
-import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeResisterService;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeSearchService;
-import org.openapitools.api.NoticeApi;
-import org.openapitools.model.*;
+import org.openapitools.api.NoticeQueryApi;
+import org.openapitools.model.NoticeFindResponse;
+import org.openapitools.model.NoticeSearchResponse;
+import org.openapitools.model.ValidationResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,61 +24,16 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class NoticeApiController implements NoticeApi {
+public class NoticeQueryApiController implements NoticeQueryApi {
 
-    private final NoticeResisterService resisterService;
     private final NoticeSearchService searchService;
 
     @Operation(
-            tags = {"notice",},
-            summary = "お知らせ登録API",
-            description = "お知らせを1件登録する",
-            operationId = "noticeCreate",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-            }
-    )
-    @Override
-    public Mono<ResponseEntity<PostObject>> noticeCreate(
-            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            @Valid Mono<NoticeCreate> noticeCreate,
-            ServerWebExchange exchange) {
-        return noticeCreate
-                .map(new NoticeCreateRequestMapper(cats))
-                .map(this.resisterService::promise)
-                .flatMap(Mono::fromCompletionStage)
-                .map(new NoticeCreateResponseMapper())
-                .map(ResponseEntity.status(HttpStatus.OK)::body);
-    }
-
-    @Operation(
-            tags = {"notice",},
-            summary = "お知らせ削除API",
-            description = "お知らせを1件論理削除する",
-            operationId = "noticeDelete",
-            responses = {
-                    @ApiResponse(responseCode = "204", description = "正常系"),
-                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
-                    @ApiResponse(responseCode = "409", description = "排他失敗"),
-            }
-    )
-    @Override
-    public Mono<ResponseEntity<Void>> noticeDelete(
-            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            Integer noticeId,
-            @NotNull @Valid Integer version,
-            ServerWebExchange exchange) {
-        return null;
-    }
-
-    @Operation(
-            tags = {"notice",},
+            tags = {"notice_query",},
             summary = "お知らせ詳細取得API",
             description = "お知らせを1件取得する",
             operationId = "noticeFind",
@@ -98,7 +52,7 @@ public class NoticeApiController implements NoticeApi {
     }
 
     @Operation(
-            tags = {"notice",},
+            tags = {"notice_query",},
             summary = "お知らせ一覧取得API",
             description = "お知らせを取得する",
             operationId = "noticeSearch",
@@ -124,27 +78,6 @@ public class NoticeApiController implements NoticeApi {
                 .flatMap(Mono::fromCompletionStage)
                 .map(new NoticeSearchResponseMapper())
                 .map(ResponseEntity.status(HttpStatus.OK)::body);
-    }
-
-    @Operation(
-            tags = {"notice",},
-            summary = "お知らせ更新API",
-            description = "お知らせを1件更新する",
-            operationId = "noticeUpdate",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
-                    @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-                    @ApiResponse(responseCode = "404", description = "Idが見つからない"),
-                    @ApiResponse(responseCode = "409", description = "排他失敗"),
-            }
-    )
-    @Override
-    public Mono<ResponseEntity<PatchObject>> noticeUpdate(
-            @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-            Integer noticeId,
-            @Valid Mono<NoticeUpdate> noticeUpdate,
-            ServerWebExchange exchange) {
-        return null;
     }
 
 }

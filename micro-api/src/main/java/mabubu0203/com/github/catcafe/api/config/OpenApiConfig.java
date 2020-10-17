@@ -11,7 +11,7 @@ public class OpenApiConfig {
     public GroupedOpenApi actuatorApi() {
         String[] paths = {"/actuator/**"};
         return GroupedOpenApi.builder()
-                .setGroup("actuator")
+                .group("actuator")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -26,7 +26,7 @@ public class OpenApiConfig {
                 "/{cats}/stores/{store_id}/cast",
                 "/{cats}/stores/{store_id}/casts/{cast_id}",};
         return GroupedOpenApi.builder()
-                .setGroup("cast")
+                .group("cast")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -38,7 +38,7 @@ public class OpenApiConfig {
                 "/{cats}/contacts",
                 "/{cats}/contacts/{contact_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("contact")
+                .group("contact")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -50,7 +50,7 @@ public class OpenApiConfig {
                 "/{cats}/stores/{store_id}/display_menu",
                 "/{cats}/stores/{store_id}/display_menus/{display_menu_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("display_menu")
+                .group("display_menu")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -62,7 +62,7 @@ public class OpenApiConfig {
                 "/{cats}/events",
                 "/{cats}/events/{event_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("event")
+                .group("event")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -74,7 +74,7 @@ public class OpenApiConfig {
                 "/{cats}/frequently_asked_questions",
                 "/{cats}/frequently_asked_questions/{faq_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("frequently_asked_question")
+                .group("frequently_asked_question")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -86,7 +86,7 @@ public class OpenApiConfig {
                 "/{cats}/notices",
                 "/{cats}/notices/{notice_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("notice")
+                .group("notice")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -98,7 +98,7 @@ public class OpenApiConfig {
                 "/{cats}/stores/{store_id}/provide_service",
                 "/{cats}/stores/{store_id}/provide_services/{provide_service_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("provide_service")
+                .group("provide_service")
                 .pathsToMatch(paths)
                 .build();
     }
@@ -110,7 +110,7 @@ public class OpenApiConfig {
                 "/{cats}/stores",
                 "/{cats}/stores/{store_id}"};
         return GroupedOpenApi.builder()
-                .setGroup("store")
+                .group("store")
                 .pathsToMatch(paths)
                 .build();
     }
