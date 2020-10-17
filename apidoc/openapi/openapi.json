@@ -51,11 +51,19 @@
       "description": "表示表示メニュー"
     },
     {
-      "name": "provide_service",
-      "description": "提供サービス"
+      "name": "provide_service_command",
+      "description": "提供サービス(書き込み)"
     },
     {
-      "name": "cast",
+      "name": "provide_service_query",
+      "description": "提供サービス(読み取り)"
+    },
+    {
+      "name": "cast_command",
+      "description": "キャスト(書き込み)"
+    },
+    {
+      "name": "cast_query(読み取り)",
       "description": "キャスト"
     },
     {
@@ -1773,7 +1781,7 @@
       ],
       "get": {
         "tags": [
-          "provide_service"
+          "provide_service_query"
         ],
         "summary": "提供サービス一覧取得API",
         "description": "提供サービスを取得する",
@@ -1849,7 +1857,7 @@
       ],
       "post": {
         "tags": [
-          "provide_service"
+          "provide_service_command"
         ],
         "summary": "提供サービス登録API",
         "description": "提供サービスを1件登録する",
@@ -1931,7 +1939,7 @@
       ],
       "get": {
         "tags": [
-          "provide_service"
+          "provide_service_query"
         ],
         "summary": "提供サービス詳細取得API",
         "description": "提供サービス詳細を1件取得する",
@@ -1964,7 +1972,7 @@
       },
       "patch": {
         "tags": [
-          "provide_service"
+          "provide_service_command"
         ],
         "summary": "提供サービス更新API",
         "description": "提供サービスを1件更新する",
@@ -2011,7 +2019,7 @@
       },
       "delete": {
         "tags": [
-          "provide_service"
+          "provide_service_command"
         ],
         "summary": "提供サービス削除API",
         "description": "提供サービスを1件論理削除する",
@@ -2063,7 +2071,7 @@
       ],
       "post": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト(猫)登録API",
         "description": "キャスト(猫)を1件登録する",
@@ -2125,7 +2133,7 @@
       ],
       "get": {
         "tags": [
-          "cast"
+          "cast_query"
         ],
         "summary": "キャスト(猫)一覧取得API",
         "description": "キャスト(猫)を取得する",
@@ -2198,7 +2206,7 @@
       ],
       "get": {
         "tags": [
-          "cast"
+          "cast_query"
         ],
         "summary": "キャスト(猫)詳細取得API",
         "description": "キャスト(猫)詳細を1件取得する",
@@ -2231,7 +2239,7 @@
       },
       "patch": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト(猫)更新API",
         "description": "キャスト(猫)を1件更新する",
@@ -2278,7 +2286,7 @@
       },
       "delete": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト(猫)削除API",
         "description": "キャスト(猫)を1件論理削除する",
@@ -2330,7 +2338,7 @@
       ],
       "get": {
         "tags": [
-          "cast"
+          "cast_query"
         ],
         "summary": "キャスト一覧取得API",
         "description": "キャストを取得する",
@@ -2463,7 +2471,7 @@
       ],
       "post": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト登録API",
         "description": "キャストを1件登録する",
@@ -2545,7 +2553,7 @@
       ],
       "get": {
         "tags": [
-          "cast"
+          "cast_query"
         ],
         "summary": "キャスト詳細取得API",
         "description": "キャスト詳細を1件取得する",
@@ -2578,7 +2586,7 @@
       },
       "patch": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト更新API",
         "description": "キャストを1件更新する",
@@ -2625,7 +2633,7 @@
       },
       "delete": {
         "tags": [
-          "cast"
+          "cast_command"
         ],
         "summary": "キャスト削除API",
         "description": "キャストを1件論理削除する",
