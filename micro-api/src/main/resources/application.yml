@@ -117,8 +117,11 @@ springdoc:
   api-docs:
     groups:
       enabled: true
+    resolve-schema-properties: true
+  model-and-view-allowed: true
+  show-actuator: true
   swagger-ui:
     path: /swagger-ui.html
     display-request-duration: true
     displayOperationId: true
-  show-actuator: true
+    showCommonExtensions: true

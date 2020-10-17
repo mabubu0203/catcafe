@@ -7,5 +7,6 @@
   "groupId": "mabubu0203.com.github",
   "interfaceOnly": "true",
   "reactive": "true",
-  "snapshotVersion": "false"
+  "snapshotVersion": "false",
+  "performBeanValidation": "true"
 }

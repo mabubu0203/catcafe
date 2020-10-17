@@ -7,8 +7,6 @@ buildscript {
 		// SpringBoot
 		springBootVersion = springbootVersion
 
-		springCloudVersion = springcloudVersion
-
 		// Springdoc
 		swaggerAnnotationsVersion = swaggerAnnotationsVersion
 		springDocVersion = springdocVersion
