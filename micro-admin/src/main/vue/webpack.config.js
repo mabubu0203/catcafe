@@ -5,20 +5,20 @@ const ts = require('typescript')
 const environment = process.env.NODE_ENV || 'development';
 
 const config = (env = {}) => ({
-    mode: env.prod ? 'production' : 'development',
+    mode: 'development',
+    entry: {
+        bundle: './index.ts'
+    },
+    output: {
+        path: path.resolve(__dirname, '../resources/public'),
+        filename: '[name].js',
+    },
     devtool: '#source-map',
     devServer: {
         open: true,
         historyApiFallback: {
             index: 'index.html'
         }
-    },
-    output: {
-        path: path.resolve(__dirname, '../resources/public'),
-        filename: '[name].js',
-    },
-    entry: {
-        bundle: './index.ts'
     },
     module: {
         rules: [
@@ -46,7 +46,10 @@ const config = (env = {}) => ({
         alias: {
             '@userEnv': path.resolve(__dirname, `.env/${environment}.js`),
         },
-    }
+    },
+    plugins: [
+        new VueLoaderPlugin()
+    ],
 })
 
 module.exports = config
