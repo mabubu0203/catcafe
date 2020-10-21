@@ -8,6 +8,7 @@
     "vue": "2.6.12",
     "vue-router": "^3.4.6",
     "vue-loader": "15.9.3",
+    "vuex": "3.5.1",
     "vue-template-compiler": "2.6.12",
     "axios": "^0.20.0",
     "element-ui": "2.13.2",
