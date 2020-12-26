@@ -122,6 +122,8 @@ springdoc:
   show-actuator: true
   swagger-ui:
     path: /swagger-ui.html
-    display-request-duration: true
     displayOperationId: true
+    display-query-params: true
+    display-request-duration: true
     showCommonExtensions: true
+    showExtensions: true
