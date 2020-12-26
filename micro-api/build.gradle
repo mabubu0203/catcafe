@@ -13,6 +13,7 @@ dependencies {
 
     // openapi generator
     compileOnly("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
+    compileOnly("io.springfox:springfox-core:3.0.0")
     compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
 
     // springdoc-openapi-ui
