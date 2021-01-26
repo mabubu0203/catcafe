@@ -46,7 +46,7 @@ bootRun {
 }
 
 node {
-    version = "12.18.4"
+    version = "12.20.1"
     download = true
     workDir = file("${project.projectDir}/.gradle/nodejs")
     npmWorkDir = file("${project.projectDir}/.gradle/npm")
