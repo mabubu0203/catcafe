@@ -61,6 +61,11 @@
                     const inputAge = e.target.category.value
                     let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     client.frequentlyAskedQuestionSearch('cats', [0], 10)
                         .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {

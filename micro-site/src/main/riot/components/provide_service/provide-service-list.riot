@@ -55,6 +55,11 @@
                     const inputPrice = e.target.price.value
                     let client: ProvideServiceApi = new ProvideServiceApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     client.provideServiceSearch('cats', [0])
                         .then((res: AxiosResponse<ProvideServiceSearchResponse>) => {

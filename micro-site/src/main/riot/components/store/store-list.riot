@@ -32,6 +32,11 @@
                 async storeSearch() {
                     let client: StoreApi = new StoreApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     client.storeSearch('cats', [], 0, 20, null)
                         .then((res: AxiosResponse<StoreSearchResponse>) => {
