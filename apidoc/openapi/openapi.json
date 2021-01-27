@@ -2150,6 +2150,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2661,6 +2666,16 @@
             "description": "排他失敗"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY",
+        "description": "A api key"
       }
     }
   }
