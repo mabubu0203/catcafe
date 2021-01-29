@@ -2,6 +2,7 @@ package mabubu0203.com.github.catcafe.api.components.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -30,6 +31,7 @@ public class SecurityContextRepository implements ServerSecurityContextRepositor
             return Mono.empty();
         } else {
             log.info("X-API-KEY: " + apiKey);
+//            new UsernamePasswordAuthenticationToken(null,null,AuthorityUtils.createAuthorityList("ROLE_USER"));
             var authentication =
                     new AnonymousAuthenticationToken(
                             "authenticated-user",
