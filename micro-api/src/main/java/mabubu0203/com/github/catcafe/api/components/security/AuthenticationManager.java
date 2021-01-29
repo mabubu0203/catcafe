@@ -14,16 +14,12 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
-        return
-                Optional.of(authentication)
-                        .map(Authentication::getPrincipal)
-                        .map(UserDetails.class::cast)
-                        .map(principal -> {
-                            authentication.setAuthenticated(true);
-                            return authentication;
-                        })
-                        .map(Mono::just)
-                        .orElseThrow(() -> new BadCredentialsException("The API key was not found or not the expected value."));
+        Optional.of(authentication)
+                .map(Authentication::getPrincipal)
+                .map(UserDetails.class::cast)
+                .orElseThrow(() ->
+                        new BadCredentialsException("The API key was not found or not the expected value."));
+        return Mono.just(authentication);
     }
 
 }
