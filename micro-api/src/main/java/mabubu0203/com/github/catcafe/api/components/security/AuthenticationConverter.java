@@ -3,14 +3,16 @@ package mabubu0203.com.github.catcafe.api.components.security;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Slf4j
@@ -22,7 +24,8 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
     public Mono<Authentication> convert(ServerWebExchange exchange) {
         var apiKey = this.getApiKey(exchange);
         log.info("X-API-KEY: " + apiKey);
-        var authentication = this.authorized(apiKey);
+        var information = this.getInformation(apiKey);
+        var authentication = this.authorized(information);
         return Mono.just(authentication);
     }
 
@@ -32,20 +35,56 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
                         .map(ServerWebExchange::getRequest)
                         .map(ServerHttpRequest::getHeaders)
                         .map(httpHeaders -> httpHeaders.getFirst(Headers.X_API_KEY.getKey()))
-                        .orElse("");
+                        .orElse("");// RequestHeaderにKeyがないExceptionを返却する
     }
 
-    private Authentication authorized(String apiKey) {
+    private AuthorizedInformation getInformation(String apiKey) {
         // ApiKeyによる認証をおこなう
-
         if (apiKey.isEmpty()) {
-            return null;
+            return null;// 認証できない & 不正なリクエストヘッダがきた
+        } else if ("aaa".equals(apiKey)) {
+            String[] authorities = new String[]{"USER"};
+            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
+                    .accessToken("")
+                    .expires(LocalDate.now())
+                    .authorities(authorities)
+                    .build();
+            return information;
+        } else if ("bbb".equals(apiKey)) {
+            String[] authorities = new String[]{"USER"};
+            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
+                    .accessToken("")
+                    .expires(LocalDate.now())
+                    .authorities(authorities)
+                    .build();
+            return information;
         } else {
-            return
-                    new UsernamePasswordAuthenticationToken(
-                            new User(),
-                            new User(),
-                            AuthorityUtils.createAuthorityList("ROLE_USER"));
+            String[] authorities = new String[]{"USER"};
+            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
+                    .accessToken("")
+                    .expires(LocalDate.now())
+                    .authorities(authorities)
+                    .build();
+            return information;
         }
+    }
+
+    private Authentication authorized(AuthorizedInformation information) {
+        return
+                Optional.ofNullable(information)
+                        .map(AuthorizedInformation::getAuthorities)
+                        .map(authorities ->
+                                User
+                                        .withUsername("user")
+                                        .password("")
+                                        .roles(authorities)
+                                        .build()
+                        )
+                        .map(user ->
+                                new UsernamePasswordAuthenticationToken(
+                                        user.getUsername(),
+                                        user.getPassword(),
+                                        user.getAuthorities()))
+                        .orElseThrow(() -> new BadCredentialsException("The API key was not found or not the expected value."));
     }
 }
