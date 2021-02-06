@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.server.WebFilter;
@@ -29,9 +28,9 @@ public class ApiApp {
 
     @Bean
     public WebFilter contextPathWebFilter(ServerProperties serverProperties) {
-        String contextPath = serverProperties.getServlet().getContextPath();
+        var contextPath = serverProperties.getServlet().getContextPath();
         return (exchange, chain) -> {
-            ServerHttpRequest request = exchange.getRequest();
+            var request = exchange.getRequest();
             if (request.getURI().getPath().startsWith(contextPath)) {
                 return chain.filter(
                         exchange.mutate()
@@ -41,4 +40,5 @@ public class ApiApp {
             return chain.filter(exchange);
         };
     }
+
 }

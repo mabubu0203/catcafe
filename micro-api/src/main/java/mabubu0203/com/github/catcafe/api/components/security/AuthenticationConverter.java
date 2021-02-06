@@ -1,12 +1,11 @@
 package mabubu0203.com.github.catcafe.api.components.security;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeySearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -17,23 +16,23 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.concurrent.CompletableFuture;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthenticationConverter implements ServerAuthenticationConverter {
-
 
     private final AuthenticationRepository authenticationRepository;
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
-        var apiKey = this.getApiKey(exchange);
-        log.info("X-API-KEY: " + apiKey);
-        var information = this.getInformation(apiKey);
-        var authentication = this.authorized(information);
-        return Mono.just(authentication);
+        return
+                Optional.of(exchange)
+                        .map(this::getApiKey)
+                        .map(this::getInformation)
+                        .map(future -> future.thenApply(this::authorized))
+                        .map(Mono::fromCompletionStage)
+                        .orElseThrow(RuntimeException::new);//中のメソッドで例外処理が発生する
     }
 
     private String getApiKey(ServerWebExchange exchange) {
@@ -42,10 +41,10 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
                         .map(ServerWebExchange::getRequest)
                         .map(ServerHttpRequest::getHeaders)
                         .map(httpHeaders -> httpHeaders.getFirst(Headers.X_API_KEY.getKey()))
-                        .orElse("");// RequestHeaderにKeyがないExceptionを返却する
+                        .orElseThrow(() -> new HeaderNotFoundException(""));// RequestHeaderにKeyがないExceptionを返却する
     }
 
-    private AuthorizedInformation getInformation(String apiKey) {
+    private CompletableFuture<AuthorizedInformation> getInformation(String apiKey) {
         return
                 Optional.of(apiKey)
                         .map(XApiKeyToken::new)
@@ -56,21 +55,29 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
                             return searchConditions;
                         })
                         .map(this.authenticationRepository::search)
-                        .flatMap(future -> future.thenApply(Stream::findFirst).join())
-                        .map(entity -> {
-                            String[] authorities = new String[]{"USER"};
-                            return new AuthorizedInformation.AuthorizedInformationBuilder()
-                                    .accessToken(entity.getToken().value())
-                                    .expires(entity.getEndDateTime())
-                                    .authorities(authorities)
-                                    .build();
-                        })
-                        .orElse(null);// RDBにアクセストークンがないExceptionを返却する
+                        .map(future ->
+                                future.thenApply(stream ->
+                                        stream
+                                                .findFirst()
+                                                .map(this::convertInformation)
+                                                .orElse(null))
+                        )
+                        .orElseThrow(() -> new TokenNotFoundException(""));// RDBにアクセストークンがないExceptionを返却する
+    }
+
+    private AuthorizedInformation convertInformation(XApiKeyEntity entity) {
+        var authorities = new String[]{"USER"};
+        return
+                new AuthorizedInformation.AuthorizedInformationBuilder()
+                        .accessToken(entity.getToken().value())
+                        .expires(entity.getEndDateTime())
+                        .authorities(authorities)
+                        .build();
     }
 
     private Authentication authorized(AuthorizedInformation information) {
         return
-                Optional.ofNullable(information)
+                Optional.of(information)
                         .map(AuthorizedInformation::getAuthorities)
                         .map(authorities ->
                                 User
@@ -84,6 +91,7 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
                                         user.getUsername(),
                                         user.getPassword(),
                                         user.getAuthorities()))
-                        .orElseThrow(() -> new BadCredentialsException("The API key was not found or not the expected value."));
+                        .orElseThrow(RuntimeException::new);// ここでは起こり得ない
     }
+
 }

@@ -1,1 +1,1 @@
-FROM swaggerapi/swagger-ui:v3.41.1
+FROM swaggerapi/swagger-ui:v3.42.0

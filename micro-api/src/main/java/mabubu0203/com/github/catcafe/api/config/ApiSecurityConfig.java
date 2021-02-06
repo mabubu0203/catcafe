@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,11 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
+import org.springframework.security.web.server.authentication.ServerAuthenticationFailureHandler;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RequiredArgsConstructor
 @Configuration
@@ -59,10 +56,9 @@ public class ApiSecurityConfig {
     };
 
     private final ReactiveAuthenticationManager authenticationManager;
-    private final ServerAuthenticationConverter serverAuthenticationConverter;
+    private final ServerAuthenticationConverter authenticationConverter;
+    private final ServerAuthenticationFailureHandler authenticationFailureHandler;
     private final ServerSecurityContextRepository securityContextRepository;
-
-    private final Map<String, SecurityContext> tokenCache = new ConcurrentHashMap<>();
 
     @Bean
     public MapReactiveUserDetailsService userDetailsService() {
@@ -105,18 +101,19 @@ public class ApiSecurityConfig {
 
     @Bean
     public AuthenticationWebFilter authenticationWebFilter() {
-        AuthenticationWebFilter filter = new AuthenticationWebFilter(this.authenticationManager);
+        var filter = new AuthenticationWebFilter(this.authenticationManager);
 
         filter.setSecurityContextRepository(this.securityContextRepository);
-        filter.setServerAuthenticationConverter(this.serverAuthenticationConverter);
+        filter.setServerAuthenticationConverter(this.authenticationConverter);
         // 認証を行うパスを設定する
         filter.setRequiresAuthenticationMatcher(
                 ServerWebExchangeMatchers.pathMatchers(authorizeUrls)
         );
-//        filter.setAuthenticationFailureHandler(null);
+        filter.setAuthenticationFailureHandler(this.authenticationFailureHandler);
 //        filter.setAuthenticationSuccessHandler(null);
 
         return filter;
     }
+
 
 }

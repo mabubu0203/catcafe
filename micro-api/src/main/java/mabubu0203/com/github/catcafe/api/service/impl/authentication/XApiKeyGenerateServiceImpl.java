@@ -10,8 +10,9 @@ import mabubu0203.com.github.catcafe.domain.repository.authentication.Authentica
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -25,21 +26,28 @@ public class XApiKeyGenerateServiceImpl implements XApiKeyGenerateService {
 
     @Override
     @Async
-    @Transactional
     public CompletableFuture<XApiKeyGenerateServiceOutput> promise(XApiKeyGenerateServiceInput input) {
         var receptionTime = getReceptionTime();
-        var letter = receptionTime.toString() + Optional.ofNullable(input.getRandom()).orElse("");
-        var encoded = Base64.getEncoder().encodeToString(letter.getBytes());
-        return Optional
-                .of(input)
-                .map(this.converter::fromInput)
-                .map(builder -> builder.token(new XApiKeyToken(encoded)))
-                .map(builder -> builder.startDateTime(receptionTime))
-                .map(builder -> builder.endDateTime(receptionTime.plusDays(1)))
-                .map(XApiKeyEntity.XApiKeyEntityBuilder::build)
-                .map(entity -> this.authenticationRepository.generate(entity, receptionTime))
-                .map(future -> future.thenApply(this.converter::toOutput))
-                .orElseThrow(RuntimeException::new);
+        var token = this.getToken(input.getRandom(), receptionTime);
+        return
+                Optional.of(input)
+                        .map(this.converter::fromInput)
+                        .map(builder -> builder.token(token))
+                        .map(builder -> builder.startDateTime(receptionTime))
+                        .map(builder -> builder.endDateTime(receptionTime.plusDays(1)))
+                        .map(XApiKeyEntity.XApiKeyEntityBuilder::build)
+                        .map(entity -> this.authenticationRepository.generate(entity, receptionTime))
+                        .map(future -> future.thenApply(this.converter::toOutput))
+                        .orElseThrow(RuntimeException::new);
+    }
+
+    private XApiKeyToken getToken(String random, LocalDateTime receptionTime) {
+        var letter = Optional.ofNullable(random)
+                .map(str -> receptionTime.toString().concat(str))
+                .map(str -> str.getBytes(StandardCharsets.UTF_8))
+                .orElse(receptionTime.toString().getBytes(StandardCharsets.UTF_8));
+        var encoded = Base64.getEncoder().encodeToString(letter);
+        return new XApiKeyToken(encoded);
     }
 
 }

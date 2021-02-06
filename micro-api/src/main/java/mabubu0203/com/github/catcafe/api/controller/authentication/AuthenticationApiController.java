@@ -44,18 +44,22 @@ public class AuthenticationApiController implements AuthenticationApi {
             @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
             @Valid Mono<XApiKeyGenerate> xapiKeyGenerate,
             ServerWebExchange exchange) {
-        var clientIp = Optional.ofNullable(exchange)
-                .map(ServerWebExchange::getRequest)
-                .map(ServerHttpRequest::getRemoteAddress)
-                .map(InetSocketAddress::getAddress)
-                .map(InetAddress::getHostAddress)
-                .orElse("");
         return xapiKeyGenerate
-                .map(new XApiKeyGenerateRequestMapper(cats, clientIp))
+                .map(new XApiKeyGenerateRequestMapper(cats, this.getClientIp(exchange)))
                 .map(this.xApiKeyGenerateService::promise)
                 .flatMap(Mono::fromCompletionStage)
                 .map(new XApiKeyGenerateResponseMapper())
                 .map(ResponseEntity.status(HttpStatus.OK)::body);
+    }
+
+    private String getClientIp(ServerWebExchange exchange) {
+        return
+                Optional.ofNullable(exchange)
+                        .map(ServerWebExchange::getRequest)
+                        .map(ServerHttpRequest::getRemoteAddress)
+                        .map(InetSocketAddress::getAddress)
+                        .map(InetAddress::getHostAddress)
+                        .orElse("");
     }
 
 }

@@ -2943,15 +2943,5 @@
         "description": "A api key"
       }
     }
-  },
-  "components": {
-    "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-KEY",
-        "description": "A api key"
-      }
-    }
   }
 }

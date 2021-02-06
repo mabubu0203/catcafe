@@ -38,11 +38,13 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
                 builder.equal(root.get(XApiKey_.token), token.value());
     }
 
+    // TODO:うまく動作しない、調べる
     private Specification<XApiKey> startDateTimeAfter(LocalDateTime specified_date_time) {
         return specified_date_time == null ? null : (root, query, builder) ->
                 builder.greaterThan(root.get(XApiKey_.startDateTime), specified_date_time);
     }
 
+    // TODO:うまく動作しない、調べる
     private Specification<XApiKey> endDateTimeBefore(LocalDateTime specified_date_time) {
         return specified_date_time == null ? null : (root, query, builder) ->
                 builder.lessThanOrEqualTo(root.get(XApiKey_.endDateTime), specified_date_time);
