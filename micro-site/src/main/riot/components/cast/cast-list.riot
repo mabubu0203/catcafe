@@ -52,6 +52,11 @@
                     const inputAge = e.target.age.value
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     client.castSearch('cats', [store_id], null, 0, 20, null)
                         .then((res: AxiosResponse<CastSearchResponse>) => {

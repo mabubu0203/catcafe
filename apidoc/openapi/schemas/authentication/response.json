@@ -1,0 +1,35 @@
+{
+  "definitions": {
+    "x_api_key_generate_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "x_api_key": {
+          "$ref": "#/model/x_api_key"
+        }
+      }
+    }
+  },
+  "model": {
+    "x_api_key": {
+      "description": "X-API-KEY",
+      "type": "object",
+      "properties": {
+        "token": {
+          "description": "Token",
+          "type": "string"
+        },
+        "start_date_time": {
+          "description": "開始日時",
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_date_time": {
+          "description": "終了日時",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

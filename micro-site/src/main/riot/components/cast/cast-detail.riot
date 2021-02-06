@@ -52,6 +52,11 @@
                 async castFind() {
                     let client: CastApi = new CastApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
                     const castId = Number(location.pathname.split("/")[2])

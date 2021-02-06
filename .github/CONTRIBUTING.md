@@ -29,6 +29,7 @@ IntelliJ IDEAを使用します。
 [Site(Riot)][]
 [Admin(Vue)][]
 [phpMyAdmin][]
+[openapi-ui][]
 
 ## 停止方法
 
@@ -45,3 +46,4 @@ IntelliJ IDEAを使用します。
 [Site(Riot)]: http://localhost:9011/CatCafeSite/                            "Site(Riot)"
 [Admin(Vue)]: http://localhost:9021/CatCafeAdmin/                           "Admin(Vue)"
 [phpMyAdmin]: http://localhost:8021/                                        "phpMyAdmin"
+[OpenApi-UI]: http://127.0.0.1:8002/                                        "openapi-ui"

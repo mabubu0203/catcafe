@@ -2,6 +2,9 @@ package mabubu0203.com.github.catcafe.api.components.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeySearchConditions;
+import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
+import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,13 +15,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthenticationConverter implements ServerAuthenticationConverter {
+
+
+    private final AuthenticationRepository authenticationRepository;
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
@@ -39,34 +46,26 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
     }
 
     private AuthorizedInformation getInformation(String apiKey) {
-        // ApiKeyによる認証をおこなう
-        if (apiKey.isEmpty()) {
-            return null;// 認証できない & 不正なリクエストヘッダがきた
-        } else if ("aaa".equals(apiKey)) {
-            String[] authorities = new String[]{"USER"};
-            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
-                    .accessToken("")
-                    .expires(LocalDate.now())
-                    .authorities(authorities)
-                    .build();
-            return information;
-        } else if ("bbb".equals(apiKey)) {
-            String[] authorities = new String[]{"USER"};
-            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
-                    .accessToken("")
-                    .expires(LocalDate.now())
-                    .authorities(authorities)
-                    .build();
-            return information;
-        } else {
-            String[] authorities = new String[]{"USER"};
-            var information = new AuthorizedInformation.AuthorizedInformationBuilder()
-                    .accessToken("")
-                    .expires(LocalDate.now())
-                    .authorities(authorities)
-                    .build();
-            return information;
-        }
+        return
+                Optional.of(apiKey)
+                        .map(XApiKeyToken::new)
+                        .map(token -> {
+                            var searchConditions = new XApiKeySearchConditions();
+                            searchConditions.token(token);
+                            searchConditions.specified_date_time(LocalDateTime.now());
+                            return searchConditions;
+                        })
+                        .map(this.authenticationRepository::search)
+                        .flatMap(future -> future.thenApply(Stream::findFirst).join())
+                        .map(entity -> {
+                            String[] authorities = new String[]{"USER"};
+                            return new AuthorizedInformation.AuthorizedInformationBuilder()
+                                    .accessToken(entity.getToken().value())
+                                    .expires(entity.getEndDateTime())
+                                    .authorities(authorities)
+                                    .build();
+                        })
+                        .orElse(null);// RDBにアクセストークンがないExceptionを返却する
     }
 
     private Authentication authorized(AuthorizedInformation information) {

@@ -28,15 +28,34 @@ import java.util.concurrent.ConcurrentHashMap;
 @EnableWebFluxSecurity
 public class ApiSecurityConfig {
 
-    private static final String[] excludedAuthPages = {
-            "/CatCafeApi/cats/casts",
-            "/CatCafeApi/actuator/**",
+    private static final String[] excludedAuthorizeUrls = {
             "/CatCafeApi/swagger-ui.html",
+            "/CatCafeApi/actuator/**",
             "/CatCafeApi/swagger/**",
+            "/CatCafeApi/v3/**",
             "/CatCafeApi/webjars/**",
-//            "/CatCafeApi/webjars/swagger-ui/**",
-//            "/CatCafeApi/webjars/swagger-ui/index.html",
-            "/CatCafeApi/v3/api-docs/**"
+            "/CatCafeApi/cats/authentication/x_api_key/generate",
+    };
+
+    private static final String[] authorizeUrls = {
+            "/CatCafeApi/cats/cast_cats",
+            "/CatCafeApi/cats/cast_cats/**",
+            "/CatCafeApi/cats/casts",
+            "/CatCafeApi/cats/casts/**",
+            "/CatCafeApi/cats/contacts",
+            "/CatCafeApi/cats/contacts/**",
+            "/CatCafeApi/cats/display_menus",
+            "/CatCafeApi/cats/display_menus/**",
+            "/CatCafeApi/cats/events",
+            "/CatCafeApi/cats/events/**",
+            "/CatCafeApi/cats/frequently_asked_questions",
+            "/CatCafeApi/cats/frequently_asked_questions/**",
+            "/CatCafeApi/cats/notices",
+            "/CatCafeApi/cats/notices/**",
+            "/CatCafeApi/cats/provide_services",
+            "/CatCafeApi/cats/provide_services/**",
+            "/CatCafeApi/cats/stores",
+            "/CatCafeApi/cats/stores/**",
     };
 
     private final ReactiveAuthenticationManager authenticationManager;
@@ -71,7 +90,7 @@ public class ApiSecurityConfig {
                 serverHttpSecurity
                         .authorizeExchange(exchanges ->
                                 exchanges
-                                        .pathMatchers(excludedAuthPages)
+                                        .pathMatchers(excludedAuthorizeUrls)
                                         .permitAll()
                                         .anyExchange()
                                         .authenticated()
@@ -92,9 +111,7 @@ public class ApiSecurityConfig {
         filter.setServerAuthenticationConverter(this.serverAuthenticationConverter);
         // 認証を行うパスを設定する
         filter.setRequiresAuthenticationMatcher(
-                ServerWebExchangeMatchers
-                        .pathMatchers(
-                                "/CatCafeApi/cats/stores")
+                ServerWebExchangeMatchers.pathMatchers(authorizeUrls)
         );
 //        filter.setAuthenticationFailureHandler(null);
 //        filter.setAuthenticationSuccessHandler(null);

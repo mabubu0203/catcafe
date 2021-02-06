@@ -39,6 +39,16 @@ public class OpenApiConfig {
     }
 
     @Bean
+    public GroupedOpenApi authenticationApi() {
+        String[] paths = {
+                "/{cats}/authentication/x_api_key/generate",};
+        return GroupedOpenApi.builder()
+                .group("authentication")
+                .pathsToMatch(paths)
+                .build();
+    }
+
+    @Bean
     public GroupedOpenApi castApi() {
         String[] paths = {
                 "/{cats}/cast_cat",

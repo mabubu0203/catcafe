@@ -1,0 +1,14 @@
+{
+  "definitions": {
+    "x_api_key_generate": {
+      "description": "postObject",
+      "type": "object",
+      "properties": {
+        "random": {
+          "description": "ランダム文字列",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

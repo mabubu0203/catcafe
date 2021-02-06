@@ -35,3 +35,18 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     restart: always
+
+  swaggerui:
+    build: ./docker-swaggerui
+    container_name: docker-swaggerui
+    ports:
+      - 8002:8080
+    volumes:
+      - "../../apidoc/openapi/openapi.json:/openapi.json"
+    environment:
+      SWAGGER_JSON: /openapi.json
+      DISPLAY_OPERATION_ID: "true"
+      SHOW_EXTENSIONS: "true"
+      SHOW_COMMON_EXTENSIONS: "true"
+      TRY_IT_OUT_ENABLED: "true"
+    restart: always
