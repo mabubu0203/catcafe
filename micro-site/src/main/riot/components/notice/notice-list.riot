@@ -41,6 +41,11 @@
                 async noticeSearch() {
                     let client: NoticeApi = new NoticeApi({
                         basePath: userEnv.CAT_SITE_API_BASE_PATH,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-API-KEY': ''
+                        },
+                        responseType: 'json',
                     });
                     client.noticeSearch('cats', [0], 10)
                         .then((res: AxiosResponse<NoticeSearchResponse>) => {

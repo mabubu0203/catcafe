@@ -47,8 +47,12 @@
       "description": "イベント(読み取り)"
     },
     {
-      "name": "display_menu",
-      "description": "表示表示メニュー"
+      "name": "display_menu_command",
+      "description": "表示表示メニュー(書き込み)"
+    },
+    {
+      "name": "display_menu_query",
+      "description": "表示表示メニュー(読み取り)"
     },
     {
       "name": "provide_service_command",
@@ -63,8 +67,8 @@
       "description": "キャスト(書き込み)"
     },
     {
-      "name": "cast_query(読み取り)",
-      "description": "キャスト"
+      "name": "cast_query",
+      "description": "キャスト(読み取り)"
     },
     {
       "name": "congestion",
@@ -73,6 +77,10 @@
     {
       "name": "link",
       "description": "外部/SNSリンク"
+    },
+    {
+      "name": "authentication",
+      "description": "認証"
     }
   ],
   "servers": [
@@ -134,6 +142,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -151,6 +164,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -257,6 +280,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -274,6 +302,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -318,6 +356,11 @@
         "summary": "お知らせ詳細取得API",
         "description": "お知らせを1件取得する",
         "operationId": "noticeFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -335,6 +378,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -362,6 +415,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -379,6 +437,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -410,9 +478,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -461,6 +544,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -478,6 +566,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -571,6 +669,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -588,6 +691,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -632,6 +745,11 @@
         "summary": "店舗詳細取得API",
         "description": "店舗詳細を1件取得する",
         "operationId": "storeFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -649,6 +767,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -676,6 +804,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -693,6 +826,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -724,9 +867,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -775,6 +933,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -792,6 +955,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -841,6 +1014,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -858,6 +1036,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -902,6 +1090,11 @@
         "summary": "お問い合わせ詳細取得API",
         "description": "お問い合わせ詳細を1件取得する",
         "operationId": "contactFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -919,6 +1112,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -967,6 +1170,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -984,6 +1192,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1033,6 +1251,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1050,6 +1273,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1094,6 +1327,11 @@
         "summary": "FAQ詳細取得API",
         "description": "FAQ詳細を1件取得する",
         "operationId": "frequentlyAskedQuestionFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1111,6 +1349,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1138,6 +1386,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1155,6 +1408,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1186,9 +1449,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -1237,6 +1515,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1254,6 +1537,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1303,6 +1596,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1320,6 +1618,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1364,6 +1672,11 @@
         "summary": "イベント詳細取得API",
         "description": "イベント詳細を1件取得する",
         "operationId": "eventFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1381,6 +1694,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1408,6 +1731,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1425,6 +1753,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1456,9 +1794,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -1511,6 +1864,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1528,6 +1886,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1583,6 +1951,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1600,6 +1973,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1654,6 +2037,11 @@
         "summary": "表示メニュー詳細取得API",
         "description": "表示メニュー詳細を1件取得する",
         "operationId": "displayMenuFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1671,6 +2059,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1698,6 +2096,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1715,6 +2118,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1746,9 +2159,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -1801,6 +2229,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1818,6 +2251,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1873,6 +2316,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1890,6 +2338,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1944,6 +2402,11 @@
         "summary": "提供サービス詳細取得API",
         "description": "提供サービス詳細を1件取得する",
         "operationId": "provideServiceFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -1961,6 +2424,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -1988,6 +2461,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2005,6 +2483,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2036,9 +2524,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -2087,6 +2590,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2104,6 +2612,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2150,6 +2668,11 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2167,6 +2690,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2211,6 +2744,11 @@
         "summary": "キャスト(猫)詳細取得API",
         "description": "キャスト(猫)詳細を1件取得する",
         "operationId": "castCatFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2228,6 +2766,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2255,6 +2803,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2272,6 +2825,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2301,6 +2864,11 @@
               "type": "integer",
               "format": "int32"
             }
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
           }
         ],
         "responses": {
@@ -2435,6 +3003,16 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           }
         }
       }
@@ -2487,6 +3065,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2504,6 +3087,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2558,6 +3151,11 @@
         "summary": "キャスト詳細取得API",
         "description": "キャスト詳細を1件取得する",
         "operationId": "castFind",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2575,6 +3173,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2602,6 +3210,11 @@
           },
           "required": true
         },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "正常系",
@@ -2619,6 +3232,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "./schemas/error_response/validationResponse.json#/definitions/validation_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
                 }
               }
             }
@@ -2650,9 +3273,24 @@
             }
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "正常系"
+          },
+          "401": {
+            "description": "認証エラー",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+                }
+              }
+            }
           },
           "404": {
             "description": "Idが見つからない"
@@ -2661,6 +3299,68 @@
             "description": "排他失敗"
           }
         }
+      }
+    },
+    "/{cats}/authentication/x_api_key/generate": {
+      "summary": "",
+      "description": "",
+      "parameters": [
+        {
+          "name": "cats",
+          "in": "path",
+          "description": "カフェ識別子",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "cats"
+            ],
+            "x-enum-varnames": [
+              "cats"
+            ]
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "X-API-KEY生成API",
+        "description": "X-API-KEYを生成する",
+        "operationId": "xApiKeyGenerate",
+        "requestBody": {
+          "description": "リクエストボディ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./schemas/authentication/request.json#/definitions/x_api_key_generate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "正常系",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./schemas/authentication/response.json#/definitions/x_api_key_generate_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY",
+        "description": "A api key"
       }
     }
   }
