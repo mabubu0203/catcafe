@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProvideServiceSource extends TableSource<ProvideService, Integer> {
+
 }

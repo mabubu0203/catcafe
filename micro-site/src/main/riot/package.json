@@ -13,7 +13,7 @@
     "@riotjs/route": "5.3.3",
     "@riotjs/webpack-loader": "4.0.3",
     "axios": "^0.21.1",
-    "ts-loader": "8.0.14",
+    "ts-loader": "8.0.15",
     "typescript": "^3.9.7",
     "semantic-ui-riot": "^2.2.4",
     "webpack": "^4.46.0",

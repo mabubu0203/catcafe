@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface XApiKeySource extends TableSource<XApiKey, Integer> {
+
 }

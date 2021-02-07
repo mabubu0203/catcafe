@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NoticeSource extends TableSource<Notice, Integer> {
+
 }

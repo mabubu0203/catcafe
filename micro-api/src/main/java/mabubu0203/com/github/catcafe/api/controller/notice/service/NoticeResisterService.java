@@ -4,5 +4,7 @@ import mabubu0203.com.github.catcafe.api.controller.notice.service.model.input.N
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeResisterServiceOutput;
 import mabubu0203.com.github.catcafe.common.service.ApplicationService;
 
-public interface NoticeResisterService extends ApplicationService<NoticeResisterServiceInput, NoticeResisterServiceOutput> {
+public interface NoticeResisterService extends
+    ApplicationService<NoticeResisterServiceInput, NoticeResisterServiceOutput> {
+
 }

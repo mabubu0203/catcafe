@@ -15,19 +15,19 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class SecurityContextRepository implements ServerSecurityContextRepository {
 
-    private final ServerAuthenticationConverter serverAuthenticationConverter;
+  private final ServerAuthenticationConverter serverAuthenticationConverter;
 
-    @Override
-    public Mono<Void> save(ServerWebExchange swe, SecurityContext sc) {
-        return Mono.empty();
-    }
+  @Override
+  public Mono<Void> save(ServerWebExchange swe, SecurityContext sc) {
+    return Mono.empty();
+  }
 
-    @Override
-    public Mono<SecurityContext> load(ServerWebExchange serverWebExchange) {
-        return
-                this.serverAuthenticationConverter
-                        .convert(serverWebExchange)
-                        .map(SecurityContextImpl::new);
-    }
+  @Override
+  public Mono<SecurityContext> load(ServerWebExchange serverWebExchange) {
+    return
+        this.serverAuthenticationConverter
+            .convert(serverWebExchange)
+            .map(SecurityContextImpl::new);
+  }
 
 }

@@ -7,17 +7,17 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 public class StoreDeleteServiceConverter {
 
-    public StoreEntity fromInput(StoreDeleteServiceInput input) {
-        return StoreEntity.builder()
-                .storeId(new StoreId(input.getStoreId()))
-                .version(input.getVersion())
-                .build();
-    }
+  public StoreEntity fromInput(StoreDeleteServiceInput input) {
+    return StoreEntity.builder()
+        .storeId(new StoreId(input.getStoreId()))
+        .version(input.getVersion())
+        .build();
+  }
 
-    public StoreDeleteServiceOutput toOutput(StoreId storeId) {
-        return StoreDeleteServiceOutput.builder()
-                .id(storeId.intValue())
-                .build();
-    }
+  public StoreDeleteServiceOutput toOutput(StoreId storeId) {
+    return StoreDeleteServiceOutput.builder()
+        .id(storeId.intValue())
+        .build();
+  }
 
 }

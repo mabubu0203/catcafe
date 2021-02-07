@@ -4,5 +4,7 @@ import mabubu0203.com.github.catcafe.api.controller.store.service.model.input.St
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.service.ApplicationService;
 
-public interface StoreSearchService extends ApplicationService<StoreSearchServiceInput, StoreSearchServiceOutput> {
+public interface StoreSearchService extends
+    ApplicationService<StoreSearchServiceInput, StoreSearchServiceOutput> {
+
 }

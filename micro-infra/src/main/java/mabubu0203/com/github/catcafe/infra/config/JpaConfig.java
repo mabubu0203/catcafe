@@ -7,12 +7,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EntityScan(
-        basePackages = {
-                "mabubu0203.com.github.catcafe.infra.source.jpa.entity",
-        })
+    basePackages = {
+        "mabubu0203.com.github.catcafe.infra.source.jpa.entity",
+    })
 @EnableJpaRepositories(
-        basePackages = {
-                "mabubu0203.com.github.catcafe.infra.source.jpa",
-        })
+    basePackages = {
+        "mabubu0203.com.github.catcafe.infra.source.jpa",
+    })
 public class JpaConfig extends BaseJpaConfig {
+
 }

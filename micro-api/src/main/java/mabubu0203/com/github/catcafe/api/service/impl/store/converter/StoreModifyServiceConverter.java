@@ -7,16 +7,16 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 public class StoreModifyServiceConverter {
 
-    public StoreEntity fromInput(StoreModifyServiceInput input) {
-        return StoreEntity.builder()
-                .name(input.getName())
-                .build();
-    }
+  public StoreEntity fromInput(StoreModifyServiceInput input) {
+    return StoreEntity.builder()
+        .name(input.getName())
+        .build();
+  }
 
-    public StoreModifyServiceOutput toOutput(StoreId storeId) {
-        return StoreModifyServiceOutput.builder()
-                .id(storeId.intValue())
-                .build();
-    }
+  public StoreModifyServiceOutput toOutput(StoreId storeId) {
+    return StoreModifyServiceOutput.builder()
+        .id(storeId.intValue())
+        .build();
+  }
 
 }

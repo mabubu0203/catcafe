@@ -7,13 +7,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EntityScan(
-        basePackages = {
-                "mabubu0203.com.github.catcafe.common.source.jpa.entity",
-        })
+    basePackages = {
+        "mabubu0203.com.github.catcafe.common.source.jpa.entity",
+    })
 @EnableJpaRepositories(
-        basePackages = {
-                "mabubu0203.com.github.catcafe.common.source.jpa",
-        })
+    basePackages = {
+        "mabubu0203.com.github.catcafe.common.source.jpa",
+    })
 @EnableTransactionManagement(proxyTargetClass = true)
 public abstract class BaseJpaConfig {
+
 }

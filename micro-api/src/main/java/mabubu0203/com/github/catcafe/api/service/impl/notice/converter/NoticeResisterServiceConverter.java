@@ -8,18 +8,18 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 public class NoticeResisterServiceConverter {
 
-    public NoticeEntity fromInput(NoticeResisterServiceInput input) {
-        return NoticeEntity.builder()
-                .storeId(new StoreId(input.getStoreId()))
-                .detail(input.getDetail())
-                .summary(input.getSummary())
-                .build();
-    }
+  public NoticeEntity fromInput(NoticeResisterServiceInput input) {
+    return NoticeEntity.builder()
+        .storeId(new StoreId(input.getStoreId()))
+        .detail(input.getDetail())
+        .summary(input.getSummary())
+        .build();
+  }
 
-    public NoticeResisterServiceOutput toOutput(NoticeId noticeId) {
-        return NoticeResisterServiceOutput.builder()
-                .id(noticeId.intValue())
-                .build();
-    }
+  public NoticeResisterServiceOutput toOutput(NoticeId noticeId) {
+    return NoticeResisterServiceOutput.builder()
+        .id(noticeId.intValue())
+        .build();
+  }
 
 }

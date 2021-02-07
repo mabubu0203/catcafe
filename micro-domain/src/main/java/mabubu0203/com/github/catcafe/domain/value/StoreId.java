@@ -9,6 +9,6 @@ import lombok.experimental.Accessors;
 @Getter
 public class StoreId {
 
-    private final Integer intValue;
+  private final Integer intValue;
 
 }

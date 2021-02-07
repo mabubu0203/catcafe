@@ -4,5 +4,7 @@ import mabubu0203.com.github.catcafe.api.controller.provide.service.service.mode
 import mabubu0203.com.github.catcafe.api.controller.provide.service.service.model.output.ProvideServiceSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.service.ApplicationService;
 
-public interface ProvideServiceSearchService extends ApplicationService<ProvideServiceSearchServiceInput, ProvideServiceSearchServiceOutput> {
+public interface ProvideServiceSearchService extends
+    ApplicationService<ProvideServiceSearchServiceInput, ProvideServiceSearchServiceOutput> {
+
 }

@@ -10,21 +10,21 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 public class CastResisterServiceConverter {
 
-    public CastEntity fromInput(CastRegisterServiceInput input) {
-        var castCatEntity = CastCatEntity.builder()
-                .castCatId(new CastCatId(input.getCastCatId()))
-                .build();
-        return CastEntity.builder()
-                .storeId(new StoreId(input.getStoreId()))
-                .memo(input.getMemo())
-                .CastCatEntity(castCatEntity)
-                .build();
-    }
+  public CastEntity fromInput(CastRegisterServiceInput input) {
+    var castCatEntity = CastCatEntity.builder()
+        .castCatId(new CastCatId(input.getCastCatId()))
+        .build();
+    return CastEntity.builder()
+        .storeId(new StoreId(input.getStoreId()))
+        .memo(input.getMemo())
+        .CastCatEntity(castCatEntity)
+        .build();
+  }
 
-    public CastRegisterServiceOutput toOutput(CastId castId) {
-        return CastRegisterServiceOutput.builder()
-                .id(castId.intValue())
-                .build();
-    }
+  public CastRegisterServiceOutput toOutput(CastId castId) {
+    return CastRegisterServiceOutput.builder()
+        .id(castId.intValue())
+        .build();
+  }
 
 }
