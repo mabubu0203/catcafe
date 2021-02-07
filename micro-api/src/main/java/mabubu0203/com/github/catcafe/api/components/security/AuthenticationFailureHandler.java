@@ -1,8 +1,7 @@
 package mabubu0203.com.github.catcafe.api.components.security;
 
 import lombok.RequiredArgsConstructor;
-import org.openapitools.model.EventDetail;
-import org.openapitools.model.EventFindResponse;
+import org.openapitools.model.AuthenticationResult;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -37,10 +36,8 @@ public class AuthenticationFailureHandler implements ServerAuthenticationFailure
 
     private Flux<DataBuffer> generateBody(ServerHttpResponse response) {
         // TODO:とりあえず
-        var body = new EventFindResponse();
-        var event = new EventDetail();
-        event.setId(0);
-        body.setEvent(event);
+        var body = new AuthenticationResult();
+        body.setKey("認証");
         return
                 new Jackson2JsonEncoder()
                         .encode(

@@ -38,6 +38,7 @@ public class CastCommandApiController implements CastCommandApi {
             responses = {
                     @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
             }
     )
     @Override
@@ -60,6 +61,7 @@ public class CastCommandApiController implements CastCommandApi {
             operationId = "castCatDelete",
             responses = {
                     @ApiResponse(responseCode = "204", description = "正常系"),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
                     @ApiResponse(responseCode = "409", description = "排他失敗"),
             }
@@ -81,6 +83,7 @@ public class CastCommandApiController implements CastCommandApi {
             responses = {
                     @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
                     @ApiResponse(responseCode = "409", description = "排他失敗"),
             }
@@ -102,6 +105,7 @@ public class CastCommandApiController implements CastCommandApi {
             responses = {
                     @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
             }
     )
     @Override
@@ -125,6 +129,7 @@ public class CastCommandApiController implements CastCommandApi {
             operationId = "castDelete",
             responses = {
                     @ApiResponse(responseCode = "204", description = "正常系"),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
                     @ApiResponse(responseCode = "409", description = "排他失敗"),
             }
@@ -147,6 +152,7 @@ public class CastCommandApiController implements CastCommandApi {
             responses = {
                     @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
                     @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+                    @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
                     @ApiResponse(responseCode = "404", description = "Idが見つからない"),
                     @ApiResponse(responseCode = "409", description = "排他失敗"),
             }
