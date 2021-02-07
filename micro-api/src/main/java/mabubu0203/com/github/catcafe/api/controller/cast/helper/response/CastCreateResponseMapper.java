@@ -4,11 +4,12 @@ import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.Ca
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.CreateResponseMapper;
 import org.openapitools.model.PostObject;
 
-public class CastCreateResponseMapper implements CreateResponseMapper<CastRegisterServiceOutput, PostObject> {
+public class CastCreateResponseMapper implements
+    CreateResponseMapper<CastRegisterServiceOutput, PostObject> {
 
-    @Override
-    public PostObject apply(CastRegisterServiceOutput castCreateServiceOutput) {
-        return new PostObject().id(castCreateServiceOutput.getId());
-    }
+  @Override
+  public PostObject apply(CastRegisterServiceOutput castCreateServiceOutput) {
+    return new PostObject().id(castCreateServiceOutput.getId());
+  }
 
 }

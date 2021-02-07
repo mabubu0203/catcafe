@@ -9,6 +9,6 @@ import lombok.experimental.Accessors;
 @Getter
 public class XApiKeyToken {
 
-    private final String value;
+  private final String value;
 
 }

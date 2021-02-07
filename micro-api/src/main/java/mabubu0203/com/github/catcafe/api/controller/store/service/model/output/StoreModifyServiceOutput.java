@@ -8,6 +8,6 @@ import mabubu0203.com.github.catcafe.common.service.model.ServiceOutput;
 @Getter
 public class StoreModifyServiceOutput implements ServiceOutput {
 
-    private final Integer id;
+  private final Integer id;
 
 }

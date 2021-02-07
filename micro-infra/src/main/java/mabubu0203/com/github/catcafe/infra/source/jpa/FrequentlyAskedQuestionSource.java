@@ -5,5 +5,7 @@ import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.FrequentlyAsk
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FrequentlyAskedQuestionSource extends TableSource<FrequentlyAskedQuestion, Integer> {
+public interface FrequentlyAskedQuestionSource extends
+    TableSource<FrequentlyAskedQuestion, Integer> {
+
 }

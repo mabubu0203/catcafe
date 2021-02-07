@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 @RestControllerAdvice(annotations = {RestController.class})
 public class UnauthorizedHandler {
 
-    @ExceptionHandler({HeaderNotFoundException.class, TokenNotFoundException.class})
-    public Mono<ResponseEntity<Object>> exceptions(Throwable e) {
-        return Mono.just(new ResponseEntity<>(null, null, HttpStatus.UNAUTHORIZED));
-    }
+  @ExceptionHandler({HeaderNotFoundException.class, TokenNotFoundException.class})
+  public Mono<ResponseEntity<Object>> exceptions(Throwable e) {
+    return Mono.just(new ResponseEntity<>(null, null, HttpStatus.UNAUTHORIZED));
+  }
 
 }

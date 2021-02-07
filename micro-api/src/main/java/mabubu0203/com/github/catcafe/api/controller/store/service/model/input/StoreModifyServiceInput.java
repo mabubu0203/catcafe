@@ -8,9 +8,9 @@ import mabubu0203.com.github.catcafe.common.service.model.ServiceInput;
 @Getter
 public class StoreModifyServiceInput implements ServiceInput {
 
-    private final String cats;
-    private final Integer storeId;
-    private final String name;
-    private final Integer version;
+  private final String cats;
+  private final Integer storeId;
+  private final String name;
+  private final Integer version;
 
 }

@@ -6,19 +6,20 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.request.UpdateRequ
 import org.openapitools.model.StoreUpdate;
 
 @RequiredArgsConstructor
-public class StoreUpdateRequestMapper implements UpdateRequestMapper<StoreUpdate, StoreModifyServiceInput> {
+public class StoreUpdateRequestMapper implements
+    UpdateRequestMapper<StoreUpdate, StoreModifyServiceInput> {
 
-    private final String cats;
-    private final Integer storeId;
+  private final String cats;
+  private final Integer storeId;
 
-    @Override
-    public StoreModifyServiceInput apply(StoreUpdate storeUpdate) {
-        return StoreModifyServiceInput.builder()
-                .cats(this.cats)
-                .storeId(this.storeId)
-                .name(storeUpdate.getName())
-                .version(storeUpdate.getVersion())
-                .build();
-    }
+  @Override
+  public StoreModifyServiceInput apply(StoreUpdate storeUpdate) {
+    return StoreModifyServiceInput.builder()
+        .cats(this.cats)
+        .storeId(this.storeId)
+        .name(storeUpdate.getName())
+        .version(storeUpdate.getVersion())
+        .build();
+  }
 
 }

@@ -6,21 +6,22 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.request.CreateRequ
 import org.openapitools.model.CastCreate;
 
 @RequiredArgsConstructor
-public class CastCreateRequestMapper implements CreateRequestMapper<CastCreate, CastRegisterServiceInput> {
+public class CastCreateRequestMapper implements
+    CreateRequestMapper<CastCreate, CastRegisterServiceInput> {
 
-    private final String cats;
-    private final Integer storeId;
+  private final String cats;
+  private final Integer storeId;
 
-    @Override
-    public CastRegisterServiceInput apply(CastCreate castCreate) {
-        return CastRegisterServiceInput.builder()
-                .cats(this.cats)
-                .storeId(this.storeId)
-                .castCatId(castCreate.getCastCatId())
-                .firstAttendanceDate(castCreate.getFirstAttendanceDate())
-                .lastAttendanceDate(castCreate.getLastAttendanceDate())
-                .memo(castCreate.getMemo())
-                .build();
-    }
+  @Override
+  public CastRegisterServiceInput apply(CastCreate castCreate) {
+    return CastRegisterServiceInput.builder()
+        .cats(this.cats)
+        .storeId(this.storeId)
+        .castCatId(castCreate.getCastCatId())
+        .firstAttendanceDate(castCreate.getFirstAttendanceDate())
+        .lastAttendanceDate(castCreate.getLastAttendanceDate())
+        .memo(castCreate.getMemo())
+        .build();
+  }
 
 }

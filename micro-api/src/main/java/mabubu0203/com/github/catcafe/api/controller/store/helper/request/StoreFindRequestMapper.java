@@ -8,9 +8,9 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class StoreFindRequestMapper implements FindRequestMapper<StoreSearchServiceInput> {
 
-    @Override
-    public Mono<StoreSearchServiceInput> get() {
-        return Mono.empty();
-    }
+  @Override
+  public Mono<StoreSearchServiceInput> get() {
+    return Mono.empty();
+  }
 
 }

@@ -8,9 +8,9 @@ import mabubu0203.com.github.catcafe.common.service.model.ServiceInput;
 @Getter
 public class NoticeResisterServiceInput implements ServiceInput {
 
-    private final String cats;
-    private final Integer storeId;
-    private final String summary;
-    private final String detail;
+  private final String cats;
+  private final Integer storeId;
+  private final String summary;
+  private final String detail;
 
 }

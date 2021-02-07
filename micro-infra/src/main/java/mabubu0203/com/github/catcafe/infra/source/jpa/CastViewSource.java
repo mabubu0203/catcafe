@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CastViewSource extends ViewSource<CastView, String> {
+
 }
