@@ -1,22 +1,22 @@
 <contact-list>
-    <h3>{ message }</h3>
+  <h3>{ message }</h3>
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+  <ul>
+    <li each={ tech in techs }>
+      { tech.name }
+    </li>
+  </ul>
 
-    <script>
-        export default {
-            message: 'Contact',
-            techs: [
-                {name: 'お問い合わせ1'},
-                {name: 'お問い合わせ2'},
-                {name: 'お問い合わせ3'}
-            ]
-        }
+  <script>
+    export default {
+      message: 'Contact',
+      techs: [
+        {name: 'お問い合わせ1'},
+        {name: 'お問い合わせ2'},
+        {name: 'お問い合わせ3'}
+      ]
+    }
 
-    </script>
+  </script>
 
 </contact-list>

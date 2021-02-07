@@ -2,27 +2,27 @@ import {RiotComponentExport} from 'riot'
 import {CastDetail} from '../../axios-front/model/cast-detail';
 
 export interface CastDetailComponentState {
-    cast?: CastDetail;
+  cast?: CastDetail;
 }
 
 export interface CastDetailComponentProps {
 }
 
 export interface CastDetailComponent extends RiotComponentExport<CastDetailComponentProps, CastDetailComponentState> {
-    state: CastDetailComponentState;
+  state: CastDetailComponentState;
 
-    castFind(): void;
+  castFind(): void;
 }
 
 export interface CastListComponentState {
-    casts?: Array<CastDetail>;
+  casts?: Array<CastDetail>;
 }
 
 export interface CastListComponentProps {
 }
 
 export interface CastListComponent extends RiotComponentExport<CastListComponentProps, CastListComponentState> {
-    state: CastListComponentState;
+  state: CastListComponentState;
 
-    castSearch(e): void;
+  castSearch(e): void;
 }

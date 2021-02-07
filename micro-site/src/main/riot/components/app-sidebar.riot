@@ -1,75 +1,75 @@
 <sidebar>
-    <navigation>
-        <div class="ui visible sidebar inverted vertical menu">
+  <navigation>
+    <div class="ui visible sidebar inverted vertical menu">
 
-            <store-list></store-list>
+      <store-list></store-list>
 
-            <div class="item">
-                <div class="ui list">
-                    <div class="item">
-                        <a href="/">
-                            <i class="home icon"></i>
-                            トップページ
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="/provide_services">
-                            <i class="users pie icon"></i>
-                            提供サービス一覧
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="/casts">
-                            <i class="users pie icon"></i>
-                            猫一覧
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="/congestion-detail">
-                            <i class="chart pie icon"></i>
-                            混雑状況
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="/frequently_asked_questions">
-                            <i class="users pie icon"></i>
-                            FAQ
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+      <div class="item">
+        <div class="ui list">
+          <div class="item">
+            <a href="/">
+              <i class="home icon"></i>
+              トップページ
+            </a>
+          </div>
+          <div class="item">
+            <a href="/provide_services">
+              <i class="users pie icon"></i>
+              提供サービス一覧
+            </a>
+          </div>
+          <div class="item">
+            <a href="/casts">
+              <i class="users pie icon"></i>
+              猫一覧
+            </a>
+          </div>
+          <div class="item">
+            <a href="/congestion-detail">
+              <i class="chart pie icon"></i>
+              混雑状況
+            </a>
+          </div>
+          <div class="item">
+            <a href="/frequently_asked_questions">
+              <i class="users pie icon"></i>
+              FAQ
+            </a>
+          </div>
         </div>
-    </navigation>
+      </div>
 
-    <script>
-        import StoreList from './store/store-list.riot'
+    </div>
+  </navigation>
 
-        export default {
-            components: {
-                StoreList
-            }
-        }
-    </script>
+  <script>
+    import StoreList from './store/store-list.riot'
 
-    <style>
-        .ui.sidebar.menu {
-            width: 20%;
-        }
+    export default {
+      components: {
+        StoreList
+      }
+    }
+  </script>
 
-        .ui.menu .item.sidebar-head {
-            text-align: center;
-            font-weight: 900;
-            padding: 2rem 1rem;
-            border-bottom: 1px solid #666;
-        }
+  <style>
+    .ui.sidebar.menu {
+      width: 20%;
+    }
 
-        .ui.menu .ui.list > .item a {
-            padding: 2rem .5rem;
-            font-size: 1rem;
-            display: block;
-        }
+    .ui.menu .item.sidebar-head {
+      text-align: center;
+      font-weight: 900;
+      padding: 2rem 1rem;
+      border-bottom: 1px solid #666;
+    }
 
-    </style>
+    .ui.menu .ui.list > .item a {
+      padding: 2rem .5rem;
+      font-size: 1rem;
+      display: block;
+    }
+
+  </style>
 
 </sidebar>

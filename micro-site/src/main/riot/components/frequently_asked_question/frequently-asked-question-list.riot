@@ -1,89 +1,93 @@
 <frequently-asked-question-list>
-    <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
-    <div class="ui segment">
-        <form onsubmit={ frequentlyAskedQuestionSearch }>
-            <div class="field">
-                <label>カテゴリー</label>
-                <div class="field">
-                    <input
-                            name="category"
-                            placeholder="禁止事項"
-                            type="text"
-                    />
-                </div>
-            </div>
-            <div class="inline field">
-                <button class="ui teal button">検索</button>
-            </div>
-        </form>
-        <table
-                class="ui sortable celled table"
-                data={ state.frequently_asked_questions }
-                default-sort-field="id"
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="id" is="su-th">ID</th>
-                <th field="category" is="su-th">Category</th>
-                <th field="age" is="su-th">AGE</th>
-                <th field="gender" is="su-th">GENDER</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ frequently_asked_question in state.frequently_asked_questions }">
-                <td>{ frequently_asked_question.id }</td>
-                <td>{ frequently_asked_question.category }</td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-        <p>※ Click the header if you want to sort.</p>
-    </div>
+  <h2 class="ui teal tag label">FrequentlyAskedQuestions</h2>
+  <div class="ui segment">
+    <form onsubmit={ frequentlyAskedQuestionSearch }>
+      <div class="field">
+        <label>カテゴリー</label>
+        <div class="field">
+          <input
+              name="category"
+              placeholder="禁止事項"
+              type="text"
+          />
+        </div>
+      </div>
+      <div class="inline field">
+        <button class="ui teal button">検索</button>
+      </div>
+    </form>
+    <table
+        class="ui sortable celled table"
+        data={ state.frequently_asked_questions }
+        default-sort-field="id"
+        is="su-table"
+        nulls-first={ true }>
+      <thead>
+      <tr>
+        <th field="id" is="su-th">ID</th>
+        <th field="category" is="su-th">Category</th>
+        <th field="age" is="su-th">AGE</th>
+        <th field="gender" is="su-th">GENDER</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr each="{ frequently_asked_question in state.frequently_asked_questions }">
+        <td>{ frequently_asked_question.id }</td>
+        <td>{ frequently_asked_question.category }</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+    <p>※ Click the header if you want to sort.</p>
+  </div>
 
-    <script type="ts">
-        import {FrequentlyAskedQuestionListComponent} from './types'
-        import {AxiosResponse} from "axios";
-        import {FrequentlyAskedQuestionSearchResponse} from "../../axios-front/model/frequently-asked-question-search-response";
-        import {FrequentlyAskedQuestionDetail} from "../../axios-front/model/frequently-asked-question-detail";
-        import {FrequentlyAskedQuestionApi} from "../../axios-front/api/frequently-asked-question-api";
-        import userEnv from '@userEnv';
+  <script type="ts">
+    import {FrequentlyAskedQuestionListComponent} from './types'
+    import {AxiosResponse} from "axios";
+    import {Configuration} from "../../axios-front/configuration";
+    import {FrequentlyAskedQuestionSearchResponse} from "../../axios-front/model/frequently-asked-question-search-response";
+    import {FrequentlyAskedQuestionDetail} from "../../axios-front/model/frequently-asked-question-detail";
+    import {FrequentlyAskedQuestionApi} from "../../axios-front/api/frequently-asked-question-api";
+    import userEnv from '@userEnv';
 
-        function FrequentlyAskedQuestionList(): FrequentlyAskedQuestionListComponent {
-            return {
-                state: {
-                    frequently_asked_questions: []
-                },
-                async frequentlyAskedQuestionSearch(e) {
-                    e.preventDefault()
-                    const inputAge = e.target.category.value
-                    let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi({
-                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-API-KEY': ''
-                        },
-                        responseType: 'json',
-                    });
-                    client.frequentlyAskedQuestionSearch('cats', [0], 10)
-                        .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {
-                            let responseBody: FrequentlyAskedQuestionSearchResponse = res.data
-                            let bodyCasts: Array<FrequentlyAskedQuestionDetail> = responseBody.frequently_asked_questions
-                            this.update({
-                                frequently_asked_questions: bodyCasts
-                            })
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                }
+    function FrequentlyAskedQuestionList(): FrequentlyAskedQuestionListComponent {
+      return {
+        state: {
+          frequently_asked_questions: []
+        },
+        async frequentlyAskedQuestionSearch(e) {
+          e.preventDefault()
+          const inputAge = e.target.category.value
+          const api_key = JSON.parse(localStorage.getItem('cat-cafe-site state')).api_key
+          let configuration: Configuration = new Configuration({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            baseOptions: {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': api_key,
+              }
             }
+          })
+          let client: FrequentlyAskedQuestionApi = new FrequentlyAskedQuestionApi(configuration);
+          client.frequentlyAskedQuestionSearch('cats', [0], 10)
+              .then((res: AxiosResponse<FrequentlyAskedQuestionSearchResponse>) => {
+                let responseBody: FrequentlyAskedQuestionSearchResponse = res.data
+                let bodyCasts: Array<FrequentlyAskedQuestionDetail> = responseBody.frequently_asked_questions
+                this.update({
+                  frequently_asked_questions: bodyCasts
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
         }
+      }
+    }
 
-        export default FrequentlyAskedQuestionList
+    export default FrequentlyAskedQuestionList
 
-    </script>
+  </script>
 
 </frequently-asked-question-list>

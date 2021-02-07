@@ -1,0 +1,54 @@
+<x-api-key-generate>
+
+  <script type="ts">
+    import {
+      XApiKeyGenerateResponseComponent,
+      XApiKeyGenerateResponseComponentState,
+      XApiKeyGenerateResponseComponentProps
+    } from './types'
+    import {AxiosResponse} from "axios";
+    import {XApiKeyGenerate} from "../../axios-front/model/xapi-key-generate";
+    import {XApiKeyGenerateResponse} from '../../axios-front/model/xapi-key-generate-response';
+    import {AuthenticationApi} from "../../axios-front/api/authentication-api";
+    import userEnv from '@userEnv';
+
+    function Generate(): XApiKeyGenerateResponseComponent {
+      return {
+        state: {
+          x_api_key: {}
+        },
+        onBeforeMount(currentProps: XApiKeyGenerateResponseComponentProps, currentState: XApiKeyGenerateResponseComponentState) {
+          this.xApiKeyGenerate();
+        },
+        onMounted(currentProps: XApiKeyGenerateResponseComponentProps, currentState: XApiKeyGenerateResponseComponentState) {
+          this.xApiKeyGenerate();
+        },
+        async xApiKeyGenerate() {
+          let client: AuthenticationApi = new AuthenticationApi({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            responseType: 'json',
+          });
+          let body: XApiKeyGenerate = {
+            random: 'aaaa'
+          }
+          client.xApiKeyGenerate('cats', body)
+              .then((res: AxiosResponse<XApiKeyGenerateResponse>) => {
+                let responseBody: XApiKeyGenerateResponse = res.data
+                this.update({
+                  x_api_key: responseBody
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
+        }
+      }
+    }
+
+    export default Generate
+  </script>
+
+</x-api-key-generate>

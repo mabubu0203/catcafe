@@ -1,69 +1,73 @@
 <notice-list>
-    <div class="ui secondary pointing menu">
-        <h4 class="item">
-            最新のお知らせ3件
-        </h4>
+  <div class="ui secondary pointing menu">
+    <h4 class="item">
+      最新のお知らせ3件
+    </h4>
 
-    </div>
-    <table
-            class="ui sortable celled table"
-            data={ state.notices }
-            is="su-table">
-        <tbody>
-        <tr each="{ notice in state.notices }">
-            <td>{ notice.id }</td>
-            <td>{ notice.summary }</td>
-            <td>{ notice.detail }</td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
+  </div>
+  <table
+      class="ui sortable celled table"
+      data={ state.notices }
+      is="su-table">
+    <tbody>
+    <tr each="{ notice in state.notices }">
+      <td>{ notice.id }</td>
+      <td>{ notice.summary }</td>
+      <td>{ notice.detail }</td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
 
-    <script type="ts">
-        import {NoticeListComponent, NoticeListComponentProps, NoticeListComponentState} from './types'
-        import {AxiosResponse} from "axios";
-        import {NoticeSearchResponse} from "../../axios-front/model/notice-search-response";
-        import {NoticeDetail} from "../../axios-front/model/notice-detail";
-        import {NoticeApi} from "../../axios-front/api/notice-api";
-        import userEnv from '@userEnv';
+  <script type="ts">
+    import {NoticeListComponent, NoticeListComponentProps, NoticeListComponentState} from './types'
+    import {AxiosResponse} from "axios";
+    import {Configuration} from "../../axios-front/configuration";
+    import {NoticeSearchResponse} from "../../axios-front/model/notice-search-response";
+    import {NoticeDetail} from "../../axios-front/model/notice-detail";
+    import {NoticeApi} from "../../axios-front/api/notice-api";
+    import userEnv from '@userEnv';
 
-        function NoticeList(): NoticeListComponent {
-            return {
-                state: {
-                    notices: []
-                },
-                onBeforeMount(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
-                    this.noticeSearch();
-                },
-                onMounted(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
-                    this.noticeSearch();
-                },
-                async noticeSearch() {
-                    let client: NoticeApi = new NoticeApi({
-                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-API-KEY': ''
-                        },
-                        responseType: 'json',
-                    });
-                    client.noticeSearch('cats', [0], 10)
-                        .then((res: AxiosResponse<NoticeSearchResponse>) => {
-                            let responseBody: NoticeSearchResponse = res.data
-                            let bodyNotices: Array<NoticeDetail> = responseBody.notices
-                            this.update({
-                                notices: bodyNotices
-                            })
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                }
+    function NoticeList(): NoticeListComponent {
+      return {
+        state: {
+          notices: []
+        },
+        onBeforeMount(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
+          this.noticeSearch();
+        },
+        onMounted(currentProps: NoticeListComponentProps, currentState: NoticeListComponentState) {
+          this.noticeSearch();
+        },
+        async noticeSearch() {
+          const api_key = JSON.parse(localStorage.getItem('cat-cafe-site state')).api_key
+          let configuration: Configuration = new Configuration({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            baseOptions: {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': api_key,
+              }
             }
+          })
+          let client: NoticeApi = new NoticeApi(configuration);
+          client.noticeSearch('cats', [0], 10)
+              .then((res: AxiosResponse<NoticeSearchResponse>) => {
+                let responseBody: NoticeSearchResponse = res.data
+                let bodyNotices: Array<NoticeDetail> = responseBody.notices
+                this.update({
+                  notices: bodyNotices
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
         }
+      }
+    }
 
-        export default NoticeList
+    export default NoticeList
 
-    </script>
+  </script>
 
 </notice-list>

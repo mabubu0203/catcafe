@@ -1,114 +1,116 @@
 <welcome>
-    <div class="ui card">
-        <h2>猫カフェ</h2>
-        <div class="ui form">
-            <form name="welcome" onsubmit={ handleSubmit }>
-                <store-list></store-list>
-                <div class="inline field">
-                    <button class="ui teal button">店舗選択</button>
-                </div>
-            </form>
-
+  <div class="ui card">
+    <h2>猫カフェ</h2>
+    <div class="ui form">
+      <form name="welcome" onsubmit={ handleSubmit }>
+        <store-list></store-list>
+        <div class="inline field">
+          <button class="ui teal button">店舗選択</button>
         </div>
+      </form>
     </div>
-    <div class="ui card">
-        // お知らせ
-        <table
-                class="ui sortable celled table"
-                data={ tableData }
-                default-sort-field="name"
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="name" is="su-th">NAME</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ item in tableData }">
-                <td>{ item.name }</td>
-            </tr>
-            </tbody>
-        </table>
-        // イベント
-        <table
-                class="ui sortable celled table"
-                data={ tableData }
-                default-sort-field="name"
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="name" is="su-th">NAME</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ item in tableData }">
-                <td>{ item.name }</td>
-            </tr>
-            </tbody>
-        </table>
-        // FAQ、お問い合わせ
-    </div>
+  </div>
+  <div class="ui card">
+    // お知らせ
+    <table
+        class="ui sortable celled table"
+        data={ tableData }
+        default-sort-field="name"
+        is="su-table"
+        nulls-first={ true }>
+      <thead>
+      <tr>
+        <th field="name" is="su-th">NAME</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr each="{ item in tableData }">
+        <td>{ item.name }</td>
+      </tr>
+      </tbody>
+    </table>
+    // イベント
+    <table
+        class="ui sortable celled table"
+        data={ tableData }
+        default-sort-field="name"
+        is="su-table"
+        nulls-first={ true }>
+      <thead>
+      <tr>
+        <th field="name" is="su-th">NAME</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr each="{ item in tableData }">
+        <td>{ item.name }</td>
+      </tr>
+      </tbody>
+    </table>
+    // FAQ、お問い合わせ
+  </div>
 
-    <script>
-        import StoreList from './store/store-list.riot'
+  <script>
+    import StoreList from './store/store-list.riot'
 
-        export default {
-            components: {
-                StoreList
-            },
-            state: {
-                is_store_selected_in: false,
-                store_id: null
-            },
-            onBeforeMount(props, state) {
-            },
-            handleSubmit() {
-                this.state.is_store_selected_in = true
+    export default {
+      components: {
+        StoreList
+      },
+      state: {
+        is_store_selected_in: false,
+        store_id: null,
+        api_key: null
+      },
+      onBeforeMount(props, state) {
+        this.state.api_key = 'aaa';
 
-                const selectStore = document.welcome.store_id
-                this.state.store_id = selectStore.options[selectStore.selectedIndex].value
+        localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
+      },
+      handleSubmit() {
+        this.state.is_store_selected_in = true
+        const selectStore = document.welcome.store_id
+        this.state.store_id = selectStore.options[selectStore.selectedIndex].value
 
-                localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
+        localStorage.setItem('cat-cafe-site state', JSON.stringify(this.state))
 
-                this.update()
-            },
-            onUpdated() {
-                location.reload();
-            },
-            tableData: [
-                {name: 'John', age: 15, gender: 'Male'},
-                {name: 'Amber', age: 40, gender: 'Female'},
-            ]
-        }
-    </script>
+        this.update()
+      },
+      onUpdated() {
+        location.reload();
+      },
+      tableData: [
+        {name: 'John', age: 15, gender: 'Male'},
+        {name: 'Amber', age: 40, gender: 'Female'},
+      ]
+    }
+  </script>
 
-    <style>
-        :host {
-            max-width: 80%;
-            height: 100vh;
-            margin: 0 auto;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  <style>
+    :host {
+      max-width: 80%;
+      height: 100vh;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        h2 {
-            font-size: 2rem;
-        }
+    h2 {
+      font-size: 2rem;
+    }
 
-        .ui.card {
-            padding: 3rem;
-            width: 50%;
-        }
+    .ui.card {
+      padding: 3rem;
+      width: 50%;
+    }
 
-        @media (max-width: 375px) {
-            .ui.card {
-                width: 100%;
-            }
-        }
-    </style>
+    @media (max-width: 375px) {
+      .ui.card {
+        width: 100%;
+      }
+    }
+  </style>
 
 </welcome>
