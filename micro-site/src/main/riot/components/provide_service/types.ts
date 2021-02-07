@@ -8,18 +8,18 @@ export interface ProvideServiceDetailComponentProps {
 }
 
 export interface ProvideServiceDetailComponent extends RiotComponentExport<ProvideServiceDetailComponentProps, ProvideServiceDetailComponentState> {
-    state: ProvideServiceDetailComponentState;
+  state: ProvideServiceDetailComponentState;
 }
 
 export interface ProvideServiceListComponentState {
-    provide_services?: Array<ProvideServiceDetail>;
+  provide_services?: Array<ProvideServiceDetail>;
 }
 
 export interface ProvideServiceListComponentProps {
 }
 
 export interface ProvideServiceListComponent extends RiotComponentExport<ProvideServiceListComponentProps, ProvideServiceListComponentState> {
-    state: ProvideServiceListComponentState;
+  state: ProvideServiceListComponentState;
 
-    provideServiceSearch(e): void;
+  provideServiceSearch(e): void;
 }

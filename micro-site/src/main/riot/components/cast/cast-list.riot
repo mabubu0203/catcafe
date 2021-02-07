@@ -1,95 +1,99 @@
 <cast-list>
-    <h2 class="ui teal tag label">Casts</h2>
-    <div class="ui segment">
-        <form onsubmit={ castSearch }>
-            <div class="field">
-                <label>年齢</label>
-                <div class="field">
-                    <input
-                            name="age"
-                            placeholder="3"
-                            type="text"
-                    />
-                </div>
-            </div>
-            <div class="inline field">
-                <button class="ui teal button">検索</button>
-            </div>
-        </form>
-        <div
-                class="dtable"
-                data={ state.casts }>
-            <div
-                    class="dtable_c"
-                    each="{ cast in state.casts }">
-                <a href="/cast/{ cast.id }">
-                    <img
-                            src="{ cast.id }"
-                            alt="{ cast.cast_cat.name }"
-                            title="{ cast.cast_cat.name }"
-                            width="100px" height="100px" border="0">
-                </a>
-            </div>
+  <h2 class="ui teal tag label">Casts</h2>
+  <div class="ui segment">
+    <form onsubmit={ castSearch }>
+      <div class="field">
+        <label>年齢</label>
+        <div class="field">
+          <input
+              name="age"
+              placeholder="3"
+              type="text"
+          />
         </div>
+      </div>
+      <div class="inline field">
+        <button class="ui teal button">検索</button>
+      </div>
+    </form>
+    <div
+        class="dtable"
+        data={ state.casts }>
+      <div
+          class="dtable_c"
+          each="{ cast in state.casts }">
+        <a href="/cast/{ cast.id }">
+          <img
+              alt="{ cast.cast_cat.name }"
+              border="0"
+              height="100px"
+              src="{ cast.id }" title="{ cast.cast_cat.name }" width="100px">
+        </a>
+      </div>
     </div>
+  </div>
 
-    <script type="ts">
-        import {CastListComponent} from './types'
-        import {AxiosResponse} from "axios";
-        import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
-        import {CastDetail} from "../../axios-front/model/cast-detail";
-        import {CastApi} from "../../axios-front/api/cast-api";
-        import userEnv from '@userEnv';
+  <script type="ts">
+    import {CastListComponent} from './types'
+    import {AxiosResponse} from "axios";
+    import {Configuration} from "../../axios-front/configuration";
+    import {CastSearchResponse} from "../../axios-front/model/cast-search-response";
+    import {CastDetail} from "../../axios-front/model/cast-detail";
+    import {CastApi} from "../../axios-front/api/cast-api";
+    import userEnv from '@userEnv';
 
-        function CastList(): CastListComponent {
-            return {
-                state: {
-                    casts: []
-                },
-                async castSearch(e) {
-                    const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
-                    e.preventDefault()
-                    const inputAge = e.target.age.value
-                    let client: CastApi = new CastApi({
-                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-API-KEY': ''
-                        },
-                        responseType: 'json',
-                    });
-                    client.castSearch('cats', [store_id], null, 0, 20, null)
-                        .then((res: AxiosResponse<CastSearchResponse>) => {
-                            let responseBody: CastSearchResponse = res.data
-                            let bodyCasts: Array<CastDetail> = responseBody.casts
-                            this.update({
-                                casts: bodyCasts
-                            })
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                }
+    function CastList(): CastListComponent {
+      return {
+        state: {
+          casts: []
+        },
+        async castSearch(e) {
+          const store_id = JSON.parse(localStorage.getItem('cat-cafe-site state')).store_id
+          const api_key = JSON.parse(localStorage.getItem('cat-cafe-site state')).api_key
+          e.preventDefault()
+          const inputAge = e.target.age.value
+          let configuration: Configuration = new Configuration({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            baseOptions: {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': api_key,
+              }
             }
+          })
+          let client: CastApi = new CastApi(configuration);
+          client.castSearch('cats', [store_id], null, 0, 20, null)
+              .then((res: AxiosResponse<CastSearchResponse>) => {
+                let responseBody: CastSearchResponse = res.data
+                let bodyCasts: Array<CastDetail> = responseBody.casts
+                this.update({
+                  casts: bodyCasts
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
         }
+      }
+    }
 
-        export default CastList
-    </script>
+    export default CastList
+  </script>
 
-    <style>
-        .dtable {
-            display: flex;
-            flex-wrap: wrap;
-            width: 450px;
-            padding: 10px;
-        }
+  <style>
+    .dtable {
+      display: flex;
+      flex-wrap: wrap;
+      width: 450px;
+      padding: 10px;
+    }
 
-        .dtable_c {
-            display: table-cell;
-            text-align: center;
-            width: 100px;
-            border: 1px solid #000;
-        }
-    </style>
+    .dtable_c {
+      display: table-cell;
+      text-align: center;
+      width: 100px;
+      border: 1px solid #000;
+    }
+  </style>
 
 </cast-list>

@@ -1,41 +1,41 @@
 <congestion-detail>
-    <h2 class="ui teal tag label">Congestion</h2>
-    <div class="ui segment">
-        <table
-                class="ui sortable celled table"
-                data={ congestion }
-                default-sort-field="age"
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="name" is="su-th">NAME</th>
-                <th field="age" is="su-th">AGE</th>
-                <th field="gender" is="su-th">GENDER</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ item in congestion }">
-                <td>{ item.name }</td>
-                <td>{ item.age }</td>
-                <td>{ item.gender }</td>
-            </tr>
-            </tbody>
-        </table>
-        <p>※ Click the header if you want to sort.</p>
-    </div>
+  <h2 class="ui teal tag label">Congestion</h2>
+  <div class="ui segment">
+    <table
+        class="ui sortable celled table"
+        data={ congestion }
+        default-sort-field="age"
+        is="su-table"
+        nulls-first={ true }>
+      <thead>
+      <tr>
+        <th field="name" is="su-th">NAME</th>
+        <th field="age" is="su-th">AGE</th>
+        <th field="gender" is="su-th">GENDER</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr each="{ item in congestion }">
+        <td>{ item.name }</td>
+        <td>{ item.age }</td>
+        <td>{ item.gender }</td>
+      </tr>
+      </tbody>
+    </table>
+    <p>※ Click the header if you want to sort.</p>
+  </div>
 
-    <script>
-        export default {
-            congestion: [
-                {name: 'John', age: 15, gender: 'Male'},
-                {name: 'Amber', age: 40, gender: 'Female'},
-                {name: 'Leslie', age: 25},
-                {name: 'Michel', age: 37, gender: 'Male'},
-                {name: 'Nicholas', age: 29, gender: 'neutral'},
-                {name: 'Ben', gender: 'Male'},
-            ]
-        }
-    </script>
+  <script>
+    export default {
+      congestion: [
+        {name: 'John', age: 15, gender: 'Male'},
+        {name: 'Amber', age: 40, gender: 'Female'},
+        {name: 'Leslie', age: 25},
+        {name: 'Michel', age: 37, gender: 'Male'},
+        {name: 'Nicholas', age: 29, gender: 'neutral'},
+        {name: 'Ben', gender: 'Male'},
+      ]
+    }
+  </script>
 
 </congestion-detail>

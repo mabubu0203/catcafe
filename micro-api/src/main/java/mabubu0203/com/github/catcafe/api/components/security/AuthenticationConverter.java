@@ -60,7 +60,8 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
                     stream
                         .findFirst()
                         .map(this::convertInformation)
-                        .orElse(null))
+                        .orElseThrow(() -> new TokenNotFoundException(""))
+                )
             )
             .orElseThrow(() -> new TokenNotFoundException(""));// RDBにアクセストークンがないExceptionを返却する
   }

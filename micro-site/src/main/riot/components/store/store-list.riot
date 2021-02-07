@@ -1,59 +1,63 @@
 <store-list>
-    <div class="item sidebar-head">
+  <div class="item sidebar-head">
 
-        <div class="menu">
-            <span class="st_form_addon">店舗</span>
-            <select class="st_form_input" id="store_id">
-                <option each="{store in state.stores}" value="{store.id}">{store.name}</option>
-            </select>
-        </div>
-
+    <div class="menu">
+      <span class="st_form_addon">店舗</span>
+      <select class="st_form_input" id="store_id">
+        <option each="{store in state.stores}" value="{store.id}">{store.name}</option>
+      </select>
     </div>
 
-    <script type="ts">
-        import {StoreListComponent, StoreListComponentState, StoreListComponentProps} from './types'
-        import {AxiosResponse} from "axios";
-        import {StoreSearchResponse} from "../../axios-front/model/store-search-response";
-        import {StoreDetail} from "../../axios-front/model/store-detail";
-        import {StoreApi} from "../../axios-front/api/store-api";
-        import userEnv from '@userEnv';
+  </div>
 
-        function StoreList(): StoreListComponent {
-            return {
-                state: {
-                    stores: []
-                },
-                onBeforeMount(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
-                    this.storeSearch();
-                },
-                onMounted(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
-                    this.storeSearch();
-                },
-                async storeSearch() {
-                    let client: StoreApi = new StoreApi({
-                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-API-KEY': ''
-                        },
-                        responseType: 'json',
-                    });
-                    client.storeSearch('cats', [], 0, 20, null)
-                        .then((res: AxiosResponse<StoreSearchResponse>) => {
-                            let responseBody: StoreSearchResponse = res.data
-                            let bodyStores: Array<StoreDetail> = responseBody.stores
-                            this.update({
-                                stores: bodyStores
-                            })
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                }
+  <script type="ts">
+    import {StoreListComponent, StoreListComponentState, StoreListComponentProps} from './types'
+    import {AxiosResponse} from "axios";
+    import {Configuration} from "../../axios-front/configuration";
+    import {StoreSearchResponse} from "../../axios-front/model/store-search-response";
+    import {StoreDetail} from "../../axios-front/model/store-detail";
+    import {StoreApi} from "../../axios-front/api/store-api";
+    import userEnv from '@userEnv';
+
+    function StoreList(): StoreListComponent {
+      return {
+        state: {
+          stores: []
+        },
+        onBeforeMount(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
+          this.storeSearch();
+        },
+        onMounted(currentProps: StoreListComponentProps, currentState: StoreListComponentState) {
+          this.storeSearch();
+        },
+        async storeSearch() {
+          const api_key = JSON.parse(localStorage.getItem('cat-cafe-site state')).api_key
+          let configuration: Configuration = new Configuration({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            baseOptions: {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': api_key,
+              }
             }
+          })
+          let client: StoreApi = new StoreApi(configuration);
+          client.storeSearch('cats', [], 0, 20, null)
+              .then((res: AxiosResponse<StoreSearchResponse>) => {
+                let responseBody: StoreSearchResponse = res.data
+                let bodyStores: Array<StoreDetail> = responseBody.stores
+                this.update({
+                  stores: bodyStores
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
         }
+      }
+    }
 
-        export default StoreList
-    </script>
+    export default StoreList
+  </script>
 
 </store-list>

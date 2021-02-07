@@ -1,22 +1,22 @@
 <provide-service-detail>
-    <h3>{ message }</h3>
+  <h3>{ message }</h3>
 
-    <ul>
-        <li each={ tech in techs }>
-            { tech.name }
-        </li>
-    </ul>
+  <ul>
+    <li each={ tech in techs }>
+      { tech.name }
+    </li>
+  </ul>
 
-    <script>
-        export default {
-            message: 'ProvideService',
-            techs: [
-                {name: '提供サービス1'},
-                {name: '提供サービス2'},
-                {name: '提供サービス3'}
-            ]
-        }
+  <script>
+    export default {
+      message: 'ProvideService',
+      techs: [
+        {name: '提供サービス1'},
+        {name: '提供サービス2'},
+        {name: '提供サービス3'}
+      ]
+    }
 
-    </script>
+  </script>
 
 </provide-service-detail>

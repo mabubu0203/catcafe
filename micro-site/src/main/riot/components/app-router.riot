@@ -1,84 +1,86 @@
 <app-router>
 
-    <route path="/">
-        <store-detail/>
-    </route>
-    <route path="/stores">
-        <store-list/>
-    </route>
-    <route path="/store-detail">
-        <store-detail/>
-    </route>
-    <route path="/provide_services">
-        <provide-service-list/>
-    </route>
-    <route path="/casts">
-        <cast-list/>
-    </route>
-    <route path="/cast/:id">
-        <cast-detail/>
-    </route>
-    <route path="/congestion-detail">
-        <congestion-detail/>
-    </route>
-    <route path="/frequently_asked_questions">
-        <frequently-asked-question-list/>
-    </route>
-    <route path="/frequently_asked_questions/:id">
-        <frequently-asked-question-detail/>
-    </route>
-    <route path="/404">
-        <not-found/>
-    </route>
-    <route path="(.*)">
-        { onRoute(route) }
-    </route>
+  <route path="/">
+    <store-detail/>
+  </route>
+  <route path="/stores">
+    <store-list/>
+  </route>
+  <route path="/store-detail">
+    <store-detail/>
+  </route>
+  <route path="/provide_services">
+    <provide-service-list/>
+  </route>
+  <route path="/casts">
+    <cast-list/>
+  </route>
+  <route path="/cast/:id">
+    <cast-detail/>
+  </route>
+  <route path="/congestion-detail">
+    <congestion-detail/>
+  </route>
+  <route path="/frequently_asked_questions">
+    <frequently-asked-question-list/>
+  </route>
+  <route path="/frequently_asked_questions/:id">
+    <frequently-asked-question-detail/>
+  </route>
+  <route path="/404">
+    <not-found/>
+  </route>
+  <route path="(.*)">
+    { onRoute(route) }
+  </route>
 
-    <script>
-        import { Router, Route } from '@riotjs/route'
-        import Welcome from './welcome'
-        import StoreList from './store/store-list'
-        import StoreDetail from './store/store-detail'
-        import ProvideServiceList from './provide_service/provide-service-list'
-        import CastList from './cast/cast-list'
-        import CastDetail from './cast/cast-detail'
-        import CongestionDetail from './congestion/congestion-detail'
-        import FrequentlyAskedQuestionList from './frequently_asked_question/frequently-asked-question-list'
-        import FrequentlyAskedQuestionDetail from './frequently_asked_question/frequently-asked-question-detail'
-        import NotFound from './not-found.riot'
+  <script>
+    import {Router, Route} from '@riotjs/route'
+    import Welcome from './welcome'
+    import StoreList from './store/store-list'
+    import StoreDetail from './store/store-detail'
+    import ProvideServiceList from './provide_service/provide-service-list'
+    import CastList from './cast/cast-list'
+    import CastDetail from './cast/cast-detail'
+    import CongestionDetail from './congestion/congestion-detail'
+    import FrequentlyAskedQuestionList
+      from './frequently_asked_question/frequently-asked-question-list'
+    import FrequentlyAskedQuestionDetail
+      from './frequently_asked_question/frequently-asked-question-detail'
+    import NotFound from './not-found.riot'
 
-        const pages = [
-            '/',
-            '/store-detail',
-            '/stores',
-            '/provide_services',
-            '/cast/*',
-            '/casts',
-            '/congestion-detail',
-            '/frequently_asked_questions',
-            '/frequently_asked_question-detail',
-            '/404'
-        ]
-        export default {
-            components: {
-                Router,
-                Route,
-                Welcome,
-                StoreDetail,
-                StoreList,
-                ProvideServiceList,
-                CastList,
-                CastDetail,
-                CongestionDetail,
-                FrequentlyAskedQuestionList,
-                FrequentlyAskedQuestionDetail,
-                NotFound
-            },
-            onRoute(route) {
-                const page = pages.find(page => RegExp(page).test(route.pathname))
-                if (page === void 0) router.push("/404")
-            }
-        }
-    </script>
+    const pages = [
+      '/',
+      '/store-detail',
+      '/stores',
+      '/provide_services',
+      '/cast/*',
+      '/casts',
+      '/congestion-detail',
+      '/frequently_asked_questions',
+      '/frequently_asked_question-detail',
+      '/404'
+    ]
+    export default {
+      components: {
+        Router,
+        Route,
+        Welcome,
+        StoreDetail,
+        StoreList,
+        ProvideServiceList,
+        CastList,
+        CastDetail,
+        CongestionDetail,
+        FrequentlyAskedQuestionList,
+        FrequentlyAskedQuestionDetail,
+        NotFound
+      },
+      onRoute(route) {
+        const page = pages.find(page => RegExp(page).test(route.pathname))
+        if (page === void 0) router.push("/404")
+      }
+    }
+  </script>
 
 </app-router>

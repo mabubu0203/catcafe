@@ -1,83 +1,87 @@
 <provide-service-list>
-    <h2 class="ui teal tag label">ProvideServices</h2>
-    <div class="ui segment">
-        <form onsubmit={ provideServiceSearch }>
-            <div class="field">
-                <label>価格</label>
-                <div class="field">
-                    <input
-                            name="price"
-                            placeholder="1000"
-                            type="text"
-                    />
-                </div>
-            </div>
-            <div class="inline field">
-                <button class="ui teal button">検索</button>
-            </div>
-        </form>
-        <table
-                class="ui sortable celled table"
-                data={ state.provide_services }
-                is="su-table"
-                nulls-first={ true }>
-            <thead>
-            <tr>
-                <th field="id" is="su-th">ID</th>
-                <th field="name" is="su-th">Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr each="{ provide_service in state.provide_services }">
-                <td>{ provide_service.id }</td>
-                <td>{ provide_service.name }</td>
-            </tr>
-            </tbody>
-        </table>
-        <p>※ Click the header if you want to sort.</p>
-    </div>
+  <h2 class="ui teal tag label">ProvideServices</h2>
+  <div class="ui segment">
+    <form onsubmit={ provideServiceSearch }>
+      <div class="field">
+        <label>価格</label>
+        <div class="field">
+          <input
+              name="price"
+              placeholder="1000"
+              type="text"
+          />
+        </div>
+      </div>
+      <div class="inline field">
+        <button class="ui teal button">検索</button>
+      </div>
+    </form>
+    <table
+        class="ui sortable celled table"
+        data={ state.provide_services }
+        is="su-table"
+        nulls-first={ true }>
+      <thead>
+      <tr>
+        <th field="id" is="su-th">ID</th>
+        <th field="name" is="su-th">Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr each="{ provide_service in state.provide_services }">
+        <td>{ provide_service.id }</td>
+        <td>{ provide_service.name }</td>
+      </tr>
+      </tbody>
+    </table>
+    <p>※ Click the header if you want to sort.</p>
+  </div>
 
-    <script type="ts">
-        import {ProvideServiceListComponent} from './types'
-        import {AxiosResponse} from "axios";
-        import {ProvideServiceSearchResponse} from "../../axios-front/model/provide-service-search-response";
-        import {ProvideServiceDetail} from "../../axios-front/model/provide-service-detail";
-        import {ProvideServiceApi} from "../../axios-front/api/provide-service-api";
-        import userEnv from '@userEnv';
+  <script type="ts">
+    import {ProvideServiceListComponent} from './types'
+    import {AxiosResponse} from "axios";
+    import {Configuration} from "../../axios-front/configuration";
+    import {ProvideServiceSearchResponse} from "../../axios-front/model/provide-service-search-response";
+    import {ProvideServiceDetail} from "../../axios-front/model/provide-service-detail";
+    import {ProvideServiceApi} from "../../axios-front/api/provide-service-api";
+    import userEnv from '@userEnv';
 
-        function ProvideServiceList(): ProvideServiceListComponent {
-            return {
-                state: {
-                    provide_services: []
-                },
-                async provideServiceSearch(e) {
-                    e.preventDefault()
-                    const inputPrice = e.target.price.value
-                    let client: ProvideServiceApi = new ProvideServiceApi({
-                        basePath: userEnv.CAT_SITE_API_BASE_PATH,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-API-KEY': ''
-                        },
-                        responseType: 'json',
-                    });
-                    client.provideServiceSearch('cats', [0])
-                        .then((res: AxiosResponse<ProvideServiceSearchResponse>) => {
-                            let responseBody: ProvideServiceSearchResponse = res.data
-                            let bodyProvideServices: Array<ProvideServiceDetail> = responseBody.provide_services
-                            this.update({
-                                provide_services: bodyProvideServices
-                            })
-                        })
-                        .catch((error: any) => {
-                            console.log(error);
-                        });
-                }
+    function ProvideServiceList(): ProvideServiceListComponent {
+      return {
+        state: {
+          provide_services: []
+        },
+        async provideServiceSearch(e) {
+          const api_key = JSON.parse(localStorage.getItem('cat-cafe-site state')).api_key
+          e.preventDefault()
+          const inputPrice = e.target.price.value
+          let configuration: Configuration = new Configuration({
+            basePath: userEnv.CAT_SITE_API_BASE_PATH,
+            baseOptions: {
+              headers: {
+                'Content-Type': 'application/json',
+                'X-API-KEY': api_key,
+              }
             }
+          })
+          let client: ProvideServiceApi = new ProvideServiceApi(configuration);
+          client.provideServiceSearch('cats', [0])
+              .then((res: AxiosResponse<ProvideServiceSearchResponse>) => {
+                let responseBody: ProvideServiceSearchResponse = res.data
+                let bodyProvideServices: Array<ProvideServiceDetail> = responseBody.provide_services
+                this.update({
+                  provide_services: bodyProvideServices
+                })
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
         }
+      }
+    }
 
-        export default ProvideServiceList
+    export default ProvideServiceList
 
-    </script>
+  </script>
 
 </provide-service-list>

@@ -8,18 +8,18 @@ export interface NoticeDetailComponentProps {
 }
 
 export interface CastDetailComponent extends RiotComponentExport<NoticeDetailComponentProps, NoticeDetailComponentState> {
-    state: NoticeDetailComponentState;
+  state: NoticeDetailComponentState;
 }
 
 export interface NoticeListComponentState {
-    notices?: Array<NoticeDetail>;
+  notices?: Array<NoticeDetail>;
 }
 
 export interface NoticeListComponentProps {
 }
 
 export interface NoticeListComponent extends RiotComponentExport<NoticeListComponentProps, NoticeListComponentState> {
-    state: NoticeListComponentState;
+  state: NoticeListComponentState;
 
-    noticeSearch(): void;
+  noticeSearch(): void;
 }
