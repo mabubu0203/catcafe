@@ -1,21 +1,21 @@
 package mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.helper.request;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.service.model.input.FrequentlyAskedQuestionSearchServiceInput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.request.SearchRequestMapper;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 @RequiredArgsConstructor
-public class FrequentlyAskedQuestionSearchRequestMapper implements SearchRequestMapper<FrequentlyAskedQuestionSearchServiceInput> {
+public class FrequentlyAskedQuestionSearchRequestMapper implements
+    SearchRequestMapper<FrequentlyAskedQuestionSearchServiceInput> {
 
-    private final String cats;
-    private final List<Integer> storeIds;
+  private final String cats;
+  private final List<Integer> storeIds;
 
-    @Override
-    public Mono<FrequentlyAskedQuestionSearchServiceInput> get() {
-        return Mono.just(new FrequentlyAskedQuestionSearchServiceInput());
-    }
+  @Override
+  public Mono<FrequentlyAskedQuestionSearchServiceInput> get() {
+    return Mono.just(new FrequentlyAskedQuestionSearchServiceInput());
+  }
 
 }

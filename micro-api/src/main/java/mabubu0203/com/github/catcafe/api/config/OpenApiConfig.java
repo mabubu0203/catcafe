@@ -18,7 +18,7 @@ public class OpenApiConfig {
             .components(
                 new Components()
                     .addSecuritySchemes(
-                        "apiKeyScheme",
+                        "ApiKeyAuth",
                         new SecurityScheme()
                             .type(SecurityScheme.Type.APIKEY)
                             .in(SecurityScheme.In.HEADER)

@@ -6,18 +6,19 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.request.CreateRequ
 import org.openapitools.model.XApiKeyGenerate;
 
 @RequiredArgsConstructor
-public class XApiKeyGenerateRequestMapper implements CreateRequestMapper<XApiKeyGenerate, XApiKeyGenerateServiceInput> {
+public class XApiKeyGenerateRequestMapper implements
+    CreateRequestMapper<XApiKeyGenerate, XApiKeyGenerateServiceInput> {
 
-    private final String cats;
-    private final String clientIp;
+  private final String cats;
+  private final String clientIp;
 
-    @Override
-    public XApiKeyGenerateServiceInput apply(XApiKeyGenerate xApiKeyGenerate) {
-        return XApiKeyGenerateServiceInput.builder()
-                .cats(this.cats)
-                .random(xApiKeyGenerate.getRandom())
-                .clientIp(this.clientIp)
-                .build();
-    }
+  @Override
+  public XApiKeyGenerateServiceInput apply(XApiKeyGenerate xApiKeyGenerate) {
+    return XApiKeyGenerateServiceInput.builder()
+        .cats(this.cats)
+        .random(xApiKeyGenerate.getRandom())
+        .clientIp(this.clientIp)
+        .build();
+  }
 
 }

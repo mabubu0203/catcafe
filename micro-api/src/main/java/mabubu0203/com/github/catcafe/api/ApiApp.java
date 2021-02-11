@@ -16,29 +16,29 @@ import org.springframework.web.server.WebFilter;
 @EnableAsync
 @EnableScheduling
 @Import(value = {
-        JpaConfig.class,
-        DomainCore.class,
-        InfraCore.class,
+    JpaConfig.class,
+    DomainCore.class,
+    InfraCore.class,
 })
 public class ApiApp {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ApiApp.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(ApiApp.class, args);
+  }
 
-    @Bean
-    public WebFilter contextPathWebFilter(ServerProperties serverProperties) {
-        var contextPath = serverProperties.getServlet().getContextPath();
-        return (exchange, chain) -> {
-            var request = exchange.getRequest();
-            if (request.getURI().getPath().startsWith(contextPath)) {
-                return chain.filter(
-                        exchange.mutate()
-                                .request(request.mutate().contextPath(contextPath).build())
-                                .build());
-            }
-            return chain.filter(exchange);
-        };
-    }
+  @Bean
+  public WebFilter contextPathWebFilter(ServerProperties serverProperties) {
+    var contextPath = serverProperties.getServlet().getContextPath();
+    return (exchange, chain) -> {
+      var request = exchange.getRequest();
+      if (request.getURI().getPath().startsWith(contextPath)) {
+        return chain.filter(
+            exchange.mutate()
+                .request(request.mutate().contextPath(contextPath).build())
+                .build());
+      }
+      return chain.filter(exchange);
+    };
+  }
 
 }

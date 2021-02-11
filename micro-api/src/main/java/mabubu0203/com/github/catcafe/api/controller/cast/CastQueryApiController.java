@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -41,6 +42,7 @@ public class CastQueryApiController implements CastQueryApi {
       summary = "キャスト(猫)詳細取得API",
       description = "キャスト(猫)詳細を1件取得する",
       operationId = "castCatFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -61,6 +63,7 @@ public class CastQueryApiController implements CastQueryApi {
       summary = "キャスト(猫)一覧取得API",
       description = "キャスト(猫)を取得する",
       operationId = "castCatSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -75,12 +78,12 @@ public class CastQueryApiController implements CastQueryApi {
     return null;
   }
 
-
   @Operation(
       tags = {"cast_query",},
       summary = "キャスト詳細取得API",
       description = "キャスト詳細を1件取得する",
       operationId = "castFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -95,20 +98,21 @@ public class CastQueryApiController implements CastQueryApi {
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
       @Parameter(description = "キャストID", schema = @Schema(type = "integer")) Integer castId,
       ServerWebExchange exchange) {
-    return new CastFindRequestMapper(
-        cats, storeId, castId).get()
-        .map(this.castSearchService::promise)
-        .flatMap(Mono::fromCompletionStage)
-        .map(new CastFindResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+    return
+        new CastFindRequestMapper(
+            cats, storeId, castId).get()
+            .map(this.castSearchService::promise)
+            .flatMap(Mono::fromCompletionStage)
+            .map(new CastFindResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
-
 
   @Operation(
       tags = {"cast_query",},
       summary = "キャスト一覧取得API",
       description = "キャストを取得する",
       operationId = "castSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -126,13 +130,14 @@ public class CastQueryApiController implements CastQueryApi {
       @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {
           "store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
       ServerWebExchange exchange) {
-    return new CastSearchRequestMapper(
-        cats, storeIds, castIds,
-        page, size, sortKeys).get()
-        .map(this.castSearchService::promise)
-        .flatMap(Mono::fromCompletionStage)
-        .map(new CastSearchResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+    return
+        new CastSearchRequestMapper(
+            cats, storeIds, castIds,
+            page, size, sortKeys).get()
+            .map(this.castSearchService::promise)
+            .flatMap(Mono::fromCompletionStage)
+            .map(new CastSearchResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
 }
