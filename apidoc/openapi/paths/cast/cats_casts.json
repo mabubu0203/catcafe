@@ -1,0 +1,133 @@
+{
+  "summary": "",
+  "description": "",
+  "parameters": [
+    {
+      "name": "cats",
+      "in": "path",
+      "description": "カフェ識別子",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "cats"
+        ],
+        "x-enum-varnames": [
+          "cats"
+        ]
+      }
+    }
+  ],
+  "get": {
+    "tags": [
+      "cast_query"
+    ],
+    "summary": "キャスト一覧取得API",
+    "description": "キャストを取得する",
+    "operationId": "castSearch",
+    "parameters": [
+      {
+        "name": "store_ids",
+        "in": "query",
+        "description": "店舗ID",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      {
+        "name": "cast_ids",
+        "in": "query",
+        "description": "キャストID",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      {
+        "name": "page",
+        "in": "query",
+        "description": "取得ページ",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "description": "取得サイズ",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 20
+        }
+      },
+      {
+        "name": "sort_keys",
+        "in": "query",
+        "description": "ソートキー",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items":{
+            "type": "string",
+            "enum": [
+              "store_id.asc",
+              "store_id.desc"
+            ],
+            "x-enum-varnames": [
+              "store_id.asc",
+              "store_id.desc"
+            ]
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "正常系",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/cast/response.json#/definitions/cast_search_response"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      }
+    }
+  }
+}

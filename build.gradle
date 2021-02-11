@@ -1,78 +1,85 @@
 buildscript {
-	ext {
-		// ソースと実行ファイルのJavaバージョン
-		jdkVersion = jdkVersion
-		defaultEncoding = defaultEncoding
+    ext {
+        // ソースと実行ファイルのJavaバージョン
+        jdkVersion = jdkVersion
+        defaultEncoding = defaultEncoding
 
-		// SpringBoot
-		springBootVersion = springbootVersion
+        // SpringBoot
+        springBootVersion = springbootVersion
 
-		// Springdoc
-		swaggerAnnotationsVersion = swaggerAnnotationsVersion
-		springDocVersion = springdocVersion
+        // Springdoc
+        swaggerAnnotationsVersion = swaggerAnnotationsVersion
+        springDocVersion = springdocVersion
 
-		// CatCafe
-		catCafeVersion = catCafeVersion
+        // CatCafe
+        catCafeVersion = catCafeVersion
 
-	}
+    }
 
-	repositories {
-		jcenter()
-	}
+    repositories {
+        jcenter()
+    }
 
 }
 
 plugins {
-	id "org.springframework.boot" version "2.4.2"
-	id "io.spring.dependency-management" version "1.0.11.RELEASE"
-	id "org.openapi.generator" version "5.0.0"
-	id "com.github.node-gradle.node" version "2.2.4"
-	id "com.google.cloud.tools.jib" version "2.7.1" apply false
-	id "com.gorylenko.gradle-git-properties" version "2.2.4"
-	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.65"
+    id "org.springframework.boot" version "2.4.2"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+    id "org.openapi.generator" version "5.0.1"
+    id "com.github.node-gradle.node" version "3.0.1"
+    id "com.google.cloud.tools.jib" version "2.7.1" apply false
+    id "com.gorylenko.gradle-git-properties" version "2.2.4"
+    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.65"
 }
 
 subprojects {
 
-	apply from: "$rootDir/gradle/java.gradle"
-	apply from: "$rootDir/gradle/spring.gradle"
+    apply from: "$rootDir/gradle/java.gradle"
+    apply from: "$rootDir/gradle/spring.gradle"
 
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-	}
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
-	repositories {
-		jcenter()
-	}
+    repositories {
+        jcenter()
+    }
 
-	group("mabubu0203.com.github")
+    group("mabubu0203.com.github")
 }
 
 project(":micro-admin") {
 }
 
 project(":micro-api") {
-	dependencies {
-		api(project(":micro-infra"))
-	}
+    dependencies {
+        api(project(":openapi-generate"))
+        api(project(":micro-infra"))
+    }
 }
 
 project(":micro-common") {
 }
 
 project(":micro-domain") {
-	dependencies {
-		api(project(":micro-common"))
-	}
+    dependencies {
+        api(project(":micro-common"))
+    }
 }
 
 project(":micro-infra") {
-	dependencies {
-		api(project(":micro-domain"))
-	}
+    dependencies {
+        api(project(":micro-domain"))
+    }
 }
 
 project(":micro-site") {
+    dependencies {
+        api(project(":openapi-generate"))
+    }
+}
+
+project(":openapi-generate") {
 }

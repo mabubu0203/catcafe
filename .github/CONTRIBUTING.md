@@ -31,6 +31,7 @@ IntelliJ IDEAを使用します。
 [Admin(Vue)][]
 [phpMyAdmin][]
 [openapi-ui][]
+[ReDoc][]
 
 ## 停止方法
 
@@ -53,4 +54,6 @@ IntelliJ IDEAを使用します。
 
 [phpMyAdmin]: http://localhost:8021/                                        "phpMyAdmin"
 
-[OpenApi-UI]: http://127.0.0.1:8002/                                        "openapi-ui"
+[OpenApi-UI]: http://localhost:8002/                                        "openapi-ui"
+
+[ReDoc]: http://localhost:8081/                                              "ReDoc"

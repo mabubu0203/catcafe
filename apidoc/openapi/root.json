@@ -1,0 +1,199 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CatCafeApi",
+    "description": "猫カフェのポータルサイトと管理画面で使用するAPIを定義",
+    "version": "0.1.0"
+  },
+  "tags": [
+    {
+      "name": "authentication",
+      "description": "認証"
+    },
+    {
+      "name": "notice_command",
+      "description": "お知らせ(書き込み)"
+    },
+    {
+      "name": "notice_query",
+      "description": "お知らせ(読み取り)"
+    },
+    {
+      "name": "store_command",
+      "description": "店舗(書き込み)"
+    },
+    {
+      "name": "store_query",
+      "description": "店舗(読み取り)"
+    },
+    {
+      "name": "contact_command",
+      "description": "お問い合わせ(書き込み)"
+    },
+    {
+      "name": "contact_query",
+      "description": "お問い合わせ(読み取り)"
+    },
+    {
+      "name": "frequently_asked_question_command",
+      "description": "FAQ(書き込み)"
+    },
+    {
+      "name": "frequently_asked_question_query",
+      "description": "FAQ(読み取り)"
+    },
+    {
+      "name": "event_command",
+      "description": "イベント(書き込み)"
+    },
+    {
+      "name": "event_query",
+      "description": "イベント(読み取り)"
+    },
+    {
+      "name": "display_menu_command",
+      "description": "表示表示メニュー(書き込み)"
+    },
+    {
+      "name": "display_menu_query",
+      "description": "表示表示メニュー(読み取り)"
+    },
+    {
+      "name": "provide_service_command",
+      "description": "提供サービス(書き込み)"
+    },
+    {
+      "name": "provide_service_query",
+      "description": "提供サービス(読み取り)"
+    },
+    {
+      "name": "cast_command",
+      "description": "キャスト(書き込み)"
+    },
+    {
+      "name": "cast_query",
+      "description": "キャスト(読み取り)"
+    },
+    {
+      "name": "congestion",
+      "description": "混雑状況"
+    },
+    {
+      "name": "link",
+      "description": "外部/SNSリンク"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://{username}:{port}/{basePath}",
+      "description": "ローカル環境",
+      "variables": {
+        "username": {
+          "default": "localhost"
+        },
+        "port": {
+          "enum": [
+            "8080"
+          ],
+          "default": "8080"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/{cats}/authentication/x_api_key/generate": {
+      "$ref": "./paths/authentication/cats_authentication_x_api_key_generate.json"
+    },
+    "/{cats}/notice": {
+      "$ref": "./paths/notice/cats_notice.json"
+    },
+    "/{cats}/notices": {
+      "$ref": "./paths/notice/cats_notices.json"
+    },
+    "/{cats}/notices/{notice_id}": {
+      "$ref": "./paths/notice/cats_notices_notice_id.json"
+    },
+    "/{cats}/store": {
+      "$ref": "./paths/store/cats_store.json"
+    },
+    "/{cats}/stores": {
+      "$ref": "./paths/store/cats_stores.json"
+    },
+    "/{cats}/stores/{store_id}": {
+      "$ref": "./paths/store/cats_stores_store_id.json"
+    },
+    "/{cats}/contact": {
+      "$ref": "./paths/contact/cats_contact.json"
+    },
+    "/{cats}/contacts": {
+      "$ref": "./paths/contact/cats_contacts.json"
+    },
+    "/{cats}/contacts/{contact_id}": {
+      "$ref": "./paths/contact/cats_contacts_contact_id.json"
+    },
+    "/{cats}/frequently_asked_question": {
+      "$ref": "./paths/frequently_asked_question/cats_frequently_asked_question.json"
+    },
+    "/{cats}/frequently_asked_questions": {
+      "$ref": "./paths/frequently_asked_question/cats_frequently_asked_questions.json"
+    },
+    "/{cats}/frequently_asked_questions/{faq_id}": {
+      "$ref": "./paths/frequently_asked_question/cats_frequently_asked_questions_faq_id.json"
+    },
+    "/{cats}/event": {
+      "$ref": "./paths/event/cats_event.json"
+    },
+    "/{cats}/events": {
+      "$ref": "./paths/event/cats_events.json"
+    },
+    "/{cats}/events/{event_id}": {
+      "$ref": "./paths/event/cats_events_event_id.json"
+    },
+    "/{cats}/display_menus": {
+      "$ref": "./paths/display_menu/cats_display_menus.json"
+    },
+    "/{cats}/stores/{store_id}/display_menu": {
+      "$ref": "./paths/display_menu/cats_stores_store_id_display_menu.json"
+    },
+    "/{cats}/stores/{store_id}/display_menus/{display_menu_id}": {
+      "$ref": "./paths/display_menu/cats_stores_store_id_display_menus_display_menu_id.json"
+    },
+    "/{cats}/provide_services": {
+      "$ref": "./paths/provide_service/cats_provide_services.json"
+    },
+    "/{cats}/stores/{store_id}/provide_service": {
+      "$ref": "./paths/provide_service/cats_stores_store_id_provide_service.json"
+    },
+    "/{cats}/stores/{store_id}/provide_services/{provide_service_id}": {
+      "$ref": "./paths/provide_service/cats_stores_store_id_provide_services_provide_service_id.json"
+    },
+    "/{cats}/cast_cat": {
+      "$ref": "./paths/cast/cats_cast_cat.json"
+    },
+    "/{cats}/cast_cats": {
+      "$ref": "./paths/cast/cats_cast_cats.json"
+    },
+    "/{cats}/cast_cats/{cast_cat_id}": {
+      "$ref": "./paths/cast/cats_cast_cats_cast_cat_id.json"
+    },
+    "/{cats}/casts": {
+      "$ref": "./paths/cast/cats_casts.json"
+    },
+    "/{cats}/stores/{store_id}/cast": {
+      "$ref": "./paths/cast/cats_stores_store_id_cast.json"
+    },
+    "/{cats}/stores/{store_id}/casts/{cast_id}": {
+      "$ref": "./paths/cast/cats_stores_store_id_casts_cast_id.json"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY",
+        "description": "A api key"
+      }
+    }
+  }
+}

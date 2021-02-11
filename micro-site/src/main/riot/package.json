@@ -21,14 +21,14 @@
     "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "1.0.18-4.3.1"
+    "@openapitools/openapi-generator-cli": "2.1.23"
   },
   "scripts": {
     "webpack-development": "webpack --mode development",
     "webpack-production": "webpack --mode=production",
     "start-development": "NODE_ENV=development webpack-dev-server --inline --watch --hot --colors -d --port 3000 --mode development",
-    "validate-schema": "openapi-generator validate -i ../../../../apidoc/openapi/openapi.json",
-    "generate-client": "openapi-generator generate -i ../../../../apidoc/openapi/openapi.json -o ./axios-front --api-package=api -g typescript-axios -c ./axios-front/openapi-generator-config.json --model-package=model"
+    "validate-schema": "openapi-generator-cli validate -i ../../../../apidoc/generate/openapi.json",
+    "generate-client": "openapi-generator-cli generate -i ../../../../apidoc/generate/openapi.json -o ./axios-front --api-package=api -g typescript-axios -c ./axios-front/openapi-generator-config.json --model-package=model"
   },
   "keywords": [
     "riot",

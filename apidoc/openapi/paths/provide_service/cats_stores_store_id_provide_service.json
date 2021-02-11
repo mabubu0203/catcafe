@@ -1,0 +1,87 @@
+{
+  "summary": "",
+  "description": "",
+  "parameters": [
+    {
+      "name": "cats",
+      "in": "path",
+      "description": "カフェ識別子",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "cats"
+        ],
+        "x-enum-varnames": [
+          "cats"
+        ]
+      }
+    },
+    {
+      "name": "store_id",
+      "in": "path",
+      "description": "店舗ID",
+      "required": true,
+      "schema": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  ],
+  "post": {
+    "tags": [
+      "provide_service_command"
+    ],
+    "summary": "提供サービス登録API",
+    "description": "提供サービスを1件登録する",
+    "operationId": "provideServiceCreate",
+    "requestBody": {
+      "description": "リクエストボディ",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../components/schemas/provide_service/request.json#/definitions/provide_service_create"
+          }
+        }
+      },
+      "required": true
+    },
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "正常系",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/success_response/postResponse.json#/definitions/post_object"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      }
+    }
+  }
+}
