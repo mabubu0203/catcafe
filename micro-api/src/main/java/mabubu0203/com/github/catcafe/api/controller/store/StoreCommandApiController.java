@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import mabubu0203.com.github.catcafe.api.controller.store.service.StoreDeleteSer
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreModifyService;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreRegisterService;
 import org.openapitools.api.StoreCommandApi;
+import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
 import org.openapitools.model.StoreCreate;
@@ -43,9 +45,11 @@ public class StoreCommandApiController implements StoreCommandApi {
       summary = "店舗登録API",
       description = "店舗を1件登録する",
       operationId = "storeCreate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @Override
@@ -66,8 +70,10 @@ public class StoreCommandApiController implements StoreCommandApi {
       summary = "店舗削除API",
       description = "店舗を1件論理削除する",
       operationId = "storeDelete",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }
@@ -78,14 +84,15 @@ public class StoreCommandApiController implements StoreCommandApi {
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
       @Parameter(description = "バージョンフィールド", schema = @Schema(type = "integer")) @NotNull @Valid Integer version,
       ServerWebExchange exchange) {
-    return new StoreDeleteRequestMapper(
-        cats, storeId,
-        version).get()
-        .map(this.deleteService::promise)
-        .flatMap(Mono::fromCompletionStage)
-        .map(new StoreDeleteResponseMapper())
-        .filter(Boolean::booleanValue)
-        .map(bool -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+    return
+        new StoreDeleteRequestMapper(
+            cats, storeId,
+            version).get()
+            .map(this.deleteService::promise)
+            .flatMap(Mono::fromCompletionStage)
+            .map(new StoreDeleteResponseMapper())
+            .filter(Boolean::booleanValue)
+            .map(bool -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
   }
 
   @Operation(
@@ -93,9 +100,11 @@ public class StoreCommandApiController implements StoreCommandApi {
       summary = "店舗更新API",
       description = "店舗を1件更新する",
       operationId = "storeUpdate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }

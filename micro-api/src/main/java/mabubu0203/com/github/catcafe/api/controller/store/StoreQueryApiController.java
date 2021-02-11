@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -15,6 +16,7 @@ import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreSe
 import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreSearchService;
 import org.openapitools.api.StoreQueryApi;
+import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.StoreFindResponse;
 import org.openapitools.model.StoreSearchResponse;
 import org.openapitools.model.ValidationResult;
@@ -37,9 +39,11 @@ public class StoreQueryApiController implements StoreQueryApi {
       summary = "店舗詳細取得API",
       description = "店舗詳細を1件取得する",
       operationId = "storeFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = StoreFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -56,9 +60,11 @@ public class StoreQueryApiController implements StoreQueryApi {
       summary = "店舗一覧取得API",
       description = "店舗を取得する",
       operationId = "storeSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = StoreSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @CrossOrigin
@@ -71,14 +77,14 @@ public class StoreQueryApiController implements StoreQueryApi {
       @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {
           "store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
       ServerWebExchange exchange) {
-    return new StoreSearchRequestMapper(
-        cats, storeIds,
-        page, size, sortKeys).get()
-        .map(this.searchService::promise)
-        .flatMap(Mono::fromCompletionStage)
-        .map(new StoreSearchResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+    return
+        new StoreSearchRequestMapper(
+            cats, storeIds,
+            page, size, sortKeys).get()
+            .map(this.searchService::promise)
+            .flatMap(Mono::fromCompletionStage)
+            .map(new StoreSearchResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
-
 
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト(猫)登録API",
       description = "キャスト(猫)を1件登録する",
       operationId = "castCatCreate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -65,6 +67,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト(猫)削除API",
       description = "キャスト(猫)を1件論理削除する",
       operationId = "castCatDelete",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
@@ -86,6 +89,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト(猫)更新API",
       description = "キャスト(猫)を1件更新する",
       operationId = "castCatUpdate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -108,6 +112,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト登録API",
       description = "キャストを1件登録する",
       operationId = "castCreate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
@@ -133,6 +138,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト削除API",
       description = "キャストを1件論理削除する",
       operationId = "castDelete",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
@@ -155,6 +161,7 @@ public class CastCommandApiController implements CastCommandApi {
       summary = "キャスト更新API",
       description = "キャストを1件更新する",
       operationId = "castUpdate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),

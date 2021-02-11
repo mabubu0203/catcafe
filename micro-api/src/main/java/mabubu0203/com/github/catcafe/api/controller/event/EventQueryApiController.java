@@ -4,10 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.EventQueryApi;
+import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.EventFindResponse;
 import org.openapitools.model.EventSearchResponse;
 import org.openapitools.model.ValidationResult;
@@ -25,9 +27,11 @@ public class EventQueryApiController implements EventQueryApi {
       summary = "イベント詳細取得API",
       description = "イベント詳細を1件取得する",
       operationId = "eventFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = EventFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -44,9 +48,11 @@ public class EventQueryApiController implements EventQueryApi {
       summary = "イベント一覧取得API",
       description = "イベントを取得する",
       operationId = "eventSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = EventSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @Override

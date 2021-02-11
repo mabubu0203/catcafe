@@ -5,20 +5,22 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.response.FindRespo
 import org.openapitools.model.FrequentlyAskedQuestionDetail;
 import org.openapitools.model.FrequentlyAskedQuestionFindResponse;
 
-public class FrequentlyAskedQuestionFindResponseMapper implements FindResponseMapper<FrequentlyAskedQuestionSearchServiceOutput, FrequentlyAskedQuestionFindResponse> {
+public class FrequentlyAskedQuestionFindResponseMapper implements
+    FindResponseMapper<FrequentlyAskedQuestionSearchServiceOutput, FrequentlyAskedQuestionFindResponse> {
 
-    @Override
-    public FrequentlyAskedQuestionFindResponse apply(FrequentlyAskedQuestionSearchServiceOutput frequentlyAskedQuestionSearchServiceOutput) {
-        return this.search();
-    }
+  @Override
+  public FrequentlyAskedQuestionFindResponse apply(
+      FrequentlyAskedQuestionSearchServiceOutput frequentlyAskedQuestionSearchServiceOutput) {
+    return this.search();
+  }
 
-    private FrequentlyAskedQuestionFindResponse search() {
-        var detail = new FrequentlyAskedQuestionDetail();
-        detail.setId(1);
+  private FrequentlyAskedQuestionFindResponse search() {
+    var detail = new FrequentlyAskedQuestionDetail();
+    detail.setId(1);
 
-        var result = new FrequentlyAskedQuestionFindResponse();
-        result.setFrequentlyAskedQuestion(detail);
-        return result;
-    }
+    var result = new FrequentlyAskedQuestionFindResponse();
+    result.setFrequentlyAskedQuestion(detail);
+    return result;
+  }
 
 }

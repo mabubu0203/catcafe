@@ -4,6 +4,7 @@ import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.se
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.service.model.output.FrequentlyAskedQuestionSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.service.ApplicationService;
 
-public interface FrequentlyAskedQuestionSearchService extends ApplicationService<FrequentlyAskedQuestionSearchServiceInput, FrequentlyAskedQuestionSearchServiceOutput> {
+public interface FrequentlyAskedQuestionSearchService extends
+    ApplicationService<FrequentlyAskedQuestionSearchServiceInput, FrequentlyAskedQuestionSearchServiceOutput> {
 
 }

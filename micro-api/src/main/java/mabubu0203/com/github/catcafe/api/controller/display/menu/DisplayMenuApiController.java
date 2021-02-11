@@ -4,11 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.DisplayMenuApi;
+import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.DisplayMenuCreate;
 import org.openapitools.model.DisplayMenuFindResponse;
 import org.openapitools.model.DisplayMenuSearchResponse;
@@ -30,9 +32,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
       summary = "表示メニュー登録API",
       description = "表示メニューを1件登録する",
       operationId = "displayMenuCreate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @Override
@@ -49,8 +53,10 @@ public class DisplayMenuApiController implements DisplayMenuApi {
       summary = "表示メニュー削除API",
       description = "表示メニューを1件論理削除する",
       operationId = "displayMenuDelete",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }
@@ -70,9 +76,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
       summary = "表示メニュー詳細取得API",
       description = "表示メニュー詳細を1件取得する",
       operationId = "displayMenuFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = DisplayMenuFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -90,9 +98,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
       summary = "表示メニュー一覧取得API",
       description = "表示メニューを取得する",
       operationId = "displayMenuSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = DisplayMenuSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @Override
@@ -108,9 +118,11 @@ public class DisplayMenuApiController implements DisplayMenuApi {
       summary = "表示メニュー更新API",
       description = "表示メニューを1件更新する",
       operationId = "displayMenuUpdate",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }

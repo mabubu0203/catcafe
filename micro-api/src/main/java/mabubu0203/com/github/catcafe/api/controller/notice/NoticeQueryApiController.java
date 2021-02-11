@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -15,6 +16,7 @@ import mabubu0203.com.github.catcafe.api.controller.notice.helper.request.Notice
 import mabubu0203.com.github.catcafe.api.controller.notice.helper.response.NoticeSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeSearchService;
 import org.openapitools.api.NoticeQueryApi;
+import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.NoticeFindResponse;
 import org.openapitools.model.NoticeSearchResponse;
 import org.openapitools.model.ValidationResult;
@@ -36,9 +38,11 @@ public class NoticeQueryApiController implements NoticeQueryApi {
       summary = "お知らせ詳細取得API",
       description = "お知らせを1件取得する",
       operationId = "noticeFind",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = NoticeFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -55,9 +59,11 @@ public class NoticeQueryApiController implements NoticeQueryApi {
       summary = "お知らせ一覧取得API",
       description = "お知らせを取得する",
       operationId = "noticeSearch",
+      security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = NoticeSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
   @CrossOrigin
@@ -71,13 +77,14 @@ public class NoticeQueryApiController implements NoticeQueryApi {
       @Parameter(description = "ソートキー", array = @ArraySchema(schema = @Schema(allowableValues = {
           "store_id.asc", "store_id.desc"}))) @Valid List<String> sortKeys,
       ServerWebExchange exchange) {
-    return new NoticeSearchRequestMapper(
-        cats, storeIds, noticeIds,
-        page, size, sortKeys).get()
-        .map(this.searchService::promise)
-        .flatMap(Mono::fromCompletionStage)
-        .map(new NoticeSearchResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+    return
+        new NoticeSearchRequestMapper(
+            cats, storeIds, noticeIds,
+            page, size, sortKeys).get()
+            .map(this.searchService::promise)
+            .flatMap(Mono::fromCompletionStage)
+            .map(new NoticeSearchResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
 }

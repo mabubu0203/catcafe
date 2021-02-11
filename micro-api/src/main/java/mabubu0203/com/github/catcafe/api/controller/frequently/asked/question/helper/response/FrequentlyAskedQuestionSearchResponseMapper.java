@@ -5,21 +5,23 @@ import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchRes
 import org.openapitools.model.FrequentlyAskedQuestionDetail;
 import org.openapitools.model.FrequentlyAskedQuestionSearchResponse;
 
-public class FrequentlyAskedQuestionSearchResponseMapper implements SearchResponseMapper<FrequentlyAskedQuestionSearchServiceOutput, FrequentlyAskedQuestionSearchResponse> {
+public class FrequentlyAskedQuestionSearchResponseMapper implements
+    SearchResponseMapper<FrequentlyAskedQuestionSearchServiceOutput, FrequentlyAskedQuestionSearchResponse> {
 
-    @Override
-    public FrequentlyAskedQuestionSearchResponse apply(FrequentlyAskedQuestionSearchServiceOutput frequentlyAskedQuestionSearchServiceOutput) {
-        return this.search();
-    }
+  @Override
+  public FrequentlyAskedQuestionSearchResponse apply(
+      FrequentlyAskedQuestionSearchServiceOutput frequentlyAskedQuestionSearchServiceOutput) {
+    return this.search();
+  }
 
-    private FrequentlyAskedQuestionSearchResponse search() {
-        var detail = new FrequentlyAskedQuestionDetail();
-        detail.setId(1);
-        detail.setCategory("料金に関する");
+  private FrequentlyAskedQuestionSearchResponse search() {
+    var detail = new FrequentlyAskedQuestionDetail();
+    detail.setId(1);
+    detail.setCategory("料金に関する");
 
-        var result = new FrequentlyAskedQuestionSearchResponse();
-        result.addFrequentlyAskedQuestionsItem(detail);
-        return result;
-    }
+    var result = new FrequentlyAskedQuestionSearchResponse();
+    result.addFrequentlyAskedQuestionsItem(detail);
+    return result;
+  }
 
 }
