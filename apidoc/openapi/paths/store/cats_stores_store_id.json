@@ -1,0 +1,187 @@
+{
+  "summary": "",
+  "description": "",
+  "parameters": [
+    {
+      "name": "cats",
+      "in": "path",
+      "description": "カフェ識別子",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "cats"
+        ],
+        "x-enum-varnames": [
+          "cats"
+        ]
+      }
+    },
+    {
+      "name": "store_id",
+      "in": "path",
+      "description": "店舗ID",
+      "required": true,
+      "schema": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  ],
+  "get": {
+    "tags": [
+      "store_query"
+    ],
+    "summary": "店舗詳細取得API",
+    "description": "店舗詳細を1件取得する",
+    "operationId": "storeFind",
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "正常系",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/store/response.json#/definitions/store_find_response"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Idが見つからない"
+      }
+    }
+  },
+  "patch": {
+    "tags": [
+      "store_command"
+    ],
+    "summary": "店舗更新API",
+    "description": "店舗を1件更新する",
+    "operationId": "storeUpdate",
+    "requestBody": {
+      "description": "リクエストボディ",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../components/schemas/store/request.json#/definitions/store_update"
+          }
+        }
+      },
+      "required": true
+    },
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "正常系",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/success_response/patchResponse.json#/definitions/patch_object"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Idが見つからない"
+      },
+      "409": {
+        "description": "排他失敗"
+      }
+    }
+  },
+  "delete": {
+    "tags": [
+      "store_command"
+    ],
+    "summary": "店舗削除API",
+    "description": "店舗を1件論理削除する",
+    "operationId": "storeDelete",
+    "parameters": [
+      {
+        "name": "version",
+        "in": "query",
+        "description": "バージョンフィールド",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    ],
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "正常系"
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Idが見つからない"
+      },
+      "409": {
+        "description": "排他失敗"
+      }
+    }
+  }
+}

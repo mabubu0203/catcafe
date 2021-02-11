@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/micro-domain" />
             <option value="$PROJECT_DIR$/micro-infra" />
             <option value="$PROJECT_DIR$/micro-site" />
+            <option value="$PROJECT_DIR$/openapi-generate" />
           </set>
         </option>
       </GradleProjectSettings>

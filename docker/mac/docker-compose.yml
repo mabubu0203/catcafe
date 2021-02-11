@@ -42,11 +42,22 @@ services:
     ports:
       - 8002:8080
     volumes:
-      - "../../apidoc/openapi/openapi.json:/openapi.json"
+      - "../../apidoc/generate/openapi.json:/openapi.json"
     environment:
       SWAGGER_JSON: /openapi.json
       DISPLAY_OPERATION_ID: "true"
       SHOW_EXTENSIONS: "true"
       SHOW_COMMON_EXTENSIONS: "true"
       TRY_IT_OUT_ENABLED: "true"
+    restart: always
+
+  redoc:
+    build: ./docker-redoc
+    container_name: docker-redoc
+    ports:
+      - 8081:80
+    volumes:
+      - "../../apidoc/generate/openapi.json:/usr/share/nginx/html/openapi.json"
+    environment:
+      SPEC_URL: ./openapi.json
     restart: always

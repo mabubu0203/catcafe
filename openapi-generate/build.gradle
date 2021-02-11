@@ -1,0 +1,3 @@
+apply from: "$rootDir/gradle/generate_openapi_json.gradle"
+
+compileJava.dependsOn tasks.openApiGenerate

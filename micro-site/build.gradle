@@ -54,4 +54,4 @@ node {
     nodeModulesDir = file("${project.projectDir}/src/main/riot")
 }
 
-compileJava.dependsOn tasks.generateClient, tasks.webpackDevelopment
+compileJava.dependsOn ':openapi-generate:openApiGenerate'

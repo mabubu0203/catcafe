@@ -1,0 +1,77 @@
+{
+  "summary": "",
+  "description": "",
+  "parameters": [
+    {
+      "name": "cats",
+      "in": "path",
+      "description": "カフェ識別子",
+      "required": true,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "cats"
+        ],
+        "x-enum-varnames": [
+          "cats"
+        ]
+      }
+    }
+  ],
+  "post": {
+    "tags": [
+      "cast_command"
+    ],
+    "summary": "キャスト(猫)登録API",
+    "description": "キャスト(猫)を1件登録する",
+    "operationId": "castCatCreate",
+    "requestBody": {
+      "description": "リクエストボディ",
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "../../components/schemas/cast/request.json#/definitions/cast_cat_create"
+          }
+        }
+      },
+      "required": true
+    },
+    "security": [
+      {
+        "ApiKeyAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "正常系",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/success_response/postResponse.json#/definitions/post_object"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "認証エラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+            }
+          }
+        }
+      }
+    }
+  }
+}

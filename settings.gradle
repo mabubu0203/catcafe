@@ -10,5 +10,6 @@ include(
         'micro-common',
         'micro-domain',
         'micro-infra',
-        'micro-site'
+        'micro-site',
+        'openapi-generate'
 )
