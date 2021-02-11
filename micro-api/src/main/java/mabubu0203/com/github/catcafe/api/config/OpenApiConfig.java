@@ -26,7 +26,7 @@ public class OpenApiConfig {
                             .description("A api key")))
             .addSecurityItem(
                 new SecurityRequirement()
-                    .addList("apiKeyScheme"));
+                    .addList("ApiKeyAuth"));
   }
 
   @Bean

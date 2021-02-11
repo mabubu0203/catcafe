@@ -40,7 +40,7 @@
   ],
   "get": {
     "tags": [
-      "display_menu"
+      "display_menu_query"
     ],
     "summary": "表示メニュー詳細取得API",
     "description": "表示メニュー詳細を1件取得する",
@@ -88,7 +88,7 @@
   },
   "patch": {
     "tags": [
-      "display_menu"
+      "display_menu_command"
     ],
     "summary": "表示メニュー更新API",
     "description": "表示メニューを1件更新する",
@@ -150,7 +150,7 @@
   },
   "delete": {
     "tags": [
-      "display_menu"
+      "display_menu_command"
     ],
     "summary": "表示メニュー削除API",
     "description": "表示メニューを1件論理削除する",
