@@ -20,7 +20,7 @@
   ],
   "get": {
     "tags": [
-      "display_menu"
+      "display_menu_query"
     ],
     "summary": "表示メニュー一覧取得API",
     "description": "表示メニューを取得する",

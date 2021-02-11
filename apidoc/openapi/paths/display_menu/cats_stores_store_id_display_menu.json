@@ -30,7 +30,7 @@
   ],
   "post": {
     "tags": [
-      "display_menu"
+      "display_menu_command"
     ],
     "summary": "表示メニュー登録API",
     "description": "表示メニューを1件登録する",
