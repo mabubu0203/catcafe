@@ -35,6 +35,7 @@ public class ApiSecurityConfig {
   };
 
   private static final String[] authorizeUrls = {
+      "/CatCafeApi/cats/cast_cat",
       "/CatCafeApi/cats/cast_cats",
       "/CatCafeApi/cats/cast_cats/**",
       "/CatCafeApi/cats/casts",
