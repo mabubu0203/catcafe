@@ -30,7 +30,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/authentication/request.json#/definitions/x_api_key_generate"
+            "$ref": "../../components/requestBodies/authentication/request.json#/definitions/x_api_key_generate"
           }
         }
       },
@@ -42,7 +42,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/authentication/response.json#/definitions/x_api_key_generate_response"
+              "$ref": "../../components/responses/authentication/response.json#/definitions/x_api_key_generate_response"
             }
           }
         }
@@ -52,7 +52,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }

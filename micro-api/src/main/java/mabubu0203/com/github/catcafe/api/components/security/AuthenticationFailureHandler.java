@@ -2,7 +2,8 @@ package mabubu0203.com.github.catcafe.api.components.security;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationError;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -35,17 +36,21 @@ public class AuthenticationFailureHandler implements ServerAuthenticationFailure
   }
 
   private Flux<DataBuffer> generateBody(ServerHttpResponse response) {
+    var dataBufferFactory = response.bufferFactory();
     // TODO:とりあえず
-    var body = new AuthenticationResult();
-    body.setKey("認証");
     return
-        new Jackson2JsonEncoder()
-            .encode(
-                Flux.just(body),
-                response.bufferFactory(),
-                ResolvableType.forInstance(body),
-                MediaType.APPLICATION_JSON,
-                null);
+        Optional.of("認証失敗です")
+            .map(new AuthenticationError()::message)
+            .map(new AuthenticationErrorResponse()::authenticationError)
+            .map(error ->
+                new Jackson2JsonEncoder()
+                    .encode(
+                        Flux.just(error),
+                        dataBufferFactory,
+                        ResolvableType.forInstance(error),
+                        MediaType.APPLICATION_JSON,
+                        null))
+            .orElseThrow(RuntimeException::new);
   }
 
 }

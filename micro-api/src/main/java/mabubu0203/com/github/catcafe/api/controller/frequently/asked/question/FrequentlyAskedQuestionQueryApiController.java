@@ -15,7 +15,7 @@ import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.he
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.helper.response.FrequentlyAskedQuestionSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.service.FrequentlyAskedQuestionSearchService;
 import org.openapitools.api.FrequentlyAskedQuestionQueryApi;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.openapitools.model.FrequentlyAskedQuestionFindResponse;
 import org.openapitools.model.FrequentlyAskedQuestionSearchResponse;
 import org.openapitools.model.ValidationErrorResponse;
@@ -41,7 +41,7 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -68,7 +68,7 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @CrossOrigin

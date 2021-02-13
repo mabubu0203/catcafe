@@ -18,7 +18,7 @@ import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastFin
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastSearchService;
 import org.openapitools.api.CastQueryApi;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.openapitools.model.CastCatFindResponse;
 import org.openapitools.model.CastCatSearchResponse;
 import org.openapitools.model.CastFindResponse;
@@ -46,7 +46,7 @@ public class CastQueryApiController implements CastQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -67,7 +67,7 @@ public class CastQueryApiController implements CastQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastCatSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @Override
@@ -87,7 +87,7 @@ public class CastQueryApiController implements CastQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -116,7 +116,7 @@ public class CastQueryApiController implements CastQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = CastSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @CrossOrigin

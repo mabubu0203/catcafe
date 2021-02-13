@@ -9,7 +9,7 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.ContactQueryApi;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.openapitools.model.ContactFindResponse;
 import org.openapitools.model.ContactSearchResponse;
 import org.openapitools.model.ValidationErrorResponse;
@@ -31,7 +31,7 @@ public class ContactQueryApiController implements ContactQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = ContactFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -52,7 +52,7 @@ public class ContactQueryApiController implements ContactQueryApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = ContactSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @Override

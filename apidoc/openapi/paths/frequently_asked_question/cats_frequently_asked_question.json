@@ -30,7 +30,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/frequently_asked_question/request.json#/definitions/frequently_asked_question_create"
+            "$ref": "../../components/requestBodies/frequently_asked_question/request.json#/definitions/frequently_asked_question_create"
           }
         }
       },
@@ -47,7 +47,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/success_response/postResponse.json#/definitions/post_object"
+              "$ref": "../../components/responses/success/post_response.json#/definitions/post_object"
             }
           }
         }
@@ -57,7 +57,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }
@@ -67,7 +67,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
             }
           }
         }

@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.ContactCommandApi;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.openapitools.model.ContactCreate;
 import org.openapitools.model.PostObject;
 import org.openapitools.model.ValidationErrorResponse;
@@ -30,7 +30,7 @@ public class ContactCommandApiController implements ContactCommandApi {
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @Override

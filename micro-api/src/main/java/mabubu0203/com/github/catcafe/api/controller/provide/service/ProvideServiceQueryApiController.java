@@ -13,7 +13,7 @@ import mabubu0203.com.github.catcafe.api.controller.provide.service.helper.reque
 import mabubu0203.com.github.catcafe.api.controller.provide.service.helper.response.ProvideServiceSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.provide.service.service.ProvideServiceSearchService;
 import org.openapitools.api.ProvideServiceQueryApi;
-import org.openapitools.model.AuthenticationResult;
+import org.openapitools.model.AuthenticationErrorResponse;
 import org.openapitools.model.ProvideServiceFindResponse;
 import org.openapitools.model.ProvideServiceSearchResponse;
 import org.openapitools.model.ValidationErrorResponse;
@@ -39,7 +39,7 @@ public class ProvideServiceQueryApiController implements ProvideServiceQueryApi 
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = ProvideServiceFindResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -61,7 +61,7 @@ public class ProvideServiceQueryApiController implements ProvideServiceQueryApi 
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = ProvideServiceSearchResponse.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
       }
   )
   @CrossOrigin

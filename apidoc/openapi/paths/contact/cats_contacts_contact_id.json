@@ -46,7 +46,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/contact/response.json#/definitions/contact_find_response"
+              "$ref": "../../components/responses/contact/response.json#/definitions/contact_find_response"
             }
           }
         }
@@ -56,7 +56,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }
@@ -66,7 +66,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
             }
           }
         }

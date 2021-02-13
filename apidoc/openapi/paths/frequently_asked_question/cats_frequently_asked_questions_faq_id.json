@@ -46,7 +46,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/frequently_asked_question/response.json#/definitions/frequently_asked_question_find_response"
+              "$ref": "../../components/responses/frequently_asked_question/response.json#/definitions/frequently_asked_question_find_response"
             }
           }
         }
@@ -56,7 +56,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }
@@ -66,7 +66,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
             }
           }
         }
@@ -88,7 +88,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/frequently_asked_question/request.json#/definitions/frequently_asked_question_update"
+            "$ref": "../../components/requestBodies/frequently_asked_question/request.json#/definitions/frequently_asked_question_update"
           }
         }
       },
@@ -105,7 +105,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/success_response/patchResponse.json#/definitions/patch_object"
+              "$ref": "../../components/responses/success/patch_response.json#/definitions/patch_object"
             }
           }
         }
@@ -115,7 +115,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }
@@ -125,7 +125,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
             }
           }
         }
@@ -171,7 +171,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
+              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
             }
           }
         }

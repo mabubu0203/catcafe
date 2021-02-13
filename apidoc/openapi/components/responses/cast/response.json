@@ -77,7 +77,7 @@
           "type": "string"
         },
         "common": {
-          "$ref": "../success_response/commonResponse.json#/model/common"
+          "$ref": "../success/common_response.json#/model/common"
         },
         "cast_cat": {
           "$ref": "#/model/cast_cat"
@@ -147,7 +147,7 @@
           "type": "string"
         },
         "common": {
-          "$ref": "../success_response/commonResponse.json#/model/common"
+          "$ref": "../success/common_response.json#/model/common"
         }
       }
     }
