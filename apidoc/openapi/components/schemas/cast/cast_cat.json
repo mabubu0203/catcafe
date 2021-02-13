@@ -1,0 +1,71 @@
+{
+  "model": {
+    "cast_cat": {
+      "description": "キャスト(猫)詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "キャスト(猫)ID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "名前",
+          "type": "string"
+        },
+        "image": {
+          "description": "画像",
+          "type": "string"
+        },
+        "type": {
+          "description": "種類",
+          "type": "string"
+        },
+        "sex": {
+          "description": "性別",
+          "type": "string"
+        },
+        "birthday_date": {
+          "description": "誕生日",
+          "type": "string",
+          "format": "date"
+        },
+        "like": {
+          "description": "好きなこと",
+          "type": "string"
+        },
+        "dislike": {
+          "description": "嫌いなこと",
+          "type": "string"
+        },
+        "prohibition": {
+          "description": "禁止事項",
+          "type": "string"
+        },
+        "brothers": {
+          "description": "兄弟",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "sisters": {
+          "description": "姉妹",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "memo": {
+          "description": "キャストメモ",
+          "type": "string"
+        },
+        "common": {
+          "$ref": "../../responses/success/common_response.json#/model/common"
+        }
+      }
+    }
+  }
+}

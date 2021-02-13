@@ -7,7 +7,7 @@
         "notices": {
           "type": "array",
           "items": {
-            "$ref": "#/model/notice_detail"
+            "$ref": "../../schemas/notice/notice_detail.json#/model/notice_detail"
           }
         }
       }
@@ -17,46 +17,7 @@
       "type": "object",
       "properties": {
         "notice": {
-          "$ref": "#/model/notice_detail"
-        }
-      }
-    }
-  },
-  "model": {
-    "notice_detail": {
-      "description": "お知らせ詳細",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "お知らせID",
-          "type": "integer",
-          "format": "int32"
-        },
-        "store_id": {
-          "description": "店舗ID",
-          "type": "integer",
-          "format": "int32"
-        },
-        "summary": {
-          "description": "お知らせ概要",
-          "type": "string"
-        },
-        "detail": {
-          "description": "お知らせ詳細",
-          "type": "string"
-        },
-        "publication_start_date_time": {
-          "description": "掲載開始日時",
-          "type": "string",
-          "format": "date-time"
-        },
-        "publication_end_date_time": {
-          "description": "掲載終了日時",
-          "type": "string",
-          "format": "date-time"
-        },
-        "common": {
-          "$ref": "../success/common_response.json#/model/common"
+          "$ref": "../../schemas/notice/notice_detail.json#/model/notice_detail"
         }
       }
     }

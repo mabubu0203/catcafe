@@ -3,7 +3,7 @@ package mabubu0203.com.github.catcafe.api.components.security;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.model.AuthenticationError;
-import org.openapitools.model.AuthenticationErrorResponse;
+import org.openapitools.model.InlineResponse401;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
@@ -41,7 +41,7 @@ public class AuthenticationFailureHandler implements ServerAuthenticationFailure
     return
         Optional.of("認証失敗です")
             .map(new AuthenticationError()::message)
-            .map(new AuthenticationErrorResponse()::authenticationError)
+            .map(new InlineResponse401()::authenticationError)
             .map(error ->
                 new Jackson2JsonEncoder()
                     .encode(

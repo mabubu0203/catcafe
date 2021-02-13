@@ -1,0 +1,15 @@
+{
+  "model": {
+    "contact_detail": {
+      "description": "お問い合わせ詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "お問い合わせID",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

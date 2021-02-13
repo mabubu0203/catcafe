@@ -27,17 +27,7 @@
     "operationId": "castSearch",
     "parameters": [
       {
-        "name": "store_ids",
-        "in": "query",
-        "description": "店舗ID",
-        "required": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
+        "$ref": "../components/parameters/store_ids.json"
       },
       {
         "name": "cast_ids",
@@ -53,28 +43,10 @@
         }
       },
       {
-        "name": "page",
-        "in": "query",
-        "description": "取得ページ",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": 0,
-          "maximum": 100
-        }
+        "$ref": "../components/parameters/page.json"
       },
       {
-        "name": "size",
-        "in": "query",
-        "description": "取得サイズ",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": 1,
-          "maximum": 20
-        }
+        "$ref": "../components/parameters/size.json"
       },
       {
         "name": "sort_keys",
@@ -109,24 +81,10 @@
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }

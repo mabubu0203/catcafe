@@ -16,10 +16,10 @@ import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreSe
 import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreSearchService;
 import org.openapitools.api.StoreQueryApi;
-import org.openapitools.model.AuthenticationErrorResponse;
+import org.openapitools.model.InlineResponse400;
+import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.StoreFindResponse;
 import org.openapitools.model.StoreSearchResponse;
-import org.openapitools.model.ValidationErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,8 +42,8 @@ public class StoreQueryApiController implements StoreQueryApi {
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = StoreFindResponse.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -63,8 +63,8 @@ public class StoreQueryApiController implements StoreQueryApi {
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = StoreSearchResponse.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationErrorResponse.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
       }
   )
   @CrossOrigin

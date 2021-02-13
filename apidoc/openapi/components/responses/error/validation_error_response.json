@@ -1,13 +1,20 @@
 {
-  "definitions": {
+  "responses": {
     "validation_error_response": {
-      "description": "ValidationErrorレスポンス",
-      "type": "object",
-      "properties": {
-        "validation_errors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/model/validation_error"
+      "description": "バリデーションエラー",
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "ValidationErrorレスポンス",
+            "type": "object",
+            "properties": {
+              "validation_errors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/model/validation_error"
+                }
+              }
+            }
           }
         }
       }

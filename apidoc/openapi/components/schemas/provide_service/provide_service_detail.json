@@ -1,0 +1,30 @@
+{
+  "model": {
+    "provide_service_detail": {
+      "description": "提供サービス詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "提供サービスID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "store_id": {
+          "$ref": "../../schemas/store/store_id.json"
+        },
+        "name": {
+          "description": "提供サービス名",
+          "type": "string"
+        },
+        "price": {
+          "description": "価格(税抜き)",
+          "type": "string"
+        },
+        "detail": {
+          "description": "提供サービス詳細",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "store_ids",
+  "in": "query",
+  "description": "店舗ID",
+  "required": false,
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "integer",
+      "format": "int32"
+    }
+  }
+}

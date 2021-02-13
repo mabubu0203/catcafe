@@ -1,0 +1,18 @@
+{
+  "model": {
+    "event_detail": {
+      "description": "イベント詳細",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "イベントID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "store_id": {
+          "$ref": "../../schemas/store/store_id.json"
+        }
+      }
+    }
+  }
+}

@@ -44,6 +44,14 @@
     "responses": {
       "200": {
         "description": "正常系",
+        "headers": {
+          "Location": {
+            "schema:": {
+              "type": "string"
+            },
+            "description": "詳細取得URL"
+          }
+        },
         "content": {
           "application/json": {
             "schema": {
@@ -53,24 +61,10 @@
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/responses/error/validation_error_response.json#/definitions/validation_error_response"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/responses/error/authentication_error_response.json#/definitions/authentication_error_response"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }
