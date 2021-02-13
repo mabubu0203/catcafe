@@ -40,7 +40,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/provide_service/request.json#/definitions/provide_service_create"
+            "$ref": "../../components/requestBodies/provide_service/request.json#/definitions/provide_service_create"
           }
         }
       },
@@ -57,30 +57,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/success_response/postResponse.json#/definitions/post_object"
+              "$ref": "../../components/responses/success/post_response.json#/definitions/post_object"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }

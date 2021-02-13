@@ -46,30 +46,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/contact/response.json#/definitions/contact_find_response"
+              "$ref": "../../components/responses/contact/response.json#/definitions/contact_find_response"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"

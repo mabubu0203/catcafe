@@ -27,17 +27,7 @@
     "operationId": "eventSearch",
     "parameters": [
       {
-        "name": "store_ids",
-        "in": "query",
-        "description": "店舗ID",
-        "required": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
+        "$ref": "../components/parameters/store_ids.json"
       }
     ],
     "security": [
@@ -51,30 +41,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/event/response.json#/definitions/event_search_response"
+              "$ref": "../../components/responses/event/response.json#/definitions/event_search_response"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }

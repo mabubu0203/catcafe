@@ -1,0 +1,46 @@
+{
+  "definitions": {
+    "cast_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/cast/cast_detail.json#/model/cast_detail"
+          }
+        }
+      }
+    },
+    "cast_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "../../schemas/cast/cast_detail.json#/model/cast_detail"
+        }
+      }
+    },
+    "cast_cat_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "casts": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat"
+          }
+        }
+      }
+    },
+    "cast_cat_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "cast": {
+          "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat"
+        }
+      }
+    }
+  }
+}

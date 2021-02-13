@@ -46,30 +46,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/store/response.json#/definitions/store_find_response"
+              "$ref": "../../components/responses/store/response.json#/definitions/store_find_response"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -88,7 +74,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/store/request.json#/definitions/store_update"
+            "$ref": "../../components/requestBodies/store/request.json#/definitions/store_update"
           }
         }
       },
@@ -105,30 +91,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/success_response/patchResponse.json#/definitions/patch_object"
+              "$ref": "../../components/responses/success/patch_response.json#/definitions/patch_object"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -166,15 +138,11 @@
       "204": {
         "description": "正常系"
       },
+      "400": {
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+      },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"

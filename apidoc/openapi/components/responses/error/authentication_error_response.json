@@ -1,0 +1,32 @@
+{
+  "responses": {
+    "authentication_error_response": {
+      "description": "認証エラー",
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "認証Errorレスポンス",
+            "type": "object",
+            "properties": {
+              "authentication_error": {
+                "$ref": "#/model/authentication_error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "model": {
+    "authentication_error": {
+      "description": "認証Error結果",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "message",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

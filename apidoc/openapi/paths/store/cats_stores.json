@@ -27,41 +27,13 @@
     "operationId": "storeSearch",
     "parameters": [
       {
-        "name": "store_ids",
-        "in": "query",
-        "description": "店舗ID",
-        "required": false,
-        "schema": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
+        "$ref": "../components/parameters/store_ids.json"
       },
       {
-        "name": "page",
-        "in": "query",
-        "description": "取得ページ",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": 0,
-          "maximum": 100
-        }
+        "$ref": "../components/parameters/page.json"
       },
       {
-        "name": "size",
-        "in": "query",
-        "description": "取得サイズ",
-        "required": false,
-        "schema": {
-          "type": "integer",
-          "format": "int32",
-          "minimum": 1,
-          "maximum": 20
-        }
+        "$ref": "../components/parameters/size.json"
       },
       {
         "name": "sort_keys",
@@ -70,7 +42,7 @@
         "required": false,
         "schema": {
           "type": "array",
-          "items":{
+          "items": {
             "type": "string",
             "enum": [
               "store_id.asc",
@@ -95,30 +67,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/store/response.json#/definitions/store_search_response"
+              "$ref": "../../components/responses/store/response.json#/definitions/store_search_response"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }

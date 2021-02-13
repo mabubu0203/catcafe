@@ -1,0 +1,25 @@
+{
+  "definitions": {
+    "event_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/event/event_detail.json#/model/event_detail"
+          }
+        }
+      }
+    },
+    "event_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "event": {
+          "$ref": "../../schemas/event/event_detail.json#/model/event_detail"
+        }
+      }
+    }
+  }
+}

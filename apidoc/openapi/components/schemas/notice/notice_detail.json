@@ -1,27 +1,4 @@
 {
-  "definitions": {
-    "notice_search_response": {
-      "description": "一覧レスポンス",
-      "type": "object",
-      "properties": {
-        "notices": {
-          "type": "array",
-          "items": {
-            "$ref": "#/model/notice_detail"
-          }
-        }
-      }
-    },
-    "notice_find_response": {
-      "description": "詳細レスポンス",
-      "type": "object",
-      "properties": {
-        "notice": {
-          "$ref": "#/model/notice_detail"
-        }
-      }
-    }
-  },
   "model": {
     "notice_detail": {
       "description": "お知らせ詳細",
@@ -33,9 +10,7 @@
           "format": "int32"
         },
         "store_id": {
-          "description": "店舗ID",
-          "type": "integer",
-          "format": "int32"
+          "$ref": "../../schemas/store/store_id.json"
         },
         "summary": {
           "description": "お知らせ概要",
@@ -56,7 +31,7 @@
           "format": "date-time"
         },
         "common": {
-          "$ref": "../success_response/commonResponse.json#/model/common"
+          "$ref": "../../responses/success/common_response.json#/model/common"
         }
       }
     }

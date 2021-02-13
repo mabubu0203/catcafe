@@ -7,7 +7,7 @@
         "display_menus": {
           "type": "array",
           "items": {
-            "$ref": "#/model/display_menu_detail"
+            "$ref": "../../schemas/display_menu/display_menu_detail.json#/model/display_menu_detail"
           }
         }
       }
@@ -17,20 +17,7 @@
       "type": "object",
       "properties": {
         "display_menu": {
-          "$ref": "#/model/display_menu_detail"
-        }
-      }
-    }
-  },
-  "model": {
-    "display_menu_detail": {
-      "description": "表示メニュー詳細",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "表示メニューID",
-          "type": "integer",
-          "format": "int32"
+          "$ref": "../../schemas/display_menu/display_menu_detail.json#/model/display_menu_detail"
         }
       }
     }

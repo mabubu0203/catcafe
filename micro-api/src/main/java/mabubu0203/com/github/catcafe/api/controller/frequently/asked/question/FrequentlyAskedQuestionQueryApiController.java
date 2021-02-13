@@ -15,10 +15,10 @@ import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.he
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.helper.response.FrequentlyAskedQuestionSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.frequently.asked.question.service.FrequentlyAskedQuestionSearchService;
 import org.openapitools.api.FrequentlyAskedQuestionQueryApi;
-import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.FrequentlyAskedQuestionFindResponse;
 import org.openapitools.model.FrequentlyAskedQuestionSearchResponse;
-import org.openapitools.model.ValidationResult;
+import org.openapitools.model.InlineResponse400;
+import org.openapitools.model.InlineResponse401;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,8 +40,8 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionFindResponse.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
       }
   )
@@ -67,8 +67,8 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = FrequentlyAskedQuestionSearchResponse.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
       }
   )
   @CrossOrigin

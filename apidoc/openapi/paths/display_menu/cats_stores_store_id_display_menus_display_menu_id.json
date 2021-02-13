@@ -56,30 +56,16 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/display_menu/response.json#/definitions/display_menu_find_response"
+              "$ref": "../../components/responses/display_menu/response.json#/definitions/display_menu_find_response"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -98,7 +84,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/schemas/display_menu/request.json#/definitions/display_menu_update"
+            "$ref": "../../components/requestBodies/display_menu/request.json#/definitions/display_menu_update"
           }
         }
       },
@@ -112,33 +98,27 @@
     "responses": {
       "200": {
         "description": "正常系",
+        "headers": {
+          "Location": {
+            "schema:": {
+              "type": "string"
+            },
+            "description": "詳細取得URL"
+          }
+        },
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/success_response/patchResponse.json#/definitions/patch_object"
+              "$ref": "../../components/responses/success/patch_response.json#/definitions/patch_object"
             }
           }
         }
       },
       "400": {
-        "description": "バリデーションエラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -176,15 +156,11 @@
       "204": {
         "description": "正常系"
       },
+      "400": {
+        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+      },
       "401": {
-        "description": "認証エラー",
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "../../components/schemas/error_response/authenticationResponse.json#/definitions/authentication_result"
-            }
-          }
-        }
+        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"

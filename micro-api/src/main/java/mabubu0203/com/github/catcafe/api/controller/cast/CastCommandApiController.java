@@ -2,6 +2,7 @@ package mabubu0203.com.github.catcafe.api.controller.cast;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,14 +17,14 @@ import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCre
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatResisterService;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastRegisterService;
 import org.openapitools.api.CastCommandApi;
-import org.openapitools.model.AuthenticationResult;
 import org.openapitools.model.CastCatCreate;
 import org.openapitools.model.CastCatUpdate;
 import org.openapitools.model.CastCreate;
 import org.openapitools.model.CastUpdate;
+import org.openapitools.model.InlineResponse400;
+import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
-import org.openapitools.model.ValidationResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,9 +45,9 @@ public class CastCommandApiController implements CastCommandApi {
       operationId = "castCatCreate",
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
-          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class)), headers = @Header(name = "Location", description = "詳細取得URL")),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
       }
   )
   @Override
@@ -59,7 +60,7 @@ public class CastCommandApiController implements CastCommandApi {
         .map(this.castCatResisterService::promise)
         .flatMap(Mono::fromCompletionStage)
         .map(new CastCatCreateResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+        .map(ResponseEntity.status(HttpStatus.OK).header("Location", "")::body);
   }
 
   @Operation(
@@ -70,7 +71,7 @@ public class CastCommandApiController implements CastCommandApi {
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }
@@ -91,9 +92,9 @@ public class CastCommandApiController implements CastCommandApi {
       operationId = "castCatUpdate",
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
-          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class)), headers = @Header(name = "Location", description = "詳細取得URL")),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }
@@ -114,9 +115,9 @@ public class CastCommandApiController implements CastCommandApi {
       operationId = "castCreate",
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
-          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class)), headers = @Header(name = "Location", description = "詳細取得URL")),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
       }
   )
   @Override
@@ -130,7 +131,7 @@ public class CastCommandApiController implements CastCommandApi {
         .map(this.castResisterService::promise)
         .flatMap(Mono::fromCompletionStage)
         .map(new CastCreateResponseMapper())
-        .map(ResponseEntity.status(HttpStatus.OK)::body);
+        .map(ResponseEntity.status(HttpStatus.OK).header("Location", "")::body);
   }
 
   @Operation(
@@ -141,7 +142,7 @@ public class CastCommandApiController implements CastCommandApi {
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }
@@ -163,9 +164,9 @@ public class CastCommandApiController implements CastCommandApi {
       operationId = "castUpdate",
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
-          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
-          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
+          @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class)), headers = @Header(name = "Location", description = "詳細取得URL")),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
+          @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),
       }

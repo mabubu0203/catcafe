@@ -1,0 +1,5 @@
+{
+  "description": "店舗ID",
+  "type": "integer",
+  "format": "int32"
+}

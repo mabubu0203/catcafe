@@ -1,0 +1,25 @@
+{
+  "definitions": {
+    "frequently_asked_question_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "frequently_asked_questions": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/frequently_asked_question/frequently_asked_question_detail.json#/model/frequently_asked_question_detail"
+          }
+        }
+      }
+    },
+    "frequently_asked_question_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "frequently_asked_question": {
+          "$ref": "../../schemas/frequently_asked_question/frequently_asked_question_detail.json#/model/frequently_asked_question_detail"
+        }
+      }
+    }
+  }
+}

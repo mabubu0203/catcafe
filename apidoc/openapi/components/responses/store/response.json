@@ -1,0 +1,25 @@
+{
+  "definitions": {
+    "store_search_response": {
+      "description": "一覧レスポンス",
+      "type": "object",
+      "properties": {
+        "stores": {
+          "type": "array",
+          "items": {
+            "$ref": "../../schemas/store/store_detail.json#/model/store_detail"
+          }
+        }
+      }
+    },
+    "store_find_response": {
+      "description": "詳細レスポンス",
+      "type": "object",
+      "properties": {
+        "store": {
+          "$ref": "../../schemas/store/store_detail.json#/model/store_detail"
+        }
+      }
+    }
+  }
+}
