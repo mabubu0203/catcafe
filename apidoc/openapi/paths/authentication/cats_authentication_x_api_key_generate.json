@@ -46,6 +46,16 @@
             }
           }
         }
+      },
+      "400": {
+        "description": "バリデーションエラー",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
+            }
+          }
+        }
       }
     }
   }

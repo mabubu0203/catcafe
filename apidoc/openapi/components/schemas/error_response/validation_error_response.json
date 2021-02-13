@@ -1,0 +1,35 @@
+{
+  "definitions": {
+    "validation_error_response": {
+      "description": "ValidationErrorレスポンス",
+      "type": "object",
+      "properties": {
+        "validation_errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/model/validation_error"
+          }
+        }
+      }
+    }
+  },
+  "model": {
+    "validation_error": {
+      "description": "ValidationError結果",
+      "type": "object",
+      "properties": {
+        "property": {
+          "description": "property",
+          "type": "string"
+        },
+        "messages": {
+          "description": "messages",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

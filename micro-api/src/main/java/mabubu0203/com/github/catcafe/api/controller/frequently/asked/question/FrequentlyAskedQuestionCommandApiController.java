@@ -15,7 +15,7 @@ import org.openapitools.model.FrequentlyAskedQuestionCreate;
 import org.openapitools.model.FrequentlyAskedQuestionUpdate;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
-import org.openapitools.model.ValidationResult;
+import org.openapitools.model.ValidationErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
@@ -34,7 +34,7 @@ public class FrequentlyAskedQuestionCommandApiController implements
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PostObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
       }
   )
@@ -76,7 +76,7 @@ public class FrequentlyAskedQuestionCommandApiController implements
       security = {@SecurityRequirement(name = "ApiKeyAuth"),},
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
-          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationResult.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = AuthenticationResult.class))),
           @ApiResponse(responseCode = "404", description = "Idが見つからない"),
           @ApiResponse(responseCode = "409", description = "排他失敗"),

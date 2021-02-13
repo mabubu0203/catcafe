@@ -66,7 +66,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }
@@ -125,7 +125,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "../../components/schemas/error_response/validationResponse.json#/definitions/validation_result"
+              "$ref": "../../components/schemas/error_response/validation_error_response.json#/definitions/validation_error_response"
             }
           }
         }

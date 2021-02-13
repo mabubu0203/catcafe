@@ -14,6 +14,7 @@ import mabubu0203.com.github.catcafe.api.controller.authentication.helper.reques
 import mabubu0203.com.github.catcafe.api.controller.authentication.helper.response.XApiKeyGenerateResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.authentication.service.XApiKeyGenerateService;
 import org.openapitools.api.AuthenticationApi;
+import org.openapitools.model.ValidationErrorResponse;
 import org.openapitools.model.XApiKeyGenerate;
 import org.openapitools.model.XApiKeyGenerateResponse;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ public class AuthenticationApiController implements AuthenticationApi {
       operationId = "xApiKeyGenerate",
       responses = {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = XApiKeyGenerateResponse.class))),
+          @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = ValidationErrorResponse.class))),
       }
   )
   @Override
