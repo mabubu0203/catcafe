@@ -15,7 +15,9 @@ public class CastFindResponseMapper implements
   @Override
   public CastFindResponse apply(CastSearchServiceOutput castSearchServiceOutput) {
     var result = new CastFindResponse();
-    result.setCast(this.convert(castSearchServiceOutput.getCasts().get(0)));
+    castSearchServiceOutput.getCasts().stream()
+        .findFirst()
+        .ifPresent(cast -> result.setCast(this.convert(cast)));
     return result;
   }
 
@@ -53,4 +55,5 @@ public class CastFindResponseMapper implements
     detail.setCommon(common);
     return detail;
   }
+  
 }

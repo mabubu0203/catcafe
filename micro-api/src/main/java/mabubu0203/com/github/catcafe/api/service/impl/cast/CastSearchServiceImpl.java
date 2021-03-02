@@ -10,6 +10,7 @@ import mabubu0203.com.github.catcafe.api.service.impl.cast.converter.CastSearchS
 import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class CastSearchServiceImpl implements CastSearchService {
 
   @Override
   @Async
+  @Transactional(readOnly = true)
   public CompletableFuture<CastSearchServiceOutput> promise(CastSearchServiceInput input) {
     return Optional
         .of(input)

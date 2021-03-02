@@ -10,6 +10,7 @@ import mabubu0203.com.github.catcafe.api.service.impl.notice.converter.NoticeSea
 import mabubu0203.com.github.catcafe.domain.repository.notice.NoticeRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class NoticeSearchServiceImpl implements NoticeSearchService {
 
   @Override
   @Async
+  @Transactional(readOnly = true)
   public CompletableFuture<NoticeSearchServiceOutput> promise(NoticeSearchServiceInput input) {
     return Optional
         .of(input)

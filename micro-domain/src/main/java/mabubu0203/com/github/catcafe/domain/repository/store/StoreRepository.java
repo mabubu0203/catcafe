@@ -11,7 +11,7 @@ public interface StoreRepository {
 
   CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions);
 
-  @Deprecated
+  @Deprecated(since = "")
   CompletableFuture<Boolean> exists(StoreId storeId);
 
   CompletableFuture<StoreId> resister(StoreEntity store, LocalDateTime receptionTime);

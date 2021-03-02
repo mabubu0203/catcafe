@@ -10,6 +10,7 @@ import mabubu0203.com.github.catcafe.api.service.impl.store.converter.StoreSearc
 import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class StoreSearchServiceImpl implements StoreSearchService {
 
   @Override
   @Async
+  @Transactional(readOnly = true)
   public CompletableFuture<StoreSearchServiceOutput> promise(StoreSearchServiceInput input) {
     return Optional
         .of(input)

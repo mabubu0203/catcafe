@@ -93,9 +93,15 @@
         },
         "port": {
           "enum": [
-            "8080"
+            "9001"
           ],
-          "default": "8080"
+          "default": "9001"
+        },
+        "basePath": {
+          "enum": [
+            "CatCafeApi"
+          ],
+          "default": "CatCafeApi"
         }
       }
     }
