@@ -1,1 +1,1 @@
-FROM redocly/redoc:v2.0.0-rc.49
+FROM redocly/redoc:v2.0.0-rc.50

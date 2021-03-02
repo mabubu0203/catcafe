@@ -73,7 +73,7 @@ public class CastQueryApiController implements CastQueryApi {
   @Override
   public Mono<ResponseEntity<CastCatSearchResponse>> castCatSearch(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-      @Valid Integer size,
+      @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
       ServerWebExchange exchange) {
     return null;
   }

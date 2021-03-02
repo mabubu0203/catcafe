@@ -115,15 +115,14 @@ management:
       enabled: true
 springdoc:
   api-docs:
-    groups:
-      enabled: true
     resolve-schema-properties: true
   model-and-view-allowed: true
   show-actuator: true
   swagger-ui:
-    path: /swagger-ui.html
-    displayOperationId: true
     display-query-params: true
-    display-request-duration: true
+    displayOperationId: true
+    displayRequestDuration: true
+    filter: true
+    path: /swagger-ui.html
     showCommonExtensions: true
     showExtensions: true

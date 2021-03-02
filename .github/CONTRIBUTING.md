@@ -24,13 +24,13 @@ IntelliJ IDEAを使用します。
 
 ### Endpoints
 
-[OpenApi(Api)][]
-[OpenApi(Site)][]
-[OpenApi(Admin)][]
+[Springdoc(Api)][]
+[Springdoc(Site)][]
+[Springdoc(Admin)][]
 [Site(Riot)][]
 [Admin(Vue)][]
 [phpMyAdmin][]
-[openapi-ui][]
+[Swagger-UI][]
 [ReDoc][]
 
 ## 停止方法
@@ -42,18 +42,18 @@ IntelliJ IDEAを使用します。
 1. docker-composeよりコンテナ破棄  
    `$ docker-compose -f docker-compose.yml down`
 
-[OpenApi(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html            "OpenApi(Api)"
+[Springdoc(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html            "Springdoc(Api)"
 
-[OpenApi(Site)]: http://localhost:9011/CatCafeSite/swagger-ui.html          "OpenApi(Site)"
+[Springdoc(Site)]: http://localhost:9011/CatCafeSite/swagger-ui.html          "Springdoc(Site)"
 
-[OpenApi(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html        "OpenApi(Admin)"
+[Springdoc(Admin)]: http://localhost:9021/CatCafeAdmin/swagger-ui.html        "Springdoc(Admin)"
 
-[Site(Riot)]: http://localhost:9011/CatCafeSite/                            "Site(Riot)"
+[Site(Riot)]: http://localhost:9011/CatCafeSite/                              "Site(Riot)"
 
-[Admin(Vue)]: http://localhost:9021/CatCafeAdmin/                           "Admin(Vue)"
+[Admin(Vue)]: http://localhost:9021/CatCafeAdmin/                             "Admin(Vue)"
 
-[phpMyAdmin]: http://localhost:8021/                                        "phpMyAdmin"
+[phpMyAdmin]: http://localhost:8021/                                          "phpMyAdmin"
 
-[OpenApi-UI]: http://localhost:8002/                                        "openapi-ui"
+[Swagger-UI]: http://localhost:8002/                                          "Swagger-UI"
 
-[ReDoc]: http://localhost:8081/                                              "ReDoc"
+[ReDoc]: http://localhost:8081/                                               "ReDoc"
