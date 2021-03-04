@@ -1,6 +1,7 @@
 apply plugin: "java"
 apply plugin: "java-library"
 apply plugin: "idea"
+apply plugin: "com.palantir.git-version"
 
 compileJava {
     doFirst {
@@ -9,3 +10,5 @@ compileJava {
         options.encoding = defaultEncoding
     }
 }
+
+version gitVersion()

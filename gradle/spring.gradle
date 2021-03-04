@@ -3,5 +3,7 @@ apply plugin: "io.spring.dependency-management"
 apply plugin: "com.gorylenko.gradle-git-properties"
 
 dependencyManagement {
-    imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
 }
