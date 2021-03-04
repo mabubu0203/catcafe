@@ -5,25 +5,12 @@ spring:
 ---
 spring:
   application:
+    admin:
+      enabled: true
     name: micro-api
   config:
     activate:
       on-profile: common
-  main:
-    web-application-type: reactive
-  web:
-    resources:
-      chain:
-        strategy:
-          content:
-            paths: /webjars/swagger-ui/**.*
-  data:
-    jpa:
-      repositories:
-        enabled: true
-  h2:
-    console:
-      enabled: false
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
@@ -37,6 +24,20 @@ spring:
           batch_versioned_data: true
           batch_size: 100
     show-sql: true
+  jmx:
+    enabled: true
+  main:
+    web-application-type: reactive
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            paths: /webjars/swagger-ui/**.*
+  webflux:
+    hiddenmethod:
+      filter:
+        enabled: true
 server:
   port: 9001
   servlet:
@@ -50,54 +51,12 @@ logging:
   file:
     name: micro-api.log
 management:
-  endpoint:
-    auditevents:
-      enabled: true
-    beans:
-      enabled: true
-    conditions:
-      enabled: true
-    configprops:
-      enabled: true
-    env:
-      enabled: true
-    health:
-      enabled: true
-    heapdump:
-      enabled: true
-    info:
-      enabled: true
-    jolokia:
-      enabled: true
-    logfile:
-      enabled: true
-    loggers:
-      enabled: true
-    mappings:
-      enabled: true
-    metrics:
-      enabled: true
-    prometheus:
-      enabled: true
-    scheduledtasks:
-      enabled: true
   endpoints:
     web:
       exposure:
-        include: auditevents,beans,conditions,configprops,env,health,heapdump,info,jolokia,logfile,loggers,refresh,mappings,metrics
+        include: "*"
   health:
-    db:
-      enabled: true
-    defaults:
-      enabled: true
-  info:
-    build:
-      enabled: true
-    defaults:
-      enabled: true
-    env:
-      enabled: true
-    git:
+    readinessstate:
       enabled: true
 
 ---
@@ -125,7 +84,6 @@ spring:
     activate:
       on-profile: local
   datasource:
-    continue-on-error: false
     driverClassName: com.mysql.cj.jdbc.Driver
     generate-unique-name: false
     password: root
@@ -134,10 +92,8 @@ spring:
     username: root
   devtools:
     livereload:
-      enabled: true
       port: 35219
     restart:
-      enabled: true
       poll-interval: 1000
   profiles:
     include:
@@ -150,7 +106,7 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    continue-on-error: false
+    continue-on-error: true
     driverClassName: com.mysql.cj.jdbc.Driver
     generate-unique-name: false
     password: root

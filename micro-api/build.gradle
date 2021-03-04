@@ -30,6 +30,8 @@ dependencies {
 
     // mysql
     runtimeOnly("mysql:mysql-connector-java")
+
+    developmentOnly("io.projectreactor:reactor-tools")
 }
 
 test {
