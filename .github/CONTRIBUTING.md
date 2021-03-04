@@ -19,8 +19,13 @@ IntelliJ IDEAを使用します。
    `$ cd docker/mac`  
    `$ docker-compose -f docker-compose.yml build`  
    `$ docker-compose -f docker-compose.yml up -d`
-1. GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
-1. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> start`)
+1. アプリケーションをbootRun
+    * GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
+    * DockerImageを作成して起動
+        1. GradleタスクよりjibDockerBuild(`:micro-api -> Tasks -> jib -> jibDockerBuild`)
+        1. `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it play-with-jib/micro-api:0.0.1.SNAPSHOT`
+
+1. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> startDevelopment`)
 
 ### Endpoints
 
@@ -35,7 +40,10 @@ IntelliJ IDEAを使用します。
 
 ## 停止方法
 
-1. bootRunの停止
+1. アプリの停止
+    * bootRunの停止
+    * `$ docker stop micro-api`
+
 1. docker-composeより停止  
    `$ cd docker/mac`  
    `$ docker-compose -f docker-compose.yml stop`

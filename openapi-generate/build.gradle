@@ -1,3 +1,13 @@
 apply from: "$rootDir/gradle/generate_openapi_json.gradle"
 
+jar {
+    archiveBaseName = "skeleton"
+    archiveVersion = "$catCafeVersion"
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+
 compileJava.dependsOn tasks.openApiGenerate
