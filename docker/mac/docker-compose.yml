@@ -17,6 +17,8 @@ services:
       MYSQL_PASSWORD: app_pass
       TZ: "Asia/Tokyo"
     restart: always
+    networks:
+      - app-net
 
   phpmyadmin:
     build: ./docker-phpmyadmin
@@ -61,3 +63,7 @@ services:
     environment:
       SPEC_URL: ./openapi.json
     restart: always
+
+networks:
+  app-net:
+    driver: bridge

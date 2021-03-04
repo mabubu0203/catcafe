@@ -6,35 +6,21 @@ spring:
 spring:
   application:
     name: micro-api
-  devtools:
-    livereload:
-      enabled: true
-      port: 35219
-    restart:
-      enabled: true
-      poll-interval: 1000
+  config:
+    activate:
+      on-profile: common
   main:
     web-application-type: reactive
-  resources:
-    chain:
-      html-application-cache: true
-      enabled: true
-      strategy:
-        content:
-          enabled: true
-          paths: /webjars/swagger-ui/**.*
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            paths: /webjars/swagger-ui/**.*
   data:
     jpa:
       repositories:
         enabled: true
-  datasource:
-    continue-on-error: false
-    driverClassName: com.mysql.cj.jdbc.Driver
-    generate-unique-name: false
-    password: root
-    sql-script-encoding: UTF-8
-    url: jdbc:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
-    username: root
   h2:
     console:
       enabled: false
@@ -113,6 +99,12 @@ management:
       enabled: true
     git:
       enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: springdoc
 springdoc:
   api-docs:
     resolve-schema-properties: true
@@ -126,3 +118,48 @@ springdoc:
     path: /swagger-ui.html
     showCommonExtensions: true
     showExtensions: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    continue-on-error: false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    generate-unique-name: false
+    password: root
+    sql-script-encoding: UTF-8
+    url: jdbc:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
+    username: root
+  devtools:
+    livereload:
+      enabled: true
+      port: 35219
+    restart:
+      enabled: true
+      poll-interval: 1000
+  profiles:
+    include:
+      - common
+      - springdoc
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    continue-on-error: false
+    driverClassName: com.mysql.cj.jdbc.Driver
+    generate-unique-name: false
+    password: root
+    sql-script-encoding: UTF-8
+    url: jdbc:mysql://mysql/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
+    username: root
+  devtools:
+    add-properties: false
+  profiles:
+    include:
+      - common
+      - springdoc
