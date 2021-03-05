@@ -27,7 +27,7 @@ public class XApiKeyGenerateServiceImpl implements XApiKeyGenerateService {
   @Async
   public CompletableFuture<XApiKeyGenerateServiceOutput> promise(
       XApiKeyGenerateServiceInput input) {
-    var receptionTime = getReceptionTime();
+    var receptionTime = this.getReceptionTime();
     var token = this.getToken(input.getRandom(), receptionTime);
     return
         Optional.of(input)

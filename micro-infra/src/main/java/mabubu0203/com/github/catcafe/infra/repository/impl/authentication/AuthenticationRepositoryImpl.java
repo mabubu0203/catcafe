@@ -1,17 +1,14 @@
 package mabubu0203.com.github.catcafe.infra.repository.impl.authentication;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
-import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeySearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
-import mabubu0203.com.github.catcafe.infra.source.jpa.XApiKeySource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.XApiKey;
-import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.XApiKey_;
-import org.springframework.data.jpa.domain.Specification;
+import mabubu0203.com.github.catcafe.infra.source.redis.XApiKeySource;
+import mabubu0203.com.github.catcafe.infra.source.redis.dto.XApiKey;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 
@@ -23,30 +20,16 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @Override
   @Async
-  public CompletableFuture<Stream<XApiKeyEntity>> search(XApiKeySearchConditions searchConditions) {
-    var specification = Specification
-        .where(this.tokenEquals(searchConditions.token()));
-//                .and(this.startDateTimeAfter(searchConditions.specified_date_time()))
-//                .and(this.endDateTimeBefore(searchConditions.specified_date_time()));
-    return this.xApiKeySource.searchStream(specification, searchConditions.getPageRequest())
-        .thenApply(stream -> stream.map(this::convertXApiKeyEntity));
-  }
-
-  private Specification<XApiKey> tokenEquals(XApiKeyToken token) {
-    return token == null ? null : (root, query, builder) ->
-        builder.equal(root.get(XApiKey_.token), token.value());
-  }
-
-  // TODO:うまく動作しない、調べる
-  private Specification<XApiKey> startDateTimeAfter(LocalDateTime specified_date_time) {
-    return specified_date_time == null ? null : (root, query, builder) ->
-        builder.greaterThan(root.get(XApiKey_.startDateTime), specified_date_time);
-  }
-
-  // TODO:うまく動作しない、調べる
-  private Specification<XApiKey> endDateTimeBefore(LocalDateTime specified_date_time) {
-    return specified_date_time == null ? null : (root, query, builder) ->
-        builder.lessThanOrEqualTo(root.get(XApiKey_.endDateTime), specified_date_time);
+  public CompletableFuture<Optional<XApiKeyEntity>> findOne(XApiKeyToken token,
+      LocalDateTime receptionTime) {
+    return
+        this.xApiKeySource.findByToken(token.value())
+            .thenApply(stream ->
+                stream
+                    .filter(x -> x.getStartDateTime().isAfter(receptionTime))
+                    .filter(x -> x.getEndDateTime().isBefore(receptionTime))
+                    .findFirst()
+                    .map(this::convertXApiKeyEntity));
   }
 
   @Override
@@ -56,9 +39,8 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
     return CompletableFuture
         .supplyAsync(() -> entity)
         .thenApply(this::toDto)
-        .thenApply(dto -> dto.setCreatedBy(0))
         .thenApply(XApiKey.class::cast)
-        .thenCompose(dto -> this.xApiKeySource.insert(dto, receptionTime))
+        .thenCompose(dto -> this.xApiKeySource.insert(dto, null))
         .thenApply(this::convertXApiKeyEntity);
   }
 
@@ -75,7 +57,7 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
     return XApiKeyEntity.builder()
         .clientIp(dto.getClientIp())
         .token(token)
-        .createdDateTime(dto.getCreatedDateTime())
+        .startDateTime(dto.getStartDateTime())
         .endDateTime(dto.getEndDateTime())
         .build();
   }

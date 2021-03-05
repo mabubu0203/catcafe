@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
-import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeySearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -45,25 +44,19 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
   }
 
   private CompletableFuture<AuthorizedInformation> getInformation(String apiKey) {
+    var receptionTime = LocalDateTime.now();
     return
-        Optional.of(apiKey)
+        Optional.ofNullable(apiKey)
             .map(XApiKeyToken::new)
-            .map(token -> {
-              var searchConditions = new XApiKeySearchConditions();
-              searchConditions.token(token);
-              searchConditions.specified_date_time(LocalDateTime.now());
-              return searchConditions;
-            })
-            .map(this.authenticationRepository::search)
-            .map(future ->
-                future.thenApply(stream ->
-                    stream
-                        .findFirst()
+            .map(token -> this.authenticationRepository.findOne(token, receptionTime))
+            .orElseThrow(
+                () -> new TokenNotFoundException(""))// RequestHeaderにValueがないExceptionを返却する
+            .thenApply(opt ->
+                    opt
                         .map(this::convertInformation)
                         .orElseThrow(() -> new TokenNotFoundException(""))
-                )
-            )
-            .orElseThrow(() -> new TokenNotFoundException(""));// RDBにアクセストークンがないExceptionを返却する
+// RDBにアクセストークンがないExceptionを返却する
+            );
   }
 
   private AuthorizedInformation convertInformation(XApiKeyEntity entity) {
