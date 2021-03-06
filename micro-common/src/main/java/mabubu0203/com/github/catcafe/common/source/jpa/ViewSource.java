@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
-import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseView;
+import mabubu0203.com.github.catcafe.common.source.jpa.dto.BaseView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

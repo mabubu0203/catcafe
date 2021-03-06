@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
-import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
+import mabubu0203.com.github.catcafe.common.source.jpa.dto.BaseTable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +15,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.scheduling.annotation.Async;
 
 @NoRepositoryBean
+// ReactiveCrudRepository
 public interface TableSource<D extends BaseTable, ID> extends JpaRepository<D, ID>,
     JpaSpecificationExecutor<D> {
 

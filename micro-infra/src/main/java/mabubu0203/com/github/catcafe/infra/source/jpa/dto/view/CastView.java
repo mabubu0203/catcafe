@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.infra.source.jpa.entity.view;
+package mabubu0203.com.github.catcafe.infra.source.jpa.dto.view;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +9,9 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseView;
-import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.Cast;
-import mabubu0203.com.github.catcafe.infra.source.jpa.entity.table.CastCat;
+import mabubu0203.com.github.catcafe.common.source.jpa.dto.BaseView;
+import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.Cast;
+import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.CastCat;
 
 @Accessors(chain = true)
 @Data
