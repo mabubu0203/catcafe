@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EntityScan(
     basePackages = {
-        "mabubu0203.com.github.catcafe.common.source.jpa.entity",
+        "mabubu0203.com.github.catcafe.common.source.jpa.dto",
     })
 @EnableJpaRepositories(
     basePackages = {

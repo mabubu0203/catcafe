@@ -40,7 +40,8 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
             .map(ServerHttpRequest::getHeaders)
             .map(httpHeaders -> httpHeaders.getFirst(Headers.X_API_KEY.getKey()))
             .orElseThrow(
-                () -> new HeaderNotFoundException(""));// RequestHeaderにKeyがないExceptionを返却する
+                () -> new HeaderNotFoundException("")
+            );// RequestHeaderにKeyがないExceptionを返却する
   }
 
   private CompletableFuture<AuthorizedInformation> getInformation(String apiKey) {
@@ -50,12 +51,14 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
             .map(XApiKeyToken::new)
             .map(token -> this.authenticationRepository.findOne(token, receptionTime))
             .orElseThrow(
-                () -> new TokenNotFoundException(""))// RequestHeaderにValueがないExceptionを返却する
+                () -> new TokenNotFoundException("")
+            )// RequestHeaderにValueがないExceptionを返却する
             .thenApply(opt ->
-                    opt
-                        .map(this::convertInformation)
-                        .orElseThrow(() -> new TokenNotFoundException(""))
-// RDBにアクセストークンがないExceptionを返却する
+                opt
+                    .map(this::convertInformation)
+                    .orElseThrow(
+                        () -> new TokenNotFoundException("")
+                    )// RDBにアクセストークンがないExceptionを返却する
             );
   }
 

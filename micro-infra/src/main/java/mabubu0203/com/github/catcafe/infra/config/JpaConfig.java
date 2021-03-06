@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EntityScan(
     basePackages = {
-        "mabubu0203.com.github.catcafe.infra.source.jpa.entity",
+        "mabubu0203.com.github.catcafe.infra.source.jpa.dto",
     })
 @EnableJpaRepositories(
     basePackages = {

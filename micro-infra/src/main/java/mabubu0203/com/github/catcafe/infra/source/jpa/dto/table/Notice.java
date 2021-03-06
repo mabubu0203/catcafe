@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.infra.source.jpa.entity.table;
+package mabubu0203.com.github.catcafe.infra.source.jpa.dto.table;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -11,7 +11,7 @@ import javax.persistence.TableGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import mabubu0203.com.github.catcafe.common.source.jpa.entity.BaseTable;
+import mabubu0203.com.github.catcafe.common.source.jpa.dto.BaseTable;
 import org.hibernate.annotations.Where;
 
 @Accessors(chain = true)

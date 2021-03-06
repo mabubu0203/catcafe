@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.common.source.jpa.entity;
+package mabubu0203.com.github.catcafe.common.source.jpa.dto;
 
 import javax.persistence.MappedSuperclass;
 import lombok.Data;
