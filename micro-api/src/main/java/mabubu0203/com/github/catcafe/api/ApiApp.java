@@ -3,6 +3,7 @@ package mabubu0203.com.github.catcafe.api;
 import mabubu0203.com.github.catcafe.domain.DomainCore;
 import mabubu0203.com.github.catcafe.infra.InfraCore;
 import mabubu0203.com.github.catcafe.infra.config.JpaConfig;
+import mabubu0203.com.github.catcafe.infra.config.RedisConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -17,6 +18,7 @@ import org.springframework.web.server.WebFilter;
 @EnableScheduling
 @Import(value = {
     JpaConfig.class,
+    RedisConfig.class,
     DomainCore.class,
     InfraCore.class,
 })

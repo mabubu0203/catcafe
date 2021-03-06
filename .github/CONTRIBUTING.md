@@ -35,6 +35,7 @@ IntelliJ IDEAを使用します。
 [Site(Riot)][]
 [Admin(Vue)][]
 [phpMyAdmin][]
+[Redisinsight][]
 [Swagger-UI][]
 [ReDoc][]
 
@@ -61,6 +62,8 @@ IntelliJ IDEAを使用します。
 [Admin(Vue)]: http://localhost:9021/CatCafeAdmin/                             "Admin(Vue)"
 
 [phpMyAdmin]: http://localhost:8021/                                          "phpMyAdmin"
+
+[Redisinsight]: http://localhost:8001/                                        "Redisinsight"
 
 [Swagger-UI]: http://localhost:8002/                                          "Swagger-UI"
 
