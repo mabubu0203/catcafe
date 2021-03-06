@@ -59,8 +59,7 @@ public class StoreCommandApiController implements StoreCommandApi {
       ServerWebExchange exchange) {
     return storeCreate
         .map(new StoreCreateRequestMapper(cats))
-        .map(this.registerService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.registerService::action)
         .map(new StoreCreateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
@@ -88,8 +87,7 @@ public class StoreCommandApiController implements StoreCommandApi {
         new StoreDeleteRequestMapper(
             cats, storeId,
             version).get()
-            .map(this.deleteService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.deleteService::action)
             .map(new StoreDeleteResponseMapper())
             .filter(Boolean::booleanValue)
             .map(bool -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
@@ -117,8 +115,7 @@ public class StoreCommandApiController implements StoreCommandApi {
       ServerWebExchange exchange) {
     return storeUpdate
         .map(new StoreUpdateRequestMapper(cats, storeId))
-        .map(this.modifyService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.modifyService::action)
         .map(new StoreUpdateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

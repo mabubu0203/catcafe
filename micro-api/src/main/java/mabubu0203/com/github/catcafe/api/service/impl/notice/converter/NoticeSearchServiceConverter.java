@@ -1,11 +1,13 @@
 package mabubu0203.com.github.catcafe.api.service.impl.notice.converter;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.input.NoticeSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput;
+import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput.NoticeObject;
+import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput.NoticeSearchServiceOutputBuilder;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeSearchConditions;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class NoticeSearchServiceConverter {
 
@@ -19,24 +21,25 @@ public class NoticeSearchServiceConverter {
         .optNoticeIds(input.getOptNoticeIds());
   }
 
-  public NoticeSearchServiceOutput toServiceOutput(Stream<NoticeEntity> stream) {
-    return NoticeSearchServiceOutput.builder()
-        .notices(stream
-            .map(noticeEntity ->
-                NoticeSearchServiceOutput.NoticeObject.builder()
-                    .id(noticeEntity.getNoticeId().intValue())
-                    .storeId(noticeEntity.getStoreId().intValue())
-                    .summary(noticeEntity.getSummary())
-                    .detail(noticeEntity.getDetail())
-                    .common(NoticeSearchServiceOutput.CommonObject.builder()
-                        .createdDateTime(noticeEntity.getCreatedDateTime())
-                        .version(noticeEntity.getVersion())
-                        .updatedDateTime(noticeEntity.getUpdatedDateTime())
-                        .build())
-                    .build()
-            )
-            .collect(Collectors.toList()))
-        .build();
+  public Mono<NoticeSearchServiceOutput> toOutput(Flux<NoticeEntity> flux) {
+    return flux.map(this::toNoticeObject).collectList()
+        .map(notices -> NoticeSearchServiceOutput.builder().notices(notices))
+        .map(NoticeSearchServiceOutputBuilder::build);
+  }
+
+  private NoticeObject toNoticeObject(NoticeEntity noticeEntity) {
+    return
+        NoticeSearchServiceOutput.NoticeObject.builder()
+            .id(noticeEntity.getNoticeId().intValue())
+            .storeId(noticeEntity.getStoreId().intValue())
+            .summary(noticeEntity.getSummary())
+            .detail(noticeEntity.getDetail())
+            .common(NoticeSearchServiceOutput.CommonObject.builder()
+                .createdDateTime(noticeEntity.getCreatedDateTime())
+                .version(noticeEntity.getVersion())
+                .updatedDateTime(noticeEntity.getUpdatedDateTime())
+                .build())
+            .build();
   }
 
 }

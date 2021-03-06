@@ -2,7 +2,6 @@ package mabubu0203.com.github.catcafe.api.components.security;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
@@ -24,42 +23,35 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
 
   @Override
   public Mono<Authentication> convert(ServerWebExchange exchange) {
-    return
-        Optional.of(exchange)
-            .map(this::getApiKey)
-            .map(this::getInformation)
-            .map(future -> future.thenApply(this::authorized))
-            .map(Mono::fromCompletionStage)
-            .orElseThrow(RuntimeException::new);//中のメソッドで例外処理が発生する
+    return Optional.of(exchange)
+        .map(this::getApiKey)
+        .map(this::getInformation)
+        .orElseThrow(RuntimeException::new)
+        .map(this::authorized);
   }
 
   private String getApiKey(ServerWebExchange exchange) {
-    return
-        Optional.of(exchange)
-            .map(ServerWebExchange::getRequest)
-            .map(ServerHttpRequest::getHeaders)
-            .map(httpHeaders -> httpHeaders.getFirst(Headers.X_API_KEY.getKey()))
-            .orElseThrow(
-                () -> new HeaderNotFoundException("")
-            );// RequestHeaderにKeyがないExceptionを返却する
+    return Optional.of(exchange)
+        .map(ServerWebExchange::getRequest)
+        .map(ServerHttpRequest::getHeaders)
+        .map(httpHeaders -> httpHeaders.getFirst(Headers.X_API_KEY.getKey()))
+        .orElseThrow(() ->
+            new HeaderNotFoundException("")
+        );// RequestHeaderにKeyがないExceptionを返却する
   }
 
-  private CompletableFuture<AuthorizedInformation> getInformation(String apiKey) {
+  private Mono<AuthorizedInformation> getInformation(String apiKey) {
     var receptionTime = LocalDateTime.now();
-    return
-        Optional.ofNullable(apiKey)
-            .map(XApiKeyToken::new)
-            .map(token -> this.authenticationRepository.findOne(token, receptionTime))
-            .orElseThrow(
-                () -> new TokenNotFoundException("")
-            )// RequestHeaderにValueがないExceptionを返却する
-            .thenApply(opt ->
-                opt
-                    .map(this::convertInformation)
-                    .orElseThrow(
-                        () -> new TokenNotFoundException("")
-                    )// RDBにアクセストークンがないExceptionを返却する
-            );
+    return Optional.ofNullable(apiKey)
+        .map(XApiKeyToken::new)
+        .map(token -> this.authenticationRepository.findOne(token, receptionTime))
+        .orElseThrow(
+            () -> new TokenNotFoundException("")
+        )// RequestHeaderにValueがないExceptionを返却する
+        .map(this::convertInformation)
+        .switchIfEmpty(
+            Mono.error(() -> new TokenNotFoundException(""))// RDBにアクセストークンがないExceptionを返却する
+        );
   }
 
   private AuthorizedInformation convertInformation(XApiKeyEntity entity) {
@@ -73,22 +65,21 @@ public class AuthenticationConverter implements ServerAuthenticationConverter {
   }
 
   private Authentication authorized(AuthorizedInformation information) {
-    return
-        Optional.of(information)
-            .map(AuthorizedInformation::getAuthorities)
-            .map(authorities ->
-                User
-                    .withUsername("user")
-                    .password("")
-                    .roles(authorities)
-                    .build()
-            )
-            .map(user ->
-                new UsernamePasswordAuthenticationToken(
-                    user.getUsername(),
-                    user.getPassword(),
-                    user.getAuthorities()))
-            .orElseThrow(RuntimeException::new);// ここでは起こり得ない
+    return Optional.of(information)
+        .map(AuthorizedInformation::getAuthorities)
+        .map(authorities ->
+            User
+                .withUsername("user")
+                .password("")
+                .roles(authorities)
+                .build()
+        )
+        .map(user ->
+            new UsernamePasswordAuthenticationToken(
+                user.getUsername(),
+                user.getPassword(),
+                user.getAuthorities()))
+        .orElseThrow(RuntimeException::new);// ここでは起こり得ない
   }
 
 }

@@ -55,5 +55,5 @@ public class CastFindResponseMapper implements
     detail.setCommon(common);
     return detail;
   }
-  
+
 }

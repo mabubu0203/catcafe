@@ -53,8 +53,7 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
     return
         new FrequentlyAskedQuestionFindRequestMapper(
             cats, faqId).get()
-            .map(this.searchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.searchService::action)
             .map(new FrequentlyAskedQuestionFindResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
@@ -80,8 +79,7 @@ public class FrequentlyAskedQuestionQueryApiController implements FrequentlyAske
     return
         new FrequentlyAskedQuestionSearchRequestMapper(
             cats, storeIds).get()
-            .map(this.searchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.searchService::action)
             .map(new FrequentlyAskedQuestionSearchResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

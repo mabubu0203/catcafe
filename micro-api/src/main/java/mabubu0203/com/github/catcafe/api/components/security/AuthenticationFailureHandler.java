@@ -28,29 +28,26 @@ public class AuthenticationFailureHandler implements ServerAuthenticationFailure
     var response = webFilterExchange.getExchange().getResponse();
     response.setStatusCode(HttpStatus.UNAUTHORIZED);
     response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-    return
-        Optional.of(response)
-            .map(this::generateBody)
-            .map(response::writeWith)
-            .orElseThrow(RuntimeException::new);
+    return Optional.of(response)
+        .map(this::generateBody)
+        .map(response::writeWith)
+        .orElseThrow(RuntimeException::new);
   }
 
   private Flux<DataBuffer> generateBody(ServerHttpResponse response) {
-    var dataBufferFactory = response.bufferFactory();
-    // TODO:とりあえず
-    return
-        Optional.of("認証失敗です")
-            .map(new AuthenticationError()::message)
-            .map(new InlineResponse401()::authenticationError)
-            .map(error ->
-                new Jackson2JsonEncoder()
-                    .encode(
-                        Flux.just(error),
-                        dataBufferFactory,
-                        ResolvableType.forInstance(error),
-                        MediaType.APPLICATION_JSON,
-                        null))
-            .orElseThrow(RuntimeException::new);
+    return Optional.of("認証失敗です")
+        .map(new AuthenticationError()::message)
+        .map(new InlineResponse401()::authenticationError)
+        .map(error ->
+            new Jackson2JsonEncoder()
+                .encode(
+                    Flux.just(error),
+                    response.bufferFactory(),
+                    ResolvableType.forInstance(error),
+                    MediaType.APPLICATION_JSON,
+                    null)
+        )
+        .orElseThrow(RuntimeException::new);
   }
 
 }

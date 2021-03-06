@@ -101,8 +101,7 @@ public class CastQueryApiController implements CastQueryApi {
     return
         new CastFindRequestMapper(
             cats, storeId, castId).get()
-            .map(this.castSearchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.castSearchService::action)
             .map(new CastFindResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
@@ -134,8 +133,7 @@ public class CastQueryApiController implements CastQueryApi {
         new CastSearchRequestMapper(
             cats, storeIds, castIds,
             page, size, sortKeys).get()
-            .map(this.castSearchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.castSearchService::action)
             .map(new CastSearchResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

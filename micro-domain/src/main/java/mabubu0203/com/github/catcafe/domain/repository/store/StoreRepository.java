@@ -1,21 +1,22 @@
 package mabubu0203.com.github.catcafe.domain.repository.store;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreEntity;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface StoreRepository {
 
-  CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions);
+  Flux<StoreEntity> search(StoreSearchConditions searchConditions);
 
-  @Deprecated(since = "")
-  CompletableFuture<Boolean> exists(StoreId storeId);
+  Mono<StoreEntity> findBy(StoreId storeId);
 
-  CompletableFuture<StoreId> resister(StoreEntity store, LocalDateTime receptionTime);
+  Mono<StoreId> resister(StoreEntity store, LocalDateTime receptionTime);
 
-  CompletableFuture<StoreId> logicalDelete(StoreEntity store, LocalDateTime receptionTime);
+  Mono<StoreId> modify(StoreEntity store, LocalDateTime receptionTime);
+
+  Mono<StoreId> logicalDelete(StoreEntity store, LocalDateTime receptionTime);
 
 }

@@ -2,21 +2,19 @@ package mabubu0203.com.github.catcafe.infra.repository.impl.store;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseTable;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreEntity;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
-import mabubu0203.com.github.catcafe.infra.source.jpa.StoreSource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.Store;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.Store_;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.annotation.Async;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,18 +23,59 @@ public class StoreRepositoryImpl implements StoreRepository {
   private final StoreSource source;
 
   @Override
-  @Async
-  public CompletableFuture<Stream<StoreEntity>> search(StoreSearchConditions searchConditions) {
-    var specification = Specification
-        .where(this.storeIdInclude(searchConditions.optStoreIds()));
-    return this.source.searchStream(specification, searchConditions.getPageRequest())
-        .thenApply(stream -> stream.map(this::convertStoreEntity));
+  public Flux<StoreEntity> search(StoreSearchConditions searchConditions) {
+    Predicate<Store> storeIdInclude = store -> {
+      var storeIds = searchConditions.optStoreIds().orElseGet(Collections::emptyList);
+      return storeIds.size() == 0 || storeIds.contains(store.getId());
+    };
+    return this.source.findAll()
+        .filter(BaseTable::isExists)
+        .filter(storeIdInclude)
+        .map(this::convertStoreEntity);
   }
 
-  private Specification<Store> storeIdInclude(Optional<List<Integer>> optStoreIds) {
-    var storeIds = optStoreIds.orElseGet(Collections::emptyList);
-    return storeIds.size() == 0 ?
-        null : (root, criteriaQuery, criteriaBuilder) -> root.get(Store_.id).in(storeIds);
+  @Override
+  public Mono<StoreEntity> findBy(StoreId storeId) {
+    return this.findDto(storeId)
+        .map(this::convertStoreEntity)
+        // 404で返却するためのエラーを検討
+        .switchIfEmpty(Mono.error(new RuntimeException("店舗が存在しません")));
+  }
+
+  @Override
+  public Mono<StoreId> resister(StoreEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(e -> this.attach(new Store(), e))
+        .map(dto -> dto.setCreatedBy(0))
+        .map(Store.class::cast)
+        .map(dto -> this.source.insert(dto, receptionTime))
+        .orElseThrow(RuntimeException::new)
+        .map(Store::getId)
+        .map(StoreId::new);
+  }
+
+  @Override
+  public Mono<StoreId> modify(StoreEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(StoreEntity::getStoreId)
+        .map(this::findDto)
+        .orElseThrow(RuntimeException::new)
+        .map(dto -> this.attach(dto, entity))
+        .flatMap(dto -> this.source.update(dto, receptionTime))
+        .map(Store::getId)
+        .map(StoreId::new);
+  }
+
+  @Override
+  public Mono<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(StoreEntity::getStoreId)
+        .map(this::findDto)
+        .orElseThrow(RuntimeException::new)
+        .map(dto -> this.attach(dto, entity))
+        .flatMap(dto -> this.source.logicalDelete(dto, receptionTime))
+        .map(Store::getId)
+        .map(StoreId::new);
   }
 
   private StoreEntity convertStoreEntity(Store dto) {
@@ -44,64 +83,31 @@ public class StoreRepositoryImpl implements StoreRepository {
     return StoreEntity.builder()
         .storeId(storeId)
         .name(dto.getName())
-        .openingTime(null)
-        .closingTime(null)
+        .openingTime(dto.getOpeningTime())
+        .closingTime(dto.getClosingTime())
         .createdDateTime(dto.getCreatedDateTime())
         .version(dto.getVersion())
         .updatedDateTime(dto.getUpdatedDateTime())
         .build();
   }
 
-  @Override
-  @Async
-  public CompletableFuture<Boolean> exists(StoreId storeId) {
-    return CompletableFuture
-        .supplyAsync(storeId::intValue)
-        .thenApply(this.source::findById)
-        .thenApply(Optional::isPresent);
+  private Mono<Store> findDto(StoreId storeId) {
+    return this.source.findById(storeId.intValue())
+        .filter(BaseTable::isExists)
+        // 404で返却するためのエラーを検討
+        .switchIfEmpty(Mono.error(new RuntimeException("店舗が存在しません")));
   }
 
-  @Override
-  @Async
-  public CompletableFuture<StoreId> resister(StoreEntity entity, LocalDateTime receptionTime) {
-    return CompletableFuture
-        .supplyAsync(() -> entity)
-        .thenApply(this::toDto)
-        .thenApply(dto -> dto.setCreatedBy(0))
-        .thenApply(Store.class::cast)
-        .thenCompose(dto -> this.source.insert(dto, receptionTime))
-        .thenApply(Store::getId)
-        .thenApply(StoreId::new);
-  }
-
-  private Store toDto(StoreEntity entity) {
-    var storeId = Optional
-        .ofNullable(entity.getStoreId())
+  private Store attach(Store dto, StoreEntity entity) {
+    var storeId = Optional.ofNullable(entity.getStoreId())
         .map(StoreId::intValue)
         .orElse(null);
-    return new Store()
+    var store = Optional.of(dto).orElse(new Store());
+    return store
         .setId(storeId)
         .setName(entity.getName())
         .setOpeningTime(entity.getOpeningTime())
         .setClosingTime(entity.getClosingTime());
-  }
-
-  @Override
-  @Async
-  public CompletableFuture<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
-    return this.findOne(entity)
-        .thenCompose(dto -> this.source.logicalDelete(dto, receptionTime))
-        .thenApply(Store::getId)
-        .thenApply(StoreId::new);
-  }
-
-  private CompletableFuture<Store> findOne(StoreEntity entity) {
-    var store = (Store) new Store()
-        .setId(entity.getStoreId().intValue())
-        .setVersion(entity.getVersion())
-        .setDeletedFlag(false);
-    return this.source.findOne(store)
-        .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("店舗が存在しません")));
   }
 
 }

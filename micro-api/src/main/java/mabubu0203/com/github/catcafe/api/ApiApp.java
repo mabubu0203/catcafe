@@ -2,7 +2,7 @@ package mabubu0203.com.github.catcafe.api;
 
 import mabubu0203.com.github.catcafe.domain.DomainCore;
 import mabubu0203.com.github.catcafe.infra.InfraCore;
-import mabubu0203.com.github.catcafe.infra.config.JpaConfig;
+import mabubu0203.com.github.catcafe.infra.config.R2dbcConfig;
 import mabubu0203.com.github.catcafe.infra.config.RedisConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +17,7 @@ import org.springframework.web.server.WebFilter;
 @EnableAsync
 @EnableScheduling
 @Import(value = {
-    JpaConfig.class,
+    R2dbcConfig.class,
     RedisConfig.class,
     DomainCore.class,
     InfraCore.class,

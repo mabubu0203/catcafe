@@ -11,19 +11,6 @@ spring:
   config:
     activate:
       on-profile: common
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-        generate_statistics: true
-        order_inserts: true
-        order_updates: true
-        jdbc:
-          batch_versioned_data: true
-          batch_size: 100
-    show-sql: true
   jmx:
     enabled: true
   main:
@@ -51,7 +38,8 @@ logging:
       clients: TRACE
     org:
       springframework:
-        data: TRACE
+        data:
+          r2dbc: DEBUG
   file:
     name: micro-api.log
 management:
@@ -87,13 +75,6 @@ spring:
   config:
     activate:
       on-profile: local
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    generate-unique-name: false
-    password: root
-    sql-script-encoding: UTF-8
-    url: jdbc:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
-    username: root
   devtools:
     livereload:
       port: 35219
@@ -103,6 +84,10 @@ spring:
     include:
       - common
       - springdoc
+  r2dbc:
+    url: r2dbcs:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
+    username: root
+    password: root
   redis:
     database: 0
     host: localhost
@@ -113,14 +98,6 @@ spring:
   config:
     activate:
       on-profile: docker
-  datasource:
-    continue-on-error: true
-    driverClassName: com.mysql.cj.jdbc.Driver
-    generate-unique-name: false
-    password: root
-    sql-script-encoding: UTF-8
-    url: jdbc:mysql://mysql/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
-    username: root
   devtools:
     add-properties: false
   profiles:

@@ -81,8 +81,7 @@ public class StoreQueryApiController implements StoreQueryApi {
         new StoreSearchRequestMapper(
             cats, storeIds,
             page, size, sortKeys).get()
-            .map(this.searchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.searchService::action)
             .map(new StoreSearchResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

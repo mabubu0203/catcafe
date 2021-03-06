@@ -81,8 +81,7 @@ public class NoticeQueryApiController implements NoticeQueryApi {
         new NoticeSearchRequestMapper(
             cats, storeIds, noticeIds,
             page, size, sortKeys).get()
-            .map(this.searchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.searchService::action)
             .map(new NoticeSearchResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

@@ -6,11 +6,13 @@ import java.util.stream.Stream;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.NoticeId;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface NoticeRepository {
 
-  CompletableFuture<Stream<NoticeEntity>> search(NoticeSearchConditions searchConditions);
+  Flux<NoticeEntity> search(NoticeSearchConditions searchConditions);
 
-  CompletableFuture<NoticeId> resister(NoticeEntity notice, LocalDateTime receptionTime);
+  Mono<NoticeId> resister(NoticeEntity notice, LocalDateTime receptionTime);
 
 }

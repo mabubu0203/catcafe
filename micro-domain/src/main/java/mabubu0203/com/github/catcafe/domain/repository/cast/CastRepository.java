@@ -8,13 +8,15 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface CastRepository {
 
-  CompletableFuture<Stream<CastEntity>> search(CastSearchConditions searchConditions);
+  Flux<CastEntity> search(CastSearchConditions searchConditions);
 
-  CompletableFuture<CastId> resister(CastEntity cast, LocalDateTime receptionTime);
+  Mono<CastId> resister(CastEntity cast, LocalDateTime receptionTime);
 
-  CompletableFuture<CastCatId> resister(CastCatEntity castCat, LocalDateTime receptionTime);
+  Mono<CastCatId> resister(CastCatEntity castCat, LocalDateTime receptionTime);
 
 }

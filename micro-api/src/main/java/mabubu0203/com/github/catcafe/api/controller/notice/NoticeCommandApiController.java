@@ -50,8 +50,7 @@ public class NoticeCommandApiController implements NoticeCommandApi {
       ServerWebExchange exchange) {
     return noticeCreate
         .map(new NoticeCreateRequestMapper(cats))
-        .map(this.resisterService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.resisterService::action)
         .map(new NoticeCreateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

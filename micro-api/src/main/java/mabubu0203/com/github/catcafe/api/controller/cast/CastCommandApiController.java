@@ -57,8 +57,7 @@ public class CastCommandApiController implements CastCommandApi {
       ServerWebExchange exchange) {
     return castCatCreate
         .map(new CastCatCreateRequestMapper(cats))
-        .map(this.castCatResisterService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.castCatResisterService::action)
         .map(new CastCatCreateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK).header("Location", "")::body);
   }
@@ -128,8 +127,7 @@ public class CastCommandApiController implements CastCommandApi {
       ServerWebExchange exchange) {
     return castCreate
         .map(new CastCreateRequestMapper(cats, storeId))
-        .map(this.castResisterService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.castResisterService::action)
         .map(new CastCreateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK).header("Location", "")::body);
   }

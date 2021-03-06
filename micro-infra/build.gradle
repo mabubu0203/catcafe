@@ -1,10 +1,5 @@
 dependencies {
 
-    // SpringBoot projects
-
-    compileOnly("org.hibernate:hibernate-jpamodelgen")
-    annotationProcessor("org.hibernate:hibernate-jpamodelgen")
-
     // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
@@ -13,12 +8,6 @@ dependencies {
     }
 
 }
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs += ['-AaddGenerationDate=true']
-}
-
-sourceSets.main.java.srcDir "build/generated"
 
 test {
     useJUnitPlatform()

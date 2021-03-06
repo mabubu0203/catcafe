@@ -1,16 +1,15 @@
 package mabubu0203.com.github.catcafe.api.service.impl.store;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreSearchService;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.input.StoreSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.api.service.impl.store.converter.StoreSearchServiceConverter;
 import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -20,14 +19,12 @@ public class StoreSearchServiceImpl implements StoreSearchService {
   private final StoreSearchServiceConverter converter = new StoreSearchServiceConverter();
 
   @Override
-  @Async
   @Transactional(readOnly = true)
-  public CompletableFuture<StoreSearchServiceOutput> promise(StoreSearchServiceInput input) {
-    return Optional
-        .of(input)
+  public Mono<StoreSearchServiceOutput> action(StoreSearchServiceInput input) {
+    return Optional.of(input)
         .map(this.converter::toSearchCondition)
         .map(this.storeRepository::search)
-        .map(future -> future.thenApply(this.converter::toServiceOutput))
+        .map(this.converter::toOutput)
         .orElseThrow(RuntimeException::new);
   }
 
