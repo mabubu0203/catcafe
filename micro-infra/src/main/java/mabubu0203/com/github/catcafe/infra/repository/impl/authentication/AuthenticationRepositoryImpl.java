@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.infra.repository.impl.authentication;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,14 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
       LocalDateTime receptionTime) {
     return
         this.xApiKeySource.findByToken(token.value())
+            .thenApply(List::stream)
             .thenApply(stream ->
                 stream
-                    .filter(x -> x.getStartDateTime().isAfter(receptionTime))
-                    .filter(x -> x.getEndDateTime().isBefore(receptionTime))
+                    .filter(x -> x.getStartDateTime().isBefore(receptionTime))
+                    .filter(x -> x.getEndDateTime().isAfter(receptionTime))
                     .findFirst()
-                    .map(this::convertXApiKeyEntity));
+            )
+            .thenApply(opt -> opt.map(this::convertXApiKeyEntity));
   }
 
   @Override
