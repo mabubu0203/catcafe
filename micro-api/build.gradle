@@ -5,7 +5,6 @@ dependencies {
 
     // SpringBoot Projects
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
@@ -29,7 +28,7 @@ dependencies {
     }
 
     // mysql
-    // runtimeOnly("dev.miku:r2dbc-mysql")
+    runtimeOnly("dev.miku:r2dbc-mysql")
     runtimeOnly("mysql:mysql-connector-java")
 
     developmentOnly("io.projectreactor:reactor-tools")

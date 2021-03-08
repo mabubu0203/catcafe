@@ -47,20 +47,18 @@ public class AuthenticationApiController implements AuthenticationApi {
       ServerWebExchange exchange) {
     return xapiKeyGenerate
         .map(new XApiKeyGenerateRequestMapper(cats, this.getClientIp(exchange)))
-        .map(this.xApiKeyGenerateService::promise)
-        .flatMap(Mono::fromCompletionStage)
+        .flatMap(this.xApiKeyGenerateService::action)
         .map(new XApiKeyGenerateResponseMapper())
         .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
   private String getClientIp(ServerWebExchange exchange) {
-    return
-        Optional.ofNullable(exchange)
-            .map(ServerWebExchange::getRequest)
-            .map(ServerHttpRequest::getRemoteAddress)
-            .map(InetSocketAddress::getAddress)
-            .map(InetAddress::getHostAddress)
-            .orElse("");
+    return Optional.ofNullable(exchange)
+        .map(ServerWebExchange::getRequest)
+        .map(ServerHttpRequest::getRemoteAddress)
+        .map(InetSocketAddress::getAddress)
+        .map(InetAddress::getHostAddress)
+        .orElse("");
   }
 
 }

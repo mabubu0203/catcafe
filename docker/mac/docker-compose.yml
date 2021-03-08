@@ -37,6 +37,8 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     restart: always
+    networks:
+      - app-net
 
   redis:
     build: ./docker-redis

@@ -13,7 +13,7 @@ public interface HashSource<D extends BaseHash, ID> extends CrudRepository<D, ID
   @Async
   default CompletableFuture<D> insert(D entity, Long expiration) {
     Optional.ofNullable(expiration).ifPresent(entity::setExpiration);
-    return CompletableFuture.supplyAsync(() -> save(entity));
+    return CompletableFuture.supplyAsync(() -> this.save(entity));
   }
 
 }

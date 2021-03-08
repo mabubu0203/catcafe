@@ -2,11 +2,10 @@ package mabubu0203.com.github.catcafe.infra.repository.impl.cast;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
+import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseTable;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
@@ -14,16 +13,15 @@ import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
-import mabubu0203.com.github.catcafe.infra.source.jpa.CastCatSource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.CastSource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.CastViewSource;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.Cast;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.table.CastCat;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.view.CastView;
-import mabubu0203.com.github.catcafe.infra.source.jpa.dto.view.CastView_;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.scheduling.annotation.Async;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastCatSource;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastSource;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastViewSource;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Cast;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastCat;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.view.CastView;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 @RequiredArgsConstructor
@@ -34,25 +32,20 @@ public class CastRepositoryImpl implements CastRepository {
   private final CastViewSource castViewSource;
 
   @Override
-  @Async
-  public CompletableFuture<Stream<CastEntity>> search(CastSearchConditions searchConditions) {
-    var specification = Specification
-        .where(this.storeIdInclude(searchConditions.optStoreIds()))
-        .and(this.castIdInclude(searchConditions.optCastIds()));
-    return this.castViewSource.searchStream(specification, searchConditions.getPageRequest())
-        .thenApply(stream -> stream.map(this::convertCastEntity));
-  }
+  public Flux<CastEntity> search(CastSearchConditions searchConditions) {
+    Predicate<CastView> storeIdInclude = castView -> {
+      var storeIds = searchConditions.optStoreIds().orElseGet(Collections::emptyList);
+      return storeIds.size() == 0 || storeIds.contains(castView.getStoreId());
+    };
+    Predicate<CastView> castIdInclude = castView -> {
+      var castIds = searchConditions.optCastIds().orElseGet(Collections::emptyList);
+      return castIds.size() == 0 || castIds.contains(castView.getCastId());
+    };
+    return this.castViewSource.findAll()
 
-  private Specification<CastView> storeIdInclude(Optional<List<Integer>> optStoreIds) {
-    var storeIds = optStoreIds.orElseGet(Collections::emptyList);
-    return storeIds.size() == 0 ?
-        null : (root, criteriaQuery, criteriaBuilder) -> root.get(CastView_.storeId).in(storeIds);
-  }
-
-  private Specification<CastView> castIdInclude(Optional<List<Integer>> optCastIds) {
-    var castIds = optCastIds.orElseGet(Collections::emptyList);
-    return castIds.size() == 0 ?
-        null : (root, criteriaQuery, criteriaBuilder) -> root.get(CastView_.id).in(castIds);
+        .filter(storeIdInclude)
+        .filter(castIdInclude)
+        .map(this::convertCastEntity);
   }
 
   private CastEntity convertCastEntity(CastView dto) {
@@ -80,37 +73,39 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   @Override
-  @Async
-  public CompletableFuture<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
+  public Mono<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
     return this.findOne(entity.getCastCatEntity())
-        .thenApply(dto -> entity)
-        .thenApply(this::toDto)
-        .thenApply(dto -> dto.setCreatedBy(0))
-        .thenApply(Cast.class::cast)
-        .thenCompose(dto -> this.castSource.insert(dto, receptionTime))
-        .thenApply(Cast::getId)
-        .thenApply(CastId::new);
+        .map(dto -> entity)
+        .map(this::toDto)
+        .map(dto -> dto.setCreatedBy(0))
+        .map(Cast.class::cast)
+        .flatMap(dto -> this.castSource.insert(dto, receptionTime))
+        .map(Cast::getId)
+        .map(CastId::new);
   }
 
-  private CompletableFuture<CastCat> findOne(CastCatEntity entity) {
-    var castCat = (CastCat) new CastCat()
-        .setId(entity.getCastCatId().intValue())
-        .setDeletedFlag(false);
-    return this.castCatSource.findOne(castCat)
-        .thenApply(opt -> opt.orElseThrow(() -> new RuntimeException("キャスト(猫)が存在しません")));
+  private Mono<CastCat> findOne(CastCatEntity entity) {
+    return Optional.of(new CastCat())
+//        .map(dto -> dto.setVersion(entity.getVersion()))
+//        .map(dto -> dto.setDeletedFlag(DeletedFlag.is_false))
+//        .map(Store.class::cast)
+        .map(dto -> dto.setId(entity.getCastCatId().intValue()))
+        .map(CastCat::getId)
+        .map(this.castCatSource::findById)
+        .orElseThrow(RuntimeException::new)
+        .filter(BaseTable::isExists)
+        // 404で返却するためのエラーを検討
+        .switchIfEmpty(Mono.error(new RuntimeException("キャスト(猫)が存在しません")));
   }
 
   private Cast toDto(CastEntity entity) {
-    var castId = Optional
-        .ofNullable(entity.getCastId())
+    var castId = Optional.ofNullable(entity.getCastId())
         .map(CastId::intValue)
         .orElse(null);
-    var storeId = Optional
-        .of(entity.getStoreId())
+    var storeId = Optional.of(entity.getStoreId())
         .map(StoreId::intValue)
         .get();
-    var castCatId = Optional
-        .of(entity.getCastCatEntity())
+    var castCatId = Optional.of(entity.getCastCatEntity())
         .map(CastCatEntity::getCastCatId)
         .map(CastCatId::intValue)
         .get();
@@ -125,21 +120,19 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   @Override
-  @Async
-  public CompletableFuture<CastCatId> resister(CastCatEntity entity, LocalDateTime receptionTime) {
-    return CompletableFuture
-        .supplyAsync(() -> entity)
-        .thenApply(this::toDto)
-        .thenApply(dto -> dto.setCreatedBy(0))
-        .thenApply(CastCat.class::cast)
-        .thenCompose(dto -> this.castCatSource.insert(dto, receptionTime))
-        .thenApply(CastCat::getId)
-        .thenApply(CastCatId::new);
+  public Mono<CastCatId> resister(CastCatEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(this::toDto)
+        .map(dto -> dto.setCreatedBy(0))
+        .map(CastCat.class::cast)
+        .map(dto -> this.castCatSource.insert(dto, receptionTime))
+        .orElseThrow(RuntimeException::new)
+        .map(CastCat::getId)
+        .map(CastCatId::new);
   }
 
   private CastCat toDto(CastCatEntity entity) {
-    var castCatId = Optional
-        .ofNullable(entity.getCastCatId())
+    var castCatId = Optional.ofNullable(entity.getCastCatId())
         .map(CastCatId::intValue)
         .orElse(null);
     return new CastCat()

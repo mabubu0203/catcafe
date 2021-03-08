@@ -73,8 +73,7 @@ public class ProvideServiceQueryApiController implements ProvideServiceQueryApi 
     return
         new ProvideServiceSearchRequestMapper(
             cats, storeIds).get()
-            .map(this.searchService::promise)
-            .flatMap(Mono::fromCompletionStage)
+            .flatMap(this.searchService::action)
             .map(new ProvideServiceSearchResponseMapper())
             .map(ResponseEntity.status(HttpStatus.OK)::body);
   }

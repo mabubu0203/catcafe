@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS store
 (
-    id                INT UNSIGNED        NOT NULL COMMENT '店舗ID',
-    name              VARCHAR(256)        NOT NULL COMMENT '店舗名',
+    id                INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '店舗ID',
+    name              VARCHAR(256)                NOT NULL COMMENT '店舗名',
     open_date         DATE COMMENT '開店日',
     close_date        DATE COMMENT '閉店日',
     phone_number      CHAR(13) COMMENT '店舗連絡先(電話番号)',
@@ -15,11 +15,12 @@ CREATE TABLE IF NOT EXISTS store
     opening_time      TIME COMMENT '営業時間(開店時間)',
     closing_time      TIME COMMENT '営業時間(閉店時間)',
     hours_aside       VARCHAR(256) COMMENT '営業時間(補足)',
-    created_date_time DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
-    created_by        INT UNSIGNED        NOT NULL DEFAULT 0 COMMENT '登録者',
-    version           INT UNSIGNED        NOT NULL DEFAULT 0 COMMENT 'Version',
-    updated_date_time DATETIME                     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
-    updated_by        INT UNSIGNED                 DEFAULT NULL COMMENT '更新者',
-    deleted_date_time DATETIME                     DEFAULT NULL COMMENT '削除日時',
-    deleted_flag      TINYINT(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '論理削除フラグ:0-未削除,1-削除済'
+    created_date_time DATETIME                    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
+    created_by        INT UNSIGNED                NOT NULL DEFAULT 0 COMMENT '登録者',
+    version           INT UNSIGNED                NOT NULL DEFAULT 0 COMMENT 'Version',
+    updated_date_time DATETIME                             DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
+    updated_by        INT UNSIGNED                         DEFAULT NULL COMMENT '更新者',
+    deleted_date_time DATETIME                             DEFAULT NULL COMMENT '削除日時',
+    deleted_flag      ENUM ('is_false','is_true') NOT NULL DEFAULT 'is_false' COMMENT '論理削除フラグ:is_false-未削除,is_true-削除済',
+    PRIMARY KEY (id)
 ) DEFAULT CHARSET = UTF8MB4 COMMENT '店舗';

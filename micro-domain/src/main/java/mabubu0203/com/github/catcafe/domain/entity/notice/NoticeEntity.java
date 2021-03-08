@@ -14,6 +14,8 @@ public class NoticeEntity {
   private final StoreId storeId;
   private final String summary;
   private final String detail;
+  private final LocalDateTime publicationStartDateTime;
+  private final LocalDateTime publicationEndDateTime;
   private final LocalDateTime createdDateTime;
   private final Integer version;
   private final LocalDateTime updatedDateTime;

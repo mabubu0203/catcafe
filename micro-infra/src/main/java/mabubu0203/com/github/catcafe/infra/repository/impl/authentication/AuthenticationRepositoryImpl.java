@@ -3,15 +3,14 @@ package mabubu0203.com.github.catcafe.infra.repository.impl.authentication;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;
 import mabubu0203.com.github.catcafe.infra.source.redis.XApiKeySource;
 import mabubu0203.com.github.catcafe.infra.source.redis.dto.XApiKey;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Mono;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,10 +19,8 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
   private final XApiKeySource xApiKeySource;
 
   @Override
-  @Async
-  public CompletableFuture<Optional<XApiKeyEntity>> findOne(XApiKeyToken token,
-      LocalDateTime receptionTime) {
-    return
+  public Mono<XApiKeyEntity> findOne(XApiKeyToken token, LocalDateTime receptionTime) {
+    var entity =
         this.xApiKeySource.findByToken(token.value())
             .thenApply(List::stream)
             .thenApply(stream ->
@@ -32,19 +29,22 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
                     .filter(x -> x.getEndDateTime().isAfter(receptionTime))
                     .findFirst()
             )
-            .thenApply(opt -> opt.map(this::convertXApiKeyEntity));
+            .thenApply(opt -> opt.map(this::convertXApiKeyEntity))
+            .thenApply(Optional::get)
+            .join();
+    return Mono.just(entity);
   }
 
   @Override
-  @Async
-  public CompletableFuture<XApiKeyEntity> generate(XApiKeyEntity entity,
-      LocalDateTime receptionTime) {
-    return CompletableFuture
-        .supplyAsync(() -> entity)
-        .thenApply(this::toDto)
-        .thenApply(XApiKey.class::cast)
-        .thenCompose(dto -> this.xApiKeySource.insert(dto, null))
-        .thenApply(this::convertXApiKeyEntity);
+  public Mono<XApiKeyEntity> generate(XApiKeyEntity entity, LocalDateTime receptionTime) {
+    var obj = Optional.of(entity)
+        .map(this::toDto)
+        .map(XApiKey.class::cast)
+        .map(dto -> this.xApiKeySource.insert(dto, null))
+        .orElseThrow(RuntimeException::new)
+        .thenApply(this::convertXApiKeyEntity)
+        .join();
+    return Mono.just(obj);
   }
 
   private XApiKey toDto(XApiKeyEntity entity) {
