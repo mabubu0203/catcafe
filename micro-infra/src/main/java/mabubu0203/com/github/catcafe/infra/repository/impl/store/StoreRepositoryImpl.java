@@ -59,6 +59,7 @@ public class StoreRepositoryImpl implements StoreRepository {
         .map(this::findDto)
         .orElseThrow(RuntimeException::new)
         .map(dto -> this.attach(dto, entity))
+        .map(dto -> (Store) dto.setVersion(entity.getVersion()))
         .flatMap(dto -> this.source.update(dto, receptionTime))
         .map(Store::getId)
         .map(StoreId::new);
@@ -70,7 +71,7 @@ public class StoreRepositoryImpl implements StoreRepository {
         .map(StoreEntity::getStoreId)
         .map(this::findDto)
         .orElseThrow(RuntimeException::new)
-        .map(dto -> this.attach(dto, entity))
+        .map(dto -> (Store) dto.setVersion(entity.getVersion()))
         .flatMap(dto -> this.source.logicalDelete(dto, receptionTime))
         .map(Store::getId)
         .map(StoreId::new);
