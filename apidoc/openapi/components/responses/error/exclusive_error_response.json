@@ -1,0 +1,32 @@
+{
+  "responses": {
+    "exclusive_error_response": {
+      "description": "楽観排他エラー",
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "楽観排他Errorレスポンス",
+            "type": "object",
+            "properties": {
+              "exclusive_error": {
+                "$ref": "#/model/exclusive_error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "model": {
+    "exclusive_error": {
+      "description": "楽観排他Error結果",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "message",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

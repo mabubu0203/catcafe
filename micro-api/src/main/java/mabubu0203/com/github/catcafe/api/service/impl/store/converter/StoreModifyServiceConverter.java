@@ -9,7 +9,9 @@ public class StoreModifyServiceConverter {
 
   public StoreEntity fromInput(StoreModifyServiceInput input) {
     return StoreEntity.builder()
+        .storeId(new StoreId(input.getStoreId()))
         .name(input.getName())
+        .version(input.getVersion())
         .build();
   }
 

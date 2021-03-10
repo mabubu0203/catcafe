@@ -12,7 +12,7 @@ public interface TableSource<D extends BaseTable, ID> extends ReactiveSortingRep
 
   default Mono<D> insert(D entity, LocalDateTime localDateTime) {
     entity.setCreatedDateTime(localDateTime);
-    entity.setVersion(null);
+    entity.setVersion(0);
     entity.setNew(true);
     return this.save(entity);
   }

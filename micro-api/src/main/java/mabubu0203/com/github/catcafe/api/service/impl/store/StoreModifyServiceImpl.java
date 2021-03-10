@@ -1,5 +1,6 @@
 package mabubu0203.com.github.catcafe.api.service.impl.store;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreModifyService;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.input.StoreModifyServiceInput;
@@ -21,7 +22,11 @@ public class StoreModifyServiceImpl implements StoreModifyService {
   @Transactional
   public Mono<StoreModifyServiceOutput> action(StoreModifyServiceInput input) {
     var receptionTime = this.getReceptionTime();
-    return null;
+    return Optional.of(input)
+        .map(this.converter::fromInput)
+        .map(entity -> this.storeRepository.modify(entity, receptionTime))
+        .orElseThrow(RuntimeException::new)
+        .map(this.converter::toOutput);
   }
 
 }
