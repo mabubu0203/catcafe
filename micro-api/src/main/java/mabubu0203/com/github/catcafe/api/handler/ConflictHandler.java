@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import reactor.core.publisher.Mono;
 
 @RestControllerAdvice(annotations = {RestController.class})
-public class ExclusiveHandler {
+public class ConflictHandler {
 
   @ExceptionHandler({OptimisticLockingFailureException.class})
   public Mono<ResponseEntity<InlineResponse409>> exceptions(OptimisticLockingFailureException e) {

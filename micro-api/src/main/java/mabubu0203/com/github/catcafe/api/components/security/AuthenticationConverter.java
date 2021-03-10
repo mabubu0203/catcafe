@@ -3,6 +3,8 @@ package mabubu0203.com.github.catcafe.api.components.security;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.common.exception.HeaderNotFoundException;
+import mabubu0203.com.github.catcafe.common.exception.TokenNotFoundException;
 import mabubu0203.com.github.catcafe.domain.entity.authentication.XApiKeyEntity;
 import mabubu0203.com.github.catcafe.domain.repository.authentication.AuthenticationRepository;
 import mabubu0203.com.github.catcafe.domain.value.XApiKeyToken;

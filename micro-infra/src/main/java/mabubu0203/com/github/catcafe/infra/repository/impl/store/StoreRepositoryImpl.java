@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.common.exception.ResourceNotFoundException;
 import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseTable;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreEntity;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
@@ -94,15 +95,16 @@ public class StoreRepositoryImpl implements StoreRepository {
     return this.source.findById(storeId.intValue())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
-        .switchIfEmpty(Mono.error(new RuntimeException("店舗が存在しません")));
+        .switchIfEmpty(Mono.error(new ResourceNotFoundException("店舗が存在しません")));
   }
 
   private Store attach(Store dto, StoreEntity entity) {
-    var storeId = Optional.ofNullable(entity.getStoreId())
+    var storeId = Optional.of(entity)
+        .map(StoreEntity::getStoreId)
         .map(StoreId::intValue)
         .orElse(null);
-    var store = Optional.of(dto).orElse(new Store());
-    return store
+    return Optional.of(dto)
+        .orElse(new Store())
         .setId(storeId)
         .setName(entity.getName())
         .setOpeningTime(entity.getOpeningTime())
