@@ -58,7 +58,7 @@
         "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "description": "Idが見つからない"
+        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       }
     }
   },
@@ -103,10 +103,10 @@
         "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "description": "Idが見つからない"
+        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       },
       "409": {
-        "description": "排他失敗"
+        "$ref": "../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
       }
     }
   },
@@ -145,10 +145,10 @@
         "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "description": "Idが見つからない"
+        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       },
       "409": {
-        "description": "排他失敗"
+        "$ref": "../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
       }
     }
   }

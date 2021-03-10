@@ -1,0 +1,32 @@
+{
+  "responses": {
+    "not_found_error_response": {
+      "description": "リソースエラー",
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "リソースErrorレスポンス",
+            "type": "object",
+            "properties": {
+              "resource_error": {
+                "$ref": "#/model/resource_error"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "model": {
+    "resource_error": {
+      "description": "リソースError結果",
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "message",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -21,6 +21,8 @@ import mabubu0203.com.github.catcafe.api.controller.store.service.StoreRegisterS
 import org.openapitools.api.StoreCommandApi;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
+import org.openapitools.model.InlineResponse404;
+import org.openapitools.model.InlineResponse409;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
 import org.openapitools.model.StoreCreate;
@@ -73,8 +75,8 @@ public class StoreCommandApiController implements StoreCommandApi {
       responses = {
           @ApiResponse(responseCode = "204", description = "正常系"),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
-          @ApiResponse(responseCode = "404", description = "Idが見つからない"),
-          @ApiResponse(responseCode = "409", description = "排他失敗"),
+          @ApiResponse(responseCode = "404", description = "リソースエラー", content = @Content(schema = @Schema(implementation = InlineResponse404.class))),
+          @ApiResponse(responseCode = "409", description = "楽観排他エラー", content = @Content(schema = @Schema(implementation = InlineResponse409.class))),
       }
   )
   @Override
@@ -103,8 +105,8 @@ public class StoreCommandApiController implements StoreCommandApi {
           @ApiResponse(responseCode = "200", description = "正常系", content = @Content(schema = @Schema(implementation = PatchObject.class))),
           @ApiResponse(responseCode = "400", description = "バリデーションエラー", content = @Content(schema = @Schema(implementation = InlineResponse400.class))),
           @ApiResponse(responseCode = "401", description = "認証エラー", content = @Content(schema = @Schema(implementation = InlineResponse401.class))),
-          @ApiResponse(responseCode = "404", description = "Idが見つからない"),
-          @ApiResponse(responseCode = "409", description = "排他失敗"),
+          @ApiResponse(responseCode = "404", description = "リソースエラー", content = @Content(schema = @Schema(implementation = InlineResponse404.class))),
+          @ApiResponse(responseCode = "409", description = "楽観排他エラー", content = @Content(schema = @Schema(implementation = InlineResponse409.class))),
       }
   )
   @Override

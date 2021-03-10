@@ -37,9 +37,7 @@ public class StoreRepositoryImpl implements StoreRepository {
   @Override
   public Mono<StoreEntity> findBy(StoreId storeId) {
     return this.findDto(storeId)
-        .map(this::convertStoreEntity)
-        // 404で返却するためのエラーを検討
-        .switchIfEmpty(Mono.error(new RuntimeException("店舗が存在しません")));
+        .map(this::convertStoreEntity);
   }
 
   @Override
