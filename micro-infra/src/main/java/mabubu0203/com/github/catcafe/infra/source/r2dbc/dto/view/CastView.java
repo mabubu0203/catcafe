@@ -1,6 +1,5 @@
 package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.view;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

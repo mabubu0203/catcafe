@@ -11,4 +11,8 @@ compileJava {
     }
 }
 
+java {
+    modularity.inferModulePath = true
+}
+
 version gitVersion()
