@@ -10,4 +10,6 @@ bootJar {
     enabled = false
 }
 
-compileJava.dependsOn tasks.openApiGenerate
+compileJava {
+    dependsOn(tasks.openApiGenerate)
+}

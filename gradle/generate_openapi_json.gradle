@@ -8,10 +8,8 @@ openApiGenerate {
     inputSpec = "${rootDir}/apidoc/openapi/root.json"
     // https://github.com/OpenAPITools/openapi-generator/blob/v5.1.0/docs/generators/openapi.md
     logToStderr = true
-
 }
 
 openApiValidate {
     inputSpec = "${rootDir}/apidoc/openapi/root.json"
-    recommend = true
 }
