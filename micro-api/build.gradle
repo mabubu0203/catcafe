@@ -73,21 +73,36 @@ bootJar {
 }
 
 jlink {
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    mergedModuleName = "CatCafe.merged.module"
     mainClass = "mabubu0203.com.github.catcafe.api.ApiApp"
+    moduleName = "CatCafe.micro.api.main"
+    mergedModuleName = "CatCafe.micro.api.main.merged.module"
     mergedModuleJarName = "merged-micro-api"
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     mergedModule {
         version = "$catCafeVersion"
-//        uses "ch.qos.logback.classic.spi.Configurator"
-//        requires "java.desktop"
-//        excludeRequires "com.fasterxml.jackson.module.paramnames"
-//        excludeRequires "com.fasterxml.jackson.databind"
+        requires "java.desktop"
+        requires "java.logging"
+        requires "java.security.jgss"
+        requires "com.fasterxml.jackson.module.paramnames"
+        requires "com.fasterxml.jackson.databind"
+        uses "ch.qos.logback.classic.spi.Configurator"
+    }
+    launcher {
+        name = "micro-api"
+        moduleName = "CatCafe.micro.api.main"
+        jvmArgs = [
+                "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
+                "-Dspring.profiles.active=local"
+        ]
+    }
+    customImage {
+        appModules = ["CatCafe.micro.api.main.merged.module"]
     }
 }
 
 task bootRunCustomJRE(group: "application", type: Exec, dependsOn: [tasks.bootJar, tasks.jlink]) {
-    commandLine("${buildDir}/image/bin/java", "-jar", tasks.bootJar.archiveFile.get().asFile, "--spring.profiles.active=local")
+//    commandLine("${buildDir}/image/bin/java", "-jar", tasks.bootJar.archiveFile.get().asFile, "-Dspring.profiles.active=local")
+    commandLine("${buildDir}/image/bin/micro-api")
 }
 
 jib {
