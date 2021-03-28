@@ -54,5 +54,5 @@ node {
     nodeModulesDir = file("${project.projectDir}/src/main/vue")
 }
 
-task('npm_run_generate-client').dependsOn ':openapi-generate:openApiGenerate'
+task('npm_run_generate-client').dependsOn ":openapi-generate:openApiGenerate"
 compileJava.dependsOn tasks.generateClient, tasks.webpackDevelopment

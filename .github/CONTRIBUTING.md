@@ -15,7 +15,7 @@ IntelliJ IDEAを使用します。
 ## 起動方法
 
 1. 当プロジェクトをIntelliJ IDEAにGradleProjectとしてclone
-1. docker-composeよりMysqlを起動  
+1. docker-composeよりMysql/Redisを起動  
    `$ cd docker/mac`  
    `$ docker-compose -f docker-compose.yml build`  
    `$ docker-compose -f docker-compose.yml up -d`
@@ -44,7 +44,6 @@ IntelliJ IDEAを使用します。
 1. アプリの停止
     * bootRunの停止
     * `$ docker stop micro-api`
-
 1. docker-composeより停止  
    `$ cd docker/mac`  
    `$ docker-compose -f docker-compose.yml stop`

@@ -5,10 +5,18 @@ apply plugin: "com.palantir.git-version"
 
 compileJava {
     doFirst {
+        options.compilerArgs = [
+                "--module-path", classpath.asPath
+        ]
+        options.encoding = defaultEncoding
         sourceCompatibility = jdkVersion
         targetCompatibility = jdkVersion
-        options.encoding = defaultEncoding
+        classpath = files()
     }
+}
+
+java {
+    modularity.inferModulePath = true
 }
 
 version gitVersion()

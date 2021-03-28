@@ -42,6 +42,17 @@ springBoot {
     buildInfo()
 }
 
+compileJava {
+    dependsOn tasks.openApiGenerate
+}
+
+sourceSets {
+    main {
+        java.srcDir "${openApiGenerate.outputDir.get()}/src/main/java"
+        resources.srcDir "${openApiGenerate.outputDir.get()}/src/main/resources"
+    }
+}
+
 jar {
     archiveBaseName = "micro-api"
     enabled = true
@@ -72,8 +83,3 @@ jib {
         image = "play-with-jib/micro-api:$catCafeVersion"
     }
 }
-
-tasks.openApiGenerate.dependsOn ':openapi-generate:openApiGenerate'
-compileJava.dependsOn tasks.openApiGenerate
-sourceSets.main.java.srcDir "${openApiGenerate.outputDir.get()}/src/main/java"
-sourceSets.main.resources.srcDir "${openApiGenerate.outputDir.get()}/src/main/resources"
