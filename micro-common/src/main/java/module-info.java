@@ -1,7 +1,7 @@
 module CatCafe.micro.common.main {
   requires static lombok;
+  requires static reactor.core;
   requires org.reactivestreams;
-  requires reactor.core;
   requires spring.data.commons;
   requires spring.context;
   requires spring.data.r2dbc;

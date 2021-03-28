@@ -1,6 +1,6 @@
 module CatCafe.micro.domain.main {
   requires static lombok;
-  requires reactor.core;
+  requires static reactor.core;
   requires spring.context;
   requires transitive CatCafe.micro.common.main;
   exports mabubu0203.com.github.catcafe.domain;

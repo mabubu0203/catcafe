@@ -17,6 +17,10 @@ jar {
     archiveBaseName = "micro-infra"
     archiveVersion = "$catCafeVersion"
     enabled = true
+    inputs.property("moduleName", "CatCafe.micro.infra.main")
+    manifest {
+        attributes("Automatic-Module-Name": "CatCafe.micro.infra.main")
+    }
 }
 
 bootJar {

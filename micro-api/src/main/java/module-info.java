@@ -2,7 +2,7 @@ module CatCafe.micro.api.main {
   requires static lombok;
   requires java.annotation;
   requires java.validation;
-  requires reactor.core;
+  requires static reactor.core;
   requires spring.core;
   requires spring.web;
   requires spring.context;
@@ -18,6 +18,8 @@ module CatCafe.micro.api.main {
   requires org.springdoc.openapi.common;
   requires org.hibernate.validator;
   requires com.fasterxml.jackson.annotation;
-  requires transitive CatCafe.micro.infra.main;
-  exports mabubu0203.com.github.catcafe.api;
+  requires CatCafe.micro.infra.main;
+
+  exports org.openapitools.api;
+  exports org.openapitools.model;
 }

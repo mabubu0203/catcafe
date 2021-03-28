@@ -17,6 +17,10 @@ jar {
     archiveBaseName = "micro-domain"
     archiveVersion = "$catCafeVersion"
     enabled = true
+    inputs.property("moduleName", "CatCafe.micro.domain.main")
+    manifest {
+        attributes("Automatic-Module-Name": "CatCafe.micro.domain.main")
+    }
 }
 
 bootJar {
