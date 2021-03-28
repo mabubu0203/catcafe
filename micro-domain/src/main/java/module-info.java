@@ -1,5 +1,5 @@
 module CatCafe.micro.domain.main {
-  requires lombok;
+  requires static lombok;
   requires reactor.core;
   requires spring.context;
   requires transitive CatCafe.micro.common.main;

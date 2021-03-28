@@ -1,5 +1,6 @@
 apply from: "$rootDir/gradle/generate_api.gradle"
 apply plugin: "com.google.cloud.tools.jib"
+apply plugin: "org.beryx.jlink"
 
 dependencies {
 
@@ -66,6 +67,27 @@ bootJar {
     archiveBaseName = "micro-api"
     archiveVersion = "$catCafeVersion"
     launchScript()
+    manifest {
+        attributes 'Start-Class': 'mabubu0203.com.github.catcafe.api.ApiApp'
+    }
+}
+
+jlink {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    mergedModuleName = "CatCafe.merged.module"
+    mainClass = "mabubu0203.com.github.catcafe.api.ApiApp"
+    mergedModuleJarName = "merged-micro-api"
+    mergedModule {
+        version = "$catCafeVersion"
+//        uses "ch.qos.logback.classic.spi.Configurator"
+//        requires "java.desktop"
+//        excludeRequires "com.fasterxml.jackson.module.paramnames"
+//        excludeRequires "com.fasterxml.jackson.databind"
+    }
+}
+
+task bootRunCustomJRE(group: "application", type: Exec, dependsOn: [tasks.bootJar, tasks.jlink]) {
+    commandLine("${buildDir}/image/bin/java", "-jar", tasks.bootJar.archiveFile.get().asFile, "--spring.profiles.active=local")
 }
 
 jib {

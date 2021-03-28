@@ -1,18 +1,18 @@
 module CatCafe.micro.api.main {
-  requires lombok;
-  requires java.validation;
+  requires static lombok;
   requires java.annotation;
+  requires java.validation;
   requires reactor.core;
   requires spring.core;
-  requires spring.security.config;
   requires spring.web;
-  requires spring.security.core;
-  requires spring.security.web;
   requires spring.context;
   requires spring.tx;
   requires spring.beans;
   requires spring.boot;
   requires spring.boot.autoconfigure;
+  requires spring.security.config;
+  requires spring.security.core;
+  requires spring.security.web;
   requires io.swagger.v3.oas.models;
   requires io.swagger.v3.oas.annotations;
   requires org.springdoc.openapi.common;
