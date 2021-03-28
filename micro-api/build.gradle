@@ -55,10 +55,13 @@ sourceSets {
 }
 
 jar {
-    archiveBaseName = "micro-api"
     enabled = true
+    archiveBaseName = "micro-api"
+    inputs.property("moduleName", "CatCafe.micro.api.main")
     manifest {
-        attributes 'Main-Class': 'mabubu0203.com.github.catcafe.api.ApiApp'
+        attributes("Main-Class": "mabubu0203.com.github.catcafe.api.ApiApp")
+        attributes("Automatic-Module-Name": "CatCafe.micro.api.main")
+        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
@@ -68,21 +71,25 @@ bootJar {
     archiveVersion = "$catCafeVersion"
     launchScript()
     manifest {
-        attributes 'Start-Class': 'mabubu0203.com.github.catcafe.api.ApiApp'
+        attributes("Start-Class": "mabubu0203.com.github.catcafe.api.ApiApp")
+        attributes("Automatic-Module-Name": "CatCafe.micro.api.main")
     }
 }
 
 jlink {
+    // https://badass-jlink-plugin.beryx.org/releases/latest/
     mainClass = "mabubu0203.com.github.catcafe.api.ApiApp"
     moduleName = "CatCafe.micro.api.main"
     mergedModuleName = "CatCafe.micro.api.main.merged.module"
-    mergedModuleJarName = "merged-micro-api"
+    mergedModuleJarName = "micro-api.merged.module"
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     mergedModule {
         version = "$catCafeVersion"
         requires "java.desktop"
         requires "java.logging"
         requires "java.security.jgss"
+        requires "java.naming"
+        requires "java.base"
         requires "com.fasterxml.jackson.module.paramnames"
         requires "com.fasterxml.jackson.databind"
         uses "ch.qos.logback.classic.spi.Configurator"
@@ -91,8 +98,9 @@ jlink {
         name = "micro-api"
         moduleName = "CatCafe.micro.api.main"
         jvmArgs = [
-                "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
-                "-Dspring.profiles.active=local"
+                "-Dspring.profiles.active=local",
+//                "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
+                "-cp", "../app/*"
         ]
     }
     customImage {
@@ -101,8 +109,12 @@ jlink {
 }
 
 task bootRunCustomJRE(group: "application", type: Exec, dependsOn: [tasks.bootJar, tasks.jlink]) {
-//    commandLine("${buildDir}/image/bin/java", "-jar", tasks.bootJar.archiveFile.get().asFile, "-Dspring.profiles.active=local")
-    commandLine("${buildDir}/image/bin/micro-api")
+    commandLine(
+            "${buildDir}/image/bin/java",
+            "-Dspring.profiles.active=local",
+            "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
+            "-jar", tasks.bootJar.archiveFile.get().asFile)
+//    commandLine("${buildDir}/image/bin/micro-api")
 }
 
 jib {
