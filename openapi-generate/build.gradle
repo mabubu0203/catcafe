@@ -1,5 +1,9 @@
 apply from: "$rootDir/gradle/generate_openapi_json.gradle"
 
+compileJava {
+    dependsOn tasks.openApiGenerate
+}
+
 jar {
     archiveBaseName = "skeleton"
     archiveVersion = "$catCafeVersion"
@@ -8,8 +12,4 @@ jar {
 
 bootJar {
     enabled = false
-}
-
-compileJava {
-    dependsOn(tasks.openApiGenerate)
 }

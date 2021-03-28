@@ -1,6 +1,10 @@
 apply plugin: "org.openapi.generator"
 
-// Builds a spring client by default.
+openApiValidate {
+    inputSpec = "${rootDir}/apidoc/generate/openapi.json"
+}
+
+// openapi.jsonからjavaファイルを生成する
 openApiGenerate {
     generatorName = "spring"
     // https://github.com/OpenAPITools/openapi-generator/blob/v5.1.0/modules/openapi-generator-gradle-plugin/README.adoc
@@ -12,6 +16,4 @@ openApiGenerate {
     generateAliasAsModel = true
 }
 
-openApiValidate {
-    inputSpec = "${rootDir}/apidoc/generate/openapi.json"
-}
+tasks.openApiGenerate.dependsOn ":openapi-generate:openApiGenerate"
