@@ -15,5 +15,5 @@ openApiGenerate {
     logToStderr = true
     generateAliasAsModel = true
 }
-
-tasks.openApiGenerate.dependsOn ":openapi-generate:openApiGenerate"
+tasks.openApiValidate.dependsOn ":openapi-generate:openApiGenerate"
+tasks.openApiGenerate.dependsOn tasks.openApiValidate
