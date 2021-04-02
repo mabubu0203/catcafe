@@ -18,4 +18,5 @@ module CatCafe.micro.common.main {
   exports mabubu0203.com.github.catcafe.common.source.r2dbc.dto;
   exports mabubu0203.com.github.catcafe.common.source.redis.entity;
   exports mabubu0203.com.github.catcafe.common.service.model;
+  exports mabubu0203.com.github.catcafe.common.exception;
 }

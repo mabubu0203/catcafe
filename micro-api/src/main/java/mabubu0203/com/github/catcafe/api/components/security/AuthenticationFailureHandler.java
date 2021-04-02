@@ -23,7 +23,8 @@ import reactor.core.publisher.Mono;
 public class AuthenticationFailureHandler implements ServerAuthenticationFailureHandler {
 
   @Override
-  public Mono<Void> onAuthenticationFailure(WebFilterExchange webFilterExchange,
+  public Mono<Void> onAuthenticationFailure(
+      WebFilterExchange webFilterExchange,
       AuthenticationException exception) {
     var response = webFilterExchange.getExchange().getResponse();
     response.setStatusCode(HttpStatus.UNAUTHORIZED);
