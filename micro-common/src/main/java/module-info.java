@@ -8,6 +8,7 @@ module CatCafe.micro.common.main {
   requires spring.data.relational;
   requires spring.data.redis;
   requires spring.tx;
+
   exports mabubu0203.com.github.catcafe.common.config;
   exports mabubu0203.com.github.catcafe.common.controller.mapper.request;
   exports mabubu0203.com.github.catcafe.common.controller.mapper.response;

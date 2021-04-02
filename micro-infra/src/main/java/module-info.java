@@ -10,7 +10,12 @@ module CatCafe.micro.infra.main {
   requires spring.data.commons;
   requires spring.data.relational;
   requires com.fasterxml.jackson.annotation;
+
   requires transitive CatCafe.micro.domain.main;
+
   exports mabubu0203.com.github.catcafe.infra;
   exports mabubu0203.com.github.catcafe.infra.config;
+
+  opens mabubu0203.com.github.catcafe.infra;
+  opens mabubu0203.com.github.catcafe.infra.config;
 }

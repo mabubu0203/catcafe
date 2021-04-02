@@ -2,6 +2,10 @@ apply from: "$rootDir/gradle/generate_api.gradle"
 apply plugin: "com.google.cloud.tools.jib"
 apply plugin: "org.beryx.jlink"
 
+application {
+    mainModule = "CatCafe.micro.api.main"
+}
+
 dependencies {
 
     // SpringBoot Projects
@@ -82,7 +86,7 @@ bootJar {
 //    moduleName = "CatCafe.micro.api.main"
 //    mergedModuleName = "CatCafe.micro.api.main.merged.module"
 //    mergedModuleJarName = "micro-api.merged.module"
-//    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+//    options = ["--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"]
 //    mergedModule {
 //        version = "$catCafeVersion"
 //        requires "java.desktop"
@@ -99,22 +103,42 @@ bootJar {
 //        moduleName = "CatCafe.micro.api.main"
 //        jvmArgs = [
 //                "-Dspring.profiles.active=local",
-//                "--add-opens", 'java.base/java.lang=CatCafe.micro.api.main.merged.module',
-//                "--add-opens", 'java.base/java.io=CatCafe.micro.api.main.merged.module',
 //                "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
+//                "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.infra.main",
 //                "-cp", "../app/*"
 //        ]
 //    }
 //    customImage {
-//        appModules = ["CatCafe.micro.api.main.merged.module"]
+//        jdkAdditive = true
+//        jdkModules = [
+//                "java.annotation",
+//                "java.validation",
+//                "spring.core",
+//                "spring.web",
+//                "spring.context",
+//                "spring.tx",
+//                "spring.beans",
+//                "spring.boot",
+//                "spring.boot.autoconfigure",
+//                "spring.security.config",
+//                "spring.security.core",
+//                "spring.security.web",
+//                "org.hibernate.validator",
+//                "com.fasterxml.jackson.annotation",
+//                "CatCafe.micro.infra.main",
+//                "io.swagger.v3.oas.models",
+//                "io.swagger.v3.oas.annotations",
+//                "org.springdoc.openapi.common"
+//        ]
+//        appModules = [
+//                "CatCafe.micro.api.main.merged.module"
+//        ]
 //    }
 //}
-
+//
 //task bootRunCustomJRE(group: "application", type: Exec, dependsOn: [tasks.bootJar, tasks.jlink]) {
 //    commandLine(
 //            "${buildDir}/image/bin/java",
-//            "-Dspring.profiles.active=local",
-//            "--add-reads", "CatCafe.micro.api.main.merged.module=CatCafe.micro.api.main",
 //            "-jar", tasks.bootJar.archiveFile.get().asFile)
 //    commandLine("${buildDir}/image/bin/micro-api")
 //}

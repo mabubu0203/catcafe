@@ -18,8 +18,13 @@ module CatCafe.micro.api.main {
   requires org.springdoc.openapi.common;
   requires org.hibernate.validator;
   requires com.fasterxml.jackson.annotation;
+
   requires CatCafe.micro.infra.main;
 
   exports org.openapitools.api;
   exports org.openapitools.model;
+
+  opens mabubu0203.com.github.catcafe.api;
+  opens mabubu0203.com.github.catcafe.api.config;
+  opens mabubu0203.com.github.catcafe.api.components.security;
 }
