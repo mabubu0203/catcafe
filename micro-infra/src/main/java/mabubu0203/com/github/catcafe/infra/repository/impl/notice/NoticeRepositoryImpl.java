@@ -40,6 +40,18 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         .map(this::convertNoticeEntity);
   }
 
+  @Override
+  public Mono<NoticeId> resister(NoticeEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(e -> this.attach(new Notice(), e))
+        .map(dto -> dto.setCreatedBy(0))
+        .map(Notice.class::cast)
+        .map(dto -> this.source.insert(dto, receptionTime))
+        .orElseThrow(RuntimeException::new)
+        .map(Notice::getId)
+        .map(NoticeId::new);
+  }
+
   private NoticeEntity convertNoticeEntity(Notice dto) {
     var noticeId = new NoticeId(dto.getId());
     var storeId = new StoreId(dto.getStoreId());
@@ -56,26 +68,17 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         .build();
   }
 
-  @Override
-  public Mono<NoticeId> resister(NoticeEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(this::toDto)
-        .map(dto -> dto.setCreatedBy(0))
-        .map(Notice.class::cast)
-        .map(dto -> this.source.insert(dto, receptionTime))
-        .orElseThrow(RuntimeException::new)
-        .map(Notice::getId)
-        .map(NoticeId::new);
-  }
-
-  private Notice toDto(NoticeEntity entity) {
-    var noticeId = Optional.ofNullable(entity.getNoticeId())
+  private Notice attach(Notice dto, NoticeEntity entity) {
+    var noticeId = Optional.of(entity)
+        .map(NoticeEntity::getNoticeId)
         .map(NoticeId::intValue)
         .orElse(null);
-    var storeId = Optional.ofNullable(entity.getStoreId())
+    var storeId = Optional.of(entity)
+        .map(NoticeEntity::getStoreId)
         .map(StoreId::intValue)
         .orElse(null);
-    return new Notice()
+    return Optional.of(dto)
+        .orElse(new Notice())
         .setId(noticeId)
         .setStoreId(storeId)
         .setSummary(entity.getSummary())

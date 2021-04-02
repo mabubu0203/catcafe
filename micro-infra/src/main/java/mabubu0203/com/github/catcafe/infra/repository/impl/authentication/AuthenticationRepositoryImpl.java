@@ -37,14 +37,14 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @Override
   public Mono<XApiKeyEntity> generate(XApiKeyEntity entity, LocalDateTime receptionTime) {
-    var obj = Optional.of(entity)
+    var xApiKey = Optional.of(entity)
         .map(this::toDto)
         .map(XApiKey.class::cast)
         .map(dto -> this.xApiKeySource.insert(dto, null))
         .orElseThrow(RuntimeException::new)
         .thenApply(this::convertXApiKeyEntity)
         .join();
-    return Mono.just(obj);
+    return Mono.just(xApiKey);
   }
 
   private XApiKey toDto(XApiKeyEntity entity) {
