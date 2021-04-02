@@ -7,7 +7,7 @@ compileJava {
 jar {
     archiveBaseName = "skeleton"
     archiveVersion = "$catCafeVersion"
-    enabled = true
+    enabled = false
 }
 
 bootJar {

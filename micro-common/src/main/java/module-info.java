@@ -1,13 +1,14 @@
 module CatCafe.micro.common.main {
-  requires lombok;
+  requires static lombok;
+  requires static reactor.core;
   requires org.reactivestreams;
-  requires reactor.core;
   requires spring.data.commons;
   requires spring.context;
   requires spring.data.r2dbc;
   requires spring.data.relational;
   requires spring.data.redis;
   requires spring.tx;
+
   exports mabubu0203.com.github.catcafe.common.config;
   exports mabubu0203.com.github.catcafe.common.controller.mapper.request;
   exports mabubu0203.com.github.catcafe.common.controller.mapper.response;

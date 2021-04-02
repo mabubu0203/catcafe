@@ -6,7 +6,10 @@ apply plugin: "com.palantir.git-version"
 compileJava {
     doFirst {
         options.compilerArgs = [
-                "--module-path", classpath.asPath
+                "--module-path", classpath.asPath,
+                "--multi-release", targetCompatibility,
+                "-Xlint:unchecked",
+                "-Xlint:-module"
         ]
         options.encoding = defaultEncoding
         sourceCompatibility = jdkVersion
