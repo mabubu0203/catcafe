@@ -152,9 +152,9 @@ jib {
         ports = ['9001']
     }
     from {
-        image = "adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine-slim"
+        image = "adoptopenjdk/openjdk11:jdk-11.0.10_9-ubuntu-slim"
     }
     to {
-        image = "play-with-jib/micro-api:$catCafeVersion"
+        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository') + ":" + getProperty('ecr.tag')
     }
 }
