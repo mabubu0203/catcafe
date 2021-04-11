@@ -1,7 +1,9 @@
 name: Deploy to Amazon ECS
 
 on:
-  push: tags
+  push:
+    tags:
+      - v1.*
 
 jobs:
   build-and-push:
