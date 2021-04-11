@@ -149,7 +149,7 @@ jib {
         environment = [JAVA_TOOL_OPTIONS: '-Dfile.encoding=UTF-8 -Dspring.profiles.active=docker']
         jvmFlags = ['-Xms512m', '-Xdebug']
         mainClass = 'mabubu0203.com.github.catcafe.api.ApiApp'
-        ports = ['9001']
+        ports = ['8080']
     }
     from {
         image = "adoptopenjdk/openjdk11:jdk-11.0.10_9-ubuntu-slim"
