@@ -65,7 +65,7 @@ jar {
     manifest {
         attributes("Main-Class": "mabubu0203.com.github.catcafe.api.ApiApp")
         attributes("Automatic-Module-Name": "CatCafe.micro.api.main")
-        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
@@ -155,6 +155,6 @@ jib {
         image = "adoptopenjdk/openjdk11:jdk-11.0.10_9-alpine-slim"
     }
     to {
-        image = "play-with-jib/micro-api:$catCafeVersion"
+        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository') + ":" + getProperty('ecr.tag')
     }
 }
