@@ -15,14 +15,15 @@ IntelliJ IDEAを使用します。
 ## 起動方法
 
 1. 当プロジェクトをIntelliJ IDEAにGradleProjectとしてclone
-1. docker-composeよりMysql/Redisを起動  
-   `$ cd docker/mac`
-   `$ docker-compose -f docker-compose.yml up -d --build`
+1. docker-composeよりMysql/Redisを起動
+   `$ docker-compose -f ./docker/mac/docker-compose.yml up -d --build`
 1. アプリケーションをbootRun
     * GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
     * DockerImageを作成して起動
         1. GradleタスクよりjibDockerBuild(`:micro-api -> Tasks -> jib -> jibDockerBuild`)
-        1. `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it play-with-jib/micro-api:0.0.1.SNAPSHOT`
+           `$ ./gradlew :micro-api:jibDockerBuild`
+        1. Dockerより起動
+           `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it micro-api:d141aa2.dirty`
 
 1. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> startDevelopment`)
 
@@ -40,14 +41,14 @@ IntelliJ IDEAを使用します。
 
 ## 停止方法
 
-1. アプリの停止
+1. アプリケーションの停止
     * bootRunの停止
-    * `$ docker stop micro-api`
-1. docker-composeより停止  
-   `$ cd docker/mac`  
-   `$ docker-compose -f docker-compose.yml stop`
+    * Dockerより停止
+      `$ docker stop micro-api`
+1. docker-composeより停止
+   `$ docker-compose -f ./docker/mac/docker-compose.yml stop`
 1. docker-composeよりコンテナ破棄  
-   `$ docker-compose -f docker-compose.yml down -v`
+   `$ docker-compose -f ./docker/mac/docker-compose.yml down -v`
 
 [Springdoc(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html            "Springdoc(Api)"
 
