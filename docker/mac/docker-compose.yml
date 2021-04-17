@@ -6,15 +6,13 @@ services:
     build: ./docker-mysql
     container_name: docker-mysql
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - "./docker-mysql/init:/docker-entrypoint-initdb.d"
       - "./docker-mysql/conf/:/etc/mysql/conf.d"
       - "./docker-mysql/data/:/var/lib/mysql"
+    env_file: "./docker-mysql/mysql.env"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_pass
       TZ: "Asia/Tokyo"
     restart: always
     networks:
@@ -24,18 +22,16 @@ services:
     build: ./docker-phpmyadmin
     container_name: docker-phpmyadmin
     links:
-      - mysql
+      - mysql:mysql
     ports:
-      - 8021:80
-      - 8280:8280
-      - 9000:9000
+      - "8021:80"
     volumes:
-      - "./docker-phpmyadmin/sessions/:/sessions"
+      - "./docker-phpmyadmin/sessions:/sessions"
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=root
+      PMA_ARBITRARY: "1"
+      PMA_HOST: "mysql"
+      PMA_USER: "root"
+      PMA_PASSWORD: "root"
     restart: always
     networks:
       - app-net
@@ -44,7 +40,7 @@ services:
     build: ./docker-redis
     container_name: docker-redis
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
       - "./docker-redis/data/:/data"
     hostname: redis
@@ -56,7 +52,7 @@ services:
     build: ./docker-redisinsight
     container_name: docker-redisinsight
     ports:
-      - 8001:8001
+      - "8001:8001"
     volumes:
       - "./docker-redisinsight/data:/db"
     restart: always
@@ -67,7 +63,7 @@ services:
     build: ./docker-swaggerui
     container_name: docker-swaggerui
     ports:
-      - 8002:8080
+      - "8002:8080"
     volumes:
       - "../../apidoc/generate/openapi.json:/openapi.json"
     environment:
@@ -82,7 +78,7 @@ services:
     build: ./docker-redoc
     container_name: docker-redoc
     ports:
-      - 8081:80
+      - "8081:80"
     volumes:
       - "../../apidoc/generate/openapi.json:/usr/share/nginx/html/openapi.json"
     environment:

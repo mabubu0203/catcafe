@@ -36,6 +36,9 @@ dependencies {
     runtimeOnly("dev.miku:r2dbc-mysql")
     runtimeOnly("mysql:mysql-connector-java")
 
+    // Netty
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.60.Final:osx-x86_64")
+
     developmentOnly("io.projectreactor:reactor-tools")
 }
 
