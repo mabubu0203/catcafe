@@ -146,7 +146,6 @@ bootJar {
 //    commandLine("${buildDir}/image/bin/micro-api")
 //}
 
-// 引数追加の影響を受けてしまうので、いったんコメントアウト
 jib {
     container {
         creationTime = 'USE_CURRENT_TIMESTAMP'
@@ -158,7 +157,9 @@ jib {
     from {
         image = "adoptopenjdk/openjdk11:jdk-11.0.10_9-ubuntu-slim"
     }
+    // 引数追加の影響を受けてしまうので、いったんコメントアウト
     to {
-        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository') + ":" + getProperty('ecr.tag')
+        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository')
+        tags = [getProperty('ecr.tag') + ""]
     }
 }
