@@ -1,1 +1,1 @@
-FROM mysql:8.0.23
+FROM --platform=linux/x86_64 mysql:8.0.23

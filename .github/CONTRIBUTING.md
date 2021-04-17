@@ -16,9 +16,8 @@ IntelliJ IDEAを使用します。
 
 1. 当プロジェクトをIntelliJ IDEAにGradleProjectとしてclone
 1. docker-composeよりMysql/Redisを起動  
-   `$ cd docker/mac`  
-   `$ docker-compose -f docker-compose.yml build`  
-   `$ docker-compose -f docker-compose.yml up -d`
+   `$ cd docker/mac`
+   `$ docker-compose -f docker-compose.yml up -d --build`
 1. アプリケーションをbootRun
     * GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
     * DockerImageを作成して起動
@@ -48,7 +47,7 @@ IntelliJ IDEAを使用します。
    `$ cd docker/mac`  
    `$ docker-compose -f docker-compose.yml stop`
 1. docker-composeよりコンテナ破棄  
-   `$ docker-compose -f docker-compose.yml down`
+   `$ docker-compose -f docker-compose.yml down -v`
 
 [Springdoc(Api)]: http://localhost:9001/CatCafeApi/swagger-ui.html            "Springdoc(Api)"
 
