@@ -1,1 +1,1 @@
-FROM redislabs/redisinsight:1.10.0
+FROM redislabs/redisinsight:1.10.1
