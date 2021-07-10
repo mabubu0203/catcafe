@@ -80,7 +80,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - "../../apidoc/generate/openapi.json:/usr/share/nginx/html/swagger/openapi.json"
+      - "../../apidoc/generate/openapi.json:/usr/share/nginx/html/openapi.json"
     environment:
       SPEC_URL: ./openapi.json
     restart: always
