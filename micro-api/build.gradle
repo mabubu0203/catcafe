@@ -68,7 +68,6 @@ jar {
     manifest {
         attributes("Main-Class": "mabubu0203.com.github.catcafe.api.ApiApp")
         attributes("Automatic-Module-Name": "CatCafe.micro.api.main")
-        from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 

@@ -27,13 +27,13 @@
     "operationId": "storeSearch",
     "parameters": [
       {
-        "$ref": "../components/parameters/store_ids.json"
+        "$ref": "../../components/parameters/store_ids.json"
       },
       {
-        "$ref": "../components/parameters/page.json"
+        "$ref": "../../components/parameters/page.json"
       },
       {
-        "$ref": "../components/parameters/size.json"
+        "$ref": "../../components/parameters/size.json"
       },
       {
         "name": "sort_keys",
@@ -73,10 +73,10 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }

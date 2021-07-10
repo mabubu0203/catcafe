@@ -52,10 +52,10 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -97,10 +97,10 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"
@@ -139,10 +139,10 @@
         "description": "正常系"
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
         "description": "Idが見つからない"

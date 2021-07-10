@@ -48,7 +48,7 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       }
     }
   }

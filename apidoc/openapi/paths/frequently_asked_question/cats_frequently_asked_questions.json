@@ -27,7 +27,7 @@
     "operationId": "frequentlyAskedQuestionSearch",
     "parameters": [
       {
-        "$ref": "../components/parameters/store_ids.json"
+        "$ref": "../../components/parameters/store_ids.json"
       }
     ],
     "security": [
@@ -47,10 +47,10 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       }
     }
   }
