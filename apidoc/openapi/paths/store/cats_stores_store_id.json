@@ -52,13 +52,13 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
+        "$ref": "../../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       }
     }
   },
@@ -97,16 +97,16 @@
         }
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
+        "$ref": "../../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       },
       "409": {
-        "$ref": "../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
+        "$ref": "../../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
       }
     }
   },
@@ -139,16 +139,16 @@
         "description": "正常系"
       },
       "400": {
-        "$ref": "../components/responses/error/validation_error_response.json#/responses/validation_error_response"
+        "$ref": "../../components/responses/error/validation_error_response.json#/responses/validation_error_response"
       },
       "401": {
-        "$ref": "../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
+        "$ref": "../../components/responses/error/authentication_error_response.json#/responses/authentication_error_response"
       },
       "404": {
-        "$ref": "../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
+        "$ref": "../../components/responses/error/not_found_error_response.json#/responses/not_found_error_response"
       },
       "409": {
-        "$ref": "../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
+        "$ref": "../../components/responses/error/exclusive_error_response.json#/responses/exclusive_error_response"
       }
     }
   }

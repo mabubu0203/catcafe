@@ -21,7 +21,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.1.23"
+    "@openapitools/openapi-generator-cli": "2.3.6"
   },
   "scripts": {
     "webpack-development": "webpack --mode development",

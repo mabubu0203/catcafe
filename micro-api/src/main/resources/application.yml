@@ -1,12 +1,19 @@
 spring:
   profiles:
-    active: local
+    group:
+      development:
+        - "local"
+        - "common"
+        - "springdoc"
+      production:
+        - "docker"
+        - "common"
+        - "springdoc"
+    default: "development"
 
 ---
 spring:
   application:
-    admin:
-      enabled: true
     name: micro-api
   config:
     activate:
@@ -25,23 +32,6 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-server:
-  port: 9001
-  servlet:
-    context-path: /CatCafeApi
-  http2:
-    enabled: true
-logging:
-  level:
-    root: INFO
-    redis:
-      clients: TRACE
-    org:
-      springframework:
-        data:
-          r2dbc: DEBUG
-  file:
-    name: micro-api.log
 management:
   endpoints:
     web:
@@ -60,15 +50,14 @@ springdoc:
   api-docs:
     resolve-schema-properties: true
   model-and-view-allowed: true
-  show-actuator: true
   swagger-ui:
     display-query-params: true
     displayOperationId: true
     displayRequestDuration: true
-    filter: true
     path: /swagger-ui.html
-    showCommonExtensions: true
-    showExtensions: true
+    show-common-extensions: true
+    show-extensions: true
+  show-actuator: true
 
 ---
 spring:
@@ -80,10 +69,6 @@ spring:
       port: 35219
     restart:
       poll-interval: 1000
-  profiles:
-    include:
-      - common
-      - springdoc
   r2dbc:
     url: r2dbcs:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
     username: root
@@ -92,18 +77,28 @@ spring:
     database: 0
     host: localhost
     port: 6379
-
+server:
+  port: 9001
+  servlet:
+    context-path: /CatCafeApi
+  http2:
+    enabled: true
+logging:
+  level:
+    root: INFO
+    redis:
+      clients: TRACE
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+  file:
+    name: micro-api.log
 ---
 spring:
   config:
     activate:
       on-profile: docker
-  devtools:
-    add-properties: false
-  profiles:
-    include:
-      - common
-      - springdoc
   r2dbc:
     url: r2dbcs:mysql://localhost:3306/catcafe?useSSL=false&autoReconnect=true&reWriteBatchedInserts=true
     username: root
@@ -112,3 +107,20 @@ spring:
     database: 1
     host: redis
     port: 6379
+server:
+  port: 9001
+  servlet:
+    context-path: /CatCafeApi
+  http2:
+    enabled: true
+logging:
+  level:
+    root: INFO
+    redis:
+      clients: TRACE
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+  file:
+    name: micro-api.log
