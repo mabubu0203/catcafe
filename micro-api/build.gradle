@@ -158,8 +158,8 @@ jib {
         image = "adoptopenjdk/openjdk11:jdk-11.0.11_9-ubuntu-slim"
     }
     // 引数追加の影響を受けてしまうので、いったんコメントアウト
-    to {
-        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository')
-        tags = [getProperty('ecr.tag') + ""]
-    }
+//    to {
+//        image = getProperty('ecr.registry') + "/" + getProperty('ecr.repository')
+//        tags = [getProperty('ecr.tag') + ""]
+//    }
 }
