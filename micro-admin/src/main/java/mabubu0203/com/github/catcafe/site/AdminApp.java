@@ -1,4 +1,4 @@
-package mabubu0203.com.github.catcafe.admin;
+package mabubu0203.com.github.catcafe.site;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
