@@ -1,7 +1,9 @@
+apply plugin: "com.palantir.git-version"
+apply plugin: "idea"
+apply plugin: "jacoco"
 apply plugin: "java"
 apply plugin: "java-library"
-apply plugin: "idea"
-apply plugin: "com.palantir.git-version"
+apply plugin: "project-report"
 
 compileJava {
     doFirst {
@@ -15,6 +17,20 @@ compileJava {
         sourceCompatibility = jdkVersion
         targetCompatibility = jdkVersion
         classpath = files()
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 

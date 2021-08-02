@@ -23,11 +23,11 @@ buildscript {
 }
 
 plugins {
-    id "org.springframework.boot" version "2.5.2"
+    id "org.springframework.boot" version "2.5.3"
     id "io.spring.dependency-management" version "1.0.11.RELEASE"
-    id "org.beryx.jlink" version "2.24.0"
-    id "org.openapi.generator" version "5.2.0"
-    id "com.github.node-gradle.node" version "3.1.0"
+    id "org.beryx.jlink" version "2.24.1" apply false
+    id "org.openapi.generator" version "5.2.0" apply false
+    id "com.github.node-gradle.node" version "3.1.0" apply false
     id "com.google.cloud.tools.jib" version "3.1.2" apply false
     id "com.gorylenko.gradle-git-properties" version "2.3.1"
     id "com.palantir.git-version" version "0.12.3"
@@ -61,7 +61,7 @@ project(":micro-admin") {
 project(":micro-api") {
     dependencies {
         api(project(":openapi-generate"))
-        api(project(":micro-infra"))
+        implementation(project(":micro-infra"))
     }
 }
 
