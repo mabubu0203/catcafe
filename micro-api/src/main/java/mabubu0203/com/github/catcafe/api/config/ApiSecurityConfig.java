@@ -26,7 +26,7 @@ import org.springframework.security.web.server.util.matcher.ServerWebExchangeMat
 public class ApiSecurityConfig {
 
   private static final String[] excludedAuthorizeUrls = {
-      "/actuator/**",
+      "/CatCafeApi/actuator/**",
 //      "/v3/api-docs/**",
       "/CatCafeApi/v3/api-docs/**",
       "/CatCafeApi/swagger-ui.html",

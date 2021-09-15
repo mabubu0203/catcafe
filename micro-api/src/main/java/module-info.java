@@ -20,6 +20,7 @@ module CatCafe.micro.api.main {
   requires com.fasterxml.jackson.annotation;
 
   requires CatCafe.micro.infra.main;
+  requires spring.security.crypto;
 
   exports org.openapitools.api;
   exports org.openapitools.model;

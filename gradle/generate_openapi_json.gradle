@@ -7,10 +7,10 @@ openApiValidate {
 // root.jsonからopenapi.jsonを生成する
 openApiGenerate {
     generatorName = "openapi"
-    // https://github.com/OpenAPITools/openapi-generator/blob/v5.1.1/modules/openapi-generator-gradle-plugin/README.adoc
+    // https://github.com/OpenAPITools/openapi-generator/blob/v5.2.1/modules/openapi-generator-gradle-plugin/README.adoc
     outputDir = "${rootDir}/apidoc/generate/"
     inputSpec = "${rootDir}/apidoc/openapi/root.json"
-    // https://github.com/OpenAPITools/openapi-generator/blob/v5.1.1/docs/generators/openapi.md
+    // https://github.com/OpenAPITools/openapi-generator/blob/v5.2.1/docs/generators/openapi.md
     logToStderr = true
 }
 
