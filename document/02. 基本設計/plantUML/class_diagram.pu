@@ -7,15 +7,21 @@ package entity {
     class StoreEntity {
       - StoreId storeId
       - String name
-      - LocalDate openDate
-      - LocalDate closeDate
       - String phoneNumber
       - String mailAddress
       - String postalCode
-      - String prefectures
+      - String prefectureCode
+      - String address1
+      - String address2
+      - String address3
+      - String streetAddress
+      - String building_name
+      - String addressSupplement
+      - LocalDate openDate
+      - LocalDate closeDate
       - LocalTime openingTime
       - LocalTime closingTime
-      - String hoursAside
+      - String hoursSupplement
       - LocalDateTime createdDateTime
       - Integer version
       - LocalDateTime updatedDateTime
