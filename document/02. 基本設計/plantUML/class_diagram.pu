@@ -1,0 +1,107 @@
+@startuml
+
+package entity {
+
+  package store {
+
+    class StoreEntity {
+      - StoreId storeId
+      - String name
+      - LocalDate openDate
+      - LocalDate closeDate
+      - String phoneNumber
+      - String mailAddress
+      - String postalCode
+      - String prefectures
+      - LocalTime openingTime
+      - LocalTime closingTime
+      - String hoursAside
+      - LocalDateTime createdDateTime
+      - Integer version
+      - LocalDateTime updatedDateTime
+    }
+
+    class StoreSearchConditions {
+      - Optional<List<Integer>> optStoreIds
+    }
+
+  }
+
+  package cast {
+
+    class CastEntity {
+      - CastId castId
+      - StoreId storeId
+      - String memo
+      - LocalDateTime createdDateTime
+      - Integer version
+      - LocalDateTime updatedDateTime
+      - CastCatEntity CastCatEntity
+    }
+
+    class CastCatEntity {
+      - CastCatId castCatId
+      - String name
+      - String image
+      - String type
+      - String sex
+      - String memo
+      - LocalDateTime createdDateTime
+      - Integer version
+      - LocalDateTime updatedDateTime
+    }
+
+    class CastSearchConditions {
+      - Optional<List<Integer>> optStoreIds
+      - Optional<List<Integer>> optCastIds
+    }
+
+    CastEntity "1..*" -- "1" CastCatEntity
+
+  }
+
+  package notice {
+
+    class NoticeEntity {
+      - NoticeId noticeId
+      - StoreId storeId
+      - String summary
+      - String detail
+      - LocalDateTime publicationStartDateTime
+      - LocalDateTime publicationEndDateTime
+      - LocalDateTime createdDateTime
+      - Integer version
+      - LocalDateTime updatedDateTime
+    }
+
+    class NoticeSearchConditions {
+      - Optional<List<Integer>> optStoreIds
+      - Optional<List<Integer>> optNoticeIds
+    }
+
+  }
+
+  StoreEntity "1" -- "0..*" CastEntity
+  StoreEntity "1" -- "0..*" NoticeEntity
+}
+
+package value {
+
+  class CastCatId
+  {
+  }
+
+  class CastId
+  {
+  }
+
+  class NoticeId
+  {
+  }
+
+  class StoreId
+  {
+  }
+
+}
+@enduml

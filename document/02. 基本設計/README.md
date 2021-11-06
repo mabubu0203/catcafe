@@ -5,6 +5,7 @@
 `メモ書き` をもとに、
 + [1.list_of_features.md](1.list_of_features.md)  
 + [2.screen_transition_diagram.md](2.screen_transition_diagram.md)  
++ [4.class_diagram.md](4.class_diagram.md)  
 を作成。  
 
 `メモ書き` については下記
