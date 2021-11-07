@@ -26,11 +26,47 @@ public class Store extends BaseTable<Integer> {
   @Column(value = "name")
   private String name;
 
+  @Column(value = "phone_number")
+  private String phoneNumber;
+
+  @Column(value = "mail_address")
+  private String mailAddress;
+
+  @Column(value = "postal_code")
+  private String postalCode;
+
+  @Column(value = "prefecture_code")
+  private String prefectureCode;
+
+  @Column(value = "address_1")
+  private String address1;
+
+  @Column(value = "address_2")
+  private String address2;
+
+  @Column(value = "address_3")
+  private String address3;
+
+  @Column(value = "street_address")
+  private String streetAddress;
+
+  @Column(value = "building_name")
+  private String buildingName;
+
+  @Column(value = "address_supplement")
+  private String addressSupplement;
+
   @Column(value = "opening_time")
   private LocalTime openingTime;
 
   @Column(value = "closing_time")
   private LocalTime closingTime;
+
+  @Column(value = "hours_supplement")
+  private String hoursSupplement;
+
+  @Column(value = "memo")
+  private String memo;
 
   @Override
   @Transient
