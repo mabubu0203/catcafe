@@ -30,6 +30,10 @@
         "hours": {
           "$ref": "#/model/hours"
         },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string"
+        },
         "common": {
           "$ref": "../../responses/success/common_response.json#/model/common"
         }

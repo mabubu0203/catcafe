@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS store
   opening_time       TIME COMMENT '営業時間(開店時間)',
   closing_time       TIME COMMENT '営業時間(閉店時間)',
   hours_supplement   VARCHAR(256) COMMENT '営業時間(補足)',
+  memo               VARCHAR(256) COMMENT '店舗メモ',
   created_date_time  DATETIME                     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録日時',
   created_by         INT UNSIGNED                 NOT NULL DEFAULT 0 COMMENT '登録者',
   version            INT UNSIGNED                 NOT NULL DEFAULT 0 COMMENT 'Version',
