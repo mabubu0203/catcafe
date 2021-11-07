@@ -10,6 +10,9 @@ import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseTable;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreEntity;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
+import mabubu0203.com.github.catcafe.domain.value.MailAddress;
+import mabubu0203.com.github.catcafe.domain.value.Memo;
+import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
@@ -80,11 +83,17 @@ public class StoreRepositoryImpl implements StoreRepository {
 
   private StoreEntity convertStoreEntity(Store dto) {
     var storeId = new StoreId(dto.getId());
+    var phoneNumber = new PhoneNumber(dto.getPhoneNumber());
+    var mailAddress = new MailAddress(dto.getMailAddress());
+    var memo = new Memo(dto.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
         .name(dto.getName())
+        .phoneNumber(phoneNumber)
+        .mailAddress(mailAddress)
         .openingTime(dto.getOpeningTime())
         .closingTime(dto.getClosingTime())
+        .memo(memo)
         .createdDateTime(dto.getCreatedDateTime())
         .version(dto.getVersion())
         .updatedDateTime(dto.getUpdatedDateTime())

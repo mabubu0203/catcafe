@@ -4,6 +4,7 @@ module CatCafe.micro.domain.main {
   requires spring.context;
 
   requires transitive CatCafe.micro.common.main;
+  requires java.validation;
 
   exports mabubu0203.com.github.catcafe.domain;
   exports mabubu0203.com.github.catcafe.domain.entity.authentication;
