@@ -7,24 +7,41 @@ package entity {
     class StoreEntity {
       - StoreId storeId
       - String name
+      - PhoneNumber phoneNumber
+      - MailAddress mailAddress
+      - StoreAddress address
       - LocalDate openDate
       - LocalDate closeDate
-      - String phoneNumber
-      - String mailAddress
-      - String postalCode
-      - String prefectures
-      - LocalTime openingTime
-      - LocalTime closingTime
-      - String hoursAside
+      - StoreHours hours
+      - Memo memo
       - LocalDateTime createdDateTime
       - Integer version
       - LocalDateTime updatedDateTime
+    }
+
+    class StoreAddress {
+      - PostalCode postalCode
+      - PrefectureCode prefectureCode
+      - String address1
+      - String address2
+      - String address3
+      - String streetAddress
+      - String building_name
+      - String supplement
+    }
+
+    class StoreHours {
+      - LocalTime openingTime
+      - LocalTime closingTime
+      - String supplement
     }
 
     class StoreSearchConditions {
       - Optional<List<Integer>> optStoreIds
     }
 
+    StoreEntity "1" -- "1" StoreAddress
+    StoreEntity "1" -- "1" StoreHours
   }
 
   package cast {
@@ -32,7 +49,7 @@ package entity {
     class CastEntity {
       - CastId castId
       - StoreId storeId
-      - String memo
+      - Memo memo
       - LocalDateTime createdDateTime
       - Integer version
       - LocalDateTime updatedDateTime
@@ -44,8 +61,8 @@ package entity {
       - String name
       - String image
       - String type
-      - String sex
-      - String memo
+      - GenderOfCat sex
+      - Memo memo
       - LocalDateTime createdDateTime
       - Integer version
       - LocalDateTime updatedDateTime
@@ -83,24 +100,37 @@ package entity {
 
   StoreEntity "1" -- "0..*" CastEntity
   StoreEntity "1" -- "0..*" NoticeEntity
+
 }
 
 package value {
 
-  class CastCatId
-  {
+  class Memo{}
+
+  class PhoneNumber{}
+
+  class MailAddress{}
+
+  class PostalCode{}
+
+  package entityId {
+
+    class CastCatId{}
+
+    class CastId{}
+
+    class NoticeId{}
+
+    class StoreId{}
+    
   }
 
-  class CastId
-  {
-  }
+  package enum {
 
-  class NoticeId
-  {
-  }
+    class PrefectureCode{}
 
-  class StoreId
-  {
+    class GenderOfCat{}
+
   }
 
 }

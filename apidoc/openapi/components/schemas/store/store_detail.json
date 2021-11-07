@@ -11,6 +11,12 @@
           "description": "店舗名",
           "type": "string"
         },
+        "contact": {
+          "$ref": "#/model/contact"
+        },
+        "address": {
+          "$ref": "#/model/address"
+        },
         "open_date": {
           "description": "開店日",
           "type": "string",
@@ -21,14 +27,12 @@
           "type": "string",
           "format": "date"
         },
-        "contact": {
-          "$ref": "#/model/contact"
-        },
-        "address": {
-          "$ref": "#/model/address"
-        },
         "hours": {
           "$ref": "#/model/hours"
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string"
         },
         "common": {
           "$ref": "../../responses/success/common_response.json#/model/common"
@@ -53,16 +57,40 @@
       "description": "店舗住所",
       "type": "object",
       "properties": {
-        "detail": {
-          "description": "店舗住所(詳細)",
+        "postal_code": {
+          "description": "店舗住所(郵便番号)",
           "type": "string"
         },
-        "aside": {
+        "prefecture_code": {
+          "description": "店舗住所(都道府県コード)",
+          "type": "string"
+        },
+        "address_1": {
+          "description": "店舗住所(都道府県)",
+          "type": "string"
+        },
+        "address_2": {
+          "description": "店舗住所(市区町村)",
+          "type": "string"
+        },
+        "address_3": {
+          "description": "店舗住所(町域)",
+          "type": "string"
+        },
+        "street_address": {
+          "description": "店舗住所(番地)",
+          "type": "string"
+        },
+        "building_name": {
+          "description": "店舗住所(建物名)",
+          "type": "string"
+        },
+        "supplement": {
           "description": "店舗住所(補足)",
           "type": "string"
         },
         "google_map_url": {
-          "description": "店舗住所(google map)",
+          "description": "(未使用)店舗住所(google map)",
           "type": "string"
         }
       }
@@ -81,7 +109,7 @@
           "type": "string",
           "format": "time"
         },
-        "aside": {
+        "supplement": {
           "description": "店舗営業時間(補足)",
           "type": "string"
         }
