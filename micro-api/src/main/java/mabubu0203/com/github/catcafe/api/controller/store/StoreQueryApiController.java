@@ -12,7 +12,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreFindRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.request.StoreSearchRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreFindResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.helper.response.StoreSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.store.service.StoreSearchService;
 import org.openapitools.api.StoreQueryApi;
@@ -53,7 +55,12 @@ public class StoreQueryApiController implements StoreQueryApi {
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
       ServerWebExchange exchange) {
-    return null;
+    return
+        new StoreFindRequestMapper(
+            cats, storeId).get()
+            .flatMap(this.searchService::action)
+            .map(new StoreFindResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
   @Operation(

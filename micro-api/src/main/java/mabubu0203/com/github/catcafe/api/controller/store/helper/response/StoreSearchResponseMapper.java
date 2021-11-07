@@ -26,17 +26,19 @@ public class StoreSearchResponseMapper implements
     return result;
   }
 
-  private StoreDetail convert(StoreSearchServiceOutput.StoreObject storeObject) {
+  private StoreDetail convert(StoreSearchServiceOutput.StoreObject store) {
     var detail = new StoreDetail();
-    detail.setId(storeObject.getId());
-    detail.setName(storeObject.getName());
-
+    detail.setId(store.getId());
+    detail.setName(store.getName());
     detail.setContact(new Contact());
     detail.setAddress(new Address());
+    detail.setOpenDate(null);
+    detail.setCloseDate(null);
     detail.setHours(new Hours());
+    detail.setMemo("");
 
     var common = new Common();
-    var commonObject = storeObject.getCommon();
+    var commonObject = store.getCommon();
     common.setCreatedDateTime(commonObject.getCreatedDateTime().atOffset(ZoneOffset.ofHours(9)));
     common.setVersion(commonObject.getVersion());
     common.setUpdatedDateTime(
