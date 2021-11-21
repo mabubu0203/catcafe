@@ -37,7 +37,7 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
 
     // Netty
-    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.65.Final:osx-x86_64")
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.70.Final:osx-aarch_64")
 
     developmentOnly("io.projectreactor:reactor-tools")
 }
