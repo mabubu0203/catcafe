@@ -1,17 +1,11 @@
 package mabubu0203.com.github.catcafe.domain.value;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
+import java.util.Optional;
 
-@Accessors(fluent = true)
-@Getter
-public class PostalCode {
+public record PostalCode(String value) {
 
-  private final String value;
-
-  public PostalCode(String value) {
-    // validationを追加する
-    this.value = value;
+  public boolean isEmpty() {
+    return Optional.of(value).isEmpty();
   }
 
 }

@@ -8,7 +8,9 @@ import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 public class CastCatResisterServiceConverter {
 
   public CastCatEntity fromInput(CastCatResisterServiceInput input) {
+    var castCatId = CastCatId.emptyId();
     return CastCatEntity.builder()
+        .castCatId(castCatId)
         .name(input.getName())
         .image(input.getImage())
         .memo(input.getMemo())
@@ -17,7 +19,7 @@ public class CastCatResisterServiceConverter {
 
   public CastCatResisterServiceOutput toOutput(CastCatId castCatId) {
     return CastCatResisterServiceOutput.builder()
-        .id(castCatId.intValue())
+        .id(castCatId.value())
         .build();
   }
 

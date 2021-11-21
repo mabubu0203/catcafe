@@ -32,7 +32,7 @@ public class StoreFindResponseMapper implements
     detail.setOpenDate(null);
     detail.setCloseDate(null);
     detail.setHours(new Hours());
-    detail.setMemo("");
+    detail.setMemo(null);
 
     var common = new Common();
     var commonObject = store.getCommon();

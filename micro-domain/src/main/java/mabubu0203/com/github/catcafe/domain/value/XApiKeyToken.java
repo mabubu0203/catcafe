@@ -1,14 +1,11 @@
 package mabubu0203.com.github.catcafe.domain.value;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-@Accessors(fluent = true)
-@Getter
-public class XApiKeyToken {
+public record XApiKeyToken(String value) {
 
-  private final String value;
+  public boolean isEmpty() {
+    return Optional.of(value).isEmpty();
+  }
 
 }

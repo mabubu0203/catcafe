@@ -21,7 +21,8 @@ public class StoreSearchServiceConverter {
   }
 
   public Mono<StoreSearchServiceOutput> toOutput(Flux<StoreEntity> flux) {
-    return flux.map(this::toStoreObject).collectList()
+    return flux.map(this::toStoreObject)
+        .collectList()
         .map(stores -> StoreSearchServiceOutput.builder().stores(stores))
         .map(StoreSearchServiceOutputBuilder::build);
   }
@@ -29,13 +30,25 @@ public class StoreSearchServiceConverter {
   private StoreObject toStoreObject(StoreEntity storeEntity) {
     return
         StoreSearchServiceOutput.StoreObject.builder()
-            .id(storeEntity.getStoreId().intValue())
+            .id(storeEntity.getStoreIdValue())
             .name(storeEntity.getName())
-            .common(StoreSearchServiceOutput.CommonObject.builder()
-                .createdDateTime(storeEntity.getCreatedDateTime())
-                .version(storeEntity.getVersion())
-                .updatedDateTime(storeEntity.getUpdatedDateTime())
-                .build())
+            .contact(
+                StoreSearchServiceOutput.ContactObject.builder()
+                    .phoneNumber(storeEntity.getPhoneNumberValue())
+                    .mailAddress(storeEntity.getMailAddressValue())
+                    .build()
+            )
+            .address(
+                StoreSearchServiceOutput.AddressObject.builder()
+                    .address1(storeEntity.getAddress1())
+                    .build())
+            .memo(storeEntity.getMemoValue())
+            .common(
+                StoreSearchServiceOutput.CommonObject.builder()
+                    .createdDateTime(storeEntity.getCreatedDateTime())
+                    .version(storeEntity.getVersion())
+                    .updatedDateTime(storeEntity.getUpdatedDateTime())
+                    .build())
             .build();
   }
 

@@ -1,14 +1,15 @@
 package mabubu0203.com.github.catcafe.domain.value;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
+import java.util.Optional;
 
-@RequiredArgsConstructor
-@Accessors(fluent = true)
-@Getter
-public class NoticeId {
+public record NoticeId(Integer value) {
 
-  private final Integer intValue;
+  public static NoticeId emptyId() {
+    return new NoticeId(null);
+  }
+
+  public boolean isEmpty() {
+    return Optional.of(value).isEmpty();
+  }
 
 }

@@ -43,12 +43,12 @@ public class NoticeRepositoryImpl implements NoticeRepository {
   @Override
   public Mono<NoticeId> resister(NoticeEntity entity, LocalDateTime receptionTime) {
     return Optional.of(entity)
-        .map(e -> this.attach(new Notice(), e))
+        .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
         .map(Notice.class::cast)
         .map(dto -> this.source.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .map(Notice::getId)
+        .mapNotNull(Notice::getId)
         .map(NoticeId::new);
   }
 
@@ -68,19 +68,15 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         .build();
   }
 
+  private Notice attach(NoticeEntity entity) {
+    return this.attach(null, entity);
+  }
+
   private Notice attach(Notice dto, NoticeEntity entity) {
-    var noticeId = Optional.of(entity)
-        .map(NoticeEntity::getNoticeId)
-        .map(NoticeId::intValue)
-        .orElse(null);
-    var storeId = Optional.of(entity)
-        .map(NoticeEntity::getStoreId)
-        .map(StoreId::intValue)
-        .orElse(null);
-    return Optional.of(dto)
+    return Optional.ofNullable(dto)
         .orElse(new Notice())
-        .setId(noticeId)
-        .setStoreId(storeId)
+        .setId(entity.getNoticeIdValue())
+        .setStoreId(entity.getStoreIdValue())
         .setSummary(entity.getSummary())
         .setDetail(entity.getDetail())
         .setPublicationStartDateTime(entity.getPublicationStartDateTime())

@@ -1,9 +1,11 @@
 package mabubu0203.com.github.catcafe.domain.entity.cast;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
+import mabubu0203.com.github.catcafe.domain.value.CastId;
 
 @Builder
 @Getter
@@ -18,5 +20,11 @@ public class CastCatEntity {
   private final LocalDateTime createdDateTime;
   private final Integer version;
   private final LocalDateTime updatedDateTime;
+
+  public Integer getCastCatIdValue() {
+    return Optional.of(this.castCatId)
+        .map(CastCatId::value)
+        .orElse(null);
+  }
 
 }

@@ -34,7 +34,8 @@ public class NoticeResisterServiceImpl implements NoticeResisterService {
   }
 
   private Mono<NoticeEntity> beforeRegistration(NoticeEntity entity) {
-    return this.storeRepository.findBy(entity.getStoreId()).map(store -> entity);
+    return this.storeRepository.findBy(entity.getStoreId())
+        .map(store -> entity);
   }
 
 }

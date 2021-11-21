@@ -9,8 +9,11 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 public class NoticeResisterServiceConverter {
 
   public NoticeEntity fromInput(NoticeResisterServiceInput input) {
+    var noticeId = NoticeId.emptyId();
+    var storeId = new StoreId(input.getStoreId());
     return NoticeEntity.builder()
-        .storeId(new StoreId(input.getStoreId()))
+        .noticeId(noticeId)
+        .storeId(storeId)
         .detail(input.getDetail())
         .summary(input.getSummary())
         .build();
@@ -18,7 +21,7 @@ public class NoticeResisterServiceConverter {
 
   public NoticeResisterServiceOutput toOutput(NoticeId noticeId) {
     return NoticeResisterServiceOutput.builder()
-        .id(noticeId.intValue())
+        .id(noticeId.value())
         .build();
   }
 
