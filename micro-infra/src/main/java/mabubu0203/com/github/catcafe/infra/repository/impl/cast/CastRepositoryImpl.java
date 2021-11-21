@@ -97,7 +97,7 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   private Mono<CastCat> findDto(CastCatId castCatId) {
-    return this.castCatSource.findById(castCatId.intValue())
+    return this.castCatSource.findById(castCatId.value())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("キャスト(猫)が存在しません")));
@@ -106,16 +106,16 @@ public class CastRepositoryImpl implements CastRepository {
   private Cast attach(Cast dto, CastEntity entity) {
     var castId = Optional.of(entity)
         .map(CastEntity::getCastId)
-        .map(CastId::intValue)
+        .map(CastId::value)
         .orElse(null);
     var storeId = Optional.of(entity)
         .map(CastEntity::getStoreId)
-        .map(StoreId::intValue)
+        .map(StoreId::value)
         .orElse(null);
     var castCatId = Optional.of(entity)
         .map(CastEntity::getCastCatEntity)
         .map(CastCatEntity::getCastCatId)
-        .map(CastCatId::intValue)
+        .map(CastCatId::value)
         .orElse(null);
     return Optional.of(dto)
         .orElse(new Cast())
@@ -131,7 +131,7 @@ public class CastRepositoryImpl implements CastRepository {
   private CastCat attach(CastCat dto, CastCatEntity entity) {
     var castCatId = Optional.of(entity)
         .map(CastCatEntity::getCastCatId)
-        .map(CastCatId::intValue)
+        .map(CastCatId::value)
         .orElse(null);
     return Optional.of(dto)
         .orElse(new CastCat())

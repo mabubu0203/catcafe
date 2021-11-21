@@ -17,7 +17,7 @@ public class StoreModifyServiceConverter {
 
   public StoreModifyServiceOutput toOutput(StoreId storeId) {
     return StoreModifyServiceOutput.builder()
-        .id(storeId.intValue())
+        .id(storeId.value())
         .build();
   }
 

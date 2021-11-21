@@ -30,12 +30,12 @@ public class StoreSearchResponseMapper implements
     var detail = new StoreDetail();
     detail.setId(store.getId());
     detail.setName(store.getName());
-    detail.setContact(new Contact());
-    detail.setAddress(new Address());
+    detail.setContact(this.contact());
+    detail.setAddress(this.address());
     detail.setOpenDate(null);
     detail.setCloseDate(null);
     detail.setHours(new Hours());
-    detail.setMemo("");
+    detail.setMemo(null);
 
     var common = new Common();
     var commonObject = store.getCommon();
@@ -47,6 +47,28 @@ public class StoreSearchResponseMapper implements
             .orElse(null));
     detail.setCommon(common);
     return detail;
+  }
+
+  // TODO: 修正予定
+  private Contact contact() {
+    var contact = new Contact();
+    contact.setMailAddress(null);
+    contact.setMailAddress(null);
+    return contact;
+  }
+
+  // TODO: 修正予定
+  private Address address() {
+    var address = new Address();
+    address.setPostalCode(null);
+    address.setPrefectureCode(null);
+    address.setAddress1(null);
+    address.setAddress2(null);
+    address.setAddress3(null);
+    address.setStreetAddress(null);
+    address.setBuildingName(null);
+    address.setSupplement(null);
+    return address;
   }
 
 }

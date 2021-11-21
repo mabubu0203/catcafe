@@ -29,7 +29,7 @@ public class StoreSearchServiceConverter {
   private StoreObject toStoreObject(StoreEntity storeEntity) {
     return
         StoreSearchServiceOutput.StoreObject.builder()
-            .id(storeEntity.getStoreId().intValue())
+            .id(storeEntity.getStoreId().value())
             .name(storeEntity.getName())
             .common(StoreSearchServiceOutput.CommonObject.builder()
                 .createdDateTime(storeEntity.getCreatedDateTime())

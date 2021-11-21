@@ -3,6 +3,7 @@ package mabubu0203.com.github.catcafe.domain.entity.store;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.MailAddress;
@@ -36,5 +37,35 @@ public class StoreEntity {
   private final LocalDateTime createdDateTime;
   private final Integer version;
   private final LocalDateTime updatedDateTime;
+
+  public Integer getStoreIdValue() {
+    return Optional.of(this.storeId)
+        .map(StoreId::value)
+        .orElse(null);
+  }
+
+  public String getPhoneNumberValue() {
+    return Optional.of(this.phoneNumber)
+        .map(PhoneNumber::value)
+        .orElse(null);
+  }
+
+  public String getMailAddressValue() {
+    return Optional.of(this.mailAddress)
+        .map(MailAddress::value)
+        .orElse(null);
+  }
+
+  public String getPostalCodeValue() {
+    return Optional.of(this.postalCode)
+        .map(PostalCode::value)
+        .orElse(null);
+  }
+
+  public String getMemoValue() {
+    return Optional.of(this.memo)
+        .map(Memo::value)
+        .orElse(null);
+  }
 
 }

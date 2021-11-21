@@ -30,8 +30,8 @@ public class NoticeSearchServiceConverter {
   private NoticeObject toNoticeObject(NoticeEntity noticeEntity) {
     return
         NoticeSearchServiceOutput.NoticeObject.builder()
-            .id(noticeEntity.getNoticeId().intValue())
-            .storeId(noticeEntity.getStoreId().intValue())
+            .id(noticeEntity.getNoticeId().value())
+            .storeId(noticeEntity.getStoreId().value())
             .summary(noticeEntity.getSummary())
             .detail(noticeEntity.getDetail())
             .common(NoticeSearchServiceOutput.CommonObject.builder()

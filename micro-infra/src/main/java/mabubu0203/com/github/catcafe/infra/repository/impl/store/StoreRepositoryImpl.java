@@ -13,6 +13,7 @@ import mabubu0203.com.github.catcafe.domain.repository.store.StoreRepository;
 import mabubu0203.com.github.catcafe.domain.value.MailAddress;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
+import mabubu0203.com.github.catcafe.domain.value.PostalCode;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
@@ -85,14 +86,24 @@ public class StoreRepositoryImpl implements StoreRepository {
     var storeId = new StoreId(dto.getId());
     var phoneNumber = new PhoneNumber(dto.getPhoneNumber());
     var mailAddress = new MailAddress(dto.getMailAddress());
+    var postalCode = new PostalCode(dto.getPostalCode());
     var memo = new Memo(dto.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
         .name(dto.getName())
         .phoneNumber(phoneNumber)
         .mailAddress(mailAddress)
+        .postalCode(postalCode)
+        .prefectureCode(dto.getPrefectureCode())
+        .address1(dto.getAddress1())
+        .address2(dto.getAddress2())
+        .address3(dto.getAddress3())
+        .streetAddress(dto.getStreetAddress())
+        .buildingName(dto.getBuildingName())
+        .addressSupplement(dto.getAddressSupplement())
         .openingTime(dto.getOpeningTime())
         .closingTime(dto.getClosingTime())
+        .hoursSupplement(dto.getHoursSupplement())
         .memo(memo)
         .createdDateTime(dto.getCreatedDateTime())
         .version(dto.getVersion())
@@ -101,23 +112,31 @@ public class StoreRepositoryImpl implements StoreRepository {
   }
 
   private Mono<Store> findDto(StoreId storeId) {
-    return this.source.findById(storeId.intValue())
+    return this.source.findById(storeId.value())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("店舗が存在しません")));
   }
 
   private Store attach(Store dto, StoreEntity entity) {
-    var storeId = Optional.of(entity)
-        .map(StoreEntity::getStoreId)
-        .map(StoreId::intValue)
-        .orElse(null);
     return Optional.of(dto)
         .orElse(new Store())
-        .setId(storeId)
+        .setId(entity.getStoreIdValue())
         .setName(entity.getName())
+        .setPhoneNumber(entity.getPhoneNumberValue())
+        .setMailAddress(entity.getMailAddressValue())
+        .setPostalCode(entity.getPostalCodeValue())
+        .setPrefectureCode(entity.getPrefectureCode())
+        .setAddress1(entity.getAddress1())
+        .setAddress2(entity.getAddress2())
+        .setAddress3(entity.getAddress3())
+        .setStreetAddress(entity.getStreetAddress())
+        .setBuildingName(entity.getBuildingName())
+        .setAddressSupplement(entity.getAddressSupplement())
         .setOpeningTime(entity.getOpeningTime())
-        .setClosingTime(entity.getClosingTime());
+        .setClosingTime(entity.getClosingTime())
+        .setHoursSupplement(entity.getHoursSupplement())
+        .setMemo(entity.getMemoValue());
   }
 
 }

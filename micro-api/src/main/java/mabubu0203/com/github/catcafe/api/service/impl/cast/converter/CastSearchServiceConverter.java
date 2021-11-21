@@ -30,8 +30,8 @@ public class CastSearchServiceConverter {
   private CastObject toCastObject(CastEntity castEntity) {
     var castCatEntity = castEntity.getCastCatEntity();
     return CastSearchServiceOutput.CastObject.builder()
-        .id(castEntity.getCastId().intValue())
-        .storeId(castEntity.getStoreId().intValue())
+        .id(castEntity.getCastId().value())
+        .storeId(castEntity.getStoreId().value())
         .common(CastSearchServiceOutput.CommonObject.builder()
             .createdDateTime(castEntity.getCreatedDateTime())
             .version(castEntity.getVersion())
@@ -39,7 +39,7 @@ public class CastSearchServiceConverter {
             .build())
         .castCat(
             CastSearchServiceOutput.CastCatObject.builder()
-                .id(castCatEntity.getCastCatId().intValue())
+                .id(castCatEntity.getCastCatId().value())
                 .name(castCatEntity.getName())
                 .common(CastSearchServiceOutput.CommonObject.builder()
                     .createdDateTime(castCatEntity.getCreatedDateTime())

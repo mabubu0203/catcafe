@@ -71,11 +71,11 @@ public class NoticeRepositoryImpl implements NoticeRepository {
   private Notice attach(Notice dto, NoticeEntity entity) {
     var noticeId = Optional.of(entity)
         .map(NoticeEntity::getNoticeId)
-        .map(NoticeId::intValue)
+        .map(NoticeId::value)
         .orElse(null);
     var storeId = Optional.of(entity)
         .map(NoticeEntity::getStoreId)
-        .map(StoreId::intValue)
+        .map(StoreId::value)
         .orElse(null);
     return Optional.of(dto)
         .orElse(new Notice())

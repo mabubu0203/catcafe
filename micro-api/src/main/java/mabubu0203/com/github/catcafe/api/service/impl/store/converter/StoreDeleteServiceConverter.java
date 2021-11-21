@@ -16,7 +16,7 @@ public class StoreDeleteServiceConverter {
 
   public StoreDeleteServiceOutput toOutput(StoreId storeId) {
     return StoreDeleteServiceOutput.builder()
-        .id(storeId.intValue())
+        .id(storeId.value())
         .build();
   }
 

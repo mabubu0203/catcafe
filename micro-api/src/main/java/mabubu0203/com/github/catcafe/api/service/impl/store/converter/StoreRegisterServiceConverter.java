@@ -15,7 +15,7 @@ public class StoreRegisterServiceConverter {
 
   public StoreRegisterServiceOutput toOutput(StoreId storeId) {
     return StoreRegisterServiceOutput.builder()
-        .id(storeId.intValue())
+        .id(storeId.value())
         .build();
   }
 

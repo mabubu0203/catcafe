@@ -23,7 +23,7 @@ public class CastResisterServiceConverter {
 
   public CastRegisterServiceOutput toOutput(CastId castId) {
     return CastRegisterServiceOutput.builder()
-        .id(castId.intValue())
+        .id(castId.value())
         .build();
   }
 

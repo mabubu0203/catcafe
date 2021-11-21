@@ -17,7 +17,7 @@ public class CastCatResisterServiceConverter {
 
   public CastCatResisterServiceOutput toOutput(CastCatId castCatId) {
     return CastCatResisterServiceOutput.builder()
-        .id(castCatId.intValue())
+        .id(castCatId.value())
         .build();
   }
 
