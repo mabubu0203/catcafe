@@ -18,7 +18,7 @@ IntelliJ IDEAを使用します。
 2. ProjectSDK はJDK17を指定
    ![overview image](image/01.png?raw=true)
    ![overview image](image/02.png?raw=true)
-   [misc.xml](../.idea/misc.xml)
+   [misc.xml#L7](../.idea/misc.xml#L7)
 4. docker-composeよりMysql/Redisを起動
    `$ docker-compose -f ./docker/mac/docker-compose.yml up -d --build`
 5. アプリケーションをbootRun
