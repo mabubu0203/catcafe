@@ -153,8 +153,9 @@ jib {
         mainClass = 'mabubu0203.com.github.catcafe.api.ApiApp'
         ports = ['8080']
     }
+    // mcr.microsoft.com/openjdk/jdk:17-ubuntu に変更する
     from {
-        image = "adoptopenjdk/openjdk11:jdk-11.0.11_9-ubuntu-slim"
+        image = "adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine-slim"
     }
     // 引数追加の影響を受けてしまうので、いったんコメントアウト
 //    to {

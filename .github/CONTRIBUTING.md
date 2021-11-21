@@ -15,9 +15,13 @@ IntelliJ IDEAを使用します。
 ## 起動方法
 
 1. 当プロジェクトをIntelliJ IDEAにGradleProjectとしてclone
-1. docker-composeよりMysql/Redisを起動
+2. ProjectSDK はJDK17を指定
+   ![overview image](image/01.png?raw=true)
+   ![overview image](image/02.png?raw=true)
+   [misc.xml](.idea/misc.xml)
+4. docker-composeよりMysql/Redisを起動
    `$ docker-compose -f ./docker/mac/docker-compose.yml up -d --build`
-1. アプリケーションをbootRun
+5. アプリケーションをbootRun
     * GradleタスクよりbootRun(`:micro-api -> Tasks -> application -> bootRun`)
     * DockerImageを作成して起動
         1. GradleタスクよりjibDockerBuild(`:micro-api -> Tasks -> jib -> jibDockerBuild`)
@@ -25,7 +29,7 @@ IntelliJ IDEAを使用します。
         1. Dockerより起動
            `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it micro-api:d141aa2.dirty`
 
-1. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> startDevelopment`)
+6. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> startDevelopment`)
 
 ### Endpoints
 
