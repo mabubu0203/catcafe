@@ -22,7 +22,8 @@ public class CastSearchServiceConverter {
   }
 
   public Mono<CastSearchServiceOutput> toOutput(Flux<CastEntity> flux) {
-    return flux.map(this::toCastObject).collectList()
+    return flux.map(this::toCastObject)
+        .collectList()
         .map(casts -> CastSearchServiceOutput.builder().casts(casts))
         .map(CastSearchServiceOutputBuilder::build);
   }
@@ -30,22 +31,24 @@ public class CastSearchServiceConverter {
   private CastObject toCastObject(CastEntity castEntity) {
     var castCatEntity = castEntity.getCastCatEntity();
     return CastSearchServiceOutput.CastObject.builder()
-        .id(castEntity.getCastId().value())
-        .storeId(castEntity.getStoreId().value())
-        .common(CastSearchServiceOutput.CommonObject.builder()
-            .createdDateTime(castEntity.getCreatedDateTime())
-            .version(castEntity.getVersion())
-            .updatedDateTime(castEntity.getUpdatedDateTime())
-            .build())
+        .id(castEntity.getCastIdValue())
+        .storeId(castEntity.getStoreIdValue())
+        .common(
+            CastSearchServiceOutput.CommonObject.builder()
+                .createdDateTime(castEntity.getCreatedDateTime())
+                .version(castEntity.getVersion())
+                .updatedDateTime(castEntity.getUpdatedDateTime())
+                .build())
         .castCat(
             CastSearchServiceOutput.CastCatObject.builder()
-                .id(castCatEntity.getCastCatId().value())
+                .id(castCatEntity.getCastCatIdValue())
                 .name(castCatEntity.getName())
-                .common(CastSearchServiceOutput.CommonObject.builder()
-                    .createdDateTime(castCatEntity.getCreatedDateTime())
-                    .version(castCatEntity.getVersion())
-                    .updatedDateTime(castCatEntity.getUpdatedDateTime())
-                    .build())
+                .common(
+                    CastSearchServiceOutput.CommonObject.builder()
+                        .createdDateTime(castCatEntity.getCreatedDateTime())
+                        .version(castCatEntity.getVersion())
+                        .updatedDateTime(castCatEntity.getUpdatedDateTime())
+                        .build())
                 .build())
         .build();
   }

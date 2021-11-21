@@ -52,31 +52,28 @@ public class CastRepositoryImpl implements CastRepository {
   public Mono<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
     return this.findDto(entity.getCastCatEntity().getCastCatId())
         .map(dto -> entity)
-        .map(e -> this.attach(new Cast(), e))
+        .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
         .map(Cast.class::cast)
         .flatMap(dto -> this.castSource.insert(dto, receptionTime))
-        .map(Cast::getId)
+        .mapNotNull(Cast::getId)
         .map(CastId::new);
   }
 
   @Override
   public Mono<CastCatId> resister(CastCatEntity entity, LocalDateTime receptionTime) {
     return Optional.of(entity)
-        .map(e -> this.attach(new CastCat(), e))
+        .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
         .map(CastCat.class::cast)
         .map(dto -> this.castCatSource.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .map(CastCat::getId)
+        .mapNotNull(CastCat::getId)
         .map(CastCatId::new);
   }
 
   private CastEntity convertCastEntity(CastView dto) {
     var castCatId = new CastCatId(dto.getCastCatId());
-    var castId = new CastId(dto.getCastId());
-    var storeId = new StoreId(dto.getStoreId());
-
     var castCatEntity = CastCatEntity.builder()
         .castCatId(castCatId)
         .name(dto.getCastCatName())
@@ -86,13 +83,17 @@ public class CastRepositoryImpl implements CastRepository {
         .version(null)
         .updatedDateTime(null)
         .build();
+
+    var castId = new CastId(dto.getCastId());
+    var storeId = new StoreId(dto.getStoreId());
+
     return CastEntity.builder()
         .castId(castId)
         .storeId(storeId)
         .createdDateTime(null)
         .version(null)
         .updatedDateTime(null)
-        .CastCatEntity(castCatEntity)
+        .castCatEntity(castCatEntity)
         .build();
   }
 
@@ -103,39 +104,30 @@ public class CastRepositoryImpl implements CastRepository {
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("キャスト(猫)が存在しません")));
   }
 
+  private Cast attach(CastEntity entity) {
+    return this.attach(null, entity);
+  }
+
   private Cast attach(Cast dto, CastEntity entity) {
-    var castId = Optional.of(entity)
-        .map(CastEntity::getCastId)
-        .map(CastId::value)
-        .orElse(null);
-    var storeId = Optional.of(entity)
-        .map(CastEntity::getStoreId)
-        .map(StoreId::value)
-        .orElse(null);
-    var castCatId = Optional.of(entity)
-        .map(CastEntity::getCastCatEntity)
-        .map(CastCatEntity::getCastCatId)
-        .map(CastCatId::value)
-        .orElse(null);
-    return Optional.of(dto)
+    return Optional.ofNullable(dto)
         .orElse(new Cast())
-        .setId(castId)
-        .setStoreId(storeId)
-        .setCastCatId(castCatId)
+        .setId(entity.getCastIdValue())
+        .setStoreId(entity.getStoreIdValue())
+        .setCastCatId(entity.getCastCatIdValue())
         .setFirstAttendanceDate(null)
         .setLastAttendanceDate(null)
         .setEmploymentStatus(Cast.EmploymentStatus.main)
         .setMemo(entity.getMemo());
   }
 
+  private CastCat attach(CastCatEntity entity) {
+    return this.attach(null, entity);
+  }
+
   private CastCat attach(CastCat dto, CastCatEntity entity) {
-    var castCatId = Optional.of(entity)
-        .map(CastCatEntity::getCastCatId)
-        .map(CastCatId::value)
-        .orElse(null);
-    return Optional.of(dto)
+    return Optional.ofNullable(dto)
         .orElse(new CastCat())
-        .setId(castCatId)
+        .setId(entity.getCastCatIdValue())
         .setName(entity.getName())
         .setImage(entity.getImage())
         .setType(entity.getType())

@@ -22,7 +22,8 @@ public class NoticeSearchServiceConverter {
   }
 
   public Mono<NoticeSearchServiceOutput> toOutput(Flux<NoticeEntity> flux) {
-    return flux.map(this::toNoticeObject).collectList()
+    return flux.map(this::toNoticeObject)
+        .collectList()
         .map(notices -> NoticeSearchServiceOutput.builder().notices(notices))
         .map(NoticeSearchServiceOutputBuilder::build);
   }
@@ -30,15 +31,16 @@ public class NoticeSearchServiceConverter {
   private NoticeObject toNoticeObject(NoticeEntity noticeEntity) {
     return
         NoticeSearchServiceOutput.NoticeObject.builder()
-            .id(noticeEntity.getNoticeId().value())
-            .storeId(noticeEntity.getStoreId().value())
+            .id(noticeEntity.getNoticeIdValue())
+            .storeId(noticeEntity.getStoreIdValue())
             .summary(noticeEntity.getSummary())
             .detail(noticeEntity.getDetail())
-            .common(NoticeSearchServiceOutput.CommonObject.builder()
-                .createdDateTime(noticeEntity.getCreatedDateTime())
-                .version(noticeEntity.getVersion())
-                .updatedDateTime(noticeEntity.getUpdatedDateTime())
-                .build())
+            .common(
+                NoticeSearchServiceOutput.CommonObject.builder()
+                    .createdDateTime(noticeEntity.getCreatedDateTime())
+                    .version(noticeEntity.getVersion())
+                    .updatedDateTime(noticeEntity.getUpdatedDateTime())
+                    .build())
             .build();
   }
 

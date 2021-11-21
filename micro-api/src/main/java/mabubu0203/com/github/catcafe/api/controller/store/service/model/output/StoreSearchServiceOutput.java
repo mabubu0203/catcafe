@@ -18,7 +18,34 @@ public class StoreSearchServiceOutput implements ServiceOutput {
 
     private final Integer id;
     private final String name;
+    private final ContactObject contact;
+    private final AddressObject address;
+    private final String memo;
     private final CommonObject common;
+  }
+
+  @Builder
+  @Getter
+  public static class ContactObject {
+
+    private final String phoneNumber;
+    private final String mailAddress;
+
+  }
+
+  @Builder
+  @Getter
+  public static class AddressObject {
+
+    private final String postalCode;
+    private final String prefectureCode;
+    private final String address1;
+    private final String address2;
+    private final String address3;
+    private final String streetAddress;
+    private final String buildingName;
+    private final String supplement;
+
   }
 
   @Builder

@@ -48,12 +48,12 @@ public class StoreRepositoryImpl implements StoreRepository {
   @Override
   public Mono<StoreId> resister(StoreEntity entity, LocalDateTime receptionTime) {
     return Optional.of(entity)
-        .map(e -> this.attach(new Store(), e))
+        .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
         .map(Store.class::cast)
         .map(dto -> this.source.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .map(Store::getId)
+        .mapNotNull(Store::getId)
         .map(StoreId::new);
   }
 
@@ -66,7 +66,7 @@ public class StoreRepositoryImpl implements StoreRepository {
         .map(dto -> this.attach(dto, entity))
         .map(dto -> (Store) dto.setVersion(entity.getVersion()))
         .flatMap(dto -> this.source.update(dto, receptionTime))
-        .map(Store::getId)
+        .mapNotNull(Store::getId)
         .map(StoreId::new);
   }
 
@@ -78,7 +78,7 @@ public class StoreRepositoryImpl implements StoreRepository {
         .orElseThrow(RuntimeException::new)
         .map(dto -> (Store) dto.setVersion(entity.getVersion()))
         .flatMap(dto -> this.source.logicalDelete(dto, receptionTime))
-        .map(Store::getId)
+        .mapNotNull(Store::getId)
         .map(StoreId::new);
   }
 
@@ -118,8 +118,12 @@ public class StoreRepositoryImpl implements StoreRepository {
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("店舗が存在しません")));
   }
 
+  private Store attach(StoreEntity entity) {
+    return this.attach(null, entity);
+  }
+
   private Store attach(Store dto, StoreEntity entity) {
-    return Optional.of(dto)
+    return Optional.ofNullable(dto)
         .orElse(new Store())
         .setId(entity.getStoreIdValue())
         .setName(entity.getName())
