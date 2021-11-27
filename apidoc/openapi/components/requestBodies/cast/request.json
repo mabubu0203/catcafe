@@ -1,6 +1,78 @@
 {
   "definitions": {
-    "cast_cat_create": {
+    "cast_create_request": {
+      "description": "postObject",
+      "type": "object",
+      "required": [
+        "cast_cat_id"
+      ],
+      "properties": {
+        "cast_cat_id": {
+          "description": "キャスト(猫)ID",
+          "type": "integer",
+          "format": "int32"
+        },
+        "employment_status": {
+          "description": "雇用形態",
+          "type": "string"
+        },
+        "first_attendance_date": {
+          "description": "初出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "last_attendance_date": {
+          "description": "最終出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        }
+      }
+    },
+    "cast_update_request": {
+      "description": "patchObject",
+      "type": "object",
+      "required": [
+        "employment_status",
+        "first_attendance_date",
+        "last_attendance_date",
+        "memo",
+        "version"
+      ],
+      "properties": {
+        "employment_status": {
+          "description": "雇用形態",
+          "type": "string"
+        },
+        "first_attendance_date": {
+          "description": "初出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "last_attendance_date": {
+          "description": "最終出勤日",
+          "type": "string",
+          "format": "date"
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "version": {
+          "description": "バージョンフィールド",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "cast_cat_create_request": {
       "description": "postObject",
       "type": "object",
       "required": [
@@ -56,7 +128,7 @@
         }
       }
     },
-    "cast_cat_update": {
+    "cast_cat_update_request": {
       "description": "patchObject",
       "type": "object",
       "required": [
@@ -114,78 +186,6 @@
         },
         "memo": {
           "description": "キャストメモ",
-          "type": "string",
-          "minLength": 0,
-          "maxLength": 256
-        },
-        "version": {
-          "description": "バージョンフィールド",
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
-    "cast_create": {
-      "description": "postObject",
-      "type": "object",
-      "required": [
-        "cast_cat_id"
-      ],
-      "properties": {
-        "cast_cat_id": {
-          "description": "キャスト(猫)ID",
-          "type": "integer",
-          "format": "int32"
-        },
-        "employment_status": {
-          "description": "雇用形態",
-          "type": "string"
-        },
-        "first_attendance_date": {
-          "description": "初出勤日",
-          "type": "string",
-          "format": "date"
-        },
-        "last_attendance_date": {
-          "description": "最終出勤日",
-          "type": "string",
-          "format": "date"
-        },
-        "memo": {
-          "description": "店舗メモ",
-          "type": "string",
-          "minLength": 0,
-          "maxLength": 256
-        }
-      }
-    },
-    "cast_update": {
-      "description": "patchObject",
-      "type": "object",
-      "required": [
-        "employment_status",
-        "first_attendance_date",
-        "last_attendance_date",
-        "memo",
-        "version"
-      ],
-      "properties": {
-        "employment_status": {
-          "description": "雇用形態",
-          "type": "string"
-        },
-        "first_attendance_date": {
-          "description": "初出勤日",
-          "type": "string",
-          "format": "date"
-        },
-        "last_attendance_date": {
-          "description": "最終出勤日",
-          "type": "string",
-          "format": "date"
-        },
-        "memo": {
-          "description": "店舗メモ",
           "type": "string",
           "minLength": 0,
           "maxLength": 256

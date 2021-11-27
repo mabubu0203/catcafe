@@ -4,7 +4,7 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
-import org.openapitools.model.CastCat;
+import org.openapitools.model.CastCatDetail;
 import org.openapitools.model.CastDetail;
 import org.openapitools.model.CastSearchResponse;
 import org.openapitools.model.Common;
@@ -33,8 +33,8 @@ public class CastSearchResponseMapper implements
     return detail;
   }
 
-  private CastCat convert(CastSearchServiceOutput.CastCatObject castCat) {
-    var detail = new CastCat();
+  private CastCatDetail convert(CastSearchServiceOutput.CastCatObject castCat) {
+    var detail = new CastCatDetail();
     var common = this.common(castCat.getCommon());
     detail.setId(castCat.getId());
     detail.setName(castCat.getName());

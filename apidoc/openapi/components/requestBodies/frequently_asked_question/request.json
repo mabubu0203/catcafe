@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "frequently_asked_question_create": {
+    "frequently_asked_question_create_request": {
       "description": "postObject",
       "type": "object",
       "properties": {
@@ -12,7 +12,7 @@
         }
       }
     },
-    "frequently_asked_question_update": {
+    "frequently_asked_question_update_request": {
       "description": "patchObject",
       "type": "object",
       "properties": {

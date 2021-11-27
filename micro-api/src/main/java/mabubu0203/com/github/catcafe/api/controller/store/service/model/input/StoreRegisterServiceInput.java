@@ -1,9 +1,9 @@
 package mabubu0203.com.github.catcafe.api.controller.store.service.model.input;
 
+import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.common.service.model.ServiceInput;
-import java.time.LocalDate;
 
 @Builder
 @Getter

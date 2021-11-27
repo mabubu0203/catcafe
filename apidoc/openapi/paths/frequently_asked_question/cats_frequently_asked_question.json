@@ -30,7 +30,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/frequently_asked_question/request.json#/definitions/frequently_asked_question_create"
+            "$ref": "../../components/requestBodies/frequently_asked_question/request.json#/definitions/frequently_asked_question_create_request"
           }
         }
       },

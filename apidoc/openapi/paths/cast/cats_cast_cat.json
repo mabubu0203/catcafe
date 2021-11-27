@@ -30,7 +30,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/cast/request.json#/definitions/cast_cat_create"
+            "$ref": "../../components/requestBodies/cast/request.json#/definitions/cast_cat_create_request"
           }
         }
       },

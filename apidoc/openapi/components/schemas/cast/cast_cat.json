@@ -1,6 +1,6 @@
 {
   "model": {
-    "cast_cat": {
+    "cast_cat_detail": {
       "description": "キャスト(猫)詳細",
       "type": "object",
       "properties": {

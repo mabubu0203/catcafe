@@ -34,7 +34,7 @@
           "$ref": "../../responses/success/common_response.json#/model/common"
         },
         "cast_cat": {
-          "$ref": "./cast_cat.json#/model/cast_cat"
+          "$ref": "./cast_cat.json#/model/cast_cat_detail"
         }
       }
     }

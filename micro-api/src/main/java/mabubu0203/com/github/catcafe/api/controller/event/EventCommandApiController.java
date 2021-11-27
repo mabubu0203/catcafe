@@ -9,8 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.EventCommandApi;
-import org.openapitools.model.EventCreate;
-import org.openapitools.model.EventUpdate;
+import org.openapitools.model.EventCreateRequest;
+import org.openapitools.model.EventUpdateRequest;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
@@ -39,7 +39,7 @@ public class EventCommandApiController implements EventCommandApi {
   @Override
   public Mono<ResponseEntity<PostObject>> eventCreate(
       String cats,
-      @Valid Mono<EventCreate> eventCreate,
+      @Valid Mono<EventCreateRequest> eventCreate,
       ServerWebExchange exchange) {
     return null;
   }
@@ -84,7 +84,7 @@ public class EventCommandApiController implements EventCommandApi {
   public Mono<ResponseEntity<PatchObject>> eventUpdate(
       String cats,
       Integer eventId,
-      @Valid Mono<EventUpdate> eventUpdate,
+      @Valid Mono<EventUpdateRequest> eventUpdate,
       ServerWebExchange exchange) {
     return null;
   }

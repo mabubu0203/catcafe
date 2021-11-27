@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "display_menu_create": {
+    "display_menu_create_request": {
       "description": "postObject",
       "type": "object",
       "properties": {
@@ -12,7 +12,7 @@
         }
       }
     },
-    "display_menu_update": {
+    "display_menu_update_request": {
       "description": "patchObject",
       "type": "object",
       "properties": {

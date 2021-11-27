@@ -74,7 +74,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/store/request.json#/definitions/store_update"
+            "$ref": "../../components/requestBodies/store/request.json#/definitions/store_update_request"
           }
         }
       },

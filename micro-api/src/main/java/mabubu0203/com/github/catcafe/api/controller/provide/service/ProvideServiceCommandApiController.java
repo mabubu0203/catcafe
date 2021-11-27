@@ -14,8 +14,8 @@ import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
-import org.openapitools.model.ProvideServiceCreate;
-import org.openapitools.model.ProvideServiceUpdate;
+import org.openapitools.model.ProvideServiceCreateRequest;
+import org.openapitools.model.ProvideServiceUpdateRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
@@ -41,7 +41,7 @@ public class ProvideServiceCommandApiController implements ProvideServiceCommand
   public Mono<ResponseEntity<PostObject>> provideServiceCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer storeId,
-      @Valid Mono<ProvideServiceCreate> provideServiceCreate,
+      @Valid Mono<ProvideServiceCreateRequest> provideServiceCreate,
       ServerWebExchange exchange) {
     return null;
   }
@@ -88,7 +88,7 @@ public class ProvideServiceCommandApiController implements ProvideServiceCommand
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer storeId,
       Integer provideServiceId,
-      @Valid Mono<ProvideServiceUpdate> provideServiceUpdate,
+      @Valid Mono<ProvideServiceUpdateRequest> provideServiceUpdate,
       ServerWebExchange exchange) {
     return null;
   }

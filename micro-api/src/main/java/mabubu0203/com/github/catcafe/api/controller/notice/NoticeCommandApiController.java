@@ -15,8 +15,8 @@ import mabubu0203.com.github.catcafe.api.controller.notice.service.NoticeResiste
 import org.openapitools.api.NoticeCommandApi;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
-import org.openapitools.model.NoticeCreate;
-import org.openapitools.model.NoticeUpdate;
+import org.openapitools.model.NoticeCreateRequest;
+import org.openapitools.model.NoticeUpdateRequest;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
 import org.springframework.http.HttpStatus;
@@ -46,7 +46,7 @@ public class NoticeCommandApiController implements NoticeCommandApi {
   @Override
   public Mono<ResponseEntity<PostObject>> noticeCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-      @Valid Mono<NoticeCreate> noticeCreate,
+      @Valid Mono<NoticeCreateRequest> noticeCreate,
       ServerWebExchange exchange) {
     return noticeCreate
         .map(new NoticeCreateRequestMapper(cats))
@@ -95,7 +95,7 @@ public class NoticeCommandApiController implements NoticeCommandApi {
   public Mono<ResponseEntity<PatchObject>> noticeUpdate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer noticeId,
-      @Valid Mono<NoticeUpdate> noticeUpdate,
+      @Valid Mono<NoticeUpdateRequest> noticeUpdate,
       ServerWebExchange exchange) {
     return null;
   }

@@ -25,8 +25,8 @@ import org.openapitools.model.InlineResponse404;
 import org.openapitools.model.InlineResponse409;
 import org.openapitools.model.PatchObject;
 import org.openapitools.model.PostObject;
-import org.openapitools.model.StoreCreate;
-import org.openapitools.model.StoreUpdate;
+import org.openapitools.model.StoreCreateRequest;
+import org.openapitools.model.StoreUpdateRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,7 +57,7 @@ public class StoreCommandApiController implements StoreCommandApi {
   @Override
   public Mono<ResponseEntity<PostObject>> storeCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-      @Valid Mono<StoreCreate> storeCreate,
+      @Valid Mono<StoreCreateRequest> storeCreate,
       ServerWebExchange exchange) {
     return storeCreate
         .map(new StoreCreateRequestMapper(cats))
@@ -113,7 +113,7 @@ public class StoreCommandApiController implements StoreCommandApi {
   public Mono<ResponseEntity<PatchObject>> storeUpdate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
-      @Valid Mono<StoreUpdate> storeUpdate,
+      @Valid Mono<StoreUpdateRequest> storeUpdate,
       ServerWebExchange exchange) {
     return storeUpdate
         .map(new StoreUpdateRequestMapper(cats, storeId))
