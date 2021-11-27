@@ -1,6 +1,8 @@
 package mabubu0203.com.github.catcafe.api.controller.store.service.model.output;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +22,12 @@ public class StoreSearchServiceOutput implements ServiceOutput {
     private final String name;
     private final ContactObject contact;
     private final AddressObject address;
+    private final LocalDate openDate;
+    private final LocalDate closeDate;
+    private final HoursObject hours;
     private final String memo;
     private final CommonObject common;
+
   }
 
   @Builder
@@ -44,6 +50,16 @@ public class StoreSearchServiceOutput implements ServiceOutput {
     private final String address3;
     private final String streetAddress;
     private final String buildingName;
+    private final String supplement;
+
+  }
+
+  @Builder
+  @Getter
+  public static class HoursObject {
+
+    private final LocalTime openingTime;
+    private final LocalTime closingTime;
     private final String supplement;
 
   }

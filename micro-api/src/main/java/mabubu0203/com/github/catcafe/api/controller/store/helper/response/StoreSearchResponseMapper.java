@@ -4,6 +4,10 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
+import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.AddressObject;
+import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.CommonObject;
+import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.ContactObject;
+import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.HoursObject;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.Address;
 import org.openapitools.model.Common;
@@ -19,7 +23,7 @@ public class StoreSearchResponseMapper implements
   public StoreSearchResponse apply(StoreSearchServiceOutput storeSearchServiceOutput) {
     var stores = storeSearchServiceOutput.getStores().stream()
         .map(this::convert)
-        .collect(Collectors.toList());
+        .toList();
 
     var result = new StoreSearchResponse();
     result.setStores(stores);
@@ -30,45 +34,53 @@ public class StoreSearchResponseMapper implements
     var detail = new StoreDetail();
     detail.setId(store.getId());
     detail.setName(store.getName());
-    detail.setContact(this.contact());
-    detail.setAddress(this.address());
-    detail.setOpenDate(null);
-    detail.setCloseDate(null);
-    detail.setHours(new Hours());
-    detail.setMemo(null);
-
-    var common = new Common();
-    var commonObject = store.getCommon();
-    common.setCreatedDateTime(commonObject.getCreatedDateTime().atOffset(ZoneOffset.ofHours(9)));
-    common.setVersion(commonObject.getVersion());
-    common.setUpdatedDateTime(
-        Optional.ofNullable(commonObject.getUpdatedDateTime())
-            .map(ldt -> ldt.atOffset(ZoneOffset.ofHours(9)))
-            .orElse(null));
-    detail.setCommon(common);
+    detail.setContact(this.contact(store.getContact()));
+    detail.setAddress(this.address(store.getAddress()));
+    detail.setOpenDate(store.getOpenDate());
+    detail.setCloseDate(store.getCloseDate());
+    detail.setHours(this.hours(store.getHours()));
+    detail.setMemo(store.getMemo());
+    detail.setCommon(this.common(store.getCommon()));
     return detail;
   }
 
-  // TODO: 修正予定
-  private Contact contact() {
+  private Contact contact(ContactObject object) {
     var contact = new Contact();
-    contact.setMailAddress(null);
-    contact.setMailAddress(null);
+    contact.setPhoneNumber(object.getPhoneNumber());
+    contact.setMailAddress(object.getMailAddress());
     return contact;
   }
 
-  // TODO: 修正予定
-  private Address address() {
+  private Address address(AddressObject object) {
     var address = new Address();
-    address.setPostalCode(null);
-    address.setPrefectureCode(null);
-    address.setAddress1(null);
-    address.setAddress2(null);
-    address.setAddress3(null);
-    address.setStreetAddress(null);
-    address.setBuildingName(null);
-    address.setSupplement(null);
+    address.setPostalCode(object.getPostalCode());
+    address.setPrefectureCode(object.getPrefectureCode());
+    address.setAddress1(object.getAddress1());
+    address.setAddress2(object.getAddress2());
+    address.setAddress3(object.getAddress3());
+    address.setStreetAddress(object.getStreetAddress());
+    address.setBuildingName(object.getBuildingName());
+    address.setSupplement(object.getSupplement());
     return address;
+  }
+
+  private Hours hours(HoursObject object) {
+    var hours = new Hours();
+    hours.setOpeningTime(null);
+    hours.setClosingTime(null);
+    hours.setSupplement(object.getSupplement());
+    return hours;
+  }
+
+  private Common common(CommonObject object) {
+    var common = new Common();
+    common.setCreatedDateTime(object.getCreatedDateTime().atOffset(ZoneOffset.ofHours(9)));
+    common.setVersion(object.getVersion());
+    common.setUpdatedDateTime(
+        Optional.ofNullable(object.getUpdatedDateTime())
+            .map(ldt -> ldt.atOffset(ZoneOffset.ofHours(9)))
+            .orElse(null));
+    return common;
   }
 
 }

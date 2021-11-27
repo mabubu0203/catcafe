@@ -16,7 +16,7 @@ public class StoreRegisterServiceConverter {
     var phoneNumber = new PhoneNumber(null);
     var mailAddress = new MailAddress(null);
     var postalCode = new PostalCode(null);
-    var memo = new Memo(null);
+    var memo = new Memo(input.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
         .name(input.getName())
@@ -30,6 +30,8 @@ public class StoreRegisterServiceConverter {
         .streetAddress(null)
         .buildingName(null)
         .addressSupplement(null)
+        .openDate(input.getOpenDate())
+        .closeDate(input.getCloseDate())
         .openingTime(null)
         .closingTime(null)
         .hoursSupplement(null)

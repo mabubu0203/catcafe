@@ -12,6 +12,22 @@
           "type": "string",
           "minLength": 0,
           "maxLength": 128
+        },
+        "open_date": {
+          "description": "開店日",
+          "type": "string",
+          "format": "date"
+        },
+        "close_date": {
+          "description": "閉店日",
+          "type": "string",
+          "format": "date"
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         }
       }
     },

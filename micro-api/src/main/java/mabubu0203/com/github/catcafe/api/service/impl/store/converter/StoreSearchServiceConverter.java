@@ -42,6 +42,14 @@ public class StoreSearchServiceConverter {
                 StoreSearchServiceOutput.AddressObject.builder()
                     .address1(storeEntity.getAddress1())
                     .build())
+            .openDate(storeEntity.getOpenDate())
+            .closeDate(storeEntity.getCloseDate())
+            .hours(
+                StoreSearchServiceOutput.HoursObject.builder()
+                    .openingTime(storeEntity.getOpeningTime())
+                    .closingTime(storeEntity.getClosingTime())
+                    .supplement(storeEntity.getHoursSupplement())
+                    .build())
             .memo(storeEntity.getMemoValue())
             .common(
                 StoreSearchServiceOutput.CommonObject.builder()
