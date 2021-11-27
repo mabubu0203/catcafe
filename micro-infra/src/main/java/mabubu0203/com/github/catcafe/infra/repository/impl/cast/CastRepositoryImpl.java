@@ -79,9 +79,9 @@ public class CastRepositoryImpl implements CastRepository {
         .name(dto.getCastCatName())
         .image(dto.getCastCatImage())
         .sex(dto.getCastCatSex().name())
-        .createdDateTime(null)
-        .version(null)
-        .updatedDateTime(null)
+        .createdDateTime(dto.getCastCatCreatedDateTime())
+        .version(dto.getCastCatVersion())
+        .updatedDateTime(dto.getCastCatUpdatedDateTime())
         .build();
 
     var castId = new CastId(dto.getCastId());
@@ -90,9 +90,9 @@ public class CastRepositoryImpl implements CastRepository {
     return CastEntity.builder()
         .castId(castId)
         .storeId(storeId)
-        .createdDateTime(null)
-        .version(null)
-        .updatedDateTime(null)
+        .createdDateTime(dto.getCastCreatedDateTime())
+        .version(dto.getCastVersion())
+        .updatedDateTime(dto.getCastUpdatedDateTime())
         .castCatEntity(castCatEntity)
         .build();
   }

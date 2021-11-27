@@ -44,20 +44,32 @@ CREATE VIEW cast_view
        cast_id,
        store_id,
        employment_status,
+       cast_created_date_time,
+       cast_version,
+       cast_updated_date_time,
        cast_cat_id,
        cast_cat_name,
        cast_cat_image_url,
-       cast_cat_sex
+       cast_cat_sex,
+       cast_cat_created_date_time,
+       cast_cat_version,
+       cast_cat_updated_date_time
         )
 AS
 SELECT CONCAT(cast.id, '_', cast_cat.id) AS id,
        cast.id                           AS cast_id,
-       cast.store_id,
-       cast.employment_status,
+       cast.store_id                     AS store_id,
+       cast.employment_status            AS employment_status,
+       cast.created_date_time            AS cast_created_date_time,
+       cast.version                      AS cast_version,
+       cast.updated_date_time            AS cast_updated_date_time,
        cast_cat.id                       AS cast_cat_id,
        cast_cat.name                     AS cast_cat_name,
        cast_cat.image_url                AS cast_cat_image_url,
-       cast_cat.sex                      AS cast_cat_sex
+       cast_cat.sex                      AS cast_cat_sex,
+       cast_cat.created_date_time        AS cast_cat_created_date_time,
+       cast_cat.version                  AS cast_cat_version,
+       cast_cat.updated_date_time        AS cast_cat_updated_date_time
 FROM cast cast
        INNER JOIN cast_cat cast_cat ON cast.cast_cat_id = cast_cat.id
   AND cast_cat.deleted_flag = 'is_false'
