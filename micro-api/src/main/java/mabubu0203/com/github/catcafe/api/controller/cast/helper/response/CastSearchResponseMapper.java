@@ -2,7 +2,6 @@ package mabubu0203.com.github.catcafe.api.controller.cast.helper.response;
 
 import java.time.ZoneOffset;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.CastCat;
@@ -17,7 +16,7 @@ public class CastSearchResponseMapper implements
   public CastSearchResponse apply(CastSearchServiceOutput castSearchServiceOutput) {
     var casts = castSearchServiceOutput.getCasts().stream()
         .map(this::convert)
-        .collect(Collectors.toList());
+        .toList();
 
     var result = new CastSearchResponse();
     result.setCasts(casts);
