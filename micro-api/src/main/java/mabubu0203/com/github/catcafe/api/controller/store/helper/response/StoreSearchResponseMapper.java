@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.AddressObject;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.CommonObject;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.ContactObject;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.HoursObject;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.Address;
 import org.openapitools.model.Common;
@@ -33,6 +29,7 @@ public class StoreSearchResponseMapper implements
 
   private StoreDetail convert(StoreSearchServiceOutput.StoreObject store) {
     var detail = new StoreDetail();
+    var common = this.common(store.getCommon());
     detail.setId(store.getId());
     detail.setName(store.getName());
     detail.setContact(this.contact(store.getContact()));
@@ -41,18 +38,18 @@ public class StoreSearchResponseMapper implements
     detail.setCloseDate(store.getCloseDate());
     detail.setHours(this.hours(store.getHours()));
     detail.setMemo(store.getMemo());
-    detail.setCommon(this.common(store.getCommon()));
+    detail.setCommon(common);
     return detail;
   }
 
-  private Contact contact(ContactObject object) {
+  private Contact contact(StoreSearchServiceOutput.ContactObject object) {
     var contact = new Contact();
     contact.setPhoneNumber(object.getPhoneNumber());
     contact.setMailAddress(object.getMailAddress());
     return contact;
   }
 
-  private Address address(AddressObject object) {
+  private Address address(StoreSearchServiceOutput.AddressObject object) {
     var address = new Address();
     address.setPostalCode(object.getPostalCode());
     address.setPrefectureCode(object.getPrefectureCode());
@@ -66,7 +63,7 @@ public class StoreSearchResponseMapper implements
     return address;
   }
 
-  private Hours hours(HoursObject object) {
+  private Hours hours(StoreSearchServiceOutput.HoursObject object) {
     var hours = new Hours();
     Optional.ofNullable(object.getOpeningTime())
         .map(lt -> lt.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)))
@@ -78,14 +75,13 @@ public class StoreSearchResponseMapper implements
     return hours;
   }
 
-  private Common common(CommonObject object) {
+  private Common common(StoreSearchServiceOutput.CommonObject object) {
     var common = new Common();
     common.setCreatedDateTime(object.getCreatedDateTime().atOffset(ZoneOffset.ofHours(9)));
     common.setVersion(object.getVersion());
-    common.setUpdatedDateTime(
-        Optional.ofNullable(object.getUpdatedDateTime())
-            .map(ldt -> ldt.atOffset(ZoneOffset.ofHours(9)))
-            .orElse(null));
+    Optional.ofNullable(object.getUpdatedDateTime())
+        .map(ldt -> ldt.atOffset(ZoneOffset.ofHours(9)))
+        .ifPresent(common::setUpdatedDateTime);
     return common;
   }
 
