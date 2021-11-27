@@ -1,0 +1,13 @@
+{
+  "allowUnicodeIdentifiers": "true",
+  "apiPackage": "org.openapitools.api",
+  "dateLibrary": "java8",
+  "groupId": "mabubu0203.com.github",
+  "interfaceOnly": "true",
+  "modelPackage": "org.openapitools.model",
+  "performBeanValidation": "true",
+  "reactive": "true",
+  "serializableModel": "true",
+  "snapshotVersion": "false",
+  "useTags": "true"
+}
