@@ -35,7 +35,7 @@ public class CastCat extends BaseTable<Integer> {
   private String type;
 
   @Column(value = "sex")
-  private Sex sex = Sex.male;
+  private Sex sex = Sex.unknown;
 
   @JsonRawValue
   @Column(value = "brothers")
@@ -59,6 +59,7 @@ public class CastCat extends BaseTable<Integer> {
 
   @Getter
   public enum Sex {
+    unknown,
     male,
     female
   }

@@ -1,8 +1,9 @@
 package mabubu0203.com.github.catcafe.api.controller.store.helper.response;
 
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.AddressObject;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.CommonObject;
@@ -66,8 +67,12 @@ public class StoreSearchResponseMapper implements
 
   private Hours hours(HoursObject object) {
     var hours = new Hours();
-    hours.setOpeningTime(null);
-    hours.setClosingTime(null);
+    Optional.ofNullable(object.getOpeningTime())
+        .map(lt -> lt.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)))
+        .ifPresent(hours::setOpeningTime);
+    Optional.ofNullable(object.getClosingTime())
+        .map(lt -> lt.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)))
+        .ifPresent(hours::setClosingTime);
     hours.setSupplement(object.getSupplement());
     return hours;
   }
