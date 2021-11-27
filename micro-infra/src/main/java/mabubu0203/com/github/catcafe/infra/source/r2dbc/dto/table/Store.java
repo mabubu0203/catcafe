@@ -1,5 +1,6 @@
 package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 import lombok.Data;
@@ -55,6 +56,12 @@ public class Store extends BaseTable<Integer> {
 
   @Column(value = "address_supplement")
   private String addressSupplement;
+
+  @Column(value = "open_date")
+  private LocalDate openDate;
+
+  @Column(value = "close_date")
+  private LocalDate closeDate;
 
   @Column(value = "opening_time")
   private LocalTime openingTime;

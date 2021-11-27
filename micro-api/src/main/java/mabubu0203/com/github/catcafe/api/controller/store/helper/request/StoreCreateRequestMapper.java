@@ -16,6 +16,9 @@ public class StoreCreateRequestMapper implements
     return StoreRegisterServiceInput.builder()
         .cats(this.cats)
         .name(storeCreate.getName())
+        .openDate(storeCreate.getOpenDate())
+        .closeDate(storeCreate.getCloseDate())
+        .memo(storeCreate.getMemo())
         .build();
   }
 

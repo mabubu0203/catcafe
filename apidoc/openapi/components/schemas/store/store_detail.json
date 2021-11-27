@@ -102,12 +102,12 @@
         "opening_time": {
           "description": "開店時間",
           "type": "string",
-          "format": "time"
+          "pattern": "^[0-2][0-3]:[0-5][0-9]$"
         },
         "closing_time": {
           "description": "閉店時間",
           "type": "string",
-          "format": "time"
+          "pattern": "^[0-2][0-3]:[0-5][0-9]$"
         },
         "supplement": {
           "description": "店舗営業時間(補足)",
