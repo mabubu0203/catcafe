@@ -44,7 +44,8 @@ public class StoreSearchServiceOutput implements ServiceOutput {
   public static class AddressObject {
 
     private final String postalCode;
-    private final String prefectureCode;
+    private final Integer prefectureCode;
+    private final String prefectureLabel;
     private final String address1;
     private final String address2;
     private final String address3;

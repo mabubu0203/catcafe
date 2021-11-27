@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS store
   phone_number       CHAR(13) COMMENT '店舗連絡先(電話番号)',
   mail_address       VARCHAR(256) COMMENT '店舗連絡先(メールアドレス)',
   postal_code        CHAR(7) COMMENT '店舗住所(郵便番号)',
-  prefecture_code    CHAR(2) COMMENT '店舗住所(都道府県コード)',
+  prefecture_code    TINYINT COMMENT '店舗住所(都道府県コード)',
   address_1          VARCHAR(256) COMMENT '店舗住所(都道府県)',
   address_2          VARCHAR(256) COMMENT '店舗住所(市区町村)',
   address_3          VARCHAR(256) COMMENT '店舗住所(町域)',

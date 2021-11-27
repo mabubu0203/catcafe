@@ -37,7 +37,7 @@ public class Store extends BaseTable<Integer> {
   private String postalCode;
 
   @Column(value = "prefecture_code")
-  private String prefectureCode;
+  private int prefectureCode;
 
   @Column(value = "address_1")
   private String address1;

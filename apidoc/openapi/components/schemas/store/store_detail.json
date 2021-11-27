@@ -63,6 +63,11 @@
         },
         "prefecture_code": {
           "description": "店舗住所(都道府県コード)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "prefecture_label": {
+          "description": "店舗住所(都道府県)",
           "type": "string"
         },
         "address_1": {

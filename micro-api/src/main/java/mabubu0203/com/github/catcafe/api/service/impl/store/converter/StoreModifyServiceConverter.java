@@ -7,6 +7,7 @@ import mabubu0203.com.github.catcafe.domain.value.MailAddress;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
+import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 public class StoreModifyServiceConverter {
@@ -16,6 +17,7 @@ public class StoreModifyServiceConverter {
     var phoneNumber = new PhoneNumber(null);
     var mailAddress = new MailAddress(null);
     var postalCode = new PostalCode(null);
+    var prefecture = Prefecture.getByCode(null);
     var memo = new Memo(null);
     return StoreEntity.builder()
         .storeId(storeId)
@@ -23,7 +25,7 @@ public class StoreModifyServiceConverter {
         .phoneNumber(phoneNumber)
         .mailAddress(mailAddress)
         .postalCode(postalCode)
-        .prefectureCode(null)
+        .prefecture(prefecture)
         .address1(null)
         .address2(null)
         .address3(null)
