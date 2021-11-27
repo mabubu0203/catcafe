@@ -14,6 +14,7 @@ import mabubu0203.com.github.catcafe.domain.value.MailAddress;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
+import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
@@ -87,6 +88,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     var phoneNumber = new PhoneNumber(dto.getPhoneNumber());
     var mailAddress = new MailAddress(dto.getMailAddress());
     var postalCode = new PostalCode(dto.getPostalCode());
+    var prefecture = Prefecture.getByCode(dto.getPrefectureCode());
     var memo = new Memo(dto.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
@@ -94,7 +96,7 @@ public class StoreRepositoryImpl implements StoreRepository {
         .phoneNumber(phoneNumber)
         .mailAddress(mailAddress)
         .postalCode(postalCode)
-        .prefectureCode(dto.getPrefectureCode())
+        .prefecture(prefecture)
         .address1(dto.getAddress1())
         .address2(dto.getAddress2())
         .address3(dto.getAddress3())

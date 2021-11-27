@@ -40,6 +40,7 @@ public class StoreSearchServiceConverter {
             )
             .address(
                 StoreSearchServiceOutput.AddressObject.builder()
+                    .postalCode(storeEntity.getPostalCodeValue())
                     .address1(storeEntity.getAddress1())
                     .build())
             .openDate(storeEntity.getOpenDate())

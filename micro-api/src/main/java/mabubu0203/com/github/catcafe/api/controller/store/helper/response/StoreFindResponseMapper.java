@@ -52,6 +52,7 @@ public class StoreFindResponseMapper implements
     var address = new Address();
     address.setPostalCode(object.getPostalCode());
     address.setPrefectureCode(object.getPrefectureCode());
+    address.setPrefectureLabel(object.getPrefectureLabel());
     address.setAddress1(object.getAddress1());
     address.setAddress2(object.getAddress2());
     address.setAddress3(object.getAddress3());

@@ -10,6 +10,7 @@ import mabubu0203.com.github.catcafe.domain.value.MailAddress;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
+import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
 @Builder
@@ -21,7 +22,7 @@ public class StoreEntity {
   private final PhoneNumber phoneNumber;
   private final MailAddress mailAddress;
   private final PostalCode postalCode;
-  private final String prefectureCode;
+  private final Prefecture prefecture;
   private final String address1;
   private final String address2;
   private final String address3;
@@ -59,6 +60,20 @@ public class StoreEntity {
   public String getPostalCodeValue() {
     return Optional.of(this.postalCode)
         .map(PostalCode::value)
+        .orElse(null);
+  }
+
+  public int getPrefectureCode() {
+    // TODO:null
+    return Optional.ofNullable(this.prefecture)
+        .map(Prefecture::getCode)
+        .orElse(null);
+  }
+
+  public String getPrefectureLabel() {
+    // TODO:null
+    return Optional.ofNullable(this.prefecture)
+        .map(Prefecture::getLabel)
         .orElse(null);
   }
 
