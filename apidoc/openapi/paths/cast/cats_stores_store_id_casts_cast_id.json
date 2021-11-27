@@ -84,7 +84,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/cast/request.json#/definitions/cast_update"
+            "$ref": "../../components/requestBodies/cast/request.json#/definitions/cast_update_request"
           }
         }
       },

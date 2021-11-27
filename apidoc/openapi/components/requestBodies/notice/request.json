@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "notice_create": {
+    "notice_create_request": {
       "description": "postObject",
       "type": "object",
       "required": [
@@ -36,7 +36,7 @@
         }
       }
     },
-    "notice_update": {
+    "notice_update_request": {
       "description": "patchObject",
       "type": "object",
       "properties": {

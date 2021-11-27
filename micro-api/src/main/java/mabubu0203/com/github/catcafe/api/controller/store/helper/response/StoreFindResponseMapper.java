@@ -4,11 +4,13 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.FindResponseMapper;
-import org.openapitools.model.Address;
+
 import org.openapitools.model.Common;
-import org.openapitools.model.Contact;
-import org.openapitools.model.Hours;
+
 import org.openapitools.model.StoreDetail;
+import org.openapitools.model.StoreDetailAddress;
+import org.openapitools.model.StoreDetailContact;
+import org.openapitools.model.StoreDetailHours;
 import org.openapitools.model.StoreFindResponse;
 
 public class StoreFindResponseMapper implements
@@ -38,15 +40,15 @@ public class StoreFindResponseMapper implements
     return detail;
   }
 
-  private Contact contact(StoreSearchServiceOutput.ContactObject object) {
-    var contact = new Contact();
+  private StoreDetailContact contact(StoreSearchServiceOutput.ContactObject object) {
+    var contact = new StoreDetailContact();
     contact.setPhoneNumber(object.getPhoneNumber());
     contact.setMailAddress(object.getMailAddress());
     return contact;
   }
 
-  private Address address(StoreSearchServiceOutput.AddressObject object) {
-    var address = new Address();
+  private StoreDetailAddress address(StoreSearchServiceOutput.AddressObject object) {
+    var address = new StoreDetailAddress();
     address.setPostalCode(object.getPostalCode());
     address.setPrefectureCode(object.getPrefectureCode());
     address.setPrefectureLabel(object.getPrefectureLabel());
@@ -59,8 +61,8 @@ public class StoreFindResponseMapper implements
     return address;
   }
 
-  private Hours hours(StoreSearchServiceOutput.HoursObject object) {
-    var hours = new Hours();
+  private StoreDetailHours hours(StoreSearchServiceOutput.HoursObject object) {
+    var hours = new StoreDetailHours();
     hours.setOpeningTime(null);
     hours.setClosingTime(null);
     hours.setSupplement(object.getSupplement());

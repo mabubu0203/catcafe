@@ -10,8 +10,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.FrequentlyAskedQuestionCommandApi;
-import org.openapitools.model.FrequentlyAskedQuestionCreate;
-import org.openapitools.model.FrequentlyAskedQuestionUpdate;
+import org.openapitools.model.FrequentlyAskedQuestionCreateRequest;
+import org.openapitools.model.FrequentlyAskedQuestionUpdateRequest;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
@@ -41,7 +41,7 @@ public class FrequentlyAskedQuestionCommandApiController implements
   @Override
   public Mono<ResponseEntity<PostObject>> frequentlyAskedQuestionCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-      @Valid Mono<FrequentlyAskedQuestionCreate> frequentlyAskedQuestionCreate,
+      @Valid Mono<FrequentlyAskedQuestionCreateRequest> frequentlyAskedQuestionCreate,
       ServerWebExchange exchange) {
     return null;
   }
@@ -86,7 +86,7 @@ public class FrequentlyAskedQuestionCommandApiController implements
   public Mono<ResponseEntity<PatchObject>> frequentlyAskedQuestionUpdate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer faqId,
-      @Valid Mono<FrequentlyAskedQuestionUpdate> frequentlyAskedQuestionUpdate,
+      @Valid Mono<FrequentlyAskedQuestionUpdateRequest> frequentlyAskedQuestionUpdate,
       ServerWebExchange exchange) {
     return null;
   }

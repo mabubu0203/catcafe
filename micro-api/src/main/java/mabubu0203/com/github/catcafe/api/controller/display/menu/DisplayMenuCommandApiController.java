@@ -9,8 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.DisplayMenuCommandApi;
-import org.openapitools.model.DisplayMenuCreate;
-import org.openapitools.model.DisplayMenuUpdate;
+import org.openapitools.model.DisplayMenuCreateRequest;
+import org.openapitools.model.DisplayMenuUpdateRequest;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
@@ -40,7 +40,7 @@ public class DisplayMenuCommandApiController implements DisplayMenuCommandApi {
   public Mono<ResponseEntity<PostObject>> displayMenuCreate(
       String cats,
       Integer storeId,
-      @Valid Mono<DisplayMenuCreate> displayMenuCreate,
+      @Valid Mono<DisplayMenuCreateRequest> displayMenuCreate,
       ServerWebExchange exchange) {
     return null;
   }
@@ -87,7 +87,7 @@ public class DisplayMenuCommandApiController implements DisplayMenuCommandApi {
       String cats,
       Integer storeId,
       Integer displayMenuId,
-      @Valid Mono<DisplayMenuUpdate> displayMenuUpdate,
+      @Valid Mono<DisplayMenuUpdateRequest> displayMenuUpdate,
       ServerWebExchange exchange) {
     return null;
   }

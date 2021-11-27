@@ -30,7 +30,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/contact/request.json#/definitions/contact_create"
+            "$ref": "../../components/requestBodies/contact/request.json#/definitions/contact_create_request"
           }
         }
       },

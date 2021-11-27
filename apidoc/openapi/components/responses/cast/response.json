@@ -25,10 +25,10 @@
       "description": "一覧レスポンス",
       "type": "object",
       "properties": {
-        "casts": {
+        "cast_cats": {
           "type": "array",
           "items": {
-            "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat"
+            "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat_detail"
           }
         }
       }
@@ -37,8 +37,8 @@
       "description": "詳細レスポンス",
       "type": "object",
       "properties": {
-        "cast": {
-          "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat"
+        "cast_cat": {
+          "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat_detail"
         }
       }
     }

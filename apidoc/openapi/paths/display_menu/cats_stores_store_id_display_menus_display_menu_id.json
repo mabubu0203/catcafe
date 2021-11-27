@@ -84,7 +84,7 @@
       "content": {
         "application/json": {
           "schema": {
-            "$ref": "../../components/requestBodies/display_menu/request.json#/definitions/display_menu_update"
+            "$ref": "../../components/requestBodies/display_menu/request.json#/definitions/display_menu_update_request"
           }
         }
       },

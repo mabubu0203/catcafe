@@ -17,10 +17,10 @@ import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCre
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatResisterService;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastRegisterService;
 import org.openapitools.api.CastCommandApi;
-import org.openapitools.model.CastCatCreate;
-import org.openapitools.model.CastCatUpdate;
-import org.openapitools.model.CastCreate;
-import org.openapitools.model.CastUpdate;
+import org.openapitools.model.CastCatCreateRequest;
+import org.openapitools.model.CastCatUpdateRequest;
+import org.openapitools.model.CastCreateRequest;
+import org.openapitools.model.CastUpdateRequest;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PatchObject;
@@ -53,7 +53,7 @@ public class CastCommandApiController implements CastCommandApi {
   @Override
   public Mono<ResponseEntity<PostObject>> castCatCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
-      @Valid Mono<CastCatCreate> castCatCreate,
+      @Valid Mono<CastCatCreateRequest> castCatCreate,
       ServerWebExchange exchange) {
     return castCatCreate
         .map(new CastCatCreateRequestMapper(cats))
@@ -102,7 +102,7 @@ public class CastCommandApiController implements CastCommandApi {
   public Mono<ResponseEntity<PatchObject>> castCatUpdate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer castCatId,
-      @Valid Mono<CastCatUpdate> castCatUpdate,
+      @Valid Mono<CastCatUpdateRequest> castCatUpdate,
       ServerWebExchange exchange) {
     return null;
   }
@@ -123,7 +123,7 @@ public class CastCommandApiController implements CastCommandApi {
   public Mono<ResponseEntity<PostObject>> castCreate(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
-      @Valid Mono<CastCreate> castCreate,
+      @Valid Mono<CastCreateRequest> castCreate,
       ServerWebExchange exchange) {
     return castCreate
         .map(new CastCreateRequestMapper(cats, storeId))
@@ -174,7 +174,7 @@ public class CastCommandApiController implements CastCommandApi {
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       @Parameter(description = "店舗ID", schema = @Schema(type = "integer")) Integer storeId,
       Integer castId,
-      @Valid Mono<CastUpdate> castUpdate,
+      @Valid Mono<CastUpdateRequest> castUpdate,
       ServerWebExchange exchange) {
     return null;
   }

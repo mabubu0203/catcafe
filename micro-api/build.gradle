@@ -1,4 +1,4 @@
-apply from: "$rootDir/gradle/generate_api.gradle"
+apply from: "$rootDir/gradle/generate_spring_java.gradle"
 apply plugin: "com.google.cloud.tools.jib"
 apply plugin: "org.beryx.jlink"
 

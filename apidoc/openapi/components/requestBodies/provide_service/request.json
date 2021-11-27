@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "provide_service_create": {
+    "provide_service_create_request": {
       "description": "postObject",
       "type": "object",
       "properties": {
@@ -12,7 +12,7 @@
         }
       }
     },
-    "provide_service_update": {
+    "provide_service_update_request": {
       "description": "patchObject",
       "type": "object",
       "properties": {

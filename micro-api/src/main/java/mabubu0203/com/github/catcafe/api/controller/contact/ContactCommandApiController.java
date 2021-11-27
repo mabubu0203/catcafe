@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.openapitools.api.ContactCommandApi;
-import org.openapitools.model.ContactCreate;
+import org.openapitools.model.ContactCreateRequest;
 import org.openapitools.model.InlineResponse400;
 import org.openapitools.model.InlineResponse401;
 import org.openapitools.model.PostObject;
@@ -36,7 +36,7 @@ public class ContactCommandApiController implements ContactCommandApi {
   @Override
   public Mono<ResponseEntity<PostObject>> contactCreate(
       String cats,
-      @Valid Mono<ContactCreate> contactCreate,
+      @Valid Mono<ContactCreateRequest> contactCreate,
       ServerWebExchange exchange) {
     return null;
   }

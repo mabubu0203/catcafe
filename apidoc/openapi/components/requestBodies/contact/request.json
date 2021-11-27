@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "contact_create": {
+    "contact_create_request": {
       "description": "postObject",
       "type": "object",
       "properties": {

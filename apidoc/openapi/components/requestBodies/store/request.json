@@ -1,6 +1,6 @@
 {
   "definitions": {
-    "store_create": {
+    "store_create_request": {
       "description": "postObject",
       "type": "object",
       "required": [
@@ -31,7 +31,7 @@
         }
       }
     },
-    "store_update": {
+    "store_update_request": {
       "description": "patchObject",
       "type": "object",
       "required": [

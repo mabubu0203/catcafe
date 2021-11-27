@@ -6,11 +6,11 @@ import java.time.format.FormatStyle;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
-import org.openapitools.model.Address;
 import org.openapitools.model.Common;
-import org.openapitools.model.Contact;
-import org.openapitools.model.Hours;
 import org.openapitools.model.StoreDetail;
+import org.openapitools.model.StoreDetailAddress;
+import org.openapitools.model.StoreDetailContact;
+import org.openapitools.model.StoreDetailHours;
 import org.openapitools.model.StoreSearchResponse;
 
 public class StoreSearchResponseMapper implements
@@ -42,15 +42,15 @@ public class StoreSearchResponseMapper implements
     return detail;
   }
 
-  private Contact contact(StoreSearchServiceOutput.ContactObject object) {
-    var contact = new Contact();
+  private StoreDetailContact contact(StoreSearchServiceOutput.ContactObject object) {
+    var contact = new StoreDetailContact();
     contact.setPhoneNumber(object.getPhoneNumber());
     contact.setMailAddress(object.getMailAddress());
     return contact;
   }
 
-  private Address address(StoreSearchServiceOutput.AddressObject object) {
-    var address = new Address();
+  private StoreDetailAddress address(StoreSearchServiceOutput.AddressObject object) {
+    var address = new StoreDetailAddress();
     address.setPostalCode(object.getPostalCode());
     address.setPrefectureCode(object.getPrefectureCode());
     address.setPrefectureLabel(object.getPrefectureLabel());
@@ -63,8 +63,8 @@ public class StoreSearchResponseMapper implements
     return address;
   }
 
-  private Hours hours(StoreSearchServiceOutput.HoursObject object) {
-    var hours = new Hours();
+  private StoreDetailHours hours(StoreSearchServiceOutput.HoursObject object) {
+    var hours = new StoreDetailHours();
     Optional.ofNullable(object.getOpeningTime())
         .map(lt -> lt.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)))
         .ifPresent(hours::setOpeningTime);
