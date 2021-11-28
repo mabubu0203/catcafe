@@ -4,7 +4,10 @@
       "description": "postObject",
       "type": "object",
       "required": [
-        "name"
+        "name",
+        "contact",
+        "address",
+        "hours"
       ],
       "properties": {
         "name": {
@@ -12,6 +15,81 @@
           "type": "string",
           "minLength": 0,
           "maxLength": 128
+        },
+        "contact": {
+          "description": "店舗連絡先",
+          "type": "object",
+          "properties": {
+            "phone_number": {
+              "description": "電話番号",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 13
+            },
+            "mail_address": {
+              "description": "メールアドレス",
+              "type": "string",
+              "format": "email",
+              "minLength": 0,
+              "maxLength": 256,
+              "example": "catcafe@gmail.com"
+            }
+          }
+        },
+        "address": {
+          "description": "店舗住所",
+          "type": "object",
+          "properties": {
+            "postal_code": {
+              "description": "店舗住所(郵便番号)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 7
+            },
+            "prefecture_code": {
+              "description": "店舗住所(都道府県コード)",
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 47
+            },
+            "address_1": {
+              "description": "店舗住所(都道府県)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "address_2": {
+              "description": "店舗住所(市区町村)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "address_3": {
+              "description": "店舗住所(町域)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "street_address": {
+              "description": "店舗住所(番地)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "building_name": {
+              "description": "店舗住所(建物名)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "supplement": {
+              "description": "店舗住所(補足)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            }
+          }
         },
         "open_date": {
           "description": "開店日",
@@ -22,6 +100,30 @@
           "description": "閉店日",
           "type": "string",
           "format": "date"
+        },
+        "hours": {
+          "description": "店舗営業時間",
+          "type": "object",
+          "properties": {
+            "opening_time": {
+              "description": "開店時間",
+              "type": "string",
+              "pattern": "^[0-2][0-3]:[0-5][0-9]$",
+              "example": "00:00"
+            },
+            "closing_time": {
+              "description": "閉店時間",
+              "type": "string",
+              "pattern": "^[0-2][0-3]:[0-5][0-9]$",
+              "example": "00:00"
+            },
+            "supplement": {
+              "description": "店舗営業時間(補足)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            }
+          }
         },
         "memo": {
           "description": "店舗メモ",
@@ -36,6 +138,9 @@
       "type": "object",
       "required": [
         "name",
+        "contact",
+        "address",
+        "hours",
         "version"
       ],
       "properties": {
@@ -44,6 +149,121 @@
           "type": "string",
           "minLength": 0,
           "maxLength": 128
+        },
+        "contact": {
+          "description": "店舗連絡先",
+          "type": "object",
+          "properties": {
+            "phone_number": {
+              "description": "電話番号",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 13
+            },
+            "mail_address": {
+              "description": "メールアドレス",
+              "type": "string",
+              "format": "email",
+              "minLength": 0,
+              "maxLength": 256,
+              "example": "catcafe@gmail.com"
+            }
+          }
+        },
+        "address": {
+          "description": "店舗住所",
+          "type": "object",
+          "properties": {
+            "postal_code": {
+              "description": "店舗住所(郵便番号)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 7
+            },
+            "prefecture_code": {
+              "description": "店舗住所(都道府県コード)",
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0,
+              "maximum": 47
+            },
+            "address_1": {
+              "description": "店舗住所(都道府県)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "address_2": {
+              "description": "店舗住所(市区町村)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "address_3": {
+              "description": "店舗住所(町域)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "street_address": {
+              "description": "店舗住所(番地)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "building_name": {
+              "description": "店舗住所(建物名)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            },
+            "supplement": {
+              "description": "店舗住所(補足)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            }
+          }
+        },
+        "open_date": {
+          "description": "開店日",
+          "type": "string",
+          "format": "date"
+        },
+        "close_date": {
+          "description": "閉店日",
+          "type": "string",
+          "format": "date"
+        },
+        "hours": {
+          "description": "店舗営業時間",
+          "type": "object",
+          "properties": {
+            "opening_time": {
+              "description": "開店時間",
+              "type": "string",
+              "pattern": "^[0-2][0-3]:[0-5][0-9]$",
+              "example": "00:00"
+            },
+            "closing_time": {
+              "description": "閉店時間",
+              "type": "string",
+              "pattern": "^[0-2][0-3]:[0-5][0-9]$",
+              "example": "00:00"
+            },
+            "supplement": {
+              "description": "店舗営業時間(補足)",
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 256
+            }
+          }
+        },
+        "memo": {
+          "description": "店舗メモ",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         },
         "version": {
           "description": "バージョンフィールド",
