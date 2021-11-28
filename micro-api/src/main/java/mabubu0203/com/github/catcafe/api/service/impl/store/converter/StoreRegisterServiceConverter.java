@@ -13,11 +13,14 @@ import mabubu0203.com.github.catcafe.domain.value.StoreId;
 public class StoreRegisterServiceConverter {
 
   public StoreEntity fromInput(StoreRegisterServiceInput input) {
+    var contactObject = input.getContact();
+    var addressObject = input.getAddress();
+    var hoursObject = input.getHours();
     var storeId = StoreId.emptyId();
-    var phoneNumber = new PhoneNumber(null);
-    var mailAddress = new MailAddress(null);
-    var postalCode = new PostalCode(null);
-    var prefecture = Prefecture.getByCode(null);
+    var phoneNumber = new PhoneNumber(contactObject.getPhoneNumber());
+    var mailAddress = new MailAddress(contactObject.getMailAddress());
+    var postalCode = new PostalCode(addressObject.getPostalCode());
+    var prefecture = Prefecture.getByCode(addressObject.getPrefectureCode());
     var memo = new Memo(input.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
@@ -26,17 +29,17 @@ public class StoreRegisterServiceConverter {
         .mailAddress(mailAddress)
         .postalCode(postalCode)
         .prefecture(prefecture)
-        .address1(null)
-        .address2(null)
-        .address3(null)
-        .streetAddress(null)
-        .buildingName(null)
-        .addressSupplement(null)
+        .address1(addressObject.getAddress1())
+        .address2(addressObject.getAddress2())
+        .address3(addressObject.getAddress3())
+        .streetAddress(addressObject.getStreetAddress())
+        .buildingName(addressObject.getBuildingName())
+        .addressSupplement(addressObject.getSupplement())
         .openDate(input.getOpenDate())
         .closeDate(input.getCloseDate())
-        .openingTime(null)
-        .closingTime(null)
-        .hoursSupplement(null)
+        .openingTime(hoursObject.getOpeningTime())
+        .closingTime(hoursObject.getClosingTime())
+        .hoursSupplement(hoursObject.getSupplement())
         .memo(memo)
         .createdDateTime(null)
         .version(null)
