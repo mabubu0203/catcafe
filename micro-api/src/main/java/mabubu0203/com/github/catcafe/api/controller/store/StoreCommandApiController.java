@@ -41,7 +41,6 @@ public class StoreCommandApiController implements StoreCommandApi {
   private final StoreModifyService modifyService;
   private final StoreRegisterService registerService;
 
-
   @Operation(
       tags = {"store_command",},
       summary = "店舗登録API",
