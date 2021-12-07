@@ -24,7 +24,7 @@ public class NoticeSearchServiceConverter {
   public Mono<NoticeSearchServiceOutput> toOutput(Flux<NoticeEntity> flux) {
     return flux.map(this::toNoticeObject)
         .collectList()
-        .map(notices -> NoticeSearchServiceOutput.builder().notices(notices))
+        .map(NoticeSearchServiceOutput.builder()::notices)
         .map(NoticeSearchServiceOutputBuilder::build);
   }
 

@@ -2,6 +2,9 @@ package mabubu0203.com.github.catcafe.domain.value;
 
 import java.util.Optional;
 
+/**
+ * お知らせID
+ */
 public record NoticeId(Integer value) {
 
   public static NoticeId emptyId() {
@@ -9,7 +12,7 @@ public record NoticeId(Integer value) {
   }
 
   public boolean isEmpty() {
-    return Optional.of(value).isEmpty();
+    return Optional.ofNullable(value).isEmpty();
   }
 
 }

@@ -7,6 +7,9 @@ import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.NoticeId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
+/**
+ * お知らせ
+ */
 @Builder
 @Getter
 public class NoticeEntity {

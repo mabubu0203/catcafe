@@ -23,7 +23,7 @@ public class StoreSearchServiceConverter {
   public Mono<StoreSearchServiceOutput> toOutput(Flux<StoreEntity> flux) {
     return flux.map(this::toStoreObject)
         .collectList()
-        .map(stores -> StoreSearchServiceOutput.builder().stores(stores))
+        .map(StoreSearchServiceOutput.builder()::stores)
         .map(StoreSearchServiceOutputBuilder::build);
   }
 

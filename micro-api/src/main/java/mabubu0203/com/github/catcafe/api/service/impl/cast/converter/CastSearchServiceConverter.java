@@ -24,7 +24,7 @@ public class CastSearchServiceConverter {
   public Mono<CastSearchServiceOutput> toOutput(Flux<CastEntity> flux) {
     return flux.map(this::toCastObject)
         .collectList()
-        .map(casts -> CastSearchServiceOutput.builder().casts(casts))
+        .map(CastSearchServiceOutput.builder()::casts)
         .map(CastSearchServiceOutputBuilder::build);
   }
 

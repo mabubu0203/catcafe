@@ -2,6 +2,9 @@ package mabubu0203.com.github.catcafe.domain.value;
 
 import java.util.Optional;
 
+/**
+ * キャストID
+ */
 public record CastId(Integer value) {
 
   public static CastId emptyId() {
@@ -9,7 +12,7 @@ public record CastId(Integer value) {
   }
 
   public boolean isEmpty() {
-    return Optional.of(value).isEmpty();
+    return Optional.ofNullable(value).isEmpty();
   }
 
 }

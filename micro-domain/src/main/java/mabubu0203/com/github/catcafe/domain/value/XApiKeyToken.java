@@ -5,7 +5,7 @@ import java.util.Optional;
 public record XApiKeyToken(String value) {
 
   public boolean isEmpty() {
-    return Optional.of(value).isEmpty();
+    return Optional.ofNullable(value).isEmpty();
   }
 
 }
