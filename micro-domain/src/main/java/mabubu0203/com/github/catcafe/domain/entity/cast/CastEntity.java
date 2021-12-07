@@ -8,12 +8,16 @@ import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 
+/**
+ * キャスト
+ */
 @Builder
 @Getter
 public class CastEntity {
 
   private final CastId castId;
   private final StoreId storeId;
+  // Memoに変更
   private final String memo;
   private final LocalDateTime createdDateTime;
   private final Integer version;

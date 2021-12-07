@@ -7,6 +7,9 @@ import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
 
+/**
+ * キャスト(猫)
+ */
 @Builder
 @Getter
 public class CastCatEntity {
@@ -16,6 +19,7 @@ public class CastCatEntity {
   private final String image;
   private final String type;
   private final String sex;
+  // Memoに変更
   private final String memo;
   private final LocalDateTime createdDateTime;
   private final Integer version;

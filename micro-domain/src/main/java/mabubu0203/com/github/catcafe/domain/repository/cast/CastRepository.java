@@ -13,10 +13,27 @@ import reactor.core.publisher.Mono;
 
 public interface CastRepository {
 
+  /**
+   * キャストを複数取得する
+   * @param searchConditions
+   * @return
+   */
   Flux<CastEntity> search(CastSearchConditions searchConditions);
 
+  /**
+   * キャストを1件取得する
+   * @param cast
+   * @param receptionTime
+   * @return
+   */
   Mono<CastId> resister(CastEntity cast, LocalDateTime receptionTime);
 
+  /**
+   * キャスト(猫)を1件取得する
+   * @param castCat
+   * @param receptionTime
+   * @return
+   */
   Mono<CastCatId> resister(CastCatEntity castCat, LocalDateTime receptionTime);
 
 }

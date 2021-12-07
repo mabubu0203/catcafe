@@ -3,13 +3,9 @@ package mabubu0203.com.github.catcafe.domain.value;
 import java.util.Optional;
 
 /**
- * 店舗ID
+ * 補足
  */
-public record StoreId(Integer value) {
-
-  public static StoreId emptyId() {
-    return new StoreId(null);
-  }
+public record Supplement(String value) {
 
   public boolean isEmpty() {
     return Optional.ofNullable(value).isEmpty();
