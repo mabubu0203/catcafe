@@ -12,6 +12,7 @@ import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
 import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
+import mabubu0203.com.github.catcafe.domain.value.Supplement;
 
 /**
  * 店舗
@@ -31,14 +32,12 @@ public class StoreEntity {
   private final String address3;
   private final String streetAddress;
   private final String buildingName;
-  // Supplementに変更
-  private final String addressSupplement;
+  private final Supplement addressSupplement;
   private final LocalDate openDate;
   private final LocalDate closeDate;
   private final LocalTime openingTime;
   private final LocalTime closingTime;
-  // Supplementに変更
-  private final String hoursSupplement;
+  private final Supplement hoursSupplement;
   private final Memo memo;
   private final LocalDateTime createdDateTime;
   private final Integer version;
@@ -77,6 +76,18 @@ public class StoreEntity {
   public String getPrefectureLabel() {
     return Optional.of(this.prefecture)
         .map(Prefecture::getLabel)
+        .orElse(null);
+  }
+
+  public String getAddressSupplementValue() {
+    return Optional.of(this.addressSupplement)
+        .map(Supplement::value)
+        .orElse(null);
+  }
+
+  public String getHoursSupplementValue() {
+    return Optional.of(this.hoursSupplement)
+        .map(Supplement::value)
         .orElse(null);
   }
 

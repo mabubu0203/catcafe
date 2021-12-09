@@ -9,6 +9,7 @@ import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
 import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
+import mabubu0203.com.github.catcafe.domain.value.Supplement;
 
 public class StoreRegisterServiceConverter {
 
@@ -21,6 +22,8 @@ public class StoreRegisterServiceConverter {
     var mailAddress = new MailAddress(contactObject.getMailAddress());
     var postalCode = new PostalCode(addressObject.getPostalCode());
     var prefecture = Prefecture.getByCode(addressObject.getPrefectureCode());
+    var addressSupplement = new Supplement(addressObject.getSupplement());
+    var hoursSupplement = new Supplement(hoursObject.getSupplement());
     var memo = new Memo(input.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
@@ -34,12 +37,12 @@ public class StoreRegisterServiceConverter {
         .address3(addressObject.getAddress3())
         .streetAddress(addressObject.getStreetAddress())
         .buildingName(addressObject.getBuildingName())
-        .addressSupplement(addressObject.getSupplement())
+        .addressSupplement(addressSupplement)
         .openDate(input.getOpenDate())
         .closeDate(input.getCloseDate())
         .openingTime(hoursObject.getOpeningTime())
         .closingTime(hoursObject.getClosingTime())
-        .hoursSupplement(hoursObject.getSupplement())
+        .hoursSupplement(hoursSupplement)
         .memo(memo)
         .createdDateTime(null)
         .version(null)

@@ -13,6 +13,7 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
+import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastSource;
@@ -117,7 +118,7 @@ public class CastRepositoryImpl implements CastRepository {
         .setFirstAttendanceDate(null)
         .setLastAttendanceDate(null)
         .setEmploymentStatus(Cast.EmploymentStatus.main)
-        .setMemo(entity.getMemo());
+        .setMemo(entity.getMemoValue());
   }
 
   private CastCat attach(CastCatEntity entity) {
@@ -133,7 +134,7 @@ public class CastRepositoryImpl implements CastRepository {
         .setType(entity.getType())
         .setSex(CastCat.Sex.male)
         .setBirthdayDate(null)
-        .setMemo(entity.getMemo());
+        .setMemo(entity.getMemoValue());
   }
 
 }

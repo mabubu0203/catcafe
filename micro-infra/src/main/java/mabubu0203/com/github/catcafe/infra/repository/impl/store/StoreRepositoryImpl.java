@@ -16,6 +16,7 @@ import mabubu0203.com.github.catcafe.domain.value.PhoneNumber;
 import mabubu0203.com.github.catcafe.domain.value.PostalCode;
 import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
+import mabubu0203.com.github.catcafe.domain.value.Supplement;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
 import org.springframework.stereotype.Repository;
@@ -89,6 +90,8 @@ public class StoreRepositoryImpl implements StoreRepository {
     var mailAddress = new MailAddress(dto.getMailAddress());
     var postalCode = new PostalCode(dto.getPostalCode());
     var prefecture = Prefecture.getByCode(dto.getPrefectureCode());
+    var addressSupplement = new Supplement(dto.getAddressSupplement());
+    var hoursSupplement = new Supplement(dto.getHoursSupplement());
     var memo = new Memo(dto.getMemo());
     return StoreEntity.builder()
         .storeId(storeId)
@@ -102,12 +105,12 @@ public class StoreRepositoryImpl implements StoreRepository {
         .address3(dto.getAddress3())
         .streetAddress(dto.getStreetAddress())
         .buildingName(dto.getBuildingName())
-        .addressSupplement(dto.getAddressSupplement())
+        .addressSupplement(addressSupplement)
         .openDate(dto.getOpenDate())
         .closeDate(dto.getCloseDate())
         .openingTime(dto.getOpeningTime())
         .closingTime(dto.getClosingTime())
-        .hoursSupplement(dto.getHoursSupplement())
+        .hoursSupplement(hoursSupplement)
         .memo(memo)
         .createdDateTime(dto.getCreatedDateTime())
         .version(dto.getVersion())
@@ -140,12 +143,12 @@ public class StoreRepositoryImpl implements StoreRepository {
         .setAddress3(entity.getAddress3())
         .setStreetAddress(entity.getStreetAddress())
         .setBuildingName(entity.getBuildingName())
-        .setAddressSupplement(entity.getAddressSupplement())
+        .setAddressSupplement(entity.getAddressSupplementValue())
         .setOpenDate(entity.getOpenDate())
         .setCloseDate(entity.getCloseDate())
         .setOpeningTime(entity.getOpeningTime())
         .setClosingTime(entity.getClosingTime())
-        .setHoursSupplement(entity.getHoursSupplement())
+        .setHoursSupplement(entity.getHoursSupplementValue())
         .setMemo(entity.getMemoValue());
   }
 
