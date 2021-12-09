@@ -20,8 +20,7 @@ public class CastCatResisterServiceImpl implements CastCatResisterService {
 
   @Override
   @Transactional
-  public Mono<CastCatResisterServiceOutput> action(
-      CastCatResisterServiceInput input) {
+  public Mono<CastCatResisterServiceOutput> action(CastCatResisterServiceInput input) {
     var receptionTime = this.getReceptionTime();
     return Optional.of(input)
         .map(this.converter::fromInput)

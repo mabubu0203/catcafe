@@ -4,16 +4,18 @@ import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.Cas
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastCatResisterServiceOutput;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
+import mabubu0203.com.github.catcafe.domain.value.Memo;
 
 public class CastCatResisterServiceConverter {
 
   public CastCatEntity fromInput(CastCatResisterServiceInput input) {
     var castCatId = CastCatId.emptyId();
+    var memo = new Memo(input.getMemo());
     return CastCatEntity.builder()
         .castCatId(castCatId)
         .name(input.getName())
         .image(input.getImage())
-        .memo(input.getMemo())
+        .memo(memo)
         .build();
   }
 
