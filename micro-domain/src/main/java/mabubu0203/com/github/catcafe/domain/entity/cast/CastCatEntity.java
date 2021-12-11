@@ -5,7 +5,7 @@ import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
-import mabubu0203.com.github.catcafe.domain.value.CastId;
+import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 
 /**
@@ -17,7 +17,7 @@ public class CastCatEntity {
 
   private final CastCatId castCatId;
   private final String name;
-  private final String image;
+  private final HttpUrl image;
   private final String type;
   private final String sex;
   private final Memo memo;
@@ -25,7 +25,7 @@ public class CastCatEntity {
   private final Integer version;
   private final LocalDateTime updatedDateTime;
 
-  public static CastCatEntity createByCastCatId(Integer castCatId){
+  public static CastCatEntity createByCastCatId(Integer castCatId) {
     return CastCatEntity.builder()
         .castCatId(new CastCatId(castCatId))
         .build();
@@ -34,6 +34,12 @@ public class CastCatEntity {
   public Integer getCastCatIdValue() {
     return Optional.of(this.castCatId)
         .map(CastCatId::value)
+        .orElse(null);
+  }
+
+  public String getImageValue() {
+    return Optional.of(this.image)
+        .map(HttpUrl::value)
         .orElse(null);
   }
 

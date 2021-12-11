@@ -13,6 +13,7 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
+import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastCatSource;
@@ -75,10 +76,11 @@ public class CastRepositoryImpl implements CastRepository {
 
   private CastEntity convertCastEntity(CastView dto) {
     var castCatId = new CastCatId(dto.getCastCatId());
+    var image = new HttpUrl(dto.getCastCatImage());
     var castCatEntity = CastCatEntity.builder()
         .castCatId(castCatId)
         .name(dto.getCastCatName())
-        .image(dto.getCastCatImage())
+        .image(image)
         .sex(dto.getCastCatSex().name())
         .createdDateTime(dto.getCastCatCreatedDateTime())
         .version(dto.getCastCatVersion())
@@ -130,7 +132,7 @@ public class CastRepositoryImpl implements CastRepository {
         .orElse(new CastCat())
         .setId(entity.getCastCatIdValue())
         .setName(entity.getName())
-        .setImage(entity.getImage())
+        .setImage(entity.getImageValue())
         .setType(entity.getType())
         .setSex(CastCat.Sex.male)
         .setBirthdayDate(null)
