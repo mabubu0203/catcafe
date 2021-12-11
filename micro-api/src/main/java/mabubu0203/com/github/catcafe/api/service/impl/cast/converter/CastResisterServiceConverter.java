@@ -18,6 +18,9 @@ public class CastResisterServiceConverter {
     return CastEntity.builder()
         .castId(castId)
         .storeId(storeId)
+//        .employmentStatus()
+        .firstAttendanceDate(input.getFirstAttendanceDate())
+        .lastAttendanceDate(input.getLastAttendanceDate())
         .memo(memo)
         .castCatEntity(castCatEntity)
         .build();

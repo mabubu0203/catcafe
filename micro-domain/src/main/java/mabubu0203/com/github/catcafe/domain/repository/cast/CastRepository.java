@@ -1,8 +1,6 @@
 package mabubu0203.com.github.catcafe.domain.repository.cast;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
@@ -15,6 +13,7 @@ public interface CastRepository {
 
   /**
    * キャストを複数取得する
+   *
    * @param searchConditions
    * @return
    */
@@ -22,6 +21,7 @@ public interface CastRepository {
 
   /**
    * キャストを1件取得する
+   *
    * @param cast
    * @param receptionTime
    * @return
@@ -30,6 +30,7 @@ public interface CastRepository {
 
   /**
    * キャスト(猫)を1件取得する
+   *
    * @param castCat
    * @param receptionTime
    * @return

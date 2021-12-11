@@ -16,4 +16,5 @@ module CatCafe.micro.domain.main {
   exports mabubu0203.com.github.catcafe.domain.repository.notice;
   exports mabubu0203.com.github.catcafe.domain.repository.store;
   exports mabubu0203.com.github.catcafe.domain.value;
+  exports mabubu0203.com.github.catcafe.domain.value.cast;
 }

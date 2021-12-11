@@ -1,7 +1,9 @@
 package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,14 +32,14 @@ public class Cast extends BaseTable<Integer> {
   @Column(value = "cast_cat_id")
   private Integer castCatId;
 
+  @Column(value = "employment_status")
+  private EmploymentStatus employmentStatus = EmploymentStatus.main;
+
   @Column(value = "first_attendance_date")
   private LocalDate firstAttendanceDate;
 
   @Column(value = "last_attendance_date")
   private LocalDate lastAttendanceDate;
-
-  @Column(value = "employment_status")
-  private EmploymentStatus employmentStatus = EmploymentStatus.main;
 
   @Column(value = "memo")
   private String memo;
@@ -51,7 +53,18 @@ public class Cast extends BaseTable<Integer> {
   @Getter
   public enum EmploymentStatus {
     main,
-    sub
+    sub,
+    ;
+
+    public static EmploymentStatus getByLabel(String label) {
+      return Optional.ofNullable(label)
+          .flatMap(val ->
+              Arrays.stream(EmploymentStatus.values())
+                  .filter(status -> status.name().equals(val))
+                  .findFirst())
+          .orElse(EmploymentStatus.main);
+    }
+
   }
 
 }

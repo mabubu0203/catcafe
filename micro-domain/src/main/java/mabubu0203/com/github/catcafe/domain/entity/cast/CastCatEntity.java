@@ -1,12 +1,15 @@
 package mabubu0203.com.github.catcafe.domain.entity.cast;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
 import mabubu0203.com.github.catcafe.domain.value.Memo;
+import mabubu0203.com.github.catcafe.domain.value.cast.CatSex;
 
 /**
  * キャスト(猫)
@@ -19,7 +22,10 @@ public class CastCatEntity {
   private final String name;
   private final HttpUrl image;
   private final String type;
-  private final String sex;
+  private final CatSex sex;
+  private final LocalDate birthdayDate;
+  private final List<CastCatId> brothers;
+  private final List<CastCatId> sisters;
   private final Memo memo;
   private final LocalDateTime createdDateTime;
   private final Integer version;
@@ -40,6 +46,18 @@ public class CastCatEntity {
   public String getImageValue() {
     return Optional.of(this.image)
         .map(HttpUrl::value)
+        .orElse(null);
+  }
+
+  public Integer getSexCode() {
+    return Optional.of(this.sex)
+        .map(CatSex::getCode)
+        .orElse(null);
+  }
+
+  public String getSexLabel() {
+    return Optional.of(this.sex)
+        .map(CatSex::getLabel)
         .orElse(null);
   }
 

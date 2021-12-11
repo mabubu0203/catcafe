@@ -1,6 +1,5 @@
 package mabubu0203.com.github.catcafe.domain.check;
 
-import mabubu0203.com.github.catcafe.domain.check.validator.PhoneNumberValidator;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import mabubu0203.com.github.catcafe.domain.check.validator.PhoneNumberValidator;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

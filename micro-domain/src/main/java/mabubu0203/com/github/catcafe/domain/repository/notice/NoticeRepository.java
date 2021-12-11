@@ -1,8 +1,6 @@
 package mabubu0203.com.github.catcafe.domain.repository.notice;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.NoticeId;
@@ -13,6 +11,7 @@ public interface NoticeRepository {
 
   /**
    * お知らせを複数取得する
+   *
    * @param searchConditions
    * @return
    */
@@ -20,6 +19,7 @@ public interface NoticeRepository {
 
   /**
    * お知らせを1件登録する
+   *
    * @param notice
    * @param receptionTime
    * @return

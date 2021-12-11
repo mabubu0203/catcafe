@@ -17,6 +17,12 @@ public class CastCatResisterServiceConverter {
         .castCatId(castCatId)
         .name(input.getName())
         .image(image)
+        .type(input.getType())
+//        .sex()
+        .birthdayDate(input.getBirthdayDate())
+        // TODO
+//        .brothers()
+//        .sisters()
         .memo(memo)
         .build();
   }

@@ -2,7 +2,9 @@ package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,7 +63,18 @@ public class CastCat extends BaseTable<Integer> {
   public enum Sex {
     unknown,
     male,
-    female
+    female,
+    ;
+
+    public static Sex getByLabel(String label) {
+      return Optional.ofNullable(label)
+          .flatMap(val ->
+              Arrays.stream(Sex.values())
+                  .filter(sex -> sex.name().equals(val))
+                  .findFirst())
+          .orElse(Sex.unknown);
+    }
+    
   }
 
 }
