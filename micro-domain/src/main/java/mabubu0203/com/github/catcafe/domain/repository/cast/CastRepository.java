@@ -62,4 +62,13 @@ public interface CastRepository {
    */
   Mono<CastCatId> resister(CastCatEntity castCat, LocalDateTime receptionTime);
 
+  /**
+   * キャスト(猫)を1件更新する
+   *
+   * @param castCat
+   * @param receptionTime
+   * @return
+   */
+  Mono<CastCatId> modify(CastCatEntity castCat, LocalDateTime receptionTime);
+
 }
