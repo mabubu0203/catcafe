@@ -13,9 +13,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCatFindRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCatSearchRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastFindRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastSearchRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCatFindResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCatSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastFindResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastSearchResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatSearchService;
@@ -82,9 +84,16 @@ public class CastQueryApiController implements CastQueryApi {
   @Override
   public Mono<ResponseEntity<CastCatSearchResponse>> castCatSearch(
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
+      @Parameter(description = "キャスト(猫)ID") @Valid List<Integer> castCatIds,
+      @Parameter(description = "取得ページ", schema = @Schema(type = "integer", maxProperties = 100)) @Valid @Min(0) @Max(100) Integer page,
       @Parameter(description = "取得サイズ", schema = @Schema(type = "integer", minProperties = 1, maxProperties = 20)) @Valid @Min(1) @Max(20) Integer size,
       ServerWebExchange exchange) {
-    return null;
+    return
+        new CastCatSearchRequestMapper(
+            cats, castCatIds, page, size).get()
+            .flatMap(this.castCatSearchService::action)
+            .map(new CastCatSearchResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
   @Operation(

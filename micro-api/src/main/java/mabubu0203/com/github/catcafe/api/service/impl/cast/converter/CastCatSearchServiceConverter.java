@@ -2,7 +2,6 @@ package mabubu0203.com.github.catcafe.api.service.impl.cast.converter;
 
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.CastCatSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastCatSearchServiceOutput;
-import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatSearchConditions;
 import reactor.core.publisher.Flux;
@@ -27,7 +26,7 @@ public class CastCatSearchServiceConverter {
   }
 
   private CastCatSearchServiceOutput.CastCatObject toCastCatObject(CastCatEntity castCatEntity) {
-    var common = CastSearchServiceOutput.CommonObject.builder()
+    var common = CastCatSearchServiceOutput.CommonObject.builder()
         .createdDateTime(castCatEntity.getCreatedDateTime())
         .version(castCatEntity.getVersion())
         .updatedDateTime(castCatEntity.getUpdatedDateTime())
@@ -38,6 +37,9 @@ public class CastCatSearchServiceConverter {
         .image(castCatEntity.getImageValue())
         .type(castCatEntity.getType())
         .birthdayDate(castCatEntity.getBirthdayDate())
+        .favorite(castCatEntity.getFavorite())
+        .dislike(castCatEntity.getDislike())
+        .prohibition(castCatEntity.getProhibition())
         .memo(castCatEntity.getMemoValue())
         .common(common)
         .build();

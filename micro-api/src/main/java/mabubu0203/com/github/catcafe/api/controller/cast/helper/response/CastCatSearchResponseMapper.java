@@ -4,20 +4,22 @@ import java.time.ZoneOffset;
 import java.util.Collections;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastCatSearchServiceOutput;
-import mabubu0203.com.github.catcafe.common.controller.mapper.response.FindResponseMapper;
+import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
 import org.openapitools.model.CastCatDetail;
-import org.openapitools.model.CastCatFindResponse;
+import org.openapitools.model.CastCatSearchResponse;
 import org.openapitools.model.Common;
 
-public class CastCatFindResponseMapper implements
-    FindResponseMapper<CastCatSearchServiceOutput, CastCatFindResponse> {
+public class CastCatSearchResponseMapper implements
+    SearchResponseMapper<CastCatSearchServiceOutput, CastCatSearchResponse> {
 
   @Override
-  public CastCatFindResponse apply(CastCatSearchServiceOutput castCatSearchServiceOutput) {
-    var result = new CastCatFindResponse();
-    castCatSearchServiceOutput.getCastCats().stream()
-        .findFirst()
-        .ifPresent(castCat -> result.setCastCat(this.convert(castCat)));
+  public CastCatSearchResponse apply(CastCatSearchServiceOutput castCatSearchServiceOutput) {
+    var castCats = castCatSearchServiceOutput.getCastCats().stream()
+        .map(this::convert)
+        .toList();
+
+    var result = new CastCatSearchResponse();
+    result.setCastCats(castCats);
     return result;
   }
 

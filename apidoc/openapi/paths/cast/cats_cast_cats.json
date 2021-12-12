@@ -27,6 +27,22 @@
     "operationId": "castCatSearch",
     "parameters": [
       {
+        "name": "cast_cat_ids",
+        "in": "query",
+        "description": "キャスト(猫)ID",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      {
+        "$ref": "../../components/parameters/page.json"
+      },
+      {
         "$ref": "../../components/parameters/size.json"
       }
     ],

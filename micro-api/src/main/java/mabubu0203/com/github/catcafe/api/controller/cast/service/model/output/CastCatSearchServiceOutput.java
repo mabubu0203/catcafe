@@ -26,7 +26,7 @@ public class CastCatSearchServiceOutput implements ServiceOutput {
     private final String dislike;
     private final String prohibition;
     private final String memo;
-    private final CastSearchServiceOutput.CommonObject common;
+    private final CommonObject common;
   }
 
   @Builder
