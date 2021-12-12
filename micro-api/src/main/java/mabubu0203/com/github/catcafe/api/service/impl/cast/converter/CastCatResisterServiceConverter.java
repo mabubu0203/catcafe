@@ -27,6 +27,9 @@ public class CastCatResisterServiceConverter {
 //        .brothers()
 //        .sisters()
         .memo(memo)
+        .createdDateTime(null)
+        .version(null)
+        .updatedDateTime(null)
         .build();
   }
 

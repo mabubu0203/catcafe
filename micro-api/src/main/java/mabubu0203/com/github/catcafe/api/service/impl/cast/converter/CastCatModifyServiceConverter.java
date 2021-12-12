@@ -4,11 +4,33 @@ import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.Cas
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastCatModifyServiceOutput;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
+import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
+import mabubu0203.com.github.catcafe.domain.value.Memo;
 
 public class CastCatModifyServiceConverter {
 
   public CastCatEntity fromInput(CastCatModifyServiceInput input) {
-    return CastCatEntity.builder().build();
+    var castCatId = new CastCatId(input.getCastCatId());
+    var image = new HttpUrl(input.getImage());
+    var memo = new Memo(input.getMemo());
+    return CastCatEntity.builder()
+        .castCatId(castCatId)
+        .name(input.getName())
+        .image(image)
+        .type(input.getType())
+//        .sex()
+        .birthdayDate(input.getBirthdayDate())
+        .favorite(input.getFavorite())
+        .dislike(input.getDislike())
+        .prohibition(input.getProhibition())
+        // TODO
+//        .brothers()
+//        .sisters()
+        .memo(memo)
+        .createdDateTime(null)
+        .version(input.getVersion())
+        .updatedDateTime(null)
+        .build();
   }
 
   public CastCatModifyServiceOutput toOutput(CastCatId castCatId) {

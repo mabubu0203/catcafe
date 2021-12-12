@@ -12,19 +12,19 @@ public class CastCatCreateRequestMapper implements
   private final String cats;
 
   @Override
-  public CastCatResisterServiceInput apply(CastCatCreateRequest castCatCreate) {
+  public CastCatResisterServiceInput apply(CastCatCreateRequest request) {
     return CastCatResisterServiceInput.builder()
         .cats(this.cats)
-        .name(castCatCreate.getName())
-        .image(castCatCreate.getImage())
-        .type(castCatCreate.getType())
-        .birthdayDate(castCatCreate.getBirthdayDate())
-        .favorite(castCatCreate.getFavorite())
-        .dislike(castCatCreate.getDislike())
-        .prohibition(castCatCreate.getProhibition())
-        .brothers(castCatCreate.getBrothers())
-        .sisters(castCatCreate.getSisters())
-        .memo(castCatCreate.getMemo())
+        .name(request.getName())
+        .image(request.getImage())
+        .type(request.getType())
+        .birthdayDate(request.getBirthdayDate())
+        .favorite(request.getFavorite())
+        .dislike(request.getDislike())
+        .prohibition(request.getProhibition())
+        .brothers(request.getBrothers())
+        .sisters(request.getSisters())
+        .memo(request.getMemo())
         .build();
   }
 
