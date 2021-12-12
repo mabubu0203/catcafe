@@ -56,7 +56,6 @@ public class CastSearchServiceConverter {
         .name(castCatEntity.getName())
         .image(castCatEntity.getImageValue())
         .type(castCatEntity.getType())
-        .birthdayDate(castCatEntity.getBirthdayDate())
         .memo(castCatEntity.getMemoValue())
         .common(common)
         .build();
