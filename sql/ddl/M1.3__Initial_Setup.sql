@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS cast_cat
   type              VARCHAR(256) COMMENT '猫種',
   sex               ENUM ('unknown', 'male', 'female') NOT NULL DEFAULT 'unknown' COMMENT '性別:unknown,male,female',
   birthday_date     DATE COMMENT '誕生日',
+  favorite          VARCHAR(256)                                DEFAULT NULL COMMENT '好きなこと',
+  dislike           VARCHAR(256)                                DEFAULT NULL COMMENT '嫌いなこと',
+  prohibition       VARCHAR(256)                                DEFAULT NULL COMMENT '禁止事項',
   brothers          JSON COMMENT '兄弟',
   sisters           JSON COMMENT '姉妹',
   memo              VARCHAR(256) COMMENT 'キャスト(猫)メモ',
@@ -44,13 +47,18 @@ CREATE VIEW cast_view
        cast_id,
        store_id,
        employment_status,
+       first_attendance_date,
+       last_attendance_date,
+       cast_memo,
        cast_created_date_time,
        cast_version,
        cast_updated_date_time,
        cast_cat_id,
        cast_cat_name,
        cast_cat_image_url,
+       cast_cat_type,
        cast_cat_sex,
+       cast_cat_memo,
        cast_cat_created_date_time,
        cast_cat_version,
        cast_cat_updated_date_time
@@ -60,17 +68,23 @@ SELECT CONCAT(cast.id, '_', cast_cat.id) AS id,
        cast.id                           AS cast_id,
        cast.store_id                     AS store_id,
        cast.employment_status            AS employment_status,
+       cast.first_attendance_date        AS first_attendance_date,
+       cast.last_attendance_date         AS last_attendance_date,
+       cast.memo                         AS cast_memo,
        cast.created_date_time            AS cast_created_date_time,
        cast.version                      AS cast_version,
        cast.updated_date_time            AS cast_updated_date_time,
        cast_cat.id                       AS cast_cat_id,
        cast_cat.name                     AS cast_cat_name,
        cast_cat.image_url                AS cast_cat_image_url,
+       cast_cat.type                     AS cast_cat_type,
        cast_cat.sex                      AS cast_cat_sex,
+       cast_cat.memo                     AS cast_cat_memo,
        cast_cat.created_date_time        AS cast_cat_created_date_time,
        cast_cat.version                  AS cast_cat_version,
        cast_cat.updated_date_time        AS cast_cat_updated_date_time
 FROM cast cast
        INNER JOIN cast_cat cast_cat ON cast.cast_cat_id = cast_cat.id
   AND cast_cat.deleted_flag = 'is_false'
-WHERE cast.deleted_flag = 'is_false';
+WHERE cast.deleted_flag = 'is_false'
+ORDER BY id ASC;

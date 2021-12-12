@@ -93,7 +93,9 @@
         },
         "type": {
           "description": "種類",
-          "type": "string"
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         },
         "sex": {
           "description": "性別",
@@ -104,7 +106,25 @@
           "type": "string",
           "format": "date"
         },
-        "brother": {
+        "favorite": {
+          "description": "好きなこと",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "dislike": {
+          "description": "嫌いなこと",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "prohibition": {
+          "description": "禁止事項",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "brothers": {
           "description": "兄弟",
           "type": "array",
           "items": {
@@ -112,7 +132,7 @@
             "format": "int32"
           }
         },
-        "sister": {
+        "sisters": {
           "description": "姉妹",
           "type": "array",
           "items": {
@@ -137,8 +157,11 @@
         "type",
         "sex",
         "birthday_date",
-        "brother",
-        "sister",
+        "favorite",
+        "dislike",
+        "prohibition",
+        "brothers",
+        "sisters",
         "memo",
         "version"
       ],
@@ -157,7 +180,9 @@
         },
         "type": {
           "description": "種類",
-          "type": "string"
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
         },
         "sex": {
           "description": "性別",
@@ -168,7 +193,25 @@
           "type": "string",
           "format": "date"
         },
-        "brother": {
+        "favorite": {
+          "description": "好きなこと",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "dislike": {
+          "description": "嫌いなこと",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "prohibition": {
+          "description": "禁止事項",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 256
+        },
+        "brothers": {
           "description": "兄弟",
           "type": "array",
           "items": {
@@ -176,7 +219,7 @@
             "format": "int32"
           }
         },
-        "sister": {
+        "sisters": {
           "description": "姉妹",
           "type": "array",
           "items": {

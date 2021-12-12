@@ -15,8 +15,11 @@ public class CastCatResisterServiceInput implements ServiceInput {
   private final String image;
   private final String type;
   private final LocalDate birthdayDate;
-  private final List<Integer> brother;
-  private final List<Integer> sister;
+  private final String favorite;
+  private final String dislike;
+  private final String prohibition;
+  private final List<Integer> brothers;
+  private final List<Integer> sisters;
   private final String memo;
 
 }

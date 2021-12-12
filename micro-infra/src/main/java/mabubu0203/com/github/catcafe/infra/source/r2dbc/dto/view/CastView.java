@@ -1,5 +1,6 @@
 package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.view;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,15 @@ public class CastView extends BaseView {
   @Column(value = "employment_status")
   private Cast.EmploymentStatus employmentStatus;
 
+  @Column(value = "first_attendance_date")
+  private LocalDate firstAttendanceDate;
+
+  @Column(value = "last_attendance_date")
+  private LocalDate lastAttendanceDate;
+
+  @Column(value = "cast_memo")
+  private String castMemo;
+
   @Column(value = "cast_created_date_time")
   private LocalDateTime castCreatedDateTime;
 
@@ -50,8 +60,14 @@ public class CastView extends BaseView {
   @Column(value = "cast_cat_image_url")
   private String castCatImage;
 
+  @Column(value = "cast_cat_type")
+  private String castCatType;
+
   @Column(value = "cast_cat_sex")
   private CastCat.Sex castCatSex;
+
+  @Column(value = "cast_cat_memo")
+  private String castCatMemo;
 
   @Column(value = "cast_cat_created_date_time")
   private LocalDateTime castCatCreatedDateTime;

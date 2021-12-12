@@ -20,6 +20,9 @@ public class CastCatResisterServiceConverter {
         .type(input.getType())
 //        .sex()
         .birthdayDate(input.getBirthdayDate())
+        .favorite(input.getFavorite())
+        .dislike(input.getDislike())
+        .prohibition(input.getProhibition())
         // TODO
 //        .brothers()
 //        .sisters()

@@ -18,8 +18,12 @@ public class CastCatCreateRequestMapper implements
         .name(castCatCreate.getName())
         .image(castCatCreate.getImage())
         .type(castCatCreate.getType())
-        .brother(castCatCreate.getBrother())
-        .sister(castCatCreate.getSister())
+        .birthdayDate(castCatCreate.getBirthdayDate())
+        .favorite(castCatCreate.getFavorite())
+        .dislike(castCatCreate.getDislike())
+        .prohibition(castCatCreate.getProhibition())
+        .brothers(castCatCreate.getBrothers())
+        .sisters(castCatCreate.getSisters())
         .memo(castCatCreate.getMemo())
         .build();
   }
