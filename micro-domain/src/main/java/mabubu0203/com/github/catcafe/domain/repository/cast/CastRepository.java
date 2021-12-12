@@ -7,7 +7,6 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
-import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,13 +28,13 @@ public interface CastRepository {
    */
   Flux<CastCatEntity> search(CastCatSearchConditions searchConditions);
 
-//  /**
-//   * キャストを1件取得する
-//   *
-//   * @param castId
-//   * @return
-//   */
-//  Mono<CastEntity> findBy(CastId castId);
+  /**
+   * キャストを1件取得する
+   *
+   * @param castId
+   * @return
+   */
+  Mono<CastEntity> findBy(CastId castId);
 
   /**
    * キャスト(猫)を1件取得する
@@ -64,6 +63,15 @@ public interface CastRepository {
   Mono<CastCatId> resister(CastCatEntity castCat, LocalDateTime receptionTime);
 
   /**
+   * キャストを1件更新する
+   *
+   * @param cast
+   * @param receptionTime
+   * @return
+   */
+  Mono<CastId> modify(CastEntity cast, LocalDateTime receptionTime);
+
+  /**
    * キャスト(猫)を1件更新する
    *
    * @param castCat
@@ -71,6 +79,15 @@ public interface CastRepository {
    * @return
    */
   Mono<CastCatId> modify(CastCatEntity castCat, LocalDateTime receptionTime);
+
+  /**
+   * キャストを1件削除する
+   *
+   * @param cast
+   * @param receptionTime
+   * @return
+   */
+  Mono<CastId> logicalDelete(CastEntity cast, LocalDateTime receptionTime);
 
   /**
    * キャスト(猫)を1件削除する
