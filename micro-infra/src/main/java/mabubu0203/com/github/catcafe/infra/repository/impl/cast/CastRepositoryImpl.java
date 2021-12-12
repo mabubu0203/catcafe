@@ -13,8 +13,10 @@ import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
-import mabubu0203.com.github.catcafe.domain.value.Memo;
+import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
+import mabubu0203.com.github.catcafe.domain.value.cast.CatSex;
+import mabubu0203.com.github.catcafe.domain.value.cast.EmploymentStatus;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastViewSource;
@@ -75,11 +77,13 @@ public class CastRepositoryImpl implements CastRepository {
 
   private CastEntity convertCastEntity(CastView dto) {
     var castCatId = new CastCatId(dto.getCastCatId());
+    var image = new HttpUrl(dto.getCastCatImage());
+    var sex = CatSex.getByLabel(dto.getCastCatSex().name());
     var castCatEntity = CastCatEntity.builder()
         .castCatId(castCatId)
         .name(dto.getCastCatName())
-        .image(dto.getCastCatImage())
-        .sex(dto.getCastCatSex().name())
+        .image(image)
+        .sex(sex)
         .createdDateTime(dto.getCastCatCreatedDateTime())
         .version(dto.getCastCatVersion())
         .updatedDateTime(dto.getCastCatUpdatedDateTime())
@@ -87,10 +91,11 @@ public class CastRepositoryImpl implements CastRepository {
 
     var castId = new CastId(dto.getCastId());
     var storeId = new StoreId(dto.getStoreId());
-
+    var employmentStatus = EmploymentStatus.getByLabel(dto.getEmploymentStatus().name());
     return CastEntity.builder()
         .castId(castId)
         .storeId(storeId)
+        .employmentStatus(employmentStatus)
         .createdDateTime(dto.getCastCreatedDateTime())
         .version(dto.getCastVersion())
         .updatedDateTime(dto.getCastUpdatedDateTime())
@@ -110,14 +115,15 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   private Cast attach(Cast dto, CastEntity entity) {
+    var employmentStatus = Cast.EmploymentStatus.getByLabel(entity.getEmploymentStatusLabel());
     return Optional.ofNullable(dto)
         .orElse(new Cast())
         .setId(entity.getCastIdValue())
         .setStoreId(entity.getStoreIdValue())
         .setCastCatId(entity.getCastCatIdValue())
-        .setFirstAttendanceDate(null)
-        .setLastAttendanceDate(null)
-        .setEmploymentStatus(Cast.EmploymentStatus.main)
+        .setEmploymentStatus(employmentStatus)
+        .setFirstAttendanceDate(entity.getFirstAttendanceDate())
+        .setLastAttendanceDate(entity.getLastAttendanceDate())
         .setMemo(entity.getMemoValue());
   }
 
@@ -126,14 +132,17 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   private CastCat attach(CastCat dto, CastCatEntity entity) {
+    var sex = CastCat.Sex.getByLabel(entity.getSexLabel());
     return Optional.ofNullable(dto)
         .orElse(new CastCat())
         .setId(entity.getCastCatIdValue())
         .setName(entity.getName())
-        .setImage(entity.getImage())
+        .setImage(entity.getImageValue())
         .setType(entity.getType())
-        .setSex(CastCat.Sex.male)
-        .setBirthdayDate(null)
+        .setSex(sex)
+//        .setBrothers()
+//        .setSisters()
+        .setBirthdayDate(entity.getBirthdayDate())
         .setMemo(entity.getMemoValue());
   }
 

@@ -2,8 +2,7 @@ package mabubu0203.com.github.catcafe.api.service.impl.cast.converter;
 
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.CastSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput;
-import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput.CastObject;
-import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput.CastSearchServiceOutputBuilder;
+import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import reactor.core.publisher.Flux;
@@ -25,31 +24,41 @@ public class CastSearchServiceConverter {
     return flux.map(this::toCastObject)
         .collectList()
         .map(CastSearchServiceOutput.builder()::casts)
-        .map(CastSearchServiceOutputBuilder::build);
+        .map(CastSearchServiceOutput.CastSearchServiceOutputBuilder::build);
   }
 
-  private CastObject toCastObject(CastEntity castEntity) {
-    var castCatEntity = castEntity.getCastCatEntity();
+  private CastSearchServiceOutput.CastObject toCastObject(CastEntity castEntity) {
+    var common = CastSearchServiceOutput.CommonObject.builder()
+        .createdDateTime(castEntity.getCreatedDateTime())
+        .version(castEntity.getVersion())
+        .updatedDateTime(castEntity.getUpdatedDateTime())
+        .build();
+    var castCat = this.toCastCatObject(castEntity.getCastCatEntity());
     return CastSearchServiceOutput.CastObject.builder()
         .id(castEntity.getCastIdValue())
         .storeId(castEntity.getStoreIdValue())
-        .common(
-            CastSearchServiceOutput.CommonObject.builder()
-                .createdDateTime(castEntity.getCreatedDateTime())
-                .version(castEntity.getVersion())
-                .updatedDateTime(castEntity.getUpdatedDateTime())
-                .build())
-        .castCat(
-            CastSearchServiceOutput.CastCatObject.builder()
-                .id(castCatEntity.getCastCatIdValue())
-                .name(castCatEntity.getName())
-                .common(
-                    CastSearchServiceOutput.CommonObject.builder()
-                        .createdDateTime(castCatEntity.getCreatedDateTime())
-                        .version(castCatEntity.getVersion())
-                        .updatedDateTime(castCatEntity.getUpdatedDateTime())
-                        .build())
-                .build())
+        .firstAttendanceDate(castEntity.getFirstAttendanceDate())
+        .lastAttendanceDate(castEntity.getLastAttendanceDate())
+        .memo(castEntity.getMemoValue())
+        .common(common)
+        .castCat(castCat)
+        .build();
+  }
+
+  private CastSearchServiceOutput.CastCatObject toCastCatObject(CastCatEntity castCatEntity) {
+    var common = CastSearchServiceOutput.CommonObject.builder()
+        .createdDateTime(castCatEntity.getCreatedDateTime())
+        .version(castCatEntity.getVersion())
+        .updatedDateTime(castCatEntity.getUpdatedDateTime())
+        .build();
+    return CastSearchServiceOutput.CastCatObject.builder()
+        .id(castCatEntity.getCastCatIdValue())
+        .name(castCatEntity.getName())
+        .image(castCatEntity.getImageValue())
+        .type(castCatEntity.getType())
+        .birthdayDate(castCatEntity.getBirthdayDate())
+        .memo(castCatEntity.getMemoValue())
+        .common(common)
         .build();
   }
 

@@ -2,8 +2,6 @@ package mabubu0203.com.github.catcafe.api.service.impl.store.converter;
 
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.input.StoreSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.StoreObject;
-import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput.StoreSearchServiceOutputBuilder;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreEntity;
 import mabubu0203.com.github.catcafe.domain.entity.store.StoreSearchConditions;
 import reactor.core.publisher.Flux;
@@ -24,10 +22,10 @@ public class StoreSearchServiceConverter {
     return flux.map(this::toStoreObject)
         .collectList()
         .map(StoreSearchServiceOutput.builder()::stores)
-        .map(StoreSearchServiceOutputBuilder::build);
+        .map(StoreSearchServiceOutput.StoreSearchServiceOutputBuilder::build);
   }
 
-  private StoreObject toStoreObject(StoreEntity storeEntity) {
+  private StoreSearchServiceOutput.StoreObject toStoreObject(StoreEntity storeEntity) {
     return
         StoreSearchServiceOutput.StoreObject.builder()
             .id(storeEntity.getStoreIdValue())

@@ -11,6 +11,7 @@ public interface StoreRepository {
 
   /**
    * 店舗を複数取得する
+   *
    * @param searchConditions
    * @return
    */
@@ -18,6 +19,7 @@ public interface StoreRepository {
 
   /**
    * 店舗を1件取得する
+   *
    * @param storeId
    * @return
    */
@@ -25,6 +27,7 @@ public interface StoreRepository {
 
   /**
    * 店舗を1件登録する
+   *
    * @param store
    * @param receptionTime
    * @return
@@ -33,6 +36,7 @@ public interface StoreRepository {
 
   /**
    * 店舗を1件更新する
+   *
    * @param store
    * @param receptionTime
    * @return
@@ -41,6 +45,7 @@ public interface StoreRepository {
 
   /**
    * 店舗を1件削除する
+   *
    * @param store
    * @param receptionTime
    * @return

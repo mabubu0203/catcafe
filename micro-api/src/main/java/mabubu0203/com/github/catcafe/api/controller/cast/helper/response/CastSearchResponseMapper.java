@@ -1,6 +1,7 @@
 package mabubu0203.com.github.catcafe.api.controller.cast.helper.response;
 
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.model.output.CastSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.SearchResponseMapper;
@@ -26,10 +27,15 @@ public class CastSearchResponseMapper implements
   private CastDetail convert(CastSearchServiceOutput.CastObject cast) {
     var detail = new CastDetail();
     var common = this.common(cast.getCommon());
+    var castCat = this.convert(cast.getCastCat());
     detail.setId(cast.getId());
     detail.setStoreId(cast.getStoreId());
-    detail.setCastCat(this.convert(cast.getCastCat()));
+    detail.setEmploymentStatus(null);
+    detail.setFirstAttendanceDate(cast.getFirstAttendanceDate());
+    detail.setLastAttendanceDate(cast.getLastAttendanceDate());
+    detail.setStoreMemo(cast.getMemo());
     detail.setCommon(common);
+    detail.setCastCat(castCat);
     return detail;
   }
 
@@ -38,6 +44,16 @@ public class CastSearchResponseMapper implements
     var common = this.common(castCat.getCommon());
     detail.setId(castCat.getId());
     detail.setName(castCat.getName());
+    detail.setImage(castCat.getImage());
+    detail.setType(castCat.getType());
+    detail.setSex(null);
+    detail.setBirthdayDate(castCat.getBirthdayDate());
+    detail.setLike(null);
+    detail.setDislike(null);
+    detail.setProhibition(null);
+    detail.setBrothers(Collections.emptyList());
+    detail.setSisters(Collections.emptyList());
+    detail.setMemo(castCat.getMemo());
     detail.setCommon(common);
     return detail;
   }

@@ -8,7 +8,9 @@ import java.util.Optional;
 public record Memo(String value) {
 
   public boolean isEmpty() {
-    return Optional.ofNullable(value).isEmpty();
+    return Optional.ofNullable(value)
+        .map(String::isEmpty)
+        .orElse(true);
   }
 
 }

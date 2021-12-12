@@ -25,13 +25,13 @@ public class NoticeEntity {
   private final LocalDateTime updatedDateTime;
 
   public Integer getNoticeIdValue() {
-    return Optional.of(this.noticeId)
+    return Optional.ofNullable(this.noticeId)
         .map(NoticeId::value)
         .orElse(null);
   }
 
   public Integer getStoreIdValue() {
-    return Optional.of(this.storeId)
+    return Optional.ofNullable(this.storeId)
         .map(StoreId::value)
         .orElse(null);
   }

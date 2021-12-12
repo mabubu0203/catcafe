@@ -69,7 +69,7 @@ public enum Prefecture {
   private final String label;
 
   /**
-   * 指定されたコードのPrefectureオブジェクトを取得します。 存在しない場合はnullを返します。
+   * 指定されたコードのPrefectureオブジェクトを取得します。
    *
    * @param code 都道府県コード
    * @return Prefectureオブジェクト
