@@ -44,55 +44,55 @@ public class StoreEntity {
   private final LocalDateTime updatedDateTime;
 
   public Integer getStoreIdValue() {
-    return Optional.of(this.storeId)
+    return Optional.ofNullable(this.storeId)
         .map(StoreId::value)
         .orElse(null);
   }
 
   public String getPhoneNumberValue() {
-    return Optional.of(this.phoneNumber)
+    return Optional.ofNullable(this.phoneNumber)
         .map(PhoneNumber::value)
         .orElse(null);
   }
 
   public String getMailAddressValue() {
-    return Optional.of(this.mailAddress)
+    return Optional.ofNullable(this.mailAddress)
         .map(MailAddress::value)
         .orElse(null);
   }
 
   public String getPostalCodeValue() {
-    return Optional.of(this.postalCode)
+    return Optional.ofNullable(this.postalCode)
         .map(PostalCode::value)
         .orElse(null);
   }
 
   public Integer getPrefectureCode() {
-    return Optional.of(this.prefecture)
+    return Optional.ofNullable(this.prefecture)
         .map(Prefecture::getCode)
         .orElse(null);
   }
 
   public String getPrefectureLabel() {
-    return Optional.of(this.prefecture)
+    return Optional.ofNullable(this.prefecture)
         .map(Prefecture::getLabel)
         .orElse(null);
   }
 
   public String getAddressSupplementValue() {
-    return Optional.of(this.addressSupplement)
+    return Optional.ofNullable(this.addressSupplement)
         .map(Supplement::value)
         .orElse(null);
   }
 
   public String getHoursSupplementValue() {
-    return Optional.of(this.hoursSupplement)
+    return Optional.ofNullable(this.hoursSupplement)
         .map(Supplement::value)
         .orElse(null);
   }
 
   public String getMemoValue() {
-    return Optional.of(this.memo)
+    return Optional.ofNullable(this.memo)
         .map(Memo::value)
         .orElse(null);
   }

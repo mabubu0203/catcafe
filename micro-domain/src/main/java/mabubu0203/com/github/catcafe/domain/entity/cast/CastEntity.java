@@ -30,38 +30,38 @@ public class CastEntity {
   private final CastCatEntity castCatEntity;
 
   public Integer getCastIdValue() {
-    return Optional.of(this.castId)
+    return Optional.ofNullable(this.castId)
         .map(CastId::value)
         .orElse(null);
   }
 
   public Integer getStoreIdValue() {
-    return Optional.of(this.storeId)
+    return Optional.ofNullable(this.storeId)
         .map(StoreId::value)
         .orElse(null);
   }
 
   public Integer getEmploymentStatusCode() {
-    return Optional.of(this.employmentStatus)
+    return Optional.ofNullable(this.employmentStatus)
         .map(EmploymentStatus::getCode)
         .orElse(null);
   }
 
   public String getEmploymentStatusLabel() {
-    return Optional.of(this.employmentStatus)
+    return Optional.ofNullable(this.employmentStatus)
         .map(EmploymentStatus::getLabel)
         .orElse(null);
   }
 
   public Integer getCastCatIdValue() {
-    return Optional.of(this.castCatEntity)
+    return Optional.ofNullable(this.castCatEntity)
         .map(CastCatEntity::getCastCatId)
         .map(CastCatId::value)
         .orElse(null);
   }
 
   public String getMemoValue() {
-    return Optional.of(this.memo)
+    return Optional.ofNullable(this.memo)
         .map(Memo::value)
         .orElse(null);
   }

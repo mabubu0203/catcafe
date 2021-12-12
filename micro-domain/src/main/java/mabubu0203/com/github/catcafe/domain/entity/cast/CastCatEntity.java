@@ -38,31 +38,31 @@ public class CastCatEntity {
   }
 
   public Integer getCastCatIdValue() {
-    return Optional.of(this.castCatId)
+    return Optional.ofNullable(this.castCatId)
         .map(CastCatId::value)
         .orElse(null);
   }
 
   public String getImageValue() {
-    return Optional.of(this.image)
+    return Optional.ofNullable(this.image)
         .map(HttpUrl::value)
         .orElse(null);
   }
 
   public Integer getSexCode() {
-    return Optional.of(this.sex)
+    return Optional.ofNullable(this.sex)
         .map(CatSex::getCode)
         .orElse(null);
   }
 
   public String getSexLabel() {
-    return Optional.of(this.sex)
+    return Optional.ofNullable(this.sex)
         .map(CatSex::getLabel)
         .orElse(null);
   }
 
   public String getMemoValue() {
-    return Optional.of(this.memo)
+    return Optional.ofNullable(this.memo)
         .map(Memo::value)
         .orElse(null);
   }
