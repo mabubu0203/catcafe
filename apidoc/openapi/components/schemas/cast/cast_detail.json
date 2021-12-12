@@ -26,7 +26,7 @@
           "type": "string",
           "format": "date"
         },
-        "store_memo": {
+        "memo": {
           "description": "店舗メモ",
           "type": "string"
         },

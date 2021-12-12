@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.common.exception.ResourceNotFoundException;
 import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseTable;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatEntity;
+import mabubu0203.com.github.catcafe.domain.entity.cast.CastCatSearchConditions;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastEntity;
 import mabubu0203.com.github.catcafe.domain.entity.cast.CastSearchConditions;
 import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
@@ -50,6 +51,17 @@ public class CastRepositoryImpl implements CastRepository {
         .filter(storeIdInclude)
         .filter(castIdInclude)
         .map(this::convertCastEntity);
+  }
+
+  @Override
+  public Flux<CastCatEntity> search(CastCatSearchConditions searchConditions) {
+    Predicate<CastCat> castCatIdInclude = castCat -> {
+      var castCatIds = searchConditions.optCastCatIds().orElseGet(Collections::emptyList);
+      return castCatIds.size() == 0 || castCatIds.contains(castCat.getId());
+    };
+    return this.castCatSource.findAll()
+        .filter(castCatIdInclude)
+        .map(this::convertCastCatEntity);
   }
 
   @Override
@@ -108,6 +120,28 @@ public class CastRepositoryImpl implements CastRepository {
         .version(dto.getCastVersion())
         .updatedDateTime(dto.getCastUpdatedDateTime())
         .castCatEntity(castCatEntity)
+        .build();
+  }
+
+  private CastCatEntity convertCastCatEntity(CastCat dto) {
+    var castCatId = new CastCatId(dto.getId());
+    var image = new HttpUrl(dto.getImage());
+    var sex = CatSex.getByLabel(dto.getSex().name());
+    var castCatMemo = new Memo(dto.getMemo());
+    return CastCatEntity.builder()
+        .castCatId(castCatId)
+        .name(dto.getName())
+        .image(image)
+        .type(dto.getType())
+        .sex(sex)
+        .birthdayDate(dto.getBirthdayDate())
+        .favorite(dto.getFavorite())
+        .dislike(dto.getDislike())
+        .prohibition(dto.getProhibition())
+        .memo(castCatMemo)
+        .createdDateTime(dto.getCreatedDateTime())
+        .version(dto.getVersion())
+        .updatedDateTime(dto.getUpdatedDateTime())
         .build();
   }
 

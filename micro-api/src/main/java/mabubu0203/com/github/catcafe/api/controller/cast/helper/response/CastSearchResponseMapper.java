@@ -33,7 +33,7 @@ public class CastSearchResponseMapper implements
     detail.setEmploymentStatus(null);
     detail.setFirstAttendanceDate(cast.getFirstAttendanceDate());
     detail.setLastAttendanceDate(cast.getLastAttendanceDate());
-    detail.setStoreMemo(cast.getMemo());
+    detail.setMemo(cast.getMemo());
     detail.setCommon(common);
     detail.setCastCat(castCat);
     return detail;
@@ -47,8 +47,8 @@ public class CastSearchResponseMapper implements
     detail.setImage(castCat.getImage());
     detail.setType(castCat.getType());
     detail.setSex(null);
-    detail.setBirthdayDate(castCat.getBirthdayDate());
-    detail.setLike(null);
+    detail.setBirthdayDate(null);
+    detail.setFavorite(null);
     detail.setDislike(null);
     detail.setProhibition(null);
     detail.setBrothers(Collections.emptyList());

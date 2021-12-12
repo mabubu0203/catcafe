@@ -12,10 +12,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCatFindRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastFindRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastSearchRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCatFindResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastFindResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastSearchResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatSearchService;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastSearchService;
 import org.openapitools.api.CastQueryApi;
 import org.openapitools.model.CastCatFindResponse;
@@ -35,6 +38,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CastQueryApiController implements CastQueryApi {
 
+  private final CastCatSearchService castCatSearchService;
   private final CastSearchService castSearchService;
 
   @Operation(
@@ -55,7 +59,12 @@ public class CastQueryApiController implements CastQueryApi {
       @Parameter(description = "カフェ識別子", schema = @Schema(allowableValues = {"cats"})) String cats,
       Integer castCatId,
       ServerWebExchange exchange) {
-    return null;
+    return
+        new CastCatFindRequestMapper(
+            cats, castCatId).get()
+            .flatMap(this.castCatSearchService::action)
+            .map(new CastCatFindResponseMapper())
+            .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
   @Operation(
