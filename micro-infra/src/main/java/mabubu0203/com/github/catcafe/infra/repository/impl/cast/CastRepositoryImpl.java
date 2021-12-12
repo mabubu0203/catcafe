@@ -60,7 +60,14 @@ public class CastRepositoryImpl implements CastRepository {
       return castCatIds.size() == 0 || castCatIds.contains(castCat.getId());
     };
     return this.castCatSource.findAll()
+        .filter(BaseTable::isExists)
         .filter(castCatIdInclude)
+        .map(this::convertCastCatEntity);
+  }
+
+  @Override
+  public Mono<CastCatEntity> findBy(CastCatId castCatId) {
+    return this.findDto(castCatId)
         .map(this::convertCastCatEntity);
   }
 
@@ -97,6 +104,18 @@ public class CastRepositoryImpl implements CastRepository {
         .map(dto -> this.attach(dto, entity))
         .map(dto -> (CastCat) dto.setVersion(entity.getVersion()))
         .flatMap(dto -> this.castCatSource.update(dto, receptionTime))
+        .mapNotNull(CastCat::getId)
+        .map(CastCatId::new);
+  }
+
+  @Override
+  public Mono<CastCatId> logicalDelete(CastCatEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(CastCatEntity::getCastCatId)
+        .map(this::findDto)
+        .orElseThrow(RuntimeException::new)
+        .map(dto -> (CastCat) dto.setVersion(entity.getVersion()))
+        .flatMap(dto -> this.castCatSource.logicalDelete(dto, receptionTime))
         .mapNotNull(CastCat::getId)
         .map(CastCatId::new);
   }
