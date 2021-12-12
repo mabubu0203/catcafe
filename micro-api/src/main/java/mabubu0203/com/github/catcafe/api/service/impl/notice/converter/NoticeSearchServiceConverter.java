@@ -2,8 +2,6 @@ package mabubu0203.com.github.catcafe.api.service.impl.notice.converter;
 
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.input.NoticeSearchServiceInput;
 import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput;
-import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput.NoticeObject;
-import mabubu0203.com.github.catcafe.api.controller.notice.service.model.output.NoticeSearchServiceOutput.NoticeSearchServiceOutputBuilder;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeEntity;
 import mabubu0203.com.github.catcafe.domain.entity.notice.NoticeSearchConditions;
 import reactor.core.publisher.Flux;
@@ -25,10 +23,10 @@ public class NoticeSearchServiceConverter {
     return flux.map(this::toNoticeObject)
         .collectList()
         .map(NoticeSearchServiceOutput.builder()::notices)
-        .map(NoticeSearchServiceOutputBuilder::build);
+        .map(NoticeSearchServiceOutput.NoticeSearchServiceOutputBuilder::build);
   }
 
-  private NoticeObject toNoticeObject(NoticeEntity noticeEntity) {
+  private NoticeSearchServiceOutput.NoticeObject toNoticeObject(NoticeEntity noticeEntity) {
     return
         NoticeSearchServiceOutput.NoticeObject.builder()
             .id(noticeEntity.getNoticeIdValue())

@@ -74,7 +74,7 @@ public class CastCat extends BaseTable<Integer> {
                   .findFirst())
           .orElse(Sex.unknown);
     }
-    
+
   }
 
 }

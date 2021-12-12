@@ -4,9 +4,7 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 import mabubu0203.com.github.catcafe.api.controller.store.service.model.output.StoreSearchServiceOutput;
 import mabubu0203.com.github.catcafe.common.controller.mapper.response.FindResponseMapper;
-
 import org.openapitools.model.Common;
-
 import org.openapitools.model.StoreDetail;
 import org.openapitools.model.StoreDetailAddress;
 import org.openapitools.model.StoreDetailContact;
