@@ -13,14 +13,14 @@ public class CastCreateRequestMapper implements
   private final Integer storeId;
 
   @Override
-  public CastRegisterServiceInput apply(CastCreateRequest castCreate) {
+  public CastRegisterServiceInput apply(CastCreateRequest request) {
     return CastRegisterServiceInput.builder()
         .cats(this.cats)
         .storeId(this.storeId)
-        .castCatId(castCreate.getCastCatId())
-        .firstAttendanceDate(castCreate.getFirstAttendanceDate())
-        .lastAttendanceDate(castCreate.getLastAttendanceDate())
-        .memo(castCreate.getMemo())
+        .castCatId(request.getCastCatId())
+        .firstAttendanceDate(request.getFirstAttendanceDate())
+        .lastAttendanceDate(request.getLastAttendanceDate())
+        .memo(request.getMemo())
         .build();
   }
 

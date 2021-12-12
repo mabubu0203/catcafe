@@ -22,6 +22,9 @@ public class CastResisterServiceConverter {
         .firstAttendanceDate(input.getFirstAttendanceDate())
         .lastAttendanceDate(input.getLastAttendanceDate())
         .memo(memo)
+        .createdDateTime(null)
+        .version(null)
+        .updatedDateTime(null)
         .castCatEntity(castCatEntity)
         .build();
   }

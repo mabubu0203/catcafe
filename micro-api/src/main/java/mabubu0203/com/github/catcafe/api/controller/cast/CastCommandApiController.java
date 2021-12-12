@@ -11,9 +11,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCatCreateRequestMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCatUpdateRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.request.CastCreateRequestMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCatCreateResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCatUpdateResponseMapper;
 import mabubu0203.com.github.catcafe.api.controller.cast.helper.response.CastCreateResponseMapper;
+import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatModifyService;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastCatResisterService;
 import mabubu0203.com.github.catcafe.api.controller.cast.service.CastRegisterService;
 import org.openapitools.api.CastCommandApi;
@@ -36,6 +39,7 @@ import reactor.core.publisher.Mono;
 public class CastCommandApiController implements CastCommandApi {
 
   private final CastCatResisterService castCatResisterService;
+  private final CastCatModifyService castCatModifyService;
   private final CastRegisterService castResisterService;
 
   @Operation(
@@ -104,7 +108,11 @@ public class CastCommandApiController implements CastCommandApi {
       Integer castCatId,
       @Valid Mono<CastCatUpdateRequest> castCatUpdate,
       ServerWebExchange exchange) {
-    return null;
+    return castCatUpdate
+        .map(new CastCatUpdateRequestMapper(cats, castCatId))
+        .flatMap(this.castCatModifyService::action)
+        .map(new CastCatUpdateResponseMapper())
+        .map(ResponseEntity.status(HttpStatus.OK)::body);
   }
 
   @Operation(

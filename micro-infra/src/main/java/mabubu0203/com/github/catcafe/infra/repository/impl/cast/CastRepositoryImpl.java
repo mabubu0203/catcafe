@@ -88,6 +88,19 @@ public class CastRepositoryImpl implements CastRepository {
         .map(CastCatId::new);
   }
 
+  @Override
+  public Mono<CastCatId> modify(CastCatEntity entity, LocalDateTime receptionTime) {
+    return Optional.of(entity)
+        .map(CastCatEntity::getCastCatId)
+        .map(this::findDto)
+        .orElseThrow(RuntimeException::new)
+        .map(dto -> this.attach(dto, entity))
+        .map(dto -> (CastCat) dto.setVersion(entity.getVersion()))
+        .flatMap(dto -> this.castCatSource.update(dto, receptionTime))
+        .mapNotNull(CastCat::getId)
+        .map(CastCatId::new);
+  }
+
   private CastEntity convertCastEntity(CastView dto) {
     var castCatId = new CastCatId(dto.getCastCatId());
     var image = new HttpUrl(dto.getCastCatImage());

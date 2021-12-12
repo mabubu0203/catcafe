@@ -1,20 +1,22 @@
 package mabubu0203.com.github.catcafe.api.controller.cast.helper.request;
 
 import lombok.RequiredArgsConstructor;
-import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.CastCatResisterServiceInput;
-import mabubu0203.com.github.catcafe.common.controller.mapper.request.CreateRequestMapper;
-import org.openapitools.model.CastCatCreateRequest;
+import mabubu0203.com.github.catcafe.api.controller.cast.service.model.input.CastCatModifyServiceInput;
+import mabubu0203.com.github.catcafe.common.controller.mapper.request.UpdateRequestMapper;
+import org.openapitools.model.CastCatUpdateRequest;
 
 @RequiredArgsConstructor
-public class CastCatCreateRequestMapper implements
-    CreateRequestMapper<CastCatCreateRequest, CastCatResisterServiceInput> {
+public class CastCatUpdateRequestMapper implements
+    UpdateRequestMapper<CastCatUpdateRequest, CastCatModifyServiceInput> {
 
   private final String cats;
+  private final Integer castCatId;
 
   @Override
-  public CastCatResisterServiceInput apply(CastCatCreateRequest request) {
-    return CastCatResisterServiceInput.builder()
+  public CastCatModifyServiceInput apply(CastCatUpdateRequest request) {
+    return CastCatModifyServiceInput.builder()
         .cats(this.cats)
+        .castCatId(this.castCatId)
         .name(request.getName())
         .image(request.getImage())
         .type(request.getType())
@@ -25,6 +27,7 @@ public class CastCatCreateRequestMapper implements
         .brothers(request.getBrothers())
         .sisters(request.getSisters())
         .memo(request.getMemo())
+        .version(request.getVersion())
         .build();
   }
 
