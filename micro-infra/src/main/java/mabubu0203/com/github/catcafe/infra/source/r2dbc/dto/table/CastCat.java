@@ -39,6 +39,18 @@ public class CastCat extends BaseTable<Integer> {
   @Column(value = "sex")
   private Sex sex = Sex.unknown;
 
+  @Column(value = "birthday_date")
+  private LocalDate birthdayDate;
+
+  @Column(value = "favorite")
+  private String favorite;
+
+  @Column(value = "dislike")
+  private String dislike;
+
+  @Column(value = "prohibition")
+  private String prohibition;
+
   @JsonRawValue
   @Column(value = "brothers")
   private String brothers;
@@ -46,9 +58,6 @@ public class CastCat extends BaseTable<Integer> {
   @JsonRawValue
   @Column(value = "sisters")
   private String sisters;
-
-  @Column(value = "birthday_date")
-  private LocalDate birthdayDate;
 
   @Column(value = "memo")
   private String memo;

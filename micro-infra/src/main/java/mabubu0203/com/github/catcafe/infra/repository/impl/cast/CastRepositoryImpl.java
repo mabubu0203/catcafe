@@ -14,6 +14,7 @@ import mabubu0203.com.github.catcafe.domain.repository.cast.CastRepository;
 import mabubu0203.com.github.catcafe.domain.value.CastCatId;
 import mabubu0203.com.github.catcafe.domain.value.CastId;
 import mabubu0203.com.github.catcafe.domain.value.HttpUrl;
+import mabubu0203.com.github.catcafe.domain.value.Memo;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.domain.value.cast.CatSex;
 import mabubu0203.com.github.catcafe.domain.value.cast.EmploymentStatus;
@@ -79,11 +80,14 @@ public class CastRepositoryImpl implements CastRepository {
     var castCatId = new CastCatId(dto.getCastCatId());
     var image = new HttpUrl(dto.getCastCatImage());
     var sex = CatSex.getByLabel(dto.getCastCatSex().name());
+    var castCatMemo = new Memo(dto.getCastCatMemo());
     var castCatEntity = CastCatEntity.builder()
         .castCatId(castCatId)
         .name(dto.getCastCatName())
         .image(image)
+        .type(dto.getCastCatImage())
         .sex(sex)
+        .memo(castCatMemo)
         .createdDateTime(dto.getCastCatCreatedDateTime())
         .version(dto.getCastCatVersion())
         .updatedDateTime(dto.getCastCatUpdatedDateTime())
@@ -92,10 +96,14 @@ public class CastRepositoryImpl implements CastRepository {
     var castId = new CastId(dto.getCastId());
     var storeId = new StoreId(dto.getStoreId());
     var employmentStatus = EmploymentStatus.getByLabel(dto.getEmploymentStatus().name());
+    var castMemo = new Memo(dto.getCastMemo());
     return CastEntity.builder()
         .castId(castId)
         .storeId(storeId)
         .employmentStatus(employmentStatus)
+        .firstAttendanceDate(dto.getFirstAttendanceDate())
+        .lastAttendanceDate(dto.getLastAttendanceDate())
+        .memo(castMemo)
         .createdDateTime(dto.getCastCreatedDateTime())
         .version(dto.getCastVersion())
         .updatedDateTime(dto.getCastUpdatedDateTime())
@@ -140,9 +148,12 @@ public class CastRepositoryImpl implements CastRepository {
         .setImage(entity.getImageValue())
         .setType(entity.getType())
         .setSex(sex)
+        .setBirthdayDate(entity.getBirthdayDate())
+        .setFavorite(entity.getFavorite())
+        .setDislike(entity.getDislike())
+        .setProhibition(entity.getProhibition())
 //        .setBrothers()
 //        .setSisters()
-        .setBirthdayDate(entity.getBirthdayDate())
         .setMemo(entity.getMemoValue());
   }
 

@@ -24,6 +24,9 @@ public class CastCatEntity {
   private final String type;
   private final CatSex sex;
   private final LocalDate birthdayDate;
+  private final String favorite;
+  private final String dislike;
+  private final String prohibition;
   private final List<CastCatId> brothers;
   private final List<CastCatId> sisters;
   private final Memo memo;
