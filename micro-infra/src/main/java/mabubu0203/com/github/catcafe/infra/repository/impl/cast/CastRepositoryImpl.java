@@ -79,12 +79,12 @@ public class CastRepositoryImpl implements CastRepository {
 
   @Override
   public Mono<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
-    return this.findDto(entity.getCastCatEntity().getCastCatId())
-        .thenReturn(entity)
+    return Optional.of(entity)
         .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
-        .cast(CastTable.class)
-        .flatMap(dto -> this.castSource.insert(dto, receptionTime))
+        .map(CastTable.class::cast)
+        .map(dto -> this.castSource.insert(dto, receptionTime))
+        .orElseThrow(RuntimeException::new)
         .mapNotNull(CastTable::getId)
         .map(CastId::new);
   }
