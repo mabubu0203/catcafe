@@ -18,7 +18,7 @@ import mabubu0203.com.github.catcafe.domain.value.Prefecture;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.domain.value.Supplement;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.StoreSource;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Store;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.StoreTable;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,7 +31,7 @@ public class StoreRepositoryImpl implements StoreRepository {
 
   @Override
   public Flux<StoreEntity> search(StoreSearchConditions searchConditions) {
-    Predicate<Store> storeIdInclude = store -> {
+    Predicate<StoreTable> storeIdInclude = store -> {
       var storeIds = searchConditions.optStoreIds().orElseGet(Collections::emptyList);
       return storeIds.size() == 0 || storeIds.contains(store.getId());
     };
@@ -52,39 +52,35 @@ public class StoreRepositoryImpl implements StoreRepository {
     return Optional.of(entity)
         .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
-        .map(Store.class::cast)
+        .map(StoreTable.class::cast)
         .map(dto -> this.source.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .mapNotNull(Store::getId)
+        .mapNotNull(StoreTable::getId)
         .map(StoreId::new);
   }
 
   @Override
   public Mono<StoreId> modify(StoreEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(StoreEntity::getStoreId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
+    return this.findDto(entity.getStoreId())
         .map(dto -> this.attach(dto, entity))
-        .map(dto -> (Store) dto.setVersion(entity.getVersion()))
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(StoreTable.class)
         .flatMap(dto -> this.source.update(dto, receptionTime))
-        .mapNotNull(Store::getId)
+        .mapNotNull(StoreTable::getId)
         .map(StoreId::new);
   }
 
   @Override
   public Mono<StoreId> logicalDelete(StoreEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(StoreEntity::getStoreId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
-        .map(dto -> (Store) dto.setVersion(entity.getVersion()))
+    return this.findDto(entity.getStoreId())
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(StoreTable.class)
         .flatMap(dto -> this.source.logicalDelete(dto, receptionTime))
-        .mapNotNull(Store::getId)
+        .mapNotNull(StoreTable::getId)
         .map(StoreId::new);
   }
 
-  private StoreEntity convertStoreEntity(Store dto) {
+  private StoreEntity convertStoreEntity(StoreTable dto) {
     var storeId = new StoreId(dto.getId());
     var phoneNumber = new PhoneNumber(dto.getPhoneNumber());
     var mailAddress = new MailAddress(dto.getMailAddress());
@@ -118,20 +114,20 @@ public class StoreRepositoryImpl implements StoreRepository {
         .build();
   }
 
-  private Mono<Store> findDto(StoreId storeId) {
+  private Mono<StoreTable> findDto(StoreId storeId) {
     return this.source.findById(storeId.value())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("店舗が存在しません")));
   }
 
-  private Store attach(StoreEntity entity) {
+  private StoreTable attach(StoreEntity entity) {
     return this.attach(null, entity);
   }
 
-  private Store attach(Store dto, StoreEntity entity) {
+  private StoreTable attach(StoreTable dto, StoreEntity entity) {
     return Optional.ofNullable(dto)
-        .orElse(new Store())
+        .orElse(new StoreTable())
         .setId(entity.getStoreIdValue())
         .setName(entity.getName())
         .setPhoneNumber(entity.getPhoneNumberValue())

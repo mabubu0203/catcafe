@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 import mabubu0203.com.github.catcafe.common.source.r2dbc.dto.BaseView;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Cast;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastCat;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastCatTable;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastTable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -31,7 +31,7 @@ public class CastView extends BaseView {
   private Integer storeId;
 
   @Column(value = "employment_status")
-  private Cast.EmploymentStatus employmentStatus;
+  private CastTable.EmploymentStatus employmentStatus;
 
   @Column(value = "first_attendance_date")
   private LocalDate firstAttendanceDate;
@@ -64,7 +64,7 @@ public class CastView extends BaseView {
   private String castCatType;
 
   @Column(value = "cast_cat_sex")
-  private CastCat.Sex castCatSex;
+  private CastCatTable.Sex castCatSex;
 
   @Column(value = "cast_cat_memo")
   private String castCatMemo;
