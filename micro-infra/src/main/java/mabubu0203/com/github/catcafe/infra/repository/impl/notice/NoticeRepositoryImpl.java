@@ -12,7 +12,7 @@ import mabubu0203.com.github.catcafe.domain.repository.notice.NoticeRepository;
 import mabubu0203.com.github.catcafe.domain.value.NoticeId;
 import mabubu0203.com.github.catcafe.domain.value.StoreId;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.NoticeSource;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Notice;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.NoticeTable;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -25,11 +25,11 @@ public class NoticeRepositoryImpl implements NoticeRepository {
 
   @Override
   public Flux<NoticeEntity> search(NoticeSearchConditions searchConditions) {
-    Predicate<Notice> storeIdInclude = notice -> {
+    Predicate<NoticeTable> storeIdInclude = notice -> {
       var storeIds = searchConditions.optStoreIds().orElseGet(Collections::emptyList);
       return storeIds.size() == 0 || storeIds.contains(notice.getStoreId());
     };
-    Predicate<Notice> noticeIdInclude = notice -> {
+    Predicate<NoticeTable> noticeIdInclude = notice -> {
       var noticeIds = searchConditions.optNoticeIds().orElseGet(Collections::emptyList);
       return noticeIds.size() == 0 || noticeIds.contains(notice.getId());
     };
@@ -45,14 +45,14 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     return Optional.of(entity)
         .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
-        .map(Notice.class::cast)
+        .map(NoticeTable.class::cast)
         .map(dto -> this.source.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .mapNotNull(Notice::getId)
+        .mapNotNull(NoticeTable::getId)
         .map(NoticeId::new);
   }
 
-  private NoticeEntity convertNoticeEntity(Notice dto) {
+  private NoticeEntity convertNoticeEntity(NoticeTable dto) {
     var noticeId = new NoticeId(dto.getId());
     var storeId = new StoreId(dto.getStoreId());
     return NoticeEntity.builder()
@@ -68,13 +68,13 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         .build();
   }
 
-  private Notice attach(NoticeEntity entity) {
+  private NoticeTable attach(NoticeEntity entity) {
     return this.attach(null, entity);
   }
 
-  private Notice attach(Notice dto, NoticeEntity entity) {
+  private NoticeTable attach(NoticeTable dto, NoticeEntity entity) {
     return Optional.ofNullable(dto)
-        .orElse(new Notice())
+        .orElse(new NoticeTable())
         .setId(entity.getNoticeIdValue())
         .setStoreId(entity.getStoreIdValue())
         .setSummary(entity.getSummary())

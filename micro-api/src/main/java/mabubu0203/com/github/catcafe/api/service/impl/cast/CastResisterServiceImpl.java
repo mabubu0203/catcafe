@@ -34,8 +34,14 @@ public class CastResisterServiceImpl implements CastRegisterService {
   }
 
   private Mono<CastEntity> beforeRegistration(CastEntity entity) {
-    return this.storeRepository.findBy(entity.getStoreId())
-        .map(store -> entity);
+    var storeId = entity.getStoreId();
+    var castCatId = entity.getCastCatEntity().getCastCatId();
+    return this.storeRepository.findBy(storeId)
+        .doOnError(Mono::error)
+        .thenReturn(castCatId)
+        .flatMap(this.castRepository::findBy)
+        .doOnError(Mono::error)
+        .thenReturn(entity);
   }
 
 }

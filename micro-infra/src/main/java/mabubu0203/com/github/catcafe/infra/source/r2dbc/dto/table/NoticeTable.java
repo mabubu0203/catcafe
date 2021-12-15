@@ -1,5 +1,6 @@
 package mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,8 +16,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-@Table(value = "frequently_asked_question")
-public class FrequentlyAskedQuestion extends BaseTable<Integer> {
+@Table(value = "notice")
+public class NoticeTable extends BaseTable<Integer> {
 
   @Id
   @Column(value = "id")
@@ -25,14 +26,17 @@ public class FrequentlyAskedQuestion extends BaseTable<Integer> {
   @Column(value = "store_id")
   private Integer storeId;
 
-  @Column(value = "category")
-  private String category;
+  @Column(value = "summary")
+  private String summary;
 
-  @Column(value = "question_summary")
-  private String questionSummary;
+  @Column(value = "detail")
+  private String detail;
 
-  @Column(value = "answer_summary")
-  private String answerSummary;
+  @Column(value = "publication_start_date_time")
+  private LocalDateTime publicationStartDateTime;
+
+  @Column(value = "publication_end_date_time")
+  private LocalDateTime publicationEndDateTime;
 
   @Override
   @Transient

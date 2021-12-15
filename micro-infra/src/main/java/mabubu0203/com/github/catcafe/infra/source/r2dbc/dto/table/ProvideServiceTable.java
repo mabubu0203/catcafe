@@ -17,7 +17,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
 @Table(value = "provide_service")
-public class ProvideService extends BaseTable<Integer> {
+public class ProvideServiceTable extends BaseTable<Integer> {
 
   @Id
   @Column(value = "id")

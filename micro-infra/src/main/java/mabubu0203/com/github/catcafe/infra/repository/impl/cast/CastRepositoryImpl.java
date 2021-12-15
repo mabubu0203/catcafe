@@ -22,8 +22,8 @@ import mabubu0203.com.github.catcafe.domain.value.cast.EmploymentStatus;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastCatSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastSource;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.CastViewSource;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.Cast;
-import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastCat;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastCatTable;
+import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.table.CastTable;
 import mabubu0203.com.github.catcafe.infra.source.r2dbc.dto.view.CastView;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
@@ -55,7 +55,7 @@ public class CastRepositoryImpl implements CastRepository {
 
   @Override
   public Flux<CastCatEntity> search(CastCatSearchConditions searchConditions) {
-    Predicate<CastCat> castCatIdInclude = castCat -> {
+    Predicate<CastCatTable> castCatIdInclude = castCat -> {
       var castCatIds = searchConditions.optCastCatIds().orElseGet(Collections::emptyList);
       return castCatIds.size() == 0 || castCatIds.contains(castCat.getId());
     };
@@ -79,13 +79,13 @@ public class CastRepositoryImpl implements CastRepository {
 
   @Override
   public Mono<CastId> resister(CastEntity entity, LocalDateTime receptionTime) {
-    return this.findDto(entity.getCastCatEntity().getCastCatId())
-        .map(dto -> entity)
+    return Optional.of(entity)
         .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
-        .map(Cast.class::cast)
-        .flatMap(dto -> this.castSource.insert(dto, receptionTime))
-        .mapNotNull(Cast::getId)
+        .map(CastTable.class::cast)
+        .map(dto -> this.castSource.insert(dto, receptionTime))
+        .orElseThrow(RuntimeException::new)
+        .mapNotNull(CastTable::getId)
         .map(CastId::new);
   }
 
@@ -94,64 +94,56 @@ public class CastRepositoryImpl implements CastRepository {
     return Optional.of(entity)
         .map(this::attach)
         .map(dto -> dto.setCreatedBy(0))
-        .map(CastCat.class::cast)
+        .map(CastCatTable.class::cast)
         .map(dto -> this.castCatSource.insert(dto, receptionTime))
         .orElseThrow(RuntimeException::new)
-        .mapNotNull(CastCat::getId)
+        .mapNotNull(CastCatTable::getId)
         .map(CastCatId::new);
   }
 
   @Override
   public Mono<CastId> modify(CastEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(CastEntity::getCastId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
+    return this.findDto(entity.getCastId())
         .map(dto -> this.attach(dto, entity))
-        .map(dto -> (Cast) dto.setVersion(entity.getVersion()))
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(CastTable.class)
         .flatMap(dto -> this.castSource.update(dto, receptionTime))
-        .mapNotNull(Cast::getId)
+        .mapNotNull(CastTable::getId)
         .map(CastId::new);
   }
 
   @Override
   public Mono<CastCatId> modify(CastCatEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(CastCatEntity::getCastCatId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
+    return this.findDto(entity.getCastCatId())
         .map(dto -> this.attach(dto, entity))
-        .map(dto -> (CastCat) dto.setVersion(entity.getVersion()))
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(CastCatTable.class)
         .flatMap(dto -> this.castCatSource.update(dto, receptionTime))
-        .mapNotNull(CastCat::getId)
+        .mapNotNull(CastCatTable::getId)
         .map(CastCatId::new);
   }
 
   @Override
   public Mono<CastId> logicalDelete(CastEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(CastEntity::getCastId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
-        .map(dto -> (Cast) dto.setVersion(entity.getVersion()))
+    return this.findDto(entity.getCastId())
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(CastTable.class)
         .flatMap(dto -> this.castSource.logicalDelete(dto, receptionTime))
-        .mapNotNull(Cast::getId)
+        .mapNotNull(CastTable::getId)
         .map(CastId::new);
   }
 
   @Override
   public Mono<CastCatId> logicalDelete(CastCatEntity entity, LocalDateTime receptionTime) {
-    return Optional.of(entity)
-        .map(CastCatEntity::getCastCatId)
-        .map(this::findDto)
-        .orElseThrow(RuntimeException::new)
-        .map(dto -> (CastCat) dto.setVersion(entity.getVersion()))
+    return this.findDto(entity.getCastCatId())
+        .map(dto -> dto.setVersion(entity.getVersion()))
+        .cast(CastCatTable.class)
         .flatMap(dto -> this.castCatSource.logicalDelete(dto, receptionTime))
-        .mapNotNull(CastCat::getId)
+        .mapNotNull(CastCatTable::getId)
         .map(CastCatId::new);
   }
 
-  private CastEntity convertCastEntity(Cast dto) {
+  private CastEntity convertCastEntity(CastTable dto) {
     var castId = new CastId(dto.getId());
     var storeId = new StoreId(dto.getStoreId());
     var employmentStatus = EmploymentStatus.getByLabel(dto.getEmploymentStatus().name());
@@ -206,7 +198,7 @@ public class CastRepositoryImpl implements CastRepository {
         .build();
   }
 
-  private CastCatEntity convertCastCatEntity(CastCat dto) {
+  private CastCatEntity convertCastCatEntity(CastCatTable dto) {
     var castCatId = new CastCatId(dto.getId());
     var image = new HttpUrl(dto.getImage());
     var sex = CatSex.getByLabel(dto.getSex().name());
@@ -228,28 +220,28 @@ public class CastRepositoryImpl implements CastRepository {
         .build();
   }
 
-  private Mono<Cast> findDto(CastId castId) {
+  private Mono<CastTable> findDto(CastId castId) {
     return this.castSource.findById(castId.value())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("キャストが存在しません")));
   }
 
-  private Mono<CastCat> findDto(CastCatId castCatId) {
+  private Mono<CastCatTable> findDto(CastCatId castCatId) {
     return this.castCatSource.findById(castCatId.value())
         .filter(BaseTable::isExists)
         // 404で返却するためのエラーを検討
         .switchIfEmpty(Mono.error(new ResourceNotFoundException("キャスト(猫)が存在しません")));
   }
 
-  private Cast attach(CastEntity entity) {
+  private CastTable attach(CastEntity entity) {
     return this.attach(null, entity);
   }
 
-  private Cast attach(Cast dto, CastEntity entity) {
-    var employmentStatus = Cast.EmploymentStatus.getByLabel(entity.getEmploymentStatusLabel());
+  private CastTable attach(CastTable dto, CastEntity entity) {
+    var employmentStatus = CastTable.EmploymentStatus.getByLabel(entity.getEmploymentStatusLabel());
     return Optional.ofNullable(dto)
-        .orElse(new Cast())
+        .orElse(new CastTable())
         .setId(entity.getCastIdValue())
         .setStoreId(entity.getStoreIdValue())
         .setCastCatId(entity.getCastCatIdValue())
@@ -259,14 +251,14 @@ public class CastRepositoryImpl implements CastRepository {
         .setMemo(entity.getMemoValue());
   }
 
-  private CastCat attach(CastCatEntity entity) {
+  private CastCatTable attach(CastCatEntity entity) {
     return this.attach(null, entity);
   }
 
-  private CastCat attach(CastCat dto, CastCatEntity entity) {
-    var sex = CastCat.Sex.getByLabel(entity.getSexLabel());
+  private CastCatTable attach(CastCatTable dto, CastCatEntity entity) {
+    var sex = CastCatTable.Sex.getByLabel(entity.getSexLabel());
     return Optional.ofNullable(dto)
-        .orElse(new CastCat())
+        .orElse(new CastCatTable())
         .setId(entity.getCastCatIdValue())
         .setName(entity.getName())
         .setImage(entity.getImageValue())
