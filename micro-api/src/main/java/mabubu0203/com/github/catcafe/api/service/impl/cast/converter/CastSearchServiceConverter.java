@@ -37,6 +37,7 @@ public class CastSearchServiceConverter {
     return CastSearchServiceOutput.CastObject.builder()
         .id(castEntity.getCastIdValue())
         .storeId(castEntity.getStoreIdValue())
+        .employmentStatus(castEntity.getEmploymentStatusLabel())
         .firstAttendanceDate(castEntity.getFirstAttendanceDate())
         .lastAttendanceDate(castEntity.getLastAttendanceDate())
         .memo(castEntity.getMemoValue())

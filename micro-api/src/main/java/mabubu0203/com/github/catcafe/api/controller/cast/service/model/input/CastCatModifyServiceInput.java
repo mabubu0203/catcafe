@@ -15,6 +15,7 @@ public class CastCatModifyServiceInput implements ServiceInput {
   private final String name;
   private final String image;
   private final String type;
+  private final String sex;
   private final LocalDate birthdayDate;
   private final String favorite;
   private final String dislike;

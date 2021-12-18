@@ -24,11 +24,13 @@ public class CastFindResponseMapper implements
 
   private CastDetail convert(CastSearchServiceOutput.CastObject cast) {
     var detail = new CastDetail();
+    var employmentStatus =
+        CastDetail.EmploymentStatusEnum.fromValue(cast.getEmploymentStatus());
     var common = this.common(cast.getCommon());
     var castCat = this.convert(cast.getCastCat());
     detail.setId(cast.getId());
     detail.setStoreId(cast.getStoreId());
-    detail.setEmploymentStatus(null);
+    detail.setEmploymentStatus(employmentStatus);
     detail.setFirstAttendanceDate(cast.getFirstAttendanceDate());
     detail.setLastAttendanceDate(cast.getLastAttendanceDate());
     detail.setMemo(cast.getMemo());

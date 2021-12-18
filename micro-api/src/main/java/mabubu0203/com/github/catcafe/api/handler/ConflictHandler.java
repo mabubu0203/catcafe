@@ -1,5 +1,6 @@
 package mabubu0203.com.github.catcafe.api.handler;
 
+import java.util.Optional;
 import org.openapitools.model.ExclusiveError;
 import org.openapitools.model.InlineResponse409;
 import org.springframework.core.NestedRuntimeException;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import reactor.core.publisher.Mono;
-import java.util.Optional;
 
 @RestControllerAdvice(annotations = {RestController.class})
 public class ConflictHandler {

@@ -36,6 +36,7 @@ public class CastCatSearchServiceConverter {
         .name(castCatEntity.getName())
         .image(castCatEntity.getImageValue())
         .type(castCatEntity.getType())
+        .sex(castCatEntity.getSexLabel())
         .birthdayDate(castCatEntity.getBirthdayDate())
         .favorite(castCatEntity.getFavorite())
         .dislike(castCatEntity.getDislike())

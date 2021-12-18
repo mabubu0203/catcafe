@@ -25,12 +25,13 @@ public class CastCatSearchResponseMapper implements
 
   private CastCatDetail convert(CastCatSearchServiceOutput.CastCatObject castCat) {
     var detail = new CastCatDetail();
+    var sex = CastCatDetail.SexEnum.fromValue(castCat.getSex());
     var common = this.common(castCat.getCommon());
     detail.setId(castCat.getId());
     detail.setName(castCat.getName());
     detail.setImage(castCat.getImage());
     detail.setType(castCat.getType());
-    detail.setSex(null);
+    detail.setSex(sex);
     detail.setBirthdayDate(castCat.getBirthdayDate());
     detail.setFavorite(castCat.getFavorite());
     detail.setDislike(castCat.getDislike());

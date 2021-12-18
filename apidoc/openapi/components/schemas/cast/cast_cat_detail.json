@@ -23,7 +23,17 @@
         },
         "sex": {
           "description": "性別",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "unknown",
+            "male",
+            "female"
+          ],
+          "x-enum-varnames": [
+            "unknown",
+            "male",
+            "female"
+          ]
         },
         "birthday_date": {
           "description": "誕生日",

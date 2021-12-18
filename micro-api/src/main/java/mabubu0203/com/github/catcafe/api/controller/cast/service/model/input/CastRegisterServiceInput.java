@@ -12,6 +12,7 @@ public class CastRegisterServiceInput implements ServiceInput {
   private final String cats;
   private final Integer castCatId;
   private final Integer storeId;
+  private final String employmentStatus;
   private final LocalDate firstAttendanceDate;
   private final LocalDate lastAttendanceDate;
   private final String memo;
