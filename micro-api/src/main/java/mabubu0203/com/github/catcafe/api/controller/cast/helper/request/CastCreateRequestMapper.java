@@ -18,6 +18,7 @@ public class CastCreateRequestMapper implements
         .cats(this.cats)
         .storeId(this.storeId)
         .castCatId(request.getCastCatId())
+        .employmentStatus(request.getEmploymentStatus().getValue())
         .firstAttendanceDate(request.getFirstAttendanceDate())
         .lastAttendanceDate(request.getLastAttendanceDate())
         .memo(request.getMemo())

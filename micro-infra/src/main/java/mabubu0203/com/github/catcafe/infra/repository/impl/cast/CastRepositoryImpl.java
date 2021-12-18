@@ -239,7 +239,8 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   private CastTable attach(CastTable dto, CastEntity entity) {
-    var employmentStatus = CastTable.EmploymentStatus.getByLabel(entity.getEmploymentStatusLabel());
+    var employmentStatus =
+        CastTable.EmploymentStatus.getByLabel(entity.getEmploymentStatusLabel());
     return Optional.ofNullable(dto)
         .orElse(new CastTable())
         .setId(entity.getCastIdValue())
@@ -256,7 +257,8 @@ public class CastRepositoryImpl implements CastRepository {
   }
 
   private CastCatTable attach(CastCatTable dto, CastCatEntity entity) {
-    var sex = CastCatTable.Sex.getByLabel(entity.getSexLabel());
+    var sex =
+        CastCatTable.Sex.getByLabel(entity.getSexLabel());
     return Optional.ofNullable(dto)
         .orElse(new CastCatTable())
         .setId(entity.getCastCatIdValue())

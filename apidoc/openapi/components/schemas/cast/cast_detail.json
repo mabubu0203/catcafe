@@ -14,7 +14,15 @@
         },
         "employment_status": {
           "description": "雇用形態",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "main",
+            "sub"
+          ],
+          "x-enum-varnames": [
+            "main",
+            "sub"
+          ]
         },
         "first_attendance_date": {
           "description": "初出勤日",
@@ -34,7 +42,7 @@
           "$ref": "../../responses/success/common_response.json#/model/common"
         },
         "cast_cat": {
-          "$ref": "./cast_cat.json#/model/cast_cat_detail"
+          "$ref": "./cast_cat_detail.json#/model/cast_cat_detail"
         }
       }
     }

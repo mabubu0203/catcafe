@@ -28,7 +28,7 @@
         "cast_cats": {
           "type": "array",
           "items": {
-            "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat_detail"
+            "$ref": "../../schemas/cast/cast_cat_detail.json#/model/cast_cat_detail"
           }
         }
       }
@@ -38,7 +38,7 @@
       "type": "object",
       "properties": {
         "cast_cat": {
-          "$ref": "../../schemas/cast/cast_cat.json#/model/cast_cat_detail"
+          "$ref": "../../schemas/cast/cast_cat_detail.json#/model/cast_cat_detail"
         }
       }
     }

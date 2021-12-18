@@ -20,6 +20,7 @@ public class CastCatUpdateRequestMapper implements
         .name(request.getName())
         .image(request.getImage())
         .type(request.getType())
+        .sex(request.getSex().getValue())
         .birthdayDate(request.getBirthdayDate())
         .favorite(request.getFavorite())
         .dislike(request.getDislike())

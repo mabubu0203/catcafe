@@ -19,6 +19,7 @@ public class CastSearchServiceOutput implements ServiceOutput {
 
     private final Integer id;
     private final Integer storeId;
+    private final String employmentStatus;
     private final LocalDate firstAttendanceDate;
     private final LocalDate lastAttendanceDate;
     private final String memo;

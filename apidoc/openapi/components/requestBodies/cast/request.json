@@ -14,7 +14,15 @@
         },
         "employment_status": {
           "description": "雇用形態",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "main",
+            "sub"
+          ],
+          "x-enum-varnames": [
+            "main",
+            "sub"
+          ]
         },
         "first_attendance_date": {
           "description": "初出勤日",
@@ -47,7 +55,15 @@
       "properties": {
         "employment_status": {
           "description": "雇用形態",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "main",
+            "sub"
+          ],
+          "x-enum-varnames": [
+            "main",
+            "sub"
+          ]
         },
         "first_attendance_date": {
           "description": "初出勤日",
@@ -99,7 +115,17 @@
         },
         "sex": {
           "description": "性別",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "unknown",
+            "male",
+            "female"
+          ],
+          "x-enum-varnames": [
+            "unknown",
+            "male",
+            "female"
+          ]
         },
         "birthday_date": {
           "description": "誕生日",
@@ -186,7 +212,17 @@
         },
         "sex": {
           "description": "性別",
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "unknown",
+            "male",
+            "female"
+          ],
+          "x-enum-varnames": [
+            "unknown",
+            "male",
+            "female"
+          ]
         },
         "birthday_date": {
           "description": "誕生日",
