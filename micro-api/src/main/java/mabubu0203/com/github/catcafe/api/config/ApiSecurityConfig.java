@@ -18,10 +18,12 @@ import org.springframework.security.web.server.authentication.ServerAuthenticati
 import org.springframework.security.web.server.authentication.ServerAuthenticationFailureHandler;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
+import org.springframework.web.reactive.config.EnableWebFlux;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableReactiveMethodSecurity
+@EnableWebFlux
 @EnableWebFluxSecurity
 public class ApiSecurityConfig {
 

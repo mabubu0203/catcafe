@@ -27,7 +27,7 @@ IntelliJ IDEAを使用します。
         1. GradleタスクよりjibDockerBuild(`:micro-api -> Tasks -> jib -> jibDockerBuild`)  
            `$ ./gradlew :micro-api:jibDockerBuild`
         1. Dockerより起動  
-           `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it micro-api:d141aa2.dirty`
+           `$ docker run --name micro-api --network mac_app-net --rm -p 9001:9001 -it micro-api:523ceba.dirty`
 6. Gradleタスクよりstart(`:micro-site -> Tasks -> other -> startDevelopment`)
 
 ### Endpoints
