@@ -10,7 +10,7 @@ dependencies {
 
     // SpringBoot Projects
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+//    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -19,7 +19,7 @@ dependencies {
     // openapi generator
     compileOnly("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
     compileOnly("io.springfox:springfox-core:3.0.0")
-    compileOnly("org.openapitools:jackson-databind-nullable:0.2.1")
+    compileOnly("org.openapitools:jackson-databind-nullable:0.2.2")
 
     // springdoc-openapi-ui
     implementation("org.springdoc:springdoc-openapi-webflux-ui:${springDocVersion}")
@@ -28,16 +28,14 @@ dependencies {
     // lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // mysql
     runtimeOnly("dev.miku:r2dbc-mysql")
     runtimeOnly("mysql:mysql-connector-java")
 
     // Netty
-    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.70.Final:osx-aarch_64")
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.72.Final:osx-aarch_64")
 
     developmentOnly("io.projectreactor:reactor-tools")
 }
@@ -153,9 +151,14 @@ jib {
         mainClass = 'mabubu0203.com.github.catcafe.api.ApiApp'
         ports = ['8080']
     }
-    // mcr.microsoft.com/openjdk/jdk:17-ubuntu に変更する
     from {
-        image = "adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine-slim"
+        image = "eclipse-temurin:17.0.1_12-jdk-centos7"
+        platforms {
+            platform {
+                os = 'linux'
+                architecture = 'arm64'
+            }
+        }
     }
     // 引数追加の影響を受けてしまうので、いったんコメントアウト
 //    to {
