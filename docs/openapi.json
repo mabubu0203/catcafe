@@ -1,0 +1,4414 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "description" : "猫カフェのポータルサイトと管理画面で使用するAPIを定義",
+    "title" : "CatCafeApi",
+    "version" : "0.1.0"
+  },
+  "servers" : [ {
+    "description" : "ローカル環境",
+    "url" : "http://{username}:{port}/{basePath}",
+    "variables" : {
+      "username" : {
+        "default" : "localhost"
+      },
+      "port" : {
+        "default" : "9001",
+        "enum" : [ "9001" ]
+      },
+      "basePath" : {
+        "default" : "CatCafeApi",
+        "enum" : [ "CatCafeApi" ]
+      }
+    }
+  } ],
+  "tags" : [ {
+    "description" : "認証",
+    "name" : "authentication"
+  }, {
+    "description" : "お知らせ(書き込み)",
+    "name" : "notice_command"
+  }, {
+    "description" : "お知らせ(読み取り)",
+    "name" : "notice_query"
+  }, {
+    "description" : "店舗(書き込み)",
+    "name" : "store_command"
+  }, {
+    "description" : "店舗(読み取り)",
+    "name" : "store_query"
+  }, {
+    "description" : "お問い合わせ(書き込み)",
+    "name" : "contact_command"
+  }, {
+    "description" : "お問い合わせ(読み取り)",
+    "name" : "contact_query"
+  }, {
+    "description" : "FAQ(書き込み)",
+    "name" : "frequently_asked_question_command"
+  }, {
+    "description" : "FAQ(読み取り)",
+    "name" : "frequently_asked_question_query"
+  }, {
+    "description" : "イベント(書き込み)",
+    "name" : "event_command"
+  }, {
+    "description" : "イベント(読み取り)",
+    "name" : "event_query"
+  }, {
+    "description" : "表示表示メニュー(書き込み)",
+    "name" : "display_menu_command"
+  }, {
+    "description" : "表示表示メニュー(読み取り)",
+    "name" : "display_menu_query"
+  }, {
+    "description" : "提供サービス(書き込み)",
+    "name" : "provide_service_command"
+  }, {
+    "description" : "提供サービス(読み取り)",
+    "name" : "provide_service_query"
+  }, {
+    "description" : "キャスト(書き込み)",
+    "name" : "cast_command"
+  }, {
+    "description" : "キャスト(読み取り)",
+    "name" : "cast_query"
+  }, {
+    "description" : "混雑状況",
+    "name" : "congestion"
+  }, {
+    "description" : "外部/SNSリンク",
+    "name" : "link"
+  } ],
+  "paths" : {
+    "/{cats}/authentication/x_api_key/generate" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "X-API-KEYを生成する",
+        "operationId" : "xApiKeyGenerate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/x_api_key_generate"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/x_api_key_generate_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          }
+        },
+        "summary" : "X-API-KEY生成API",
+        "tags" : [ "authentication" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/notice" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "お知らせを1件登録する",
+        "operationId" : "noticeCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/notice_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お知らせ登録API",
+        "tags" : [ "notice_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/notices" : {
+      "description" : "",
+      "get" : {
+        "description" : "お知らせを取得する",
+        "operationId" : "noticeSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "お知らせID",
+          "in" : "query",
+          "name" : "notice_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "取得ページ",
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "取得サイズ",
+          "in" : "query",
+          "name" : "size",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 20,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "ソートキー",
+          "in" : "query",
+          "name" : "sort_keys",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "enum" : [ "store_id.asc", "store_id.desc" ],
+              "type" : "string",
+              "x-enum-varnames" : [ "store_id.asc", "store_id.desc" ]
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/notice_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お知らせ一覧取得API",
+        "tags" : [ "notice_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/notices/{notice_id}" : {
+      "delete" : {
+        "description" : "お知らせを1件論理削除する",
+        "operationId" : "noticeDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お知らせ削除API",
+        "tags" : [ "notice_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "お知らせを1件取得する",
+        "operationId" : "noticeFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/notice_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お知らせ詳細取得API",
+        "tags" : [ "notice_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "お知らせID",
+        "in" : "path",
+        "name" : "notice_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "お知らせを1件更新する",
+        "operationId" : "noticeUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/notice_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お知らせ更新API",
+        "tags" : [ "notice_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/store" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "店舗を1件登録する",
+        "operationId" : "storeCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/store_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "店舗登録API",
+        "tags" : [ "store_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/stores" : {
+      "description" : "",
+      "get" : {
+        "description" : "店舗を取得する",
+        "operationId" : "storeSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "取得ページ",
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "取得サイズ",
+          "in" : "query",
+          "name" : "size",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 20,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "ソートキー",
+          "in" : "query",
+          "name" : "sort_keys",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "enum" : [ "store_id.asc", "store_id.desc" ],
+              "type" : "string",
+              "x-enum-varnames" : [ "store_id.asc", "store_id.desc" ]
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/store_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "店舗一覧取得API",
+        "tags" : [ "store_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}" : {
+      "delete" : {
+        "description" : "店舗を1件論理削除する",
+        "operationId" : "storeDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            },
+            "description" : "リソースエラー"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_409"
+                }
+              }
+            },
+            "description" : "楽観排他エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "店舗削除API",
+        "tags" : [ "store_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "店舗詳細を1件取得する",
+        "operationId" : "storeFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/store_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            },
+            "description" : "リソースエラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "店舗詳細取得API",
+        "tags" : [ "store_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "店舗を1件更新する",
+        "operationId" : "storeUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/store_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_404"
+                }
+              }
+            },
+            "description" : "リソースエラー"
+          },
+          "409" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_409"
+                }
+              }
+            },
+            "description" : "楽観排他エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "店舗更新API",
+        "tags" : [ "store_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/contact" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "お問い合わせを1件登録する",
+        "operationId" : "contactCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/contact_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お問い合わせ登録API",
+        "tags" : [ "contact_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/contacts" : {
+      "description" : "",
+      "get" : {
+        "description" : "お問い合わせを取得する",
+        "operationId" : "contactSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/contact_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お問い合わせ一覧取得API",
+        "tags" : [ "contact_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/contacts/{contact_id}" : {
+      "description" : "",
+      "get" : {
+        "description" : "お問い合わせ詳細を1件取得する",
+        "operationId" : "contactFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/contact_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "お問い合わせ詳細取得API",
+        "tags" : [ "contact_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "お問い合わせID",
+        "in" : "path",
+        "name" : "contact_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/frequently_asked_question" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "FAQを1件登録する",
+        "operationId" : "frequentlyAskedQuestionCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/frequently_asked_question_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "FAQ登録API",
+        "tags" : [ "frequently_asked_question_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/frequently_asked_questions" : {
+      "description" : "",
+      "get" : {
+        "description" : "FAQを取得する",
+        "operationId" : "frequentlyAskedQuestionSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/frequently_asked_question_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "FAQ一覧取得API",
+        "tags" : [ "frequently_asked_question_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/frequently_asked_questions/{faq_id}" : {
+      "delete" : {
+        "description" : "FAQを1件論理削除する",
+        "operationId" : "frequentlyAskedQuestionDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "FAQ削除API",
+        "tags" : [ "frequently_asked_question_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "FAQ詳細を1件取得する",
+        "operationId" : "frequentlyAskedQuestionFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/frequently_asked_question_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "FAQ詳細取得API",
+        "tags" : [ "frequently_asked_question_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "FAQID",
+        "in" : "path",
+        "name" : "faq_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "FAQを1件更新する",
+        "operationId" : "frequentlyAskedQuestionUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/frequently_asked_question_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "FAQ更新API",
+        "tags" : [ "frequently_asked_question_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/event" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "イベントを1件登録する",
+        "operationId" : "eventCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/event_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "イベント登録API",
+        "tags" : [ "event_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/events" : {
+      "description" : "",
+      "get" : {
+        "description" : "イベントを取得する",
+        "operationId" : "eventSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/event_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "イベント一覧取得API",
+        "tags" : [ "event_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/events/{event_id}" : {
+      "delete" : {
+        "description" : "イベントを1件論理削除する",
+        "operationId" : "eventDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "イベント削除API",
+        "tags" : [ "event_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "イベント詳細を1件取得する",
+        "operationId" : "eventFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/event_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "イベント詳細取得API",
+        "tags" : [ "event_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "イベントID",
+        "in" : "path",
+        "name" : "event_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "イベントを1件更新する",
+        "operationId" : "eventUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/event_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "イベント更新API",
+        "tags" : [ "event_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/display_menus" : {
+      "description" : "",
+      "get" : {
+        "description" : "表示メニューを取得する",
+        "operationId" : "displayMenuSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/display_menu_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "表示メニュー一覧取得API",
+        "tags" : [ "display_menu_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/display_menu" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "post" : {
+        "description" : "表示メニューを1件登録する",
+        "operationId" : "displayMenuCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/display_menu_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "表示メニュー登録API",
+        "tags" : [ "display_menu_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/display_menus/{display_menu_id}" : {
+      "delete" : {
+        "description" : "表示メニューを1件論理削除する",
+        "operationId" : "displayMenuDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "表示メニュー削除API",
+        "tags" : [ "display_menu_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "表示メニュー詳細を1件取得する",
+        "operationId" : "displayMenuFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/display_menu_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "表示メニュー詳細取得API",
+        "tags" : [ "display_menu_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      }, {
+        "description" : "表示メニューID",
+        "in" : "path",
+        "name" : "display_menu_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "表示メニューを1件更新する",
+        "operationId" : "displayMenuUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/display_menu_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "表示メニュー更新API",
+        "tags" : [ "display_menu_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/provide_services" : {
+      "description" : "",
+      "get" : {
+        "description" : "提供サービスを取得する",
+        "operationId" : "provideServiceSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/provide_service_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "提供サービス一覧取得API",
+        "tags" : [ "provide_service_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/provide_service" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "post" : {
+        "description" : "提供サービスを1件登録する",
+        "operationId" : "provideServiceCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/provide_service_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "提供サービス登録API",
+        "tags" : [ "provide_service_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/provide_services/{provide_service_id}" : {
+      "delete" : {
+        "description" : "提供サービスを1件論理削除する",
+        "operationId" : "provideServiceDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "提供サービス削除API",
+        "tags" : [ "provide_service_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "提供サービス詳細を1件取得する",
+        "operationId" : "provideServiceFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/provide_service_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "提供サービス詳細取得API",
+        "tags" : [ "provide_service_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      }, {
+        "description" : "提供サービスID",
+        "in" : "path",
+        "name" : "provide_service_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "提供サービスを1件更新する",
+        "operationId" : "provideServiceUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/provide_service_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "提供サービス更新API",
+        "tags" : [ "provide_service_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/cast_cat" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "post" : {
+        "description" : "キャスト(猫)を1件登録する",
+        "operationId" : "castCatCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/cast_cat_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト(猫)登録API",
+        "tags" : [ "cast_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/cast_cats" : {
+      "description" : "",
+      "get" : {
+        "description" : "キャスト(猫)を取得する",
+        "operationId" : "castCatSearch",
+        "parameters" : [ {
+          "description" : "キャスト(猫)ID",
+          "in" : "query",
+          "name" : "cast_cat_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "取得ページ",
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "取得サイズ",
+          "in" : "query",
+          "name" : "size",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 20,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/cast_cat_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト(猫)一覧取得API",
+        "tags" : [ "cast_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/cast_cats/{cast_cat_id}" : {
+      "delete" : {
+        "description" : "キャスト(猫)を1件論理削除する",
+        "operationId" : "castCatDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト(猫)削除API",
+        "tags" : [ "cast_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "キャスト(猫)詳細を1件取得する",
+        "operationId" : "castCatFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/cast_cat_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト(猫)詳細取得API",
+        "tags" : [ "cast_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "キャスト(猫)ID",
+        "in" : "path",
+        "name" : "cast_cat_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "キャスト(猫)を1件更新する",
+        "operationId" : "castCatUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/cast_cat_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト(猫)更新API",
+        "tags" : [ "cast_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/casts" : {
+      "description" : "",
+      "get" : {
+        "description" : "キャストを取得する",
+        "operationId" : "castSearch",
+        "parameters" : [ {
+          "description" : "店舗ID",
+          "in" : "query",
+          "name" : "store_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "キャストID",
+          "in" : "query",
+          "name" : "cast_ids",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          }
+        }, {
+          "description" : "取得ページ",
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "取得サイズ",
+          "in" : "query",
+          "name" : "size",
+          "required" : false,
+          "schema" : {
+            "format" : "int32",
+            "maximum" : 20,
+            "minimum" : 1,
+            "type" : "integer"
+          }
+        }, {
+          "description" : "ソートキー",
+          "in" : "query",
+          "name" : "sort_keys",
+          "required" : false,
+          "schema" : {
+            "items" : {
+              "enum" : [ "store_id.asc", "store_id.desc" ],
+              "type" : "string",
+              "x-enum-varnames" : [ "store_id.asc", "store_id.desc" ]
+            },
+            "type" : "array"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/cast_search_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "summary" : "キャスト一覧取得API",
+        "tags" : [ "cast_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      } ],
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/cast" : {
+      "description" : "",
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "post" : {
+        "description" : "キャストを1件登録する",
+        "operationId" : "castCreate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/cast_create_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/post_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト登録API",
+        "tags" : [ "cast_command" ]
+      },
+      "summary" : ""
+    },
+    "/{cats}/stores/{store_id}/casts/{cast_id}" : {
+      "delete" : {
+        "description" : "キャストを1件論理削除する",
+        "operationId" : "castDelete",
+        "parameters" : [ {
+          "description" : "バージョンフィールド",
+          "in" : "query",
+          "name" : "version",
+          "required" : true,
+          "schema" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト削除API",
+        "tags" : [ "cast_command" ]
+      },
+      "description" : "",
+      "get" : {
+        "description" : "キャスト詳細を1件取得する",
+        "operationId" : "castFind",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/cast_find_response"
+                }
+              }
+            },
+            "description" : "正常系"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト詳細取得API",
+        "tags" : [ "cast_query" ]
+      },
+      "parameters" : [ {
+        "description" : "カフェ識別子",
+        "in" : "path",
+        "name" : "cats",
+        "required" : true,
+        "schema" : {
+          "enum" : [ "cats" ],
+          "type" : "string",
+          "x-enum-varnames" : [ "cats" ]
+        }
+      }, {
+        "description" : "店舗ID",
+        "in" : "path",
+        "name" : "store_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      }, {
+        "description" : "キャストID",
+        "in" : "path",
+        "name" : "cast_id",
+        "required" : true,
+        "schema" : {
+          "format" : "int32",
+          "type" : "integer"
+        }
+      } ],
+      "patch" : {
+        "description" : "キャストを1件更新する",
+        "operationId" : "castUpdate",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/cast_update_request"
+              }
+            }
+          },
+          "description" : "リクエストボディ",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/patch_object"
+                }
+              }
+            },
+            "description" : "正常系",
+            "headers" : {
+              "Location" : {
+                "description" : "詳細取得URL"
+              }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_400"
+                }
+              }
+            },
+            "description" : "バリデーションエラー"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_401"
+                }
+              }
+            },
+            "description" : "認証エラー"
+          },
+          "404" : {
+            "description" : "Idが見つからない"
+          },
+          "409" : {
+            "description" : "排他失敗"
+          }
+        },
+        "security" : [ {
+          "ApiKeyAuth" : [ ]
+        } ],
+        "summary" : "キャスト更新API",
+        "tags" : [ "cast_command" ]
+      },
+      "summary" : ""
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "x_api_key_generate" : {
+        "description" : "postObject",
+        "properties" : {
+          "random" : {
+            "description" : "ランダム文字列",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "x_api_key_generate_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "x_api_key" : {
+            "$ref" : "#/components/schemas/x_api_key"
+          }
+        },
+        "type" : "object"
+      },
+      "x_api_key" : {
+        "description" : "X-API-KEY",
+        "properties" : {
+          "token" : {
+            "description" : "Token",
+            "type" : "string"
+          },
+          "start_date_time" : {
+            "description" : "開始日時",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "end_date_time" : {
+            "description" : "終了日時",
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "validation_error" : {
+        "description" : "ValidationError結果",
+        "properties" : {
+          "property" : {
+            "description" : "property",
+            "type" : "string"
+          },
+          "messages" : {
+            "description" : "messages",
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "notice_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "store_id" : {
+            "description" : "店舗ID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "summary" : {
+            "description" : "お知らせ概要",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "お知らせ詳細",
+            "maxLength" : 1024,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "publication_start_date_time" : {
+            "description" : "掲載開始日時",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "publication_end_date_time" : {
+            "description" : "掲載終了日時",
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "required" : [ "summary" ],
+        "type" : "object"
+      },
+      "post_object" : {
+        "description" : "登録結果",
+        "properties" : {
+          "id" : {
+            "description" : "登録で採番されたID",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "authentication_error" : {
+        "description" : "認証Error結果",
+        "properties" : {
+          "message" : {
+            "description" : "message",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "notice_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "notices" : {
+            "items" : {
+              "$ref" : "#/components/schemas/notice_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "notice_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "notice" : {
+            "$ref" : "#/components/schemas/notice_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "notice_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "patch_object" : {
+        "description" : "更新結果",
+        "properties" : {
+          "id" : {
+            "description" : "更新で指定されたID",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "store_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "name" : {
+            "description" : "店舗名",
+            "maxLength" : 128,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "contact" : {
+            "$ref" : "#/components/schemas/store_create_request_contact"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/store_create_request_address"
+          },
+          "open_date" : {
+            "description" : "開店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "close_date" : {
+            "description" : "閉店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "hours" : {
+            "$ref" : "#/components/schemas/store_create_request_hours"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "required" : [ "address", "contact", "hours", "name" ],
+        "type" : "object"
+      },
+      "store_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "stores" : {
+            "items" : {
+              "$ref" : "#/components/schemas/store_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "store_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "store" : {
+            "$ref" : "#/components/schemas/store_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "resource_error" : {
+        "description" : "リソースError結果",
+        "properties" : {
+          "message" : {
+            "description" : "message",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "exclusive_error" : {
+        "description" : "楽観排他Error結果",
+        "properties" : {
+          "message" : {
+            "description" : "message",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "name" : {
+            "description" : "店舗名",
+            "maxLength" : 128,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "contact" : {
+            "$ref" : "#/components/schemas/store_create_request_contact"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/store_create_request_address"
+          },
+          "open_date" : {
+            "description" : "開店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "close_date" : {
+            "description" : "閉店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "hours" : {
+            "$ref" : "#/components/schemas/store_create_request_hours"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "version" : {
+            "description" : "バージョンフィールド",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "address", "contact", "hours", "name", "version" ],
+        "type" : "object"
+      },
+      "contact_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "contact_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "contacts" : {
+            "items" : {
+              "$ref" : "#/components/schemas/contact_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "contact_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "contacts" : {
+            "$ref" : "#/components/schemas/contact_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "frequently_asked_question_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "frequently_asked_question_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "frequently_asked_questions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/frequently_asked_question_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "frequently_asked_question_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "frequently_asked_question" : {
+            "$ref" : "#/components/schemas/frequently_asked_question_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "frequently_asked_question_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "event_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "event_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "events" : {
+            "items" : {
+              "$ref" : "#/components/schemas/event_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "event_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "event" : {
+            "$ref" : "#/components/schemas/event_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "event_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "display_menu_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "display_menus" : {
+            "items" : {
+              "$ref" : "#/components/schemas/display_menu_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "display_menu_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "display_menu_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "display_menu" : {
+            "$ref" : "#/components/schemas/display_menu_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "display_menu_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "provide_service_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "provide_services" : {
+            "items" : {
+              "$ref" : "#/components/schemas/provide_service_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "provide_service_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "provide_service_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "provide_service" : {
+            "$ref" : "#/components/schemas/provide_service_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "provide_service_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "value" : {
+            "maxLength" : 100,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_cat_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "name" : {
+            "description" : "キャスト(猫)名",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "image" : {
+            "description" : "画像URL",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "種類",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "sex" : {
+            "description" : "性別",
+            "enum" : [ "unknown", "male", "female" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "unknown", "male", "female" ]
+          },
+          "birthday_date" : {
+            "description" : "誕生日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "favorite" : {
+            "description" : "好きなこと",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "dislike" : {
+            "description" : "嫌いなこと",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "prohibition" : {
+            "description" : "禁止事項",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "brothers" : {
+            "description" : "兄弟",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "sisters" : {
+            "description" : "姉妹",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "memo" : {
+            "description" : "キャストメモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "required" : [ "name" ],
+        "type" : "object"
+      },
+      "cast_cat_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "cast_cats" : {
+            "items" : {
+              "$ref" : "#/components/schemas/cast_cat_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_cat_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "cast_cat" : {
+            "$ref" : "#/components/schemas/cast_cat_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_cat_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "name" : {
+            "description" : "キャスト(猫)名",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "image" : {
+            "description" : "画像URL",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "種類",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "sex" : {
+            "description" : "性別",
+            "enum" : [ "unknown", "male", "female" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "unknown", "male", "female" ]
+          },
+          "birthday_date" : {
+            "description" : "誕生日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "favorite" : {
+            "description" : "好きなこと",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "dislike" : {
+            "description" : "嫌いなこと",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "prohibition" : {
+            "description" : "禁止事項",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "brothers" : {
+            "description" : "兄弟",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "sisters" : {
+            "description" : "姉妹",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "memo" : {
+            "description" : "キャストメモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "version" : {
+            "description" : "バージョンフィールド",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "birthday_date", "brothers", "dislike", "favorite", "image", "memo", "name", "prohibition", "sex", "sisters", "type", "version" ],
+        "type" : "object"
+      },
+      "cast_search_response" : {
+        "description" : "一覧レスポンス",
+        "properties" : {
+          "casts" : {
+            "items" : {
+              "$ref" : "#/components/schemas/cast_detail"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_create_request" : {
+        "description" : "postObject",
+        "properties" : {
+          "cast_cat_id" : {
+            "description" : "キャスト(猫)ID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "employment_status" : {
+            "description" : "雇用形態",
+            "enum" : [ "main", "sub" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "main", "sub" ]
+          },
+          "first_attendance_date" : {
+            "description" : "初出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "last_attendance_date" : {
+            "description" : "最終出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "required" : [ "cast_cat_id" ],
+        "type" : "object"
+      },
+      "cast_find_response" : {
+        "description" : "詳細レスポンス",
+        "properties" : {
+          "cast" : {
+            "$ref" : "#/components/schemas/cast_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_update_request" : {
+        "description" : "patchObject",
+        "properties" : {
+          "employment_status" : {
+            "description" : "雇用形態",
+            "enum" : [ "main", "sub" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "main", "sub" ]
+          },
+          "first_attendance_date" : {
+            "description" : "初出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "last_attendance_date" : {
+            "description" : "最終出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "version" : {
+            "description" : "バージョンフィールド",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "employment_status", "first_attendance_date", "last_attendance_date", "memo", "version" ],
+        "type" : "object"
+      },
+      "notice_detail" : {
+        "description" : "お知らせ詳細",
+        "properties" : {
+          "id" : {
+            "description" : "お知らせID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "store_id" : {
+            "$ref" : "#/components/schemas/store_id"
+          },
+          "summary" : {
+            "description" : "お知らせ概要",
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "お知らせ詳細",
+            "type" : "string"
+          },
+          "publication_start_date_time" : {
+            "description" : "掲載開始日時",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "publication_end_date_time" : {
+            "description" : "掲載終了日時",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "common" : {
+            "$ref" : "#/components/schemas/common"
+          }
+        },
+        "type" : "object"
+      },
+      "store_detail" : {
+        "description" : "店舗詳細",
+        "properties" : {
+          "id" : {
+            "$ref" : "#/components/schemas/store_id"
+          },
+          "name" : {
+            "description" : "店舗名",
+            "type" : "string"
+          },
+          "contact" : {
+            "$ref" : "#/components/schemas/store_detail_contact"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/store_detail_address"
+          },
+          "open_date" : {
+            "description" : "開店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "close_date" : {
+            "description" : "閉店日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "hours" : {
+            "$ref" : "#/components/schemas/store_detail_hours"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "type" : "string"
+          },
+          "common" : {
+            "$ref" : "#/components/schemas/common"
+          }
+        },
+        "type" : "object"
+      },
+      "contact_detail" : {
+        "description" : "お問い合わせ詳細",
+        "properties" : {
+          "id" : {
+            "description" : "お問い合わせID",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "frequently_asked_question_detail" : {
+        "description" : "FAQ詳細",
+        "properties" : {
+          "id" : {
+            "description" : "FAQID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "store_id" : {
+            "$ref" : "#/components/schemas/store_id"
+          },
+          "category" : {
+            "description" : "お問い合わせカテゴリー",
+            "type" : "string"
+          },
+          "question" : {
+            "$ref" : "#/components/schemas/question"
+          },
+          "answer" : {
+            "$ref" : "#/components/schemas/answer"
+          }
+        },
+        "type" : "object"
+      },
+      "question" : {
+        "description" : "質問",
+        "properties" : {
+          "summary" : {
+            "description" : "質問概要",
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "質問詳細",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "answer" : {
+        "description" : "回答",
+        "properties" : {
+          "summary" : {
+            "description" : "回答概要",
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "回答詳細",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "event_detail" : {
+        "description" : "イベント詳細",
+        "properties" : {
+          "id" : {
+            "description" : "イベントID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "store_id" : {
+            "$ref" : "#/components/schemas/store_id"
+          }
+        },
+        "type" : "object"
+      },
+      "display_menu_detail" : {
+        "description" : "表示メニュー詳細",
+        "properties" : {
+          "id" : {
+            "description" : "表示メニューID",
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "provide_service_detail" : {
+        "description" : "提供サービス詳細",
+        "properties" : {
+          "id" : {
+            "description" : "提供サービスID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "store_id" : {
+            "$ref" : "#/components/schemas/store_id"
+          },
+          "name" : {
+            "description" : "提供サービス名",
+            "type" : "string"
+          },
+          "price" : {
+            "description" : "価格(税抜き)",
+            "type" : "string"
+          },
+          "detail" : {
+            "description" : "提供サービス詳細",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_cat_detail" : {
+        "description" : "キャスト(猫)詳細",
+        "properties" : {
+          "id" : {
+            "description" : "キャスト(猫)ID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "name" : {
+            "description" : "名前",
+            "type" : "string"
+          },
+          "image" : {
+            "description" : "画像",
+            "type" : "string"
+          },
+          "type" : {
+            "description" : "種類",
+            "type" : "string"
+          },
+          "sex" : {
+            "description" : "性別",
+            "enum" : [ "unknown", "male", "female" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "unknown", "male", "female" ]
+          },
+          "birthday_date" : {
+            "description" : "誕生日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "favorite" : {
+            "description" : "好きなこと",
+            "type" : "string"
+          },
+          "dislike" : {
+            "description" : "嫌いなこと",
+            "type" : "string"
+          },
+          "prohibition" : {
+            "description" : "禁止事項",
+            "type" : "string"
+          },
+          "brothers" : {
+            "description" : "兄弟",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "sisters" : {
+            "description" : "姉妹",
+            "items" : {
+              "format" : "int32",
+              "type" : "integer"
+            },
+            "type" : "array"
+          },
+          "memo" : {
+            "description" : "キャストメモ",
+            "type" : "string"
+          },
+          "common" : {
+            "$ref" : "#/components/schemas/common"
+          }
+        },
+        "type" : "object"
+      },
+      "cast_detail" : {
+        "description" : "キャスト詳細",
+        "properties" : {
+          "id" : {
+            "description" : "キャストID",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "store_id" : {
+            "$ref" : "#/components/schemas/store_id"
+          },
+          "employment_status" : {
+            "description" : "雇用形態",
+            "enum" : [ "main", "sub" ],
+            "type" : "string",
+            "x-enum-varnames" : [ "main", "sub" ]
+          },
+          "first_attendance_date" : {
+            "description" : "初出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "last_attendance_date" : {
+            "description" : "最終出勤日",
+            "format" : "date",
+            "type" : "string"
+          },
+          "memo" : {
+            "description" : "店舗メモ",
+            "type" : "string"
+          },
+          "common" : {
+            "$ref" : "#/components/schemas/common"
+          },
+          "cast_cat" : {
+            "$ref" : "#/components/schemas/cast_cat_detail"
+          }
+        },
+        "type" : "object"
+      },
+      "store_id" : {
+        "description" : "店舗ID",
+        "format" : "int32",
+        "type" : "integer"
+      },
+      "common" : {
+        "description" : "共通フィールド",
+        "properties" : {
+          "created_date_time" : {
+            "description" : "登録日時",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "version" : {
+            "description" : "バージョンフィールド",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "updated_date_time" : {
+            "description" : "更新日時",
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "inline_response_400" : {
+        "description" : "ValidationErrorレスポンス",
+        "properties" : {
+          "validation_errors" : {
+            "items" : {
+              "$ref" : "#/components/schemas/validation_error"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "inline_response_401" : {
+        "description" : "認証Errorレスポンス",
+        "properties" : {
+          "authentication_error" : {
+            "$ref" : "#/components/schemas/authentication_error"
+          }
+        },
+        "type" : "object"
+      },
+      "inline_response_404" : {
+        "description" : "リソースErrorレスポンス",
+        "properties" : {
+          "resource_error" : {
+            "$ref" : "#/components/schemas/resource_error"
+          }
+        },
+        "type" : "object"
+      },
+      "inline_response_409" : {
+        "description" : "楽観排他Errorレスポンス",
+        "properties" : {
+          "exclusive_error" : {
+            "$ref" : "#/components/schemas/exclusive_error"
+          }
+        },
+        "type" : "object"
+      },
+      "store_create_request_contact" : {
+        "description" : "店舗連絡先",
+        "properties" : {
+          "phone_number" : {
+            "description" : "電話番号",
+            "maxLength" : 13,
+            "minLength" : 0,
+            "pattern" : "^0([0-9]-[0-9]{4}|[0-9]{2}-[0-9]{3}|[0-9]{3}-[0-9]{2}|[0-9]{4}-[0-9])-[0-9]{4}$",
+            "type" : "string"
+          },
+          "mail_address" : {
+            "description" : "メールアドレス",
+            "example" : "catcafe@gmail.com",
+            "format" : "email",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_create_request_address" : {
+        "description" : "店舗住所",
+        "properties" : {
+          "postal_code" : {
+            "description" : "店舗住所(郵便番号)",
+            "maxLength" : 7,
+            "minLength" : 0,
+            "pattern" : "[0-9]{7}",
+            "type" : "string"
+          },
+          "prefecture_code" : {
+            "description" : "店舗住所(都道府県コード)",
+            "format" : "int32",
+            "maximum" : 47,
+            "minimum" : 0,
+            "type" : "integer"
+          },
+          "address_1" : {
+            "description" : "店舗住所(都道府県)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "address_2" : {
+            "description" : "店舗住所(市区町村)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "address_3" : {
+            "description" : "店舗住所(町域)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "street_address" : {
+            "description" : "店舗住所(番地)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "building_name" : {
+            "description" : "店舗住所(建物名)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          },
+          "supplement" : {
+            "description" : "店舗住所(補足)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_create_request_hours" : {
+        "description" : "店舗営業時間",
+        "properties" : {
+          "opening_time" : {
+            "description" : "開店時間",
+            "example" : "00:00",
+            "pattern" : "^[0-2][0-3]:[0-5][0-9]$",
+            "type" : "string"
+          },
+          "closing_time" : {
+            "description" : "閉店時間",
+            "example" : "00:00",
+            "pattern" : "^[0-2][0-3]:[0-5][0-9]$",
+            "type" : "string"
+          },
+          "supplement" : {
+            "description" : "店舗営業時間(補足)",
+            "maxLength" : 256,
+            "minLength" : 0,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_detail_contact" : {
+        "description" : "店舗連絡先",
+        "properties" : {
+          "phone_number" : {
+            "description" : "電話番号",
+            "type" : "string"
+          },
+          "mail_address" : {
+            "description" : "メールアドレス",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_detail_address" : {
+        "description" : "店舗住所",
+        "properties" : {
+          "postal_code" : {
+            "description" : "店舗住所(郵便番号)",
+            "type" : "string"
+          },
+          "prefecture_code" : {
+            "description" : "店舗住所(都道府県コード)",
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "prefecture_label" : {
+            "description" : "店舗住所(都道府県)",
+            "type" : "string"
+          },
+          "address_1" : {
+            "description" : "店舗住所(都道府県)",
+            "type" : "string"
+          },
+          "address_2" : {
+            "description" : "店舗住所(市区町村)",
+            "type" : "string"
+          },
+          "address_3" : {
+            "description" : "店舗住所(町域)",
+            "type" : "string"
+          },
+          "street_address" : {
+            "description" : "店舗住所(番地)",
+            "type" : "string"
+          },
+          "building_name" : {
+            "description" : "店舗住所(建物名)",
+            "type" : "string"
+          },
+          "supplement" : {
+            "description" : "店舗住所(補足)",
+            "type" : "string"
+          },
+          "google_map_url" : {
+            "description" : "(未使用)店舗住所(google map)",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "store_detail_hours" : {
+        "description" : "店舗営業時間",
+        "properties" : {
+          "opening_time" : {
+            "description" : "開店時間",
+            "pattern" : "^[0-2][0-3]:[0-5][0-9]$",
+            "type" : "string"
+          },
+          "closing_time" : {
+            "description" : "閉店時間",
+            "pattern" : "^[0-2][0-3]:[0-5][0-9]$",
+            "type" : "string"
+          },
+          "supplement" : {
+            "description" : "店舗営業時間(補足)",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "ApiKeyAuth" : {
+        "description" : "A api key",
+        "in" : "header",
+        "name" : "X-API-KEY",
+        "type" : "apiKey"
+      }
+    }
+  }
+}
