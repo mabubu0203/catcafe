@@ -12,3 +12,7 @@
 ## リリースについて
 
 [CHANGELOG](./CHANGELOG.md)
+
+## 仕様書について
+
+[Redoc](https://mabubu0203.github.io/catcafe/)
