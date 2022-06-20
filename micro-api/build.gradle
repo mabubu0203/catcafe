@@ -17,8 +17,8 @@ dependencies {
     runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
 
     // openapi generator
-    compileOnly("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
-    compileOnly("io.springfox:springfox-core:3.0.0")
+//    compileOnly("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
+//    compileOnly("io.springfox:springfox-core:3.0.0")
     compileOnly("org.openapitools:jackson-databind-nullable:0.2.2")
 
     // springdoc-openapi-ui
@@ -35,7 +35,7 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java")
 
     // Netty
-    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.72.Final:osx-aarch_64")
+    runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.77.Final:osx-aarch_64")
 
     developmentOnly("io.projectreactor:reactor-tools")
 }

@@ -7,10 +7,10 @@ openApiValidate {
 // openapi.jsonからjavaファイルを生成する
 openApiGenerate {
     generatorName = "spring"
-    // https://github.com/OpenAPITools/openapi-generator/blob/v5.3.0/modules/openapi-generator-gradle-plugin/README.adoc
+    // https://github.com/OpenAPITools/openapi-generator/blob/v6.0.0/modules/openapi-generator-gradle-plugin/README.adoc
     outputDir = "${buildDir}/generated"
     inputSpec = "${rootDir}/apidoc/generate/openapi.json"
-    // https://github.com/OpenAPITools/openapi-generator/blob/v5.3.0/docs/generators/spring.md
+    // https://github.com/OpenAPITools/openapi-generator/blob/v6.0.0/docs/generators/spring.md
     configFile = "${rootDir}/gradle/openapi/openapi-generator-config.json"
     logToStderr = true
 }

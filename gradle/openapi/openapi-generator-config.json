@@ -2,6 +2,7 @@
   "allowUnicodeIdentifiers": "true",
   "apiPackage": "org.openapitools.api",
   "dateLibrary": "java8",
+  "documentationProvider": "springdoc",
   "groupId": "mabubu0203.com.github",
   "interfaceOnly": "true",
   "modelPackage": "org.openapitools.model",
